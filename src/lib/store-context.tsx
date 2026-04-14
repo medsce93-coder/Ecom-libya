@@ -222,7 +222,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }));
 
     try {
-      const newOrder = await apiFetch<any>("/api/orders/cart", {
+      const newOrder = await apiFetch<any>("/api/orders?action=cart", {
         method: "POST",
         auth: false,
         body: {
@@ -279,7 +279,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     const dbId = target?._dbId ?? orderId;
     setOrders((prev) => prev.map((o) => o.id === orderId ? { ...o, status: newStatus } : o));
     try {
-      await apiFetch(`/api/orders/${dbId}`, {
+      await apiFetch(`/api/orders?id=${encodeURIComponent(dbId)}`, {
         method: "PUT",
         body: { status: newStatus },
       });
@@ -295,7 +295,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     const dbId = target?._dbId ?? orderId;
     setOrders((prev) => prev.filter((o) => o.id !== orderId));
     try {
-      await apiFetch(`/api/orders/${dbId}`, { method: "DELETE" });
+      await apiFetch(`/api/orders?id=${encodeURIComponent(dbId)}`, {
+        method: "DELETE",
+      });
     } catch (e: any) {
       console.error("deleteOrder exception:", e?.message ?? e);
     }

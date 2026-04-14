@@ -713,7 +713,7 @@ function ProductsTab() {
   const handleDelete = useCallback(async (id: string, name: string) => {
     if (!window.confirm(`Ù‡Ù„ Ø£Ù†Øª Ù…ØªØ£ÙƒØ¯ Ù…Ù† Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬ØŸ\n"${name}"`)) return;
     try {
-      await apiFetch(`/api/products/${id}`, { method: "DELETE" });
+      await apiFetch(`/api/products?id=${encodeURIComponent(id)}`, { method: "DELETE" });
       queryClient.invalidateQueries({ queryKey: ["getProducts"] });
     } catch {
       alert("Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø­Ø°Ù Ø§Ù„Ù…Ù†ØªØ¬ØŒ Ø­Ø§ÙˆÙ„ Ù…Ø¬Ø¯Ø¯Ø§Ù‹.");
@@ -987,7 +987,9 @@ function LandingPagesTab() {
         boxContents: form.boxContents || null,
         urgencyText: form.urgencyText || null,
       };
-      const url = mode === "edit" ? `/api/landing-pages/${editingPage!.id}` : "/api/landing-pages";
+      const url = mode === "edit"
+        ? `/api/landing-pages?id=${encodeURIComponent(editingPage!.id)}`
+        : "/api/landing-pages";
       await apiFetch(url, {
         method: mode === "edit" ? "PUT" : "POST",
         body,
@@ -1002,7 +1004,9 @@ function LandingPagesTab() {
   const handleDelete = async () => {
     if (!deleteId) return;
     setDeleting(true);
-    await apiFetch(`/api/landing-pages/${deleteId}`, { method: "DELETE" });
+    await apiFetch(`/api/landing-pages?id=${encodeURIComponent(deleteId)}`, {
+      method: "DELETE",
+    });
     setDeleteId(null);
     setDeleting(false);
     await loadPages();

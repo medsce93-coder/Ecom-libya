@@ -49,7 +49,7 @@ export default function DynamicLandingPage() {
   useEffect(() => {
     if (!slug) return;
     setLoading(true);
-    apiFetch<LandingPageData>(`/api/landing-pages/${encodeURIComponent(slug)}`, {
+    apiFetch<LandingPageData>(`/api/landing-pages?slug=${encodeURIComponent(slug)}`, {
       auth: false,
     })
       .then((data) => { if (data) setPage(data); })
@@ -85,7 +85,7 @@ export default function DynamicLandingPage() {
     if (!page) return;
     setSubmitting(true);
     try {
-      await apiFetch("/api/orders/direct", {
+      await apiFetch("/api/orders?action=direct", {
         method: "POST",
         auth: false,
         body: {

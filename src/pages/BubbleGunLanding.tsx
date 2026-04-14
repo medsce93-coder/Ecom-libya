@@ -49,7 +49,7 @@ export default function BubbleGunLanding() {
     }
     setSubmitting(true);
     try {
-      await apiFetch("/api/orders/direct", {
+      await apiFetch("/api/orders?action=direct", {
         method: "POST",
         auth: false,
         body: {

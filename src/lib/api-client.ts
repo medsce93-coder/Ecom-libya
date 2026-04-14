@@ -114,7 +114,7 @@ export function useGetFeaturedProducts<
     options?.query?.queryKey ?? getGetFeaturedProductsQueryKey();
   const query = useQuery<Product[], TError, TData>({
     queryKey,
-    queryFn: () => apiFetch("/api/products/featured"),
+    queryFn: () => apiFetch("/api/products?featured=true"),
     ...(options?.query ?? {}),
   });
   return { ...query, queryKey };
@@ -156,7 +156,7 @@ export function useGetProduct<
   const queryKey = options?.query?.queryKey ?? getGetProductQueryKey(id);
   const query = useQuery<Product, TError, TData>({
     queryKey,
-    queryFn: () => apiFetch(`/api/products/${encodeURIComponent(id)}`),
+    queryFn: () => apiFetch(`/api/products?id=${encodeURIComponent(id)}`),
     enabled: Boolean(id),
     ...(options?.query ?? {}),
   });
@@ -203,7 +203,7 @@ export function useUpdateProduct<TError = Error, TContext = unknown>(
 > {
   return useMutation<Product, TError, { id: string; data: UpdateProductInput }, TContext>({
     mutationFn: ({ id, data }) =>
-      apiFetch(`/api/products/${encodeURIComponent(id)}`, {
+      apiFetch(`/api/products?id=${encodeURIComponent(id)}`, {
         method: "PUT",
         body: data,
       }),
