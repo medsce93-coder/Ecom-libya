@@ -1,0 +1,5496 @@
+{
+  "categories": [
+    {
+      "id": "beauty",
+      "name": "Beauty & Care",
+      "nameAr": "الجمال والعناية",
+      "description": "بشرة وشعر بمنتجات موثوقة.",
+      "imageUrl": null
+    },
+    {
+      "id": "personal",
+      "name": "Health & Personal Care",
+      "nameAr": "الصحة والعناية الشخصية",
+      "description": "أدوات صحة ويومية أساسية.",
+      "imageUrl": null
+    },
+    {
+      "id": "home",
+      "name": "Home & Kitchen",
+      "nameAr": "المنزل والمطبخ",
+      "description": "تنظيم المطبخ والبيت بذكاء.",
+      "imageUrl": null
+    },
+    {
+      "id": "smart",
+      "name": "Smart Devices",
+      "nameAr": "الأجهزة الذكية",
+      "description": "إلكترونيات وأجهزة حديثة.",
+      "imageUrl": null
+    },
+    {
+      "id": "kids",
+      "name": "Kids",
+      "nameAr": "الأطفال",
+      "description": "ألعاب تعليمية وآمنة.",
+      "imageUrl": null
+    },
+    {
+      "id": "supplements",
+      "name": "Supplements",
+      "nameAr": "المكملات الغذائية",
+      "description": "فيتامينات وجودة مضمونة.",
+      "imageUrl": null
+    },
+    {
+      "id": "various",
+      "name": "Various",
+      "nameAr": "منتجات متنوعة",
+      "description": "إكسسوارات وأدوات يومية.",
+      "imageUrl": null
+    },
+    {
+      "id": "skincare",
+      "name": "Skin Care",
+      "nameAr": "العناية بالبشرة",
+      "description": "عناية متخصصة بالبشرة.",
+      "imageUrl": null
+    }
+  ],
+  "products": [
+    {
+      "id": "1389b4d6-ff20-4e34-98aa-5363bdb133a1",
+      "name": "قماشي الشعر لفافة وردي",
+      "nameAr": "قماشي الشعر لفافة وردي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "142.00",
+      "compareAtPrice": "226.00",
+      "imageUrl": "product-images/fabric-hair-wrap-rose.jpg",
+      "images": [
+        "product-images/fabric-hair-wrap-rose.jpg"
+      ],
+      "stock": 16,
+      "featured": true,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "7ac24da9-cd07-4737-9c94-76bb94856251",
+      "name": "سير 100 طلاء الكولاجين للشعر",
+      "nameAr": "سير 100 طلاء الكولاجين للشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "182.00",
+      "compareAtPrice": "207.00",
+      "imageUrl": "product-images/cer-100-طلاء-الكولاجين-للشعر.jpg",
+      "images": [
+        "product-images/cer-100-طلاء-الكولاجين-للشعر.jpg"
+      ],
+      "stock": 11,
+      "featured": true,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "b802350e-d6bb-4d9d-bbbc-38d229521262",
+      "name": "تقنية نبض عضلي لتدليك القدمين",
+      "nameAr": "تقنية نبض عضلي لتدليك القدمين",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "206.00",
+      "compareAtPrice": "255.00",
+      "imageUrl": "product-images/ems-لتدليك-القدمين.jpg",
+      "images": [
+        "product-images/ems-لتدليك-القدمين.jpg"
+      ],
+      "stock": 24,
+      "featured": true,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "personal"
+    },
+    {
+      "id": "8d35dae4-b4c8-4a59-9202-9e30fc2440e4",
+      "name": "يوسرين q10 مضاد للتجاعيد كريم الليل",
+      "nameAr": "يوسرين q10 مضاد للتجاعيد كريم الليل",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "79.00",
+      "compareAtPrice": "116.00",
+      "imageUrl": "product-images/eucerin-q10-مضاد-للتجاعيد-كريم-الليل.jpg",
+      "images": [
+        "product-images/eucerin-q10-مضاد-للتجاعيد-كريم-الليل.jpg"
+      ],
+      "stock": 24,
+      "featured": true,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "378ab3af-567e-4056-b216-5a1ab7f30d41",
+      "name": "كولاجين",
+      "nameAr": "كولاجين",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "60.00",
+      "compareAtPrice": "144.00",
+      "imageUrl": "product-images/كولاجين.png",
+      "images": [
+        "product-images/كولاجين.png"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "ba392150-d792-412c-82e6-34b0d2c04548",
+      "name": "للوجه مقشرات طبيعي للوجه مقشر",
+      "nameAr": "للوجه مقشرات طبيعي للوجه مقشر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "316.00",
+      "compareAtPrice": "349.00",
+      "imageUrl": "product-images/facial-scrubs-natural-facial-exfoliator.jpg",
+      "images": [
+        "product-images/facial-scrubs-natural-facial-exfoliator.jpg"
+      ],
+      "stock": 29,
+      "featured": true,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "72c125de-3b2f-46ac-80f8-876e3edec804",
+      "name": "خالٍ من العيوب الساقين جهاز إزالة الشعر",
+      "nameAr": "خالٍ من العيوب الساقين جهاز إزالة الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "323.00",
+      "compareAtPrice": "400.00",
+      "imageUrl": "product-images/flawless-legs-epilateur.jpg",
+      "images": [
+        "product-images/flawless-legs-epilateur.jpg"
+      ],
+      "stock": 9,
+      "featured": true,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "277e7954-2c6f-43c0-b5dc-cc5395410d49",
+      "name": "كي 18 قناع إصلاح الشعر",
+      "nameAr": "كي 18 قناع إصلاح الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "253.00",
+      "compareAtPrice": "323.00",
+      "imageUrl": "product-images/k18-قناع-إصلاح-الشعر.png",
+      "images": [
+        "product-images/k18-قناع-إصلاح-الشعر.png"
+      ],
+      "stock": 28,
+      "featured": true,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "526ce873-9815-4c58-99fa-fe037042d58a",
+      "name": "قابل لإعادة الاستخدام سيليكون مزدوج الذقن مشّد منتج خط الوجه العنق",
+      "nameAr": "قابل لإعادة الاستخدام سيليكون مزدوج الذقن مشّد منتج خط الوجه العنق",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "306.00",
+      "compareAtPrice": "364.00",
+      "imageUrl": "product-images/reusable-silicone-double-chin-reducer-v-line-face-neck.jpg",
+      "images": [
+        "product-images/reusable-silicone-double-chin-reducer-v-line-face-neck.jpg"
+      ],
+      "stock": 10,
+      "featured": true,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "961c9634-a99e-42bc-b1ae-f08f104399d1",
+      "name": "منتج منتج 5d",
+      "nameAr": "منتج منتج 5d",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "259.00",
+      "compareAtPrice": "319.00",
+      "imageUrl": "product-images/teeth-whitening-5d.jpg",
+      "images": [
+        "product-images/teeth-whitening-5d.jpg"
+      ],
+      "stock": 19,
+      "featured": true,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "1dc78631-541a-430f-a623-1b6ce801e8ec",
+      "name": "في عشرة كريم فيتامين تون أب لتفتيح وترطيب البشرة",
+      "nameAr": "في عشرة كريم فيتامين تون أب لتفتيح وترطيب البشرة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "313.00",
+      "compareAtPrice": "388.00",
+      "imageUrl": "product-images/v10-كريم-فيتامين-تون-أب-لتفتيح-وترطيب-البشرة.jpg",
+      "images": [
+        "product-images/v10-كريم-فيتامين-تون-أب-لتفتيح-وترطيب-البشرة.jpg"
+      ],
+      "stock": 8,
+      "featured": true,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "d4fcc899-4119-4960-9a3e-d2579276e6bb",
+      "name": "اكس 8 مروحة توربو جيت",
+      "nameAr": "اكس 8 مروحة توربو جيت",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "100.00",
+      "compareAtPrice": "173.00",
+      "imageUrl": "product-images/x8-مروحة-توربو-جيت.jpg",
+      "images": [
+        "product-images/x8-مروحة-توربو-جيت.jpg"
+      ],
+      "stock": 16,
+      "featured": true,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "home"
+    },
+    {
+      "id": "08316f83-6b75-4256-b686-cdc3027e9194",
+      "name": "آلة ختم الأكياس المحمولة",
+      "nameAr": "آلة ختم الأكياس المحمولة",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "128.00",
+      "compareAtPrice": "188.00",
+      "imageUrl": "product-images/آلة-ختم-الأكياس-المحمولة.jpeg",
+      "images": [
+        "product-images/آلة-ختم-الأكياس-المحمولة.jpeg"
+      ],
+      "stock": 28,
+      "featured": true,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "3b8d8ce7-35b3-4ebb-8d2e-8b5deb7c9155",
+      "name": "آلة صنع قوالب الزلابية الأوتوماتيكية",
+      "nameAr": "آلة صنع قوالب الزلابية الأوتوماتيكية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "255.00",
+      "compareAtPrice": "316.00",
+      "imageUrl": "product-images/آلة-صنع-قوالب-الزلابية-الأوتوماتيكية.jpg",
+      "images": [
+        "product-images/آلة-صنع-قوالب-الزلابية-الأوتوماتيكية.jpg"
+      ],
+      "stock": 29,
+      "featured": true,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.9",
+      "categoryId": "various"
+    },
+    {
+      "id": "0664cfd4-3a3d-469b-a28e-e5e4261b6f03",
+      "name": "أداة إزالة شعر الجسم والإبط للنساء",
+      "nameAr": "أداة إزالة شعر الجسم والإبط للنساء",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "158.00",
+      "compareAtPrice": "233.00",
+      "imageUrl": "product-images/أداة-إزالة-شعر-الجسم-والإبط-للنساء.jpg",
+      "images": [
+        "product-images/أداة-إزالة-شعر-الجسم-والإبط-للنساء.jpg"
+      ],
+      "stock": 10,
+      "featured": true,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.3",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "00a51ce4-5928-4ec0-a205-2fc88eae4e33",
+      "name": "أداة تصفيف الشعر 5 في 1",
+      "nameAr": "أداة تصفيف الشعر 5 في 1",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "267.00",
+      "compareAtPrice": "320.00",
+      "imageUrl": "product-images/أداة-تصفيف-الشعر-5-في-1.jpg",
+      "images": [
+        "product-images/أداة-تصفيف-الشعر-5-في-1.jpg"
+      ],
+      "stock": 28,
+      "featured": true,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "f3ba48b5-df84-4531-b43c-965192f76831",
+      "name": "أداة تنظيف الصرف",
+      "nameAr": "أداة تنظيف الصرف",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "155.00",
+      "compareAtPrice": "241.00",
+      "imageUrl": "product-images/أداة-تنظيف-الصرف.jpg",
+      "images": [
+        "product-images/أداة-تنظيف-الصرف.jpg"
+      ],
+      "stock": 6,
+      "featured": true,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "home"
+    },
+    {
+      "id": "ad2566e6-749a-4c6c-ac11-1717c6957952",
+      "name": "أسطوانة الثلج للعناية ببشرة الوجه",
+      "nameAr": "أسطوانة الثلج للعناية ببشرة الوجه",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "99.00",
+      "compareAtPrice": "137.00",
+      "imageUrl": "product-images/أسطوانة-الثلج-للعناية-ببشرة-الوجه.jpg",
+      "images": [
+        "product-images/أسطوانة-الثلج-للعناية-ببشرة-الوجه.jpg"
+      ],
+      "stock": 23,
+      "featured": true,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "d3e02242-db40-4da2-9d01-da795ca5b3ae",
+      "name": "أقراص السنا الملينات لعلاج الإمساك",
+      "nameAr": "أقراص السنا الملينات لعلاج الإمساك",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "317.00",
+      "compareAtPrice": "391.00",
+      "imageUrl": "product-images/أقراص-السنا-الملينات-لعلاج-الإمساك.jpg",
+      "images": [
+        "product-images/أقراص-السنا-الملينات-لعلاج-الإمساك.jpg"
+      ],
+      "stock": 7,
+      "featured": true,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.3",
+      "categoryId": "various"
+    },
+    {
+      "id": "dcf779e0-6669-41b8-8b84-5a61f323a5b0",
+      "name": "أقنعة عيون مرصعة بالنجوم",
+      "nameAr": "أقنعة عيون مرصعة بالنجوم",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "143.00",
+      "compareAtPrice": "222.00",
+      "imageUrl": "product-images/أقنعة-عيون-مرصعة-بالنجوم.jpg",
+      "images": [
+        "product-images/أقنعة-عيون-مرصعة-بالنجوم.jpg"
+      ],
+      "stock": 25,
+      "featured": true,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "895702df-71a7-41b9-926b-bceba66e41ba",
+      "name": "ألياف توبيك لتكثيف الشعر",
+      "nameAr": "ألياف توبيك لتكثيف الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "93.00",
+      "compareAtPrice": "155.00",
+      "imageUrl": "product-images/ألياف-توبيك-لتكثيف-الشعر.jpg",
+      "images": [
+        "product-images/ألياف-توبيك-لتكثيف-الشعر.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "82420162-4dce-4813-bc37-5fa416c303c9",
+      "name": "إزالة شعر الحيوانات الأليفة",
+      "nameAr": "إزالة شعر الحيوانات الأليفة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "91.00",
+      "compareAtPrice": "165.00",
+      "imageUrl": "product-images/إزالة-شعر-الحيوانات-الأليفة.jpg",
+      "images": [
+        "product-images/إزالة-شعر-الحيوانات-الأليفة.jpg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "2d2f2ad6-ed8c-4584-8133-ecf6761af974",
+      "name": "إسفنجات استحمام مقشرة ومزيلة للجلد الميت",
+      "nameAr": "إسفنجات استحمام مقشرة ومزيلة للجلد الميت",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "245.00",
+      "compareAtPrice": "266.00",
+      "imageUrl": "product-images/إسفنجات-استحمام-مقشرة-ومزيلة-للجلد-الميت.jpg",
+      "images": [
+        "product-images/إسفنجات-استحمام-مقشرة-ومزيلة-للجلد-الميت.jpg"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "e67d233f-32ef-4764-b37f-d746083b1331",
+      "name": "اداة تجميل للتدليك والرفع والثبات",
+      "nameAr": "اداة تجميل للتدليك والرفع والثبات",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "140.00",
+      "compareAtPrice": "205.00",
+      "imageUrl": "product-images/اداة-تجميل-للتدليك-والرفع-والثبات.jpg",
+      "images": [
+        "product-images/اداة-تجميل-للتدليك-والرفع-والثبات.jpg"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "personal"
+    },
+    {
+      "id": "78c530e1-1f29-4c6f-b707-cc70a76b671c",
+      "name": "اضاءة متعددة للسيارات بالوان مختلفة",
+      "nameAr": "اضاءة متعددة للسيارات بالوان مختلفة",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "181.00",
+      "compareAtPrice": "261.00",
+      "imageUrl": "product-images/اضاءة-متعددة-للسيارات-بالوان-مختلفة.jpg",
+      "images": [
+        "product-images/اضاءة-متعددة-للسيارات-بالوان-مختلفة.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "home"
+    },
+    {
+      "id": "bb1ca833-49b3-47aa-aa5f-7e735c0596f5",
+      "name": "الخلاط الالماني",
+      "nameAr": "الخلاط الالماني",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "221.00",
+      "compareAtPrice": "294.00",
+      "imageUrl": "product-images/الخلاط-الالماني.jpg",
+      "images": [
+        "product-images/الخلاط-الالماني.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "home"
+    },
+    {
+      "id": "e0176edd-aa31-474a-adeb-522cf2be4752",
+      "name": "الزنك",
+      "nameAr": "الزنك",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "307.00",
+      "compareAtPrice": "395.00",
+      "imageUrl": "product-images/الزنك.png",
+      "images": [
+        "product-images/الزنك.png"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "24cce84f-f300-42bc-b094-cc9c4d535922",
+      "name": "الزيت الافغاني الاصلي",
+      "nameAr": "الزيت الافغاني الاصلي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "266.00",
+      "compareAtPrice": "333.00",
+      "imageUrl": "product-images/الزيت-الافغاني-الاصلي.jpg",
+      "images": [
+        "product-images/الزيت-الافغاني-الاصلي.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "81d4f257-670b-41f1-a5f6-5a9be14a3e80",
+      "name": "الزيت الافغاني النسخة التانية",
+      "nameAr": "الزيت الافغاني النسخة التانية",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "159.00",
+      "compareAtPrice": "242.00",
+      "imageUrl": "product-images/الزيت-الافغاني-النسخة-التانية.jpg",
+      "images": [
+        "product-images/الزيت-الافغاني-النسخة-التانية.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "7d04f470-640f-44d9-80e5-ef71d8312215",
+      "name": "الزيت الافغاني",
+      "nameAr": "الزيت الافغاني",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "312.00",
+      "compareAtPrice": "387.00",
+      "imageUrl": "product-images/الزيت-الافغاني.jpg",
+      "images": [
+        "product-images/الزيت-الافغاني.jpg"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "8939d94f-57e0-4185-85ad-fedc76d94ba2",
+      "name": "الصبار الراقص والمغني",
+      "nameAr": "الصبار الراقص والمغني",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "241.00",
+      "compareAtPrice": "272.00",
+      "imageUrl": "product-images/الصبار-الراقص-والمغني.jpg",
+      "images": [
+        "product-images/الصبار-الراقص-والمغني.jpg"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.9",
+      "categoryId": "various"
+    },
+    {
+      "id": "62cc56d4-0160-4c9a-b2e3-be6d785fd87b",
+      "name": "العكر الفاسي لتطهير مناطق البيكيني",
+      "nameAr": "العكر الفاسي لتطهير مناطق البيكيني",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "131.00",
+      "compareAtPrice": "176.00",
+      "imageUrl": "product-images/العكر-الفاسي-لتطهير-مناطق-البيكيني.jpg",
+      "images": [
+        "product-images/العكر-الفاسي-لتطهير-مناطق-البيكيني.jpg"
+      ],
+      "stock": 10,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "various"
+    },
+    {
+      "id": "a63e6e0b-b719-492a-b927-b9e9a9ecff31",
+      "name": "المصباح القوي",
+      "nameAr": "المصباح القوي",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "158.00",
+      "compareAtPrice": "235.00",
+      "imageUrl": "product-images/المصباح-القوي.jpg",
+      "images": [
+        "product-images/المصباح-القوي.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "home"
+    },
+    {
+      "id": "77539288-511e-4f78-810a-91cc7deba7a2",
+      "name": "المكنسة الذكية",
+      "nameAr": "المكنسة الذكية",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "250.00",
+      "compareAtPrice": "274.00",
+      "imageUrl": "product-images/المكنسة-الذكية.jpg",
+      "images": [
+        "product-images/المكنسة-الذكية.jpg"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "home"
+    },
+    {
+      "id": "3a630719-a63f-4cb4-b5d9-f09d16b70f7e",
+      "name": "بخاخ ازالة الشعر",
+      "nameAr": "بخاخ ازالة الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "228.00",
+      "compareAtPrice": "255.00",
+      "imageUrl": "product-images/بخاخ-ازالة-الشعر.jpg",
+      "images": [
+        "product-images/بخاخ-ازالة-الشعر.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "882e7991-9b26-47f4-88f8-ca7afdeb7802",
+      "name": "بخاخ البواسير ٣٠مل",
+      "nameAr": "بخاخ البواسير ٣٠مل",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "207.00",
+      "compareAtPrice": "296.00",
+      "imageUrl": "product-images/بخاخ-البواسير-٣٠مل.jpg",
+      "images": [
+        "product-images/بخاخ-البواسير-٣٠مل.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "0fd213cd-71ca-4100-829f-7e93fdd0cae6",
+      "name": "بخاخ تحديد الشعر",
+      "nameAr": "بخاخ تحديد الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "279.00",
+      "compareAtPrice": "300.00",
+      "imageUrl": "product-images/بخاخ-تحديد-الشعر.jpg",
+      "images": [
+        "product-images/بخاخ-تحديد-الشعر.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "d0d977f3-7972-40b5-8ba3-36eeee9eb75c",
+      "name": "بروتين لاين مضاد للتجاعيد",
+      "nameAr": "بروتين لاين مضاد للتجاعيد",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "261.00",
+      "compareAtPrice": "284.00",
+      "imageUrl": "product-images/بروتين-لاين-مضاد-للتجاعيد.png",
+      "images": [
+        "product-images/بروتين-لاين-مضاد-للتجاعيد.png"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "100d0ba5-ce7d-41e4-8e81-9962485d3b89",
+      "name": "بكج قصه الامارتي للجسم يتكون من سبلاش و لوشن",
+      "nameAr": "بكج قصه الامارتي للجسم يتكون من سبلاش و لوشن",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "162.00",
+      "compareAtPrice": "235.00",
+      "imageUrl": "product-images/بكج-قصه-الامارتي-للجسم-يتكون-من-سبلاش-و-لوشن.jpg",
+      "images": [
+        "product-images/بكج-قصه-الامارتي-للجسم-يتكون-من-سبلاش-و-لوشن.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "various"
+    },
+    {
+      "id": "10b441e0-b851-419b-8b1b-c87900ec03ac",
+      "name": "تدليك الركبة متعدد الوظائف",
+      "nameAr": "تدليك الركبة متعدد الوظائف",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "210.00",
+      "compareAtPrice": "262.00",
+      "imageUrl": "product-images/تدليك-الركبة-متعدد-الوظائف.jpg",
+      "images": [
+        "product-images/تدليك-الركبة-متعدد-الوظائف.jpg"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.8",
+      "categoryId": "personal"
+    },
+    {
+      "id": "3e164fbe-dc94-41d6-9754-2573888e29c4",
+      "name": "تونر للوجه بحمض الكوجيك 100 مل",
+      "nameAr": "تونر للوجه بحمض الكوجيك 100 مل",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "295.00",
+      "compareAtPrice": "318.00",
+      "imageUrl": "product-images/تونر-للوجه-بحمض-الكوجيك-100-مل.jpg",
+      "images": [
+        "product-images/تونر-للوجه-بحمض-الكوجيك-100-مل.jpg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "04e7100d-11ae-4463-a9c5-1bd426634edf",
+      "name": "جل احترافي لإزالة الندبات",
+      "nameAr": "جل احترافي لإزالة الندبات",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "209.00",
+      "compareAtPrice": "293.00",
+      "imageUrl": "product-images/جل-احترافي-لإزالة-الندبات.jpg",
+      "images": [
+        "product-images/جل-احترافي-لإزالة-الندبات.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "d233ef1b-0eab-44a4-9e70-27fb1491b9a1",
+      "name": "جل استحمام بيوتي سيستم معطر 500 مل",
+      "nameAr": "جل استحمام بيوتي سيستم معطر 500 مل",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "132.00",
+      "compareAtPrice": "170.00",
+      "imageUrl": "product-images/جل-استحمام-بيوتي-سيستم-معطر-500-مل.jpg",
+      "images": [
+        "product-images/جل-استحمام-بيوتي-سيستم-معطر-500-مل.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "1ef5f265-6f89-44b1-9cba-13ff686691b1",
+      "name": "جل تقشير البشرة",
+      "nameAr": "جل تقشير البشرة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "153.00",
+      "compareAtPrice": "201.00",
+      "imageUrl": "product-images/جل-تقشير-البشرة.jpg",
+      "images": [
+        "product-images/جل-تقشير-البشرة.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "0fb03609-fa07-4b70-9d81-28275c0cab95",
+      "name": "جل لإزالة الندبات",
+      "nameAr": "جل لإزالة الندبات",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "237.00",
+      "compareAtPrice": "304.00",
+      "imageUrl": "product-images/جل-لإزالة-الندبات.jpg",
+      "images": [
+        "product-images/جل-لإزالة-الندبات.jpg"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "014e77dc-aebd-4e32-9ba9-b0ff4d36d4f8",
+      "name": "جنجكة بيلوبا",
+      "nameAr": "جنجكة بيلوبا",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "295.00",
+      "compareAtPrice": "369.00",
+      "imageUrl": "product-images/جنجكة-بيلوبا.png",
+      "images": [
+        "product-images/جنجكة-بيلوبا.png"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "ace3e2eb-f65e-4f19-b742-c3b9fe5706bc",
+      "name": "جهاز إرسال واستقبال فيديو لاسلكي",
+      "nameAr": "جهاز إرسال واستقبال فيديو لاسلكي",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "76.00",
+      "compareAtPrice": "101.00",
+      "imageUrl": "product-images/جهاز-إرسال-واستقبال-فيديو-لاسلكي.jpg",
+      "images": [
+        "product-images/جهاز-إرسال-واستقبال-فيديو-لاسلكي.jpg"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "smart"
+    },
+    {
+      "id": "b1a525d9-78cd-4f6b-b229-08b75c0eed8b",
+      "name": "جهاز التدليك",
+      "nameAr": "جهاز التدليك",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "267.00",
+      "compareAtPrice": "328.00",
+      "imageUrl": "product-images/جهاز-التدليك.jpg",
+      "images": [
+        "product-images/جهاز-التدليك.jpg"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "personal"
+    },
+    {
+      "id": "beb054ee-6a11-45c4-b2ae-18492ac2ee25",
+      "name": "جهاز الشفط للتنظيف الزرابي",
+      "nameAr": "جهاز الشفط للتنظيف الزرابي",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "283.00",
+      "compareAtPrice": "338.00",
+      "imageUrl": "product-images/جهاز-الشفط-للتنظيف-الزرابي.jpg",
+      "images": [
+        "product-images/جهاز-الشفط-للتنظيف-الزرابي.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "smart"
+    },
+    {
+      "id": "5cf46bd9-79a8-4089-b93a-6260cbd5835f",
+      "name": "جهاز تدليك الرقبة الكهربائي الاهتزازي",
+      "nameAr": "جهاز تدليك الرقبة الكهربائي الاهتزازي",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "88.00",
+      "compareAtPrice": "128.00",
+      "imageUrl": "product-images/جهاز-تدليك-الرقبة-الكهربائي-الاهتزازي.jpg",
+      "images": [
+        "product-images/جهاز-تدليك-الرقبة-الكهربائي-الاهتزازي.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "personal"
+    },
+    {
+      "id": "c1094c1c-c343-4f5e-9843-4259380085df",
+      "name": "جهاز تدليك القدمين الكهربائي",
+      "nameAr": "جهاز تدليك القدمين الكهربائي",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "95.00",
+      "compareAtPrice": "116.00",
+      "imageUrl": "product-images/جهاز-تدليك-القدمين-الكهربائي.png",
+      "images": [
+        "product-images/جهاز-تدليك-القدمين-الكهربائي.png"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "personal"
+    },
+    {
+      "id": "dee7fea1-0194-4297-a8c0-63c4926f19e4",
+      "name": "جهاز تدليك القدمين والجسم واليدين",
+      "nameAr": "جهاز تدليك القدمين والجسم واليدين",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "106.00",
+      "compareAtPrice": "147.00",
+      "imageUrl": "product-images/جهاز-تدليك-القدمين-والجسم-واليدين.png",
+      "images": [
+        "product-images/جهاز-تدليك-القدمين-والجسم-واليدين.png"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "personal"
+    },
+    {
+      "id": "cdc79416-8a60-4560-af32-2e6b439407d6",
+      "name": "جهاز تدليك للعناية بالوجه والجسم",
+      "nameAr": "جهاز تدليك للعناية بالوجه والجسم",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "271.00",
+      "compareAtPrice": "303.00",
+      "imageUrl": "product-images/جهاز-تدليك-للعناية-بالوجه-والجسم.jpg",
+      "images": [
+        "product-images/جهاز-تدليك-للعناية-بالوجه-والجسم.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "35d6983e-a3f0-4416-858f-708d6deddff6",
+      "name": "جهاز تدليك متعدد الأوضاع للرأس وفروة الرأس",
+      "nameAr": "جهاز تدليك متعدد الأوضاع للرأس وفروة الرأس",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "109.00",
+      "compareAtPrice": "172.00",
+      "imageUrl": "product-images/جهاز-تدليك-متعدد-الأوضاع-للرأس-وفروة-الرأس.jpg",
+      "images": [
+        "product-images/جهاز-تدليك-متعدد-الأوضاع-للرأس-وفروة-الرأس.jpg"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "personal"
+    },
+    {
+      "id": "fa1eda2c-eecb-4694-be4a-0a383b36cd92",
+      "name": "جهاز ترطيب الهواء بالرذاذ البارد يو اس بي",
+      "nameAr": "جهاز ترطيب الهواء بالرذاذ البارد يو اس بي",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "267.00",
+      "compareAtPrice": "347.00",
+      "imageUrl": "product-images/جهاز-ترطيب-الهواء-بالرذاذ-البارد-usb.jpg",
+      "images": [
+        "product-images/جهاز-ترطيب-الهواء-بالرذاذ-البارد-usb.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "smart"
+    },
+    {
+      "id": "b5289206-007a-4964-b050-015bb561330e",
+      "name": "جهاز تنظيف الأسنان بالماء",
+      "nameAr": "جهاز تنظيف الأسنان بالماء",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "95.00",
+      "compareAtPrice": "118.00",
+      "imageUrl": "product-images/جهاز-تنظيف-الأسنان-بالماء.png",
+      "images": [
+        "product-images/جهاز-تنظيف-الأسنان-بالماء.png"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.5",
+      "categoryId": "smart"
+    },
+    {
+      "id": "edc4aff3-1c72-46ef-b0d7-a1985566eb37",
+      "name": "جهاز تنقية الهواء 2 في 1 وجهاز مضاد للشخير",
+      "nameAr": "جهاز تنقية الهواء 2 في 1 وجهاز مضاد للشخير",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "213.00",
+      "compareAtPrice": "261.00",
+      "imageUrl": "product-images/جهاز-تنقية-الهواء-2-في-1-وجهاز-مضاد-للشخير.jpg",
+      "images": [
+        "product-images/جهاز-تنقية-الهواء-2-في-1-وجهاز-مضاد-للشخير.jpg"
+      ],
+      "stock": 10,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "02e81e26-363d-45be-9402-9f57627f8155",
+      "name": "جهاز تنقية مياه الصنبور المنزلي",
+      "nameAr": "جهاز تنقية مياه الصنبور المنزلي",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "72.00",
+      "compareAtPrice": "157.00",
+      "imageUrl": "product-images/جهاز-تنقية-مياه-الصنبور-المنزلي.jpg",
+      "images": [
+        "product-images/جهاز-تنقية-مياه-الصنبور-المنزلي.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.3",
+      "categoryId": "home"
+    },
+    {
+      "id": "9c55f2f9-6c70-48c6-b66e-0075c78c057a",
+      "name": "جهاز طارد الحشرات بالموجات فوق الصوتية",
+      "nameAr": "جهاز طارد الحشرات بالموجات فوق الصوتية",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "179.00",
+      "compareAtPrice": "258.00",
+      "imageUrl": "product-images/جهاز-طارد-الحشرات-بالموجات-فوق-الصوتية.jpg",
+      "images": [
+        "product-images/جهاز-طارد-الحشرات-بالموجات-فوق-الصوتية.jpg"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "smart"
+    },
+    {
+      "id": "5bebfee5-f5d6-4f05-aabc-318ebaa0859a",
+      "name": "جهاز عرض جالاكسي مزود بسماعة بلوتوث",
+      "nameAr": "جهاز عرض جالاكسي مزود بسماعة بلوتوث",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "232.00",
+      "compareAtPrice": "291.00",
+      "imageUrl": "product-images/جهاز-عرض-جالاكسي-مزود-بسماعة-بلوتوث.jpg",
+      "images": [
+        "product-images/جهاز-عرض-جالاكسي-مزود-بسماعة-بلوتوث.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "smart"
+    },
+    {
+      "id": "7eeb4b01-79b6-456e-8fa3-37d5225156ff",
+      "name": "جهاز عرض صغير محمول",
+      "nameAr": "جهاز عرض صغير محمول",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "195.00",
+      "compareAtPrice": "222.00",
+      "imageUrl": "product-images/جهاز-عرض-صغير-محمول.jpg",
+      "images": [
+        "product-images/جهاز-عرض-صغير-محمول.jpg"
+      ],
+      "stock": 8,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "smart"
+    },
+    {
+      "id": "d7e9d701-7212-4513-9f4b-1b72879b2d03",
+      "name": "جوارب داء السكري الوان",
+      "nameAr": "جوارب داء السكري الوان",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "132.00",
+      "compareAtPrice": "170.00",
+      "imageUrl": "product-images/جوارب-داء-السكري-الوان.jpg",
+      "images": [
+        "product-images/جوارب-داء-السكري-الوان.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "personal"
+    },
+    {
+      "id": "2010aceb-7407-45b1-af14-5dc6ddc7d59e",
+      "name": "حامل أكواب السيارة متعدد الوظائف",
+      "nameAr": "حامل أكواب السيارة متعدد الوظائف",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "93.00",
+      "compareAtPrice": "178.00",
+      "imageUrl": "product-images/حامل-أكواب-السيارة-متعدد-الوظائف.jpg",
+      "images": [
+        "product-images/حامل-أكواب-السيارة-متعدد-الوظائف.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "home"
+    },
+    {
+      "id": "825d2e18-3f52-4d10-a4ca-a4e9110a4f4c",
+      "name": "حبوب القهوة الخضراء",
+      "nameAr": "حبوب القهوة الخضراء",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "156.00",
+      "compareAtPrice": "235.00",
+      "imageUrl": "product-images/حبوب-القهوة-الخضراء.png",
+      "images": [
+        "product-images/حبوب-القهوة-الخضراء.png"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "23786d84-f45c-4d8b-9509-5f589aa22f75",
+      "name": "حبوب المغنيزيوم مع جهاز قياس الضغط هدية",
+      "nameAr": "حبوب المغنيزيوم مع جهاز قياس الضغط هدية",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "128.00",
+      "compareAtPrice": "185.00",
+      "imageUrl": "product-images/حبوب-المغنيزيوم-مع-جهاز-قياس-الضغط-هدية.png",
+      "images": [
+        "product-images/حبوب-المغنيزيوم-مع-جهاز-قياس-الضغط-هدية.png"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "c7e212db-a9fb-4984-bfb6-d7a8e7a57502",
+      "name": "حزام تدريب الخصر",
+      "nameAr": "حزام تدريب الخصر",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "310.00",
+      "compareAtPrice": "393.00",
+      "imageUrl": "product-images/حزام-تدريب-الخصر.jpg",
+      "images": [
+        "product-images/حزام-تدريب-الخصر.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "personal"
+    },
+    {
+      "id": "383ec43e-d0ae-40a0-b037-9990147af885",
+      "name": "حظيرة للعب الاطفال",
+      "nameAr": "حظيرة للعب الاطفال",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "217.00",
+      "compareAtPrice": "303.00",
+      "imageUrl": "product-images/حظيرة-للعب-الاطفال.jpg",
+      "images": [
+        "product-images/حظيرة-للعب-الاطفال.jpg"
+      ],
+      "stock": 10,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "kids"
+    },
+    {
+      "id": "bafff583-3c04-4271-a527-ae5d4f64f95c",
+      "name": "حقيبة جمع البول مقاومة للتسرب",
+      "nameAr": "حقيبة جمع البول مقاومة للتسرب",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "182.00",
+      "compareAtPrice": "248.00",
+      "imageUrl": "product-images/حقيبة-جمع-البول-مقاومة-للتسرب.jpg",
+      "images": [
+        "product-images/حقيبة-جمع-البول-مقاومة-للتسرب.jpg"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "2fca7c1f-e679-4b6d-a0a8-c6dfb2504cd3",
+      "name": "حقيبة مضادة للسرقة",
+      "nameAr": "حقيبة مضادة للسرقة",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "278.00",
+      "compareAtPrice": "363.00",
+      "imageUrl": "product-images/حقيبة-مضادة-للسرقة.png",
+      "images": [
+        "product-images/حقيبة-مضادة-للسرقة.png"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "de886a41-b3d4-4331-88ff-0c8ff3485299",
+      "name": "حلقة تمرين القبضة",
+      "nameAr": "حلقة تمرين القبضة",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "196.00",
+      "compareAtPrice": "245.00",
+      "imageUrl": "product-images/حلقة-تمرين-القبضة.jpg",
+      "images": [
+        "product-images/حلقة-تمرين-القبضة.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "e802d5e6-9bdc-4526-9047-41c032697a15",
+      "name": "حلقة مفاتيح متعدد الوظائف",
+      "nameAr": "حلقة مفاتيح متعدد الوظائف",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "274.00",
+      "compareAtPrice": "352.00",
+      "imageUrl": "product-images/حلقة-مفاتيح-متعدد-الوظائف.jpg",
+      "images": [
+        "product-images/حلقة-مفاتيح-متعدد-الوظائف.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "7fc448fb-60b8-4805-943b-7f168cacebfb",
+      "name": "حلوى أشواغاندا تقلل التوتر",
+      "nameAr": "حلوى أشواغاندا تقلل التوتر",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "324.00",
+      "compareAtPrice": "394.00",
+      "imageUrl": "product-images/حلوى-أشواغاندا-تقلل-التوتر.jpeg",
+      "images": [
+        "product-images/حلوى-أشواغاندا-تقلل-التوتر.jpeg"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "6ce95376-8fb5-4868-b9ce-c4641d7d08fc",
+      "name": "حلوى البروبيوتيك لدعم المناعة",
+      "nameAr": "حلوى البروبيوتيك لدعم المناعة",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "159.00",
+      "compareAtPrice": "237.00",
+      "imageUrl": "product-images/حلوى-البروبيوتيك-لدعم-المناعة.jpg",
+      "images": [
+        "product-images/حلوى-البروبيوتيك-لدعم-المناعة.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "55d90e91-01a4-416b-a6b7-f4a500fa8d99",
+      "name": "حلوى للنوم تحتوي على الميلاتونين",
+      "nameAr": "حلوى للنوم تحتوي على الميلاتونين",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "105.00",
+      "compareAtPrice": "152.00",
+      "imageUrl": "product-images/حلوى-للنوم-تحتوي-على-الميلاتونين.jpeg",
+      "images": [
+        "product-images/حلوى-للنوم-تحتوي-على-الميلاتونين.jpeg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "5af1f731-4a8f-494e-911a-deee60a69a5f",
+      "name": "حمالة صدر داعمة غير مرئية",
+      "nameAr": "حمالة صدر داعمة غير مرئية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "251.00",
+      "compareAtPrice": "313.00",
+      "imageUrl": "product-images/حمالة-صدر-داعمة-غير-مرئية.jpg",
+      "images": [
+        "product-images/حمالة-صدر-داعمة-غير-مرئية.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "71684a0a-78c5-46fe-9957-af0de13acf4c",
+      "name": "خاتم التسبيح الذكي",
+      "nameAr": "خاتم التسبيح الذكي",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "146.00",
+      "compareAtPrice": "234.00",
+      "imageUrl": "product-images/خاتم-التسبيح-الذكي.jpg",
+      "images": [
+        "product-images/خاتم-التسبيح-الذكي.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "smart"
+    },
+    {
+      "id": "a7f18c72-5882-48b1-bd32-6be4ebb6d857",
+      "name": "خرطوم مياه قابل للتمدد من ماجيك هوز",
+      "nameAr": "خرطوم مياه قابل للتمدد من ماجيك هوز",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "193.00",
+      "compareAtPrice": "240.00",
+      "imageUrl": "product-images/خرطوم-مياه-قابل-للتمدد-من-ماجيك-هوز.jpg",
+      "images": [
+        "product-images/خرطوم-مياه-قابل-للتمدد-من-ماجيك-هوز.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "various"
+    },
+    {
+      "id": "bc400c0d-b730-453c-b3e8-a4674fa43717",
+      "name": "خزانة ملابس قابلة للطي",
+      "nameAr": "خزانة ملابس قابلة للطي",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "263.00",
+      "compareAtPrice": "307.00",
+      "imageUrl": "product-images/خزانة-ملابس-قابلة-للطي.png",
+      "images": [
+        "product-images/خزانة-ملابس-قابلة-للطي.png"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "home"
+    },
+    {
+      "id": "e0de69bd-8925-4a4f-b96d-fb24985f5cd0",
+      "name": "خزنة كتب من ورق الذهب مع قفل",
+      "nameAr": "خزنة كتب من ورق الذهب مع قفل",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "259.00",
+      "compareAtPrice": "307.00",
+      "imageUrl": "product-images/خزنة-كتب-من-ورق-الذهب-مع-قفل.jpg",
+      "images": [
+        "product-images/خزنة-كتب-من-ورق-الذهب-مع-قفل.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "various"
+    },
+    {
+      "id": "f9957907-6796-4640-a6d1-66411722b0b1",
+      "name": "خلاصة مخاط الحلزون",
+      "nameAr": "خلاصة مخاط الحلزون",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "324.00",
+      "compareAtPrice": "363.00",
+      "imageUrl": "product-images/خلاصة-مخاط-الحلزون.jpg",
+      "images": [
+        "product-images/خلاصة-مخاط-الحلزون.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "3e2d1523-d981-4bec-b89d-247ebeabffb0",
+      "name": "خلاط فواكه محمول",
+      "nameAr": "خلاط فواكه محمول",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "85.00",
+      "compareAtPrice": "118.00",
+      "imageUrl": "product-images/خلاط-فواكه-محمول.jpeg",
+      "images": [
+        "product-images/خلاط-فواكه-محمول.jpeg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "home"
+    },
+    {
+      "id": "7ae274ee-9c2a-402f-9b91-483649e6ff6d",
+      "name": "خيمة لعب قلعة ساحرة قابلة للطي",
+      "nameAr": "خيمة لعب قلعة ساحرة قابلة للطي",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "102.00",
+      "compareAtPrice": "171.00",
+      "imageUrl": "product-images/خيمة-لعب-قلعة-ساحرة-قابلة-للطي.jpg",
+      "images": [
+        "product-images/خيمة-لعب-قلعة-ساحرة-قابلة-للطي.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "kids"
+    },
+    {
+      "id": "5b9171dd-2c28-432d-917d-ab982c94c4bf",
+      "name": "درج المرحاض للاطفال",
+      "nameAr": "درج المرحاض للاطفال",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "51.00",
+      "compareAtPrice": "130.00",
+      "imageUrl": "product-images/درج-المرحاض-للاطفال.jpg",
+      "images": [
+        "product-images/درج-المرحاض-للاطفال.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "kids"
+    },
+    {
+      "id": "cdc1ce14-de6d-409f-a078-93624f93d727",
+      "name": "دعامة الركبة مع العلاج المغناطيسي",
+      "nameAr": "دعامة الركبة مع العلاج المغناطيسي",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "49.00",
+      "compareAtPrice": "134.00",
+      "imageUrl": "product-images/دعامة-الركبة-مع-العلاج-المغناطيسي.jpeg",
+      "images": [
+        "product-images/دعامة-الركبة-مع-العلاج-المغناطيسي.jpeg"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "personal"
+    },
+    {
+      "id": "ece84c1e-cf86-46a8-8bb9-75e2a7b57c39",
+      "name": "دعامة العنق لعلاج آلام الرقبة مع الحرارة العميقة",
+      "nameAr": "دعامة العنق لعلاج آلام الرقبة مع الحرارة العميقة",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "286.00",
+      "compareAtPrice": "322.00",
+      "imageUrl": "product-images/دعامة-العنق-لعلاج-آلام-الرقبة-مع-الحرارة-العميقة.jpg",
+      "images": [
+        "product-images/دعامة-العنق-لعلاج-آلام-الرقبة-مع-الحرارة-العميقة.jpg"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "personal"
+    },
+    {
+      "id": "3412cceb-9d9e-4de5-9048-0f25d6a2f7d6",
+      "name": "دعامة ثني الركبة زوج واحد أسود",
+      "nameAr": "دعامة ثني الركبة زوج واحد أسود",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "137.00",
+      "compareAtPrice": "202.00",
+      "imageUrl": "product-images/دعامة-ثني-الركبة-زوج-واحد-أسود.jpg",
+      "images": [
+        "product-images/دعامة-ثني-الركبة-زوج-واحد-أسود.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "personal"
+    },
+    {
+      "id": "733df271-72eb-4a26-9625-45c4ca0485c0",
+      "name": "دعامة ركبة واحدة عالية المرونة",
+      "nameAr": "دعامة ركبة واحدة عالية المرونة",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "67.00",
+      "compareAtPrice": "125.00",
+      "imageUrl": "product-images/دعامة-ركبة-واحدة-عالية-المرونة.jpg",
+      "images": [
+        "product-images/دعامة-ركبة-واحدة-عالية-المرونة.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.3",
+      "categoryId": "personal"
+    },
+    {
+      "id": "4ad7bd0b-f63e-4333-9bad-ee62c953ae5b",
+      "name": "دعم ظهر السائق",
+      "nameAr": "دعم ظهر السائق",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "137.00",
+      "compareAtPrice": "208.00",
+      "imageUrl": "product-images/دعم-ظهر-السائق.png",
+      "images": [
+        "product-images/دعم-ظهر-السائق.png"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "personal"
+    },
+    {
+      "id": "5dbf0ff8-7acf-43bb-ba62-c97c07f04636",
+      "name": "رأس دش توربيني يدور 360 درجة",
+      "nameAr": "رأس دش توربيني يدور 360 درجة",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "67.00",
+      "compareAtPrice": "123.00",
+      "imageUrl": "product-images/رأس-دش-توربيني-يدور-360-درجة.jpg",
+      "images": [
+        "product-images/رأس-دش-توربيني-يدور-360-درجة.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "kids"
+    },
+    {
+      "id": "7a357941-571f-4ad2-be8e-2ba99e40c0a5",
+      "name": "رأس دش متقدم",
+      "nameAr": "رأس دش متقدم",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "302.00",
+      "compareAtPrice": "369.00",
+      "imageUrl": "product-images/رأس-دش-متقدم.jpg",
+      "images": [
+        "product-images/رأس-دش-متقدم.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "personal"
+    },
+    {
+      "id": "8cb38880-f0d9-4587-a932-8050440f8d72",
+      "name": "رف المطبخ",
+      "nameAr": "رف المطبخ",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "64.00",
+      "compareAtPrice": "124.00",
+      "imageUrl": "product-images/رف-المطبخ.jpg",
+      "images": [
+        "product-images/رف-المطبخ.jpg"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "home"
+    },
+    {
+      "id": "61145f8e-bebe-4684-9f9e-92ecaec0c11c",
+      "name": "رقعة تصحيح أظافر القدم",
+      "nameAr": "رقعة تصحيح أظافر القدم",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "299.00",
+      "compareAtPrice": "344.00",
+      "imageUrl": "product-images/رقعة-تصحيح-أظافر-القدم.png",
+      "images": [
+        "product-images/رقعة-تصحيح-أظافر-القدم.png"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "personal"
+    },
+    {
+      "id": "937d98c9-878b-4f08-a25c-088eef467c18",
+      "name": "زيت الاهتمام بالارجل و اليدين",
+      "nameAr": "زيت الاهتمام بالارجل و اليدين",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "202.00",
+      "compareAtPrice": "257.00",
+      "imageUrl": "product-images/زيت-الاهتمام-بالارجل-و-اليدين.png",
+      "images": [
+        "product-images/زيت-الاهتمام-بالارجل-و-اليدين.png"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "112925ee-82bf-4839-b60a-3c82725542ad",
+      "name": "زيت الثوم الأسود",
+      "nameAr": "زيت الثوم الأسود",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "176.00",
+      "compareAtPrice": "250.00",
+      "imageUrl": "product-images/زيت-الثوم-الأسود.jpg",
+      "images": [
+        "product-images/زيت-الثوم-الأسود.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "9b1a1a9d-59cb-4e20-b0df-bb7427b89d6b",
+      "name": "زيت الزنجبيل للشعر",
+      "nameAr": "زيت الزنجبيل للشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "123.00",
+      "compareAtPrice": "160.00",
+      "imageUrl": "product-images/زيت-الزنجبيل-للشعر.jpg",
+      "images": [
+        "product-images/زيت-الزنجبيل-للشعر.jpg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "68c42197-e560-4934-985c-969902463397",
+      "name": "زيت السمك",
+      "nameAr": "زيت السمك",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "140.00",
+      "compareAtPrice": "219.00",
+      "imageUrl": "product-images/زيت-السمك.png",
+      "images": [
+        "product-images/زيت-السمك.png"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "d8bed43f-3527-4538-a37f-37fa5bdd181e",
+      "name": "زيت تقشير الوجه واليدين",
+      "nameAr": "زيت تقشير الوجه واليدين",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "226.00",
+      "compareAtPrice": "291.00",
+      "imageUrl": "product-images/زيت-تقشير-الوجه-واليدين.jpg",
+      "images": [
+        "product-images/زيت-تقشير-الوجه-واليدين.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "408340fa-b688-4f4c-959a-f774b01faccf",
+      "name": "زيت لتقوية الشعر منتج",
+      "nameAr": "زيت لتقوية الشعر منتج",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "187.00",
+      "compareAtPrice": "256.00",
+      "imageUrl": "product-images/زيت-لتقوية-الشعر-feg.jpg",
+      "images": [
+        "product-images/زيت-لتقوية-الشعر-feg.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "6aa4c1d3-36a3-4d35-bfd2-abdee0047f01",
+      "name": "زيت لتقوية الشعر",
+      "nameAr": "زيت لتقوية الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "314.00",
+      "compareAtPrice": "358.00",
+      "imageUrl": "product-images/زيت-لتقوية-الشعر.jpg",
+      "images": [
+        "product-images/زيت-لتقوية-الشعر.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "75b2edbb-3447-49ed-a9fc-050f555b819e",
+      "name": "زيت نمو اللحية",
+      "nameAr": "زيت نمو اللحية",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "205.00",
+      "compareAtPrice": "233.00",
+      "imageUrl": "product-images/زيت-نمو-اللحية.jpg",
+      "images": [
+        "product-images/زيت-نمو-اللحية.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "0f37bedf-a031-46f9-8ac6-7b14bb2fa7b8",
+      "name": "زينة معلقة رمضان مبارك",
+      "nameAr": "زينة معلقة رمضان مبارك",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "83.00",
+      "compareAtPrice": "156.00",
+      "imageUrl": "product-images/زينة-معلقة-رمضان-مبارك.jpg",
+      "images": [
+        "product-images/زينة-معلقة-رمضان-مبارك.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "8f529e5c-66be-4e55-a656-73e4d8841b93",
+      "name": "سادور كريم اليدين بالكولاجين المضاد للتجاعيد 30جم",
+      "nameAr": "سادور كريم اليدين بالكولاجين المضاد للتجاعيد 30جم",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "273.00",
+      "compareAtPrice": "302.00",
+      "imageUrl": "product-images/سادور-كريم-اليدين-بالكولاجين-المضاد-للتجاعيد-30جم.jpg",
+      "images": [
+        "product-images/سادور-كريم-اليدين-بالكولاجين-المضاد-للتجاعيد-30جم.jpg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "84f83716-6ed0-4bee-8e27-7e180a63dcd5",
+      "name": "سجاد لتدليك بتقنية تقنية نبض عضلي",
+      "nameAr": "سجاد لتدليك بتقنية تقنية نبض عضلي",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "62.00",
+      "compareAtPrice": "114.00",
+      "imageUrl": "product-images/سجاد-لتدليك-بتقنية-ems.jpg",
+      "images": [
+        "product-images/سجاد-لتدليك-بتقنية-ems.jpg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "personal"
+    },
+    {
+      "id": "b11f22f4-0916-4d97-9bd2-71f2251f568b",
+      "name": "سجادات صلاة للأطفال",
+      "nameAr": "سجادات صلاة للأطفال",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "298.00",
+      "compareAtPrice": "326.00",
+      "imageUrl": "product-images/سجادات-صلاة-للأطفال.jpg",
+      "images": [
+        "product-images/سجادات-صلاة-للأطفال.jpg"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "kids"
+    },
+    {
+      "id": "90abc325-1aba-465e-a126-f3779711566c",
+      "name": "سخان شمع صغير من موهير",
+      "nameAr": "سخان شمع صغير من موهير",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "259.00",
+      "compareAtPrice": "322.00",
+      "imageUrl": "product-images/سخان-شمع-صغير-من-موهير.jpg",
+      "images": [
+        "product-images/سخان-شمع-صغير-من-موهير.jpg"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.3",
+      "categoryId": "home"
+    },
+    {
+      "id": "414e9b4e-a41a-4fd4-93c3-3f451829d4c3",
+      "name": "سكاكين الطبخ",
+      "nameAr": "سكاكين الطبخ",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "305.00",
+      "compareAtPrice": "343.00",
+      "imageUrl": "product-images/سكاكين-الطبخ.jpg",
+      "images": [
+        "product-images/سكاكين-الطبخ.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "62292784-991c-4523-b7fb-76ddc7b00ca0",
+      "name": "سماعة الادن لضعاف السمع f138",
+      "nameAr": "سماعة الادن لضعاف السمع f138",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "108.00",
+      "compareAtPrice": "171.00",
+      "imageUrl": "product-images/سماعة-الادن-لضعاف-السمع-f138.jpg",
+      "images": [
+        "product-images/سماعة-الادن-لضعاف-السمع-f138.jpg"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "smart"
+    },
+    {
+      "id": "847fef77-daa7-4bd2-a40f-8e90ead058da",
+      "name": "سياراة الدوارة جهاز التحكم عن بعد أو ساعة اليد",
+      "nameAr": "سياراة الدوارة جهاز التحكم عن بعد أو ساعة اليد",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "293.00",
+      "compareAtPrice": "347.00",
+      "imageUrl": "product-images/سياراة-الدوارة-جهاز-التحكم-عن-بعد-أو-ساعة-اليد.jpg",
+      "images": [
+        "product-images/سياراة-الدوارة-جهاز-التحكم-عن-بعد-أو-ساعة-اليد.jpg"
+      ],
+      "stock": 8,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "smart"
+    },
+    {
+      "id": "f940e773-789d-4328-a237-be311429f057",
+      "name": "سيارة بهلوانية جذابة وقوية",
+      "nameAr": "سيارة بهلوانية جذابة وقوية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "150.00",
+      "compareAtPrice": "174.00",
+      "imageUrl": "product-images/سيارة-بهلوانية-جذابة-وقوية.jpeg",
+      "images": [
+        "product-images/سيارة-بهلوانية-جذابة-وقوية.jpeg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "3304d0b7-68b7-479c-9579-637101d621d5",
+      "name": "سيروم الزنجبيل لنمو الشعر",
+      "nameAr": "سيروم الزنجبيل لنمو الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "185.00",
+      "compareAtPrice": "250.00",
+      "imageUrl": "product-images/سيروم-الزنجبيل-لنمو-الشعر.jpg",
+      "images": [
+        "product-images/سيروم-الزنجبيل-لنمو-الشعر.jpg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "b1540f3d-2377-40b7-8278-21cf08567205",
+      "name": "سيروم الوجه بحمض الكوجيك من غوانجينغ بيوتي",
+      "nameAr": "سيروم الوجه بحمض الكوجيك من غوانجينغ بيوتي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "169.00",
+      "compareAtPrice": "247.00",
+      "imageUrl": "product-images/سيروم-الوجه-بحمض-الكوجيك-من-غوانجينغ-بيوتي.jpg",
+      "images": [
+        "product-images/سيروم-الوجه-بحمض-الكوجيك-من-غوانجينغ-بيوتي.jpg"
+      ],
+      "stock": 21,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "d54c2fba-588a-48ca-a444-3e54da75b16b",
+      "name": "سيروم باكوشيول سيروم نفخ البشرة من ايكوالبيري",
+      "nameAr": "سيروم باكوشيول سيروم نفخ البشرة من ايكوالبيري",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "191.00",
+      "compareAtPrice": "263.00",
+      "imageUrl": "product-images/سيروم-باكوشيول-سيروم-نفخ-البشرة-من-ايكوالبيري.jpg",
+      "images": [
+        "product-images/سيروم-باكوشيول-سيروم-نفخ-البشرة-من-ايكوالبيري.jpg"
+      ],
+      "stock": 10,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "53d24c9a-d37c-493d-8470-64d0a97488fb",
+      "name": "سيروم تبييض البشرة وإزالة النمش",
+      "nameAr": "سيروم تبييض البشرة وإزالة النمش",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "199.00",
+      "compareAtPrice": "261.00",
+      "imageUrl": "product-images/سيروم-تبييض-البشرة-وإزالة-النمش.jpg",
+      "images": [
+        "product-images/سيروم-تبييض-البشرة-وإزالة-النمش.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "577a48d4-ebb3-453f-adfc-1da3a52bfb71",
+      "name": "سيروم تصحيح البقع الداكنة",
+      "nameAr": "سيروم تصحيح البقع الداكنة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "167.00",
+      "compareAtPrice": "193.00",
+      "imageUrl": "product-images/سيروم-تصحيح-البقع-الداكنة.png",
+      "images": [
+        "product-images/سيروم-تصحيح-البقع-الداكنة.png"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "9f533c56-e71a-48e0-9dea-70ba049fbfb5",
+      "name": "سيروم تفتيح فيتامين سي بالنياسيناميد من ايكوالبيري",
+      "nameAr": "سيروم تفتيح فيتامين سي بالنياسيناميد من ايكوالبيري",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "159.00",
+      "compareAtPrice": "232.00",
+      "imageUrl": "product-images/سيروم-تفتيح-فيتامين-سي-بالنياسيناميد-من-ايكوالبيري.jpg",
+      "images": [
+        "product-images/سيروم-تفتيح-فيتامين-سي-بالنياسيناميد-من-ايكوالبيري.jpg"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "e957dcf2-a249-4279-a951-225105e94398",
+      "name": "سيروم سول 1988 الاصلي",
+      "nameAr": "سيروم سول 1988 الاصلي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "241.00",
+      "compareAtPrice": "298.00",
+      "imageUrl": "product-images/سيروم-سول-1988-الاصلي.jpg",
+      "images": [
+        "product-images/سيروم-سول-1988-الاصلي.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "c9822931-4e97-444c-95c6-3da387648c95",
+      "name": "سيروم لتقويه الرموش والحواجب",
+      "nameAr": "سيروم لتقويه الرموش والحواجب",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "123.00",
+      "compareAtPrice": "167.00",
+      "imageUrl": "product-images/سيروم-لتقويه-الرموش-والحواجب.jpg",
+      "images": [
+        "product-images/سيروم-لتقويه-الرموش-والحواجب.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "cf29aad3-aa6d-48b4-b83b-bef9615af434",
+      "name": "شامبو الثوم الأسود",
+      "nameAr": "شامبو الثوم الأسود",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "152.00",
+      "compareAtPrice": "173.00",
+      "imageUrl": "product-images/شامبو-الثوم-الأسود.jpg",
+      "images": [
+        "product-images/شامبو-الثوم-الأسود.jpg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "5d635b34-1535-4799-81c7-31dd683b1f4f",
+      "name": "شامبو ساكورا لنمو الشعر",
+      "nameAr": "شامبو ساكورا لنمو الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "81.00",
+      "compareAtPrice": "166.00",
+      "imageUrl": "product-images/شامبو-ساكورا-لنمو-الشعر.jpeg",
+      "images": [
+        "product-images/شامبو-ساكورا-لنمو-الشعر.jpeg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "18df7dd9-c7a2-4e1c-b4ea-e3304e298add",
+      "name": "شامبو نيزورال لعلاج قشرة الرأس والتهاب الجلد الدهني",
+      "nameAr": "شامبو نيزورال لعلاج قشرة الرأس والتهاب الجلد الدهني",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "259.00",
+      "compareAtPrice": "338.00",
+      "imageUrl": "product-images/شامبو-نيزورال-لعلاج-قشرة-الرأس-والتهاب-الجلد-الدهني.jpg",
+      "images": [
+        "product-images/شامبو-نيزورال-لعلاج-قشرة-الرأس-والتهاب-الجلد-الدهني.jpg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "221736b0-5183-4460-b9f4-2d6908f77419",
+      "name": "شاي علاجي للقرحة",
+      "nameAr": "شاي علاجي للقرحة",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "159.00",
+      "compareAtPrice": "216.00",
+      "imageUrl": "product-images/شاي-علاجي-للقرحة.jpeg",
+      "images": [
+        "product-images/شاي-علاجي-للقرحة.jpeg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "b4531f5a-92d6-4e5a-a1d1-a4c0b5ef7206",
+      "name": "شريط الحركة الرياضية والعلاجية",
+      "nameAr": "شريط الحركة الرياضية والعلاجية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "237.00",
+      "compareAtPrice": "303.00",
+      "imageUrl": "product-images/شريط-الحركة-الرياضية-والعلاجية.jpg",
+      "images": [
+        "product-images/شريط-الحركة-الرياضية-والعلاجية.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "8797c13a-68cc-4265-85ef-1eda8aa109ce",
+      "name": "شنطة مفك كهربائي",
+      "nameAr": "شنطة مفك كهربائي",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "322.00",
+      "compareAtPrice": "350.00",
+      "imageUrl": "product-images/شنطة-مفك-كهربائي.jpg",
+      "images": [
+        "product-images/شنطة-مفك-كهربائي.jpg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "4defbe60-2c50-44e3-a384-14a7b98ecff9",
+      "name": "شنطة مكياج للسفر اللون الأسود",
+      "nameAr": "شنطة مكياج للسفر اللون الأسود",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "101.00",
+      "compareAtPrice": "143.00",
+      "imageUrl": "product-images/شنطة-مكياج-للسفر-اللون-الأسود.jpg",
+      "images": [
+        "product-images/شنطة-مكياج-للسفر-اللون-الأسود.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "405012fa-db01-415e-9c51-b49c7c6c52e7",
+      "name": "شنطة مكياج للسفر",
+      "nameAr": "شنطة مكياج للسفر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "163.00",
+      "compareAtPrice": "210.00",
+      "imageUrl": "product-images/شنطة-مكياج-للسفر.jpg",
+      "images": [
+        "product-images/شنطة-مكياج-للسفر.jpg"
+      ],
+      "stock": 21,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "18e93fe0-29d4-4ca3-9f9e-e7c855f71518",
+      "name": "صبغة شعر نباتية طبيعية",
+      "nameAr": "صبغة شعر نباتية طبيعية",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "178.00",
+      "compareAtPrice": "237.00",
+      "imageUrl": "product-images/صبغة-شعر-نباتية-طبيعية.jpg",
+      "images": [
+        "product-images/صبغة-شعر-نباتية-طبيعية.jpg"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "2d715152-a33a-4fdc-892a-a3793c606e0d",
+      "name": "صفائح سيليكون لعلاج الندبات",
+      "nameAr": "صفائح سيليكون لعلاج الندبات",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "284.00",
+      "compareAtPrice": "322.00",
+      "imageUrl": "product-images/صفائح-سيليكون-لعلاج-الندبات.jpg",
+      "images": [
+        "product-images/صفائح-سيليكون-لعلاج-الندبات.jpg"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "eeed4c78-03d6-4859-9b11-d9ded2cdf512",
+      "name": "صندوق غداء حراري مع حقيبة محمولة",
+      "nameAr": "صندوق غداء حراري مع حقيبة محمولة",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "253.00",
+      "compareAtPrice": "274.00",
+      "imageUrl": "product-images/صندوق-غداء-حراري-مع-حقيبة-محمولة.jpg",
+      "images": [
+        "product-images/صندوق-غداء-حراري-مع-حقيبة-محمولة.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.8",
+      "categoryId": "home"
+    },
+    {
+      "id": "0201c209-0848-4ac5-a65a-e7e5b52f3b58",
+      "name": "ضوء السماء الليلي لغرفة النوم",
+      "nameAr": "ضوء السماء الليلي لغرفة النوم",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "247.00",
+      "compareAtPrice": "287.00",
+      "imageUrl": "product-images/ضوء-السماء-الليلي-لغرفة-النوم.png",
+      "images": [
+        "product-images/ضوء-السماء-الليلي-لغرفة-النوم.png"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "home"
+    },
+    {
+      "id": "0143d368-6954-474e-b4c5-b273de9ea3a2",
+      "name": "ضوء على شكل كاميرا يعمل بالطاقة الشمسية",
+      "nameAr": "ضوء على شكل كاميرا يعمل بالطاقة الشمسية",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "45.00",
+      "compareAtPrice": "119.00",
+      "imageUrl": "product-images/ضوء-على-شكل-كاميرا-يعمل-بالطاقة-الشمسية.jpg",
+      "images": [
+        "product-images/ضوء-على-شكل-كاميرا-يعمل-بالطاقة-الشمسية.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "smart"
+    },
+    {
+      "id": "88ef86cd-a5e4-4d60-aa34-8d4e8e225070",
+      "name": "طائرة هليكوبتر لاسلكية يتم التحكم فيها عن بعد",
+      "nameAr": "طائرة هليكوبتر لاسلكية يتم التحكم فيها عن بعد",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "167.00",
+      "compareAtPrice": "197.00",
+      "imageUrl": "product-images/طائرة-هليكوبتر-لاسلكية-يتم-التحكم-فيها-عن-بعد.jpg",
+      "images": [
+        "product-images/طائرة-هليكوبتر-لاسلكية-يتم-التحكم-فيها-عن-بعد.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "kids"
+    },
+    {
+      "id": "e3c9f2e9-08ec-4738-a2ee-bb643861c548",
+      "name": "طاولة القهوة",
+      "nameAr": "طاولة القهوة",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "48.00",
+      "compareAtPrice": "114.00",
+      "imageUrl": "product-images/طاولة-القهوة.jpg",
+      "images": [
+        "product-images/طاولة-القهوة.jpg"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "e3a51b3d-0b45-43da-b693-057ebe861169",
+      "name": "طاولة عاجلة قيادة",
+      "nameAr": "طاولة عاجلة قيادة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "78.00",
+      "compareAtPrice": "130.00",
+      "imageUrl": "product-images/طاولة-عاجلة-قيادة.jpg",
+      "images": [
+        "product-images/طاولة-عاجلة-قيادة.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.3",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "cad2ac1a-6093-4857-9493-bb7ef7400c00",
+      "name": "طقم تبييض أسنان قابل لإعادة الشحن 3 في 1",
+      "nameAr": "طقم تبييض أسنان قابل لإعادة الشحن 3 في 1",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "247.00",
+      "compareAtPrice": "306.00",
+      "imageUrl": "product-images/طقم-تبييض-أسنان-قابل-لإعادة-الشحن-3-في-1.jpeg",
+      "images": [
+        "product-images/طقم-تبييض-أسنان-قابل-لإعادة-الشحن-3-في-1.jpeg"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "4d3533d6-6ff1-484b-9e41-83e96b4f6bd8",
+      "name": "عصارة برتقال كهربائية محمولة",
+      "nameAr": "عصارة برتقال كهربائية محمولة",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "95.00",
+      "compareAtPrice": "147.00",
+      "imageUrl": "product-images/عصارة-برتقال-كهربائية-محمولة.png",
+      "images": [
+        "product-images/عصارة-برتقال-كهربائية-محمولة.png"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "home"
+    },
+    {
+      "id": "855bd6c1-f63d-412f-a15b-019ad53c75cb",
+      "name": "عصارة ليمون يدوية مصنوعة من سبائك الألومنيوم",
+      "nameAr": "عصارة ليمون يدوية مصنوعة من سبائك الألومنيوم",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "81.00",
+      "compareAtPrice": "161.00",
+      "imageUrl": "product-images/عصارة-ليمون-يدوية-مصنوعة-من-سبائك-الألومنيوم.jpg",
+      "images": [
+        "product-images/عصارة-ليمون-يدوية-مصنوعة-من-سبائك-الألومنيوم.jpg"
+      ],
+      "stock": 21,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "home"
+    },
+    {
+      "id": "a3b79ceb-773e-4d7e-89e4-e13a9df2e08b",
+      "name": "عصى باديكير ناعمة",
+      "nameAr": "عصى باديكير ناعمة",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "239.00",
+      "compareAtPrice": "274.00",
+      "imageUrl": "product-images/عصى-باديكير-ناعمة.jpg",
+      "images": [
+        "product-images/عصى-باديكير-ناعمة.jpg"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.3",
+      "categoryId": "various"
+    },
+    {
+      "id": "a963bd46-8519-415d-a26c-993050df18d9",
+      "name": "عطر أوري كيتي جيرل للنساء 100 مل",
+      "nameAr": "عطر أوري كيتي جيرل للنساء 100 مل",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "243.00",
+      "compareAtPrice": "263.00",
+      "imageUrl": "product-images/عطر-أوري-كيتي-جيرل-للنساء-100-مل.jpg",
+      "images": [
+        "product-images/عطر-أوري-كيتي-جيرل-للنساء-100-مل.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "ecf4d5c0-a9f2-49f4-a366-7941120407e5",
+      "name": "عطر المسك",
+      "nameAr": "عطر المسك",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "68.00",
+      "compareAtPrice": "110.00",
+      "imageUrl": "product-images/عطر-المسك.jpg",
+      "images": [
+        "product-images/عطر-المسك.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "267bd0ae-0ea6-4fe7-95b6-f1062c8cdc1e",
+      "name": "علاج الجلوكوزامين لآلام المفاصل",
+      "nameAr": "علاج الجلوكوزامين لآلام المفاصل",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "116.00",
+      "compareAtPrice": "155.00",
+      "imageUrl": "product-images/علاج-الجلوكوزامين-لآلام-المفاصل.jpeg",
+      "images": [
+        "product-images/علاج-الجلوكوزامين-لآلام-المفاصل.jpeg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "b02d2087-55a0-4e7a-b481-50b2e5db5257",
+      "name": "علاج لصقات الأظافر الفطرية",
+      "nameAr": "علاج لصقات الأظافر الفطرية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "167.00",
+      "compareAtPrice": "208.00",
+      "imageUrl": "product-images/علاج-لصقات-الأظافر-الفطرية.jpg",
+      "images": [
+        "product-images/علاج-لصقات-الأظافر-الفطرية.jpg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "a6d559aa-f508-41e1-b81f-781cb4c91b45",
+      "name": "علاج للحكة نتيجة الاصابة بالطفيليات",
+      "nameAr": "علاج للحكة نتيجة الاصابة بالطفيليات",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "318.00",
+      "compareAtPrice": "371.00",
+      "imageUrl": "product-images/علاج-للحكة-نتيجة-الاصابة-بالطفيليات.jpg",
+      "images": [
+        "product-images/علاج-للحكة-نتيجة-الاصابة-بالطفيليات.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.5",
+      "categoryId": "various"
+    },
+    {
+      "id": "c264a32e-1936-44a5-a77c-6f451493f7e0",
+      "name": "علكات للشعر والبشرة والأظافر",
+      "nameAr": "علكات للشعر والبشرة والأظافر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "88.00",
+      "compareAtPrice": "134.00",
+      "imageUrl": "product-images/علكات-للشعر-والبشرة-والأظافر.jpeg",
+      "images": [
+        "product-images/علكات-للشعر-والبشرة-والأظافر.jpeg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.3",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "9a19bbf3-67fa-4653-8c3c-5ad37b6aa802",
+      "name": "غسول الوجه اليومي",
+      "nameAr": "غسول الوجه اليومي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "297.00",
+      "compareAtPrice": "347.00",
+      "imageUrl": "product-images/غسول-الوجه-اليومي.jpeg",
+      "images": [
+        "product-images/غسول-الوجه-اليومي.jpeg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "49077cc2-1446-4ca7-9bbf-b68177cb33a1",
+      "name": "غسول الوجه للبشرة الزيتية",
+      "nameAr": "غسول الوجه للبشرة الزيتية",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "244.00",
+      "compareAtPrice": "273.00",
+      "imageUrl": "product-images/غسول-الوجه-للبشرة-الزيتية.jpeg",
+      "images": [
+        "product-images/غسول-الوجه-للبشرة-الزيتية.jpeg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "3d9f2827-fdf5-4a6b-9666-b378f50be4ac",
+      "name": "فانوس رمضان أبيض",
+      "nameAr": "فانوس رمضان أبيض",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "286.00",
+      "compareAtPrice": "329.00",
+      "imageUrl": "product-images/فانوس-رمضان-أبيض.jpg",
+      "images": [
+        "product-images/فانوس-رمضان-أبيض.jpg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "89db662f-9583-4a94-9f4e-f434866b073c",
+      "name": "فانوس رمضان أسود",
+      "nameAr": "فانوس رمضان أسود",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "285.00",
+      "compareAtPrice": "357.00",
+      "imageUrl": "product-images/فانوس-رمضان-أسود.jpg",
+      "images": [
+        "product-images/فانوس-رمضان-أسود.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "41afb0c2-306a-4d46-973c-4fd12d12c6c9",
+      "name": "فانوس رمضان بني اللون",
+      "nameAr": "فانوس رمضان بني اللون",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "154.00",
+      "compareAtPrice": "228.00",
+      "imageUrl": "product-images/فانوس-رمضان-بني-اللون.jpg",
+      "images": [
+        "product-images/فانوس-رمضان-بني-اللون.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "various"
+    },
+    {
+      "id": "1bdf832b-af27-4088-a32c-7f1b821981a4",
+      "name": "فانوس رمضان رمضان مبارك",
+      "nameAr": "فانوس رمضان رمضان مبارك",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "107.00",
+      "compareAtPrice": "171.00",
+      "imageUrl": "product-images/فانوس-رمضان-رمضان-مبارك.jpg",
+      "images": [
+        "product-images/فانوس-رمضان-رمضان-مبارك.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "e9a786ba-7b83-4f3c-b44f-b2371504a2c9",
+      "name": "فوهة دوارة مع فلتر للصنبور المنزلي",
+      "nameAr": "فوهة دوارة مع فلتر للصنبور المنزلي",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "241.00",
+      "compareAtPrice": "279.00",
+      "imageUrl": "product-images/فوهة-دوارة-مع-فلتر-للصنبور-المنزلي.png",
+      "images": [
+        "product-images/فوهة-دوارة-مع-فلتر-للصنبور-المنزلي.png"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.3",
+      "categoryId": "home"
+    },
+    {
+      "id": "97e82bf1-7f35-4dc4-8088-81d34c323285",
+      "name": "فيتامينات ب متعددة",
+      "nameAr": "فيتامينات ب متعددة",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "272.00",
+      "compareAtPrice": "360.00",
+      "imageUrl": "product-images/فيتامينات-ب-متعددة.png",
+      "images": [
+        "product-images/فيتامينات-ب-متعددة.png"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.9",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "e4d428d8-0dba-4947-acb1-8477d9a8e727",
+      "name": "فيتامينات متعددة فائقة الفعالية للرجال والنساء",
+      "nameAr": "فيتامينات متعددة فائقة الفعالية للرجال والنساء",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "131.00",
+      "compareAtPrice": "162.00",
+      "imageUrl": "product-images/فيتامينات-متعددة-فائقة-الفعالية-للرجال-والنساء.jpg",
+      "images": [
+        "product-images/فيتامينات-متعددة-فائقة-الفعالية-للرجال-والنساء.jpg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "34250a5a-06c1-4bc7-b260-9c49ffe2d2e9",
+      "name": "قالب يدوي لتغليف الزلابية",
+      "nameAr": "قالب يدوي لتغليف الزلابية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "226.00",
+      "compareAtPrice": "305.00",
+      "imageUrl": "product-images/قالب-يدوي-لتغليف-الزلابية.png",
+      "images": [
+        "product-images/قالب-يدوي-لتغليف-الزلابية.png"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "f6014df1-c208-4e0c-a52e-6fd5cf70abf3",
+      "name": "قصة عود 100 مل",
+      "nameAr": "قصة عود 100 مل",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "158.00",
+      "compareAtPrice": "241.00",
+      "imageUrl": "product-images/قصة-عود-100-مل.jpg",
+      "images": [
+        "product-images/قصة-عود-100-مل.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "6e3cc9b8-839b-438c-a7d0-8adf0cba65c8",
+      "name": "قطاعة خضراوات متعددة الوظائف 9 في 1 مع سلة تصفية",
+      "nameAr": "قطاعة خضراوات متعددة الوظائف 9 في 1 مع سلة تصفية",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "79.00",
+      "compareAtPrice": "133.00",
+      "imageUrl": "product-images/قطاعة-خضراوات-متعددة-الوظائف-9-في-1-مع-سلة-تصفية.jpeg",
+      "images": [
+        "product-images/قطاعة-خضراوات-متعددة-الوظائف-9-في-1-مع-سلة-تصفية.jpeg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "home"
+    },
+    {
+      "id": "098d8e47-656a-468b-a3b7-4e020183096a",
+      "name": "قطاعة خضروات 14 في 1",
+      "nameAr": "قطاعة خضروات 14 في 1",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "68.00",
+      "compareAtPrice": "131.00",
+      "imageUrl": "product-images/قطاعة-خضروات-14-في-1.jpg",
+      "images": [
+        "product-images/قطاعة-خضروات-14-في-1.jpg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "home"
+    },
+    {
+      "id": "888df175-4654-4b72-a742-8a7308f2427f",
+      "name": "قطاعة خضروات كهربائية",
+      "nameAr": "قطاعة خضروات كهربائية",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "211.00",
+      "compareAtPrice": "248.00",
+      "imageUrl": "product-images/قطاعة-خضروات-كهربائية.jpg",
+      "images": [
+        "product-images/قطاعة-خضروات-كهربائية.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.9",
+      "categoryId": "home"
+    },
+    {
+      "id": "5e347082-f316-4885-a15f-2ee496136654",
+      "name": "قطاعة خضروات يدوية متعددة الوظائف 4 في 1",
+      "nameAr": "قطاعة خضروات يدوية متعددة الوظائف 4 في 1",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "291.00",
+      "compareAtPrice": "364.00",
+      "imageUrl": "product-images/قطاعة-خضروات-يدوية-متعددة-الوظائف-4-في-1.jpg",
+      "images": [
+        "product-images/قطاعة-خضروات-يدوية-متعددة-الوظائف-4-في-1.jpg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "home"
+    },
+    {
+      "id": "1d4ad568-36dd-4558-a50d-525626ce8583",
+      "name": "قطاعة ماندولين آمنة لتقطيع الخضراوات",
+      "nameAr": "قطاعة ماندولين آمنة لتقطيع الخضراوات",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "107.00",
+      "compareAtPrice": "150.00",
+      "imageUrl": "product-images/قطاعة-ماندولين-آمنة-لتقطيع-الخضراوات.jpg",
+      "images": [
+        "product-images/قطاعة-ماندولين-آمنة-لتقطيع-الخضراوات.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "home"
+    },
+    {
+      "id": "f3579e8a-f06f-4d9e-a31b-002628de57b9",
+      "name": "قطرات مزيل العرق الفموية",
+      "nameAr": "قطرات مزيل العرق الفموية",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "151.00",
+      "compareAtPrice": "179.00",
+      "imageUrl": "product-images/قطرات-مزيل-العرق-الفموية.jpg",
+      "images": [
+        "product-images/قطرات-مزيل-العرق-الفموية.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "acc75841-b1c3-44c5-89ea-1c36f0e6bdb7",
+      "name": "قطعة واحدة من دعامة الكوع المرنة",
+      "nameAr": "قطعة واحدة من دعامة الكوع المرنة",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "265.00",
+      "compareAtPrice": "328.00",
+      "imageUrl": "product-images/قطعة-واحدة-من-دعامة-الكوع-المرنة.png",
+      "images": [
+        "product-images/قطعة-واحدة-من-دعامة-الكوع-المرنة.png"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "various"
+    },
+    {
+      "id": "db647822-2931-49e4-a538-3f26805563bc",
+      "name": "قطعة واحدة من واقيات الركبة غير القابلة للانزلاق",
+      "nameAr": "قطعة واحدة من واقيات الركبة غير القابلة للانزلاق",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "134.00",
+      "compareAtPrice": "196.00",
+      "imageUrl": "product-images/قطعة-واحدة-من-واقيات-الركبة-غير-القابلة-للانزلاق.jpg",
+      "images": [
+        "product-images/قطعة-واحدة-من-واقيات-الركبة-غير-القابلة-للانزلاق.jpg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "personal"
+    },
+    {
+      "id": "1e86edf6-c2fe-4a94-a149-1f23b709e620",
+      "name": "قلم إزالة الثآليل ذو الرأسين",
+      "nameAr": "قلم إزالة الثآليل ذو الرأسين",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "237.00",
+      "compareAtPrice": "270.00",
+      "imageUrl": "product-images/قلم-إزالة-الثآليل-ذو-الرأسين.jpg",
+      "images": [
+        "product-images/قلم-إزالة-الثآليل-ذو-الرأسين.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "02826a8f-a6ce-48bc-8bd9-0da9f0f26ce4",
+      "name": "قلم تعبئة اللحية",
+      "nameAr": "قلم تعبئة اللحية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "156.00",
+      "compareAtPrice": "239.00",
+      "imageUrl": "product-images/قلم-تعبئة-اللحية.jpg",
+      "images": [
+        "product-images/قلم-تعبئة-اللحية.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "various"
+    },
+    {
+      "id": "ecda5388-5682-47c4-9531-b79400311e73",
+      "name": "قلم تعبئة فراغات",
+      "nameAr": "قلم تعبئة فراغات",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "223.00",
+      "compareAtPrice": "255.00",
+      "imageUrl": "product-images/قلم-تعبئة-فراغات.jpeg",
+      "images": [
+        "product-images/قلم-تعبئة-فراغات.jpeg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "various"
+    },
+    {
+      "id": "91c1539c-9038-4445-874c-809a8a75af73",
+      "name": "قلم لتبييض الاسنان",
+      "nameAr": "قلم لتبييض الاسنان",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "265.00",
+      "compareAtPrice": "328.00",
+      "imageUrl": "product-images/قلم-لتبييض-الاسنان.jpg",
+      "images": [
+        "product-images/قلم-لتبييض-الاسنان.jpg"
+      ],
+      "stock": 8,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "448b79ca-64d0-4e95-8ce3-4608178ece2e",
+      "name": "قناع الشعر بالكولاجين لإصلاح الشعر بخلاصة الماكا",
+      "nameAr": "قناع الشعر بالكولاجين لإصلاح الشعر بخلاصة الماكا",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "315.00",
+      "compareAtPrice": "340.00",
+      "imageUrl": "product-images/قناع-الشعر-بالكولاجين-لإصلاح-الشعر-بخلاصة-الماكا.png",
+      "images": [
+        "product-images/قناع-الشعر-بالكولاجين-لإصلاح-الشعر-بخلاصة-الماكا.png"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "954a320f-6b50-445b-a00e-394506062753",
+      "name": "قناع الوجه المقشر والمنعم بالأعشاب",
+      "nameAr": "قناع الوجه المقشر والمنعم بالأعشاب",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "318.00",
+      "compareAtPrice": "406.00",
+      "imageUrl": "product-images/قناع-الوجه-المقشر-والمنعم-بالأعشاب.jpg",
+      "images": [
+        "product-images/قناع-الوجه-المقشر-والمنعم-بالأعشاب.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "fc5a79b5-f188-4759-b55c-98b255a12909",
+      "name": "قناع تقشير القدمين",
+      "nameAr": "قناع تقشير القدمين",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "121.00",
+      "compareAtPrice": "181.00",
+      "imageUrl": "product-images/قناع-تقشير-القدمين.jpg",
+      "images": [
+        "product-images/قناع-تقشير-القدمين.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "personal"
+    },
+    {
+      "id": "66eaf255-ef94-4150-805d-79c6322a9658",
+      "name": "قهوة خضراء 1000 ملغ",
+      "nameAr": "قهوة خضراء 1000 ملغ",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "54.00",
+      "compareAtPrice": "82.00",
+      "imageUrl": "product-images/قهوة-خضراء-1000-ملغ.png",
+      "images": [
+        "product-images/قهوة-خضراء-1000-ملغ.png"
+      ],
+      "stock": 21,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "7cec81df-3c41-40e0-98dd-f81eda9cb15a",
+      "name": "قولون للتطهير",
+      "nameAr": "قولون للتطهير",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "177.00",
+      "compareAtPrice": "221.00",
+      "imageUrl": "product-images/قولون-للتطهير.png",
+      "images": [
+        "product-images/قولون-للتطهير.png"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "ae418373-843d-4b29-b8ca-263b6d384041",
+      "name": "كاميرا بانوراما واي فاي",
+      "nameAr": "كاميرا بانوراما واي فاي",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "216.00",
+      "compareAtPrice": "293.00",
+      "imageUrl": "product-images/كاميرا-بانوراما-واي-فاي.jpg",
+      "images": [
+        "product-images/كاميرا-بانوراما-واي-فاي.jpg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.5",
+      "categoryId": "smart"
+    },
+    {
+      "id": "c060ac38-49d8-4879-86bc-81668179fa9e",
+      "name": "كرسي الصلاة",
+      "nameAr": "كرسي الصلاة",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "241.00",
+      "compareAtPrice": "276.00",
+      "imageUrl": "product-images/كرسي-الصلاة.jpg",
+      "images": [
+        "product-images/كرسي-الصلاة.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.3",
+      "categoryId": "various"
+    },
+    {
+      "id": "ee633156-dde5-4a00-83ea-0d717a44f06f",
+      "name": "كريم أساس للبشرة ذات اللون الدافئ",
+      "nameAr": "كريم أساس للبشرة ذات اللون الدافئ",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "215.00",
+      "compareAtPrice": "236.00",
+      "imageUrl": "product-images/كريم-أساس-للبشرة-ذات-اللون-الدافئ.jpg",
+      "images": [
+        "product-images/كريم-أساس-للبشرة-ذات-اللون-الدافئ.jpg"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "a6297bb7-956d-4b15-b32e-60085374e6c5",
+      "name": "كريم أكريتين المضاد لحب الشباب والبقع",
+      "nameAr": "كريم أكريتين المضاد لحب الشباب والبقع",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "161.00",
+      "compareAtPrice": "232.00",
+      "imageUrl": "product-images/كريم-أكريتين-المضاد-لحب-الشباب-والبقع.jpg",
+      "images": [
+        "product-images/كريم-أكريتين-المضاد-لحب-الشباب-والبقع.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "03db59cd-064b-4fcb-af3e-f78de753e2a3",
+      "name": "كريم البروستاتا",
+      "nameAr": "كريم البروستاتا",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "60.00",
+      "compareAtPrice": "101.00",
+      "imageUrl": "product-images/كريم-البروستاتا.jpg",
+      "images": [
+        "product-images/كريم-البروستاتا.jpg"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "4bfc8498-c0ef-4bfb-b59d-e24f69786d46",
+      "name": "كريم التهاب الجلد والحكة والصدفية",
+      "nameAr": "كريم التهاب الجلد والحكة والصدفية",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "230.00",
+      "compareAtPrice": "285.00",
+      "imageUrl": "product-images/كريم-التهاب-الجلد-والحكة-والصدفية.png",
+      "images": [
+        "product-images/كريم-التهاب-الجلد-والحكة-والصدفية.png"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "92604876-4513-417b-802a-a7e553bc8a1f",
+      "name": "كريم العيون ريتينول ببتيد سم الثعبان",
+      "nameAr": "كريم العيون ريتينول ببتيد سم الثعبان",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "216.00",
+      "compareAtPrice": "260.00",
+      "imageUrl": "product-images/كريم-العيون-ريتينول-ببتيد-سم-الثعبان.jpg",
+      "images": [
+        "product-images/كريم-العيون-ريتينول-ببتيد-سم-الثعبان.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "a753f335-c6f1-4e53-9e8e-8c9b4cc85141",
+      "name": "كريم الوجه بالكولاجين والذهب الخالص عيار 24",
+      "nameAr": "كريم الوجه بالكولاجين والذهب الخالص عيار 24",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "86.00",
+      "compareAtPrice": "146.00",
+      "imageUrl": "product-images/كريم-الوجه-بالكولاجين-والذهب-الخالص-عيار-24.jpg",
+      "images": [
+        "product-images/كريم-الوجه-بالكولاجين-والذهب-الخالص-عيار-24.jpg"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "3bbd0efb-2a9b-4c68-ade8-a372d5e0a137",
+      "name": "كريم تبييض الإبط بالحليب",
+      "nameAr": "كريم تبييض الإبط بالحليب",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "57.00",
+      "compareAtPrice": "113.00",
+      "imageUrl": "product-images/كريم-تبييض-الإبط-بالحليب.jpg",
+      "images": [
+        "product-images/كريم-تبييض-الإبط-بالحليب.jpg"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "ed63f699-8f75-46f1-b0ad-ca811ee9a427",
+      "name": "كريم تبييض بالبابايا",
+      "nameAr": "كريم تبييض بالبابايا",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "47.00",
+      "compareAtPrice": "122.00",
+      "imageUrl": "product-images/كريم-تبييض-بالبابايا.png",
+      "images": [
+        "product-images/كريم-تبييض-بالبابايا.png"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "38ee04db-dfa5-447c-9812-e40e9089fe28",
+      "name": "كريم تنعيم العين",
+      "nameAr": "كريم تنعيم العين",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "250.00",
+      "compareAtPrice": "295.00",
+      "imageUrl": "product-images/كريم-تنعيم-العين.jpg",
+      "images": [
+        "product-images/كريم-تنعيم-العين.jpg"
+      ],
+      "stock": 10,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "87bbbdcc-632b-46aa-84b4-88ffa7d7645b",
+      "name": "كريم حساسيه",
+      "nameAr": "كريم حساسيه",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "131.00",
+      "compareAtPrice": "181.00",
+      "imageUrl": "product-images/كريم-حساسيه.jpg",
+      "images": [
+        "product-images/كريم-حساسيه.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "a3b1f24e-0d0d-4527-88c1-2d9297eb1cf5",
+      "name": "كريم سم النحل للمفاصل",
+      "nameAr": "كريم سم النحل للمفاصل",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "97.00",
+      "compareAtPrice": "151.00",
+      "imageUrl": "product-images/كريم-سم-النحل-للمفاصل.jpg",
+      "images": [
+        "product-images/كريم-سم-النحل-للمفاصل.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "267d030e-9172-4601-9e2f-262563de6bef",
+      "name": "كريم سم النحل",
+      "nameAr": "كريم سم النحل",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "116.00",
+      "compareAtPrice": "151.00",
+      "imageUrl": "product-images/كريم-سم-النحل.jpg",
+      "images": [
+        "product-images/كريم-سم-النحل.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "8882daad-a520-401b-9e75-51443db24d16",
+      "name": "كريم سيليماكس ريتينول",
+      "nameAr": "كريم سيليماكس ريتينول",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "280.00",
+      "compareAtPrice": "344.00",
+      "imageUrl": "product-images/كريم-سيليماكس-ريتينول.png",
+      "images": [
+        "product-images/كريم-سيليماكس-ريتينول.png"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "cab8fc90-5b6d-4f4f-b920-7fa21caec572",
+      "name": "كريم لتفتيح البشرة",
+      "nameAr": "كريم لتفتيح البشرة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "195.00",
+      "compareAtPrice": "272.00",
+      "imageUrl": "product-images/كريم-لتفتيح-البشرة.jpg",
+      "images": [
+        "product-images/كريم-لتفتيح-البشرة.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "db979428-4c29-4c4c-a8b6-57ab3c39856f",
+      "name": "كريم للبشرة لعلاج الصدفية والتهاب الجلد والأكزيما",
+      "nameAr": "كريم للبشرة لعلاج الصدفية والتهاب الجلد والأكزيما",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "287.00",
+      "compareAtPrice": "353.00",
+      "imageUrl": "product-images/كريم-للبشرة-لعلاج-الصدفية-والتهاب-الجلد-والأكزيما.jpg",
+      "images": [
+        "product-images/كريم-للبشرة-لعلاج-الصدفية-والتهاب-الجلد-والأكزيما.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "185452f7-aeb9-413b-81f6-2e1b86861e90",
+      "name": "كريم لليدين برائحة الفواكه ومضاد للتشقق",
+      "nameAr": "كريم لليدين برائحة الفواكه ومضاد للتشقق",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "115.00",
+      "compareAtPrice": "179.00",
+      "imageUrl": "product-images/كريم-لليدين-برائحة-الفواكه-ومضاد-للتشقق.png",
+      "images": [
+        "product-images/كريم-لليدين-برائحة-الفواكه-ومضاد-للتشقق.png"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "1e30fd9e-ec7a-4dfa-be1c-8c1867a5bddc",
+      "name": "كريم معالج الشيخوخة",
+      "nameAr": "كريم معالج الشيخوخة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "243.00",
+      "compareAtPrice": "318.00",
+      "imageUrl": "product-images/كريم-معالج-الشيخوخة.jpg",
+      "images": [
+        "product-images/كريم-معالج-الشيخوخة.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "6a6c7891-1232-41ef-925f-84d5686bfa10",
+      "name": "كريم هاي كوين لتفتيح البشرة 4 30 غرام",
+      "nameAr": "كريم هاي كوين لتفتيح البشرة 4 30 غرام",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "201.00",
+      "compareAtPrice": "241.00",
+      "imageUrl": "product-images/كريم-هاي-كوين-لتفتيح-البشرة-4-30-غرام.jpg",
+      "images": [
+        "product-images/كريم-هاي-كوين-لتفتيح-البشرة-4-30-غرام.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "1be40d59-8c7a-4a20-b318-80a88e14d3b3",
+      "name": "كريم يفتح المناطق الداكنة",
+      "nameAr": "كريم يفتح المناطق الداكنة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "266.00",
+      "compareAtPrice": "329.00",
+      "imageUrl": "product-images/كريم-يفتح-المناطق-الداكنة.jpg",
+      "images": [
+        "product-images/كريم-يفتح-المناطق-الداكنة.jpg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "465c72ca-59b8-4ba4-96d8-98e88026c73e",
+      "name": "كريمة ثآليل",
+      "nameAr": "كريمة ثآليل",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "72.00",
+      "compareAtPrice": "156.00",
+      "imageUrl": "product-images/كريمة-wart.jpg",
+      "images": [
+        "product-images/كريمة-wart.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "0b607e8b-fdef-42c2-8a4b-49fa07f8b232",
+      "name": "كشاف شمسي مع جهاز تحكم عن بعد وكاشف حركة للاستخدام الخارجي",
+      "nameAr": "كشاف شمسي مع جهاز تحكم عن بعد وكاشف حركة للاستخدام الخارجي",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "180.00",
+      "compareAtPrice": "267.00",
+      "imageUrl": "product-images/كشاف-شمسي-مع-جهاز-تحكم-عن-بعد-وكاشف-حركة-للاستخدام-الخارجي.jpg",
+      "images": [
+        "product-images/كشاف-شمسي-مع-جهاز-تحكم-عن-بعد-وكاشف-حركة-للاستخدام-الخارجي.jpg"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "smart"
+    },
+    {
+      "id": "f95acea8-65ef-498d-80e8-ab5b1b81670f",
+      "name": "كم الركبة الضاغط",
+      "nameAr": "كم الركبة الضاغط",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "193.00",
+      "compareAtPrice": "214.00",
+      "imageUrl": "product-images/كم-الركبة-الضاغط.jpg",
+      "images": [
+        "product-images/كم-الركبة-الضاغط.jpg"
+      ],
+      "stock": 8,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "personal"
+    },
+    {
+      "id": "92a25414-71be-46fd-a115-4868942c708f",
+      "name": "كوب قهوة بغطاء",
+      "nameAr": "كوب قهوة بغطاء",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "218.00",
+      "compareAtPrice": "278.00",
+      "imageUrl": "product-images/كوب-قهوة-بغطاء.jpg",
+      "images": [
+        "product-images/كوب-قهوة-بغطاء.jpg"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.7",
+      "categoryId": "home"
+    },
+    {
+      "id": "0cd17ad0-d66a-452c-b667-5d6508074afa",
+      "name": "كوول لغسل المناطق الحميمية",
+      "nameAr": "كوول لغسل المناطق الحميمية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "114.00",
+      "compareAtPrice": "184.00",
+      "imageUrl": "product-images/كوول-لغسل-المناطق-الحميمية.jpg",
+      "images": [
+        "product-images/كوول-لغسل-المناطق-الحميمية.jpg"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "c5b57613-f8b3-4615-9634-85ab4145f87e",
+      "name": "كيتو للرجال لإنقاص الوزن",
+      "nameAr": "كيتو للرجال لإنقاص الوزن",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "113.00",
+      "compareAtPrice": "143.00",
+      "imageUrl": "product-images/كيتو-للرجال-لإنقاص-الوزن.jpg",
+      "images": [
+        "product-images/كيتو-للرجال-لإنقاص-الوزن.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "6d94a07e-5b1d-4d80-b524-84282445b565",
+      "name": "كيتو للنساء لإنقاص الوزن",
+      "nameAr": "كيتو للنساء لإنقاص الوزن",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "137.00",
+      "compareAtPrice": "211.00",
+      "imageUrl": "product-images/كيتو-للنساء-لإنقاص-الوزن.jpg",
+      "images": [
+        "product-images/كيتو-للنساء-لإنقاص-الوزن.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "de9e4d52-079e-48e3-84c4-7d26498757ca",
+      "name": "كيليكسو حامل غسالة ملابس",
+      "nameAr": "كيليكسو حامل غسالة ملابس",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "253.00",
+      "compareAtPrice": "340.00",
+      "imageUrl": "product-images/كيليكسو-حامل-غسالة-ملابس.jpg",
+      "images": [
+        "product-images/كيليكسو-حامل-غسالة-ملابس.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "home"
+    },
+    {
+      "id": "5e962034-02c7-4cdc-ad77-8cc22e635f32",
+      "name": "لاصقات تنحيف البطن",
+      "nameAr": "لاصقات تنحيف البطن",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "197.00",
+      "compareAtPrice": "218.00",
+      "imageUrl": "product-images/لاصقات-تنحيف-البطن.jpg",
+      "images": [
+        "product-images/لاصقات-تنحيف-البطن.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.3",
+      "categoryId": "personal"
+    },
+    {
+      "id": "a2077686-69d8-4d35-a753-e51b8630b2c1",
+      "name": "لاصقات سم النحل",
+      "nameAr": "لاصقات سم النحل",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "103.00",
+      "compareAtPrice": "188.00",
+      "imageUrl": "product-images/لاصقات-سم-النحل.jpeg",
+      "images": [
+        "product-images/لاصقات-سم-النحل.jpeg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "personal"
+    },
+    {
+      "id": "d67323b7-c32c-46f8-a0e6-128a1cf893e2",
+      "name": "لاصقات لإزالة الزوائد الجلدية",
+      "nameAr": "لاصقات لإزالة الزوائد الجلدية",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "96.00",
+      "compareAtPrice": "151.00",
+      "imageUrl": "product-images/لاصقات-لإزالة-الزوائد-الجلدية.jpg",
+      "images": [
+        "product-images/لاصقات-لإزالة-الزوائد-الجلدية.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "1da5eb74-6e6e-4e65-b37c-4fc8cd9812da",
+      "name": "لعبة طائرة مقاتلة يتم التحكم فيها عن بعد",
+      "nameAr": "لعبة طائرة مقاتلة يتم التحكم فيها عن بعد",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "257.00",
+      "compareAtPrice": "312.00",
+      "imageUrl": "product-images/لعبة-طائرة-مقاتلة-يتم-التحكم-فيها-عن-بعد.png",
+      "images": [
+        "product-images/لعبة-طائرة-مقاتلة-يتم-التحكم-فيها-عن-بعد.png"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "kids"
+    },
+    {
+      "id": "3bccc4c8-1273-427b-89b6-249a97d5e3fa",
+      "name": "لوحة لوحة للكتابة والرسم",
+      "nameAr": "لوحة لوحة للكتابة والرسم",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "151.00",
+      "compareAtPrice": "212.00",
+      "imageUrl": "product-images/لوحة-lcd-للكتابة-والرسم.jpg",
+      "images": [
+        "product-images/لوحة-lcd-للكتابة-والرسم.jpg"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "kids"
+    },
+    {
+      "id": "a75e862a-8508-4892-b9fe-0e6e3d1dfe9f",
+      "name": "لوحة تعلم بالصوت",
+      "nameAr": "لوحة تعلم بالصوت",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "280.00",
+      "compareAtPrice": "368.00",
+      "imageUrl": "product-images/لوحة-تعلم-بالصوت.jpg",
+      "images": [
+        "product-images/لوحة-تعلم-بالصوت.jpg"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "various"
+    },
+    {
+      "id": "369fba71-6f7a-4fd9-81f9-45989ae1d8c1",
+      "name": "لوشن تبييض الجسم",
+      "nameAr": "لوشن تبييض الجسم",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "71.00",
+      "compareAtPrice": "155.00",
+      "imageUrl": "product-images/لوشن-تبييض-الجسم.jpeg",
+      "images": [
+        "product-images/لوشن-تبييض-الجسم.jpeg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.3",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "ffed808c-945a-4bab-8b54-dfcec12b7c46",
+      "name": "ماسكارا المقاومة للماء منتج",
+      "nameAr": "ماسكارا المقاومة للماء منتج",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "106.00",
+      "compareAtPrice": "176.00",
+      "imageUrl": "product-images/ماسكارا-المقاومة-للماء-sheglam.jpg",
+      "images": [
+        "product-images/ماسكارا-المقاومة-للماء-sheglam.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.3",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "aa13fd86-22e5-4988-8230-d5436d8420d8",
+      "name": "ماسكارا مقاومة للماء",
+      "nameAr": "ماسكارا مقاومة للماء",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "133.00",
+      "compareAtPrice": "179.00",
+      "imageUrl": "product-images/ماسكارا-مقاومة-للماء.jpeg",
+      "images": [
+        "product-images/ماسكارا-مقاومة-للماء.jpeg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "e5a10ced-faf2-4d1f-81ff-e6566f343157",
+      "name": "ماكينة حلاقة الشعر اللاسلكية كيمي 666 للرجال",
+      "nameAr": "ماكينة حلاقة الشعر اللاسلكية كيمي 666 للرجال",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "274.00",
+      "compareAtPrice": "353.00",
+      "imageUrl": "product-images/ماكينة-حلاقة-الشعر-اللاسلكية-kemei-666-للرجال.jpg",
+      "images": [
+        "product-images/ماكينة-حلاقة-الشعر-اللاسلكية-kemei-666-للرجال.jpg"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "cce2690b-5ffb-4d22-b535-7d56c0a74ef0",
+      "name": "ماكينة حلاقة كهربائية جديدة من كيمي 4 في 1",
+      "nameAr": "ماكينة حلاقة كهربائية جديدة من كيمي 4 في 1",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "110.00",
+      "compareAtPrice": "179.00",
+      "imageUrl": "product-images/ماكينة-حلاقة-كهربائية-جديدة-من-كيمي-4-في-1.jpg",
+      "images": [
+        "product-images/ماكينة-حلاقة-كهربائية-جديدة-من-كيمي-4-في-1.jpg"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "39c1f60c-6f31-46eb-8b24-6e8d6a352e1f",
+      "name": "ماكينة حلاقة كهربائية لاسلكية قابلة للشحن عبر يو اس بي",
+      "nameAr": "ماكينة حلاقة كهربائية لاسلكية قابلة للشحن عبر يو اس بي",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "312.00",
+      "compareAtPrice": "381.00",
+      "imageUrl": "product-images/ماكينة-حلاقة-كهربائية-لاسلكية-قابلة-للشحن-عبر-usb.jpg",
+      "images": [
+        "product-images/ماكينة-حلاقة-كهربائية-لاسلكية-قابلة-للشحن-عبر-usb.jpg"
+      ],
+      "stock": 8,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "smart"
+    },
+    {
+      "id": "34e05567-a298-4095-bb5c-f0fdcb7e6e0c",
+      "name": "ماكينة حلاقة كهربائية لاسلكية للنساء",
+      "nameAr": "ماكينة حلاقة كهربائية لاسلكية للنساء",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "111.00",
+      "compareAtPrice": "172.00",
+      "imageUrl": "product-images/ماكينة-حلاقة-كهربائية-لاسلكية-للنساء.jpeg",
+      "images": [
+        "product-images/ماكينة-حلاقة-كهربائية-لاسلكية-للنساء.jpeg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "smart"
+    },
+    {
+      "id": "d0fabf60-af02-4d34-bbec-821ca2c9cfe0",
+      "name": "مانع تسرب الهواء والغبار أسفل الباب",
+      "nameAr": "مانع تسرب الهواء والغبار أسفل الباب",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "119.00",
+      "compareAtPrice": "169.00",
+      "imageUrl": "product-images/مانع-تسرب-الهواء-والغبار-أسفل-الباب.jpg",
+      "images": [
+        "product-images/مانع-تسرب-الهواء-والغبار-أسفل-الباب.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "various"
+    },
+    {
+      "id": "8ec79352-9d87-4434-8b59-b73f2ace8b6e",
+      "name": "مجفف الأحذية الكهربائي",
+      "nameAr": "مجفف الأحذية الكهربائي",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "57.00",
+      "compareAtPrice": "108.00",
+      "imageUrl": "product-images/مجفف-الأحذية-الكهربائي.jpg",
+      "images": [
+        "product-images/مجفف-الأحذية-الكهربائي.jpg"
+      ],
+      "stock": 10,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "01fa6695-bbd5-4f01-8ead-dd9cf1b9f779",
+      "name": "مجموعة أدوات العناية بالجسم من ماكينة حلاقة الظهر",
+      "nameAr": "مجموعة أدوات العناية بالجسم من ماكينة حلاقة الظهر",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "323.00",
+      "compareAtPrice": "391.00",
+      "imageUrl": "product-images/مجموعة-أدوات-العناية-بالجسم-من-ماكينة-حلاقة-الظهر.png",
+      "images": [
+        "product-images/مجموعة-أدوات-العناية-بالجسم-من-ماكينة-حلاقة-الظهر.png"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "personal"
+    },
+    {
+      "id": "af774a47-8ac1-4c23-9c0d-5f76fcbb7bd9",
+      "name": "مجموعة أدوات تنظيف الممسحة والدلو",
+      "nameAr": "مجموعة أدوات تنظيف الممسحة والدلو",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "320.00",
+      "compareAtPrice": "396.00",
+      "imageUrl": "product-images/مجموعة-أدوات-تنظيف-الممسحة-والدلو.jpg",
+      "images": [
+        "product-images/مجموعة-أدوات-تنظيف-الممسحة-والدلو.jpg"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "home"
+    },
+    {
+      "id": "7fdaa583-5882-4791-8bcc-85f632b98dac",
+      "name": "مجموعة احماض دهنية",
+      "nameAr": "مجموعة احماض دهنية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "154.00",
+      "compareAtPrice": "227.00",
+      "imageUrl": "product-images/مجموعة-احماض-دهنية.png",
+      "images": [
+        "product-images/مجموعة-احماض-دهنية.png"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "fa59ba3e-852b-44b4-a226-460e5bae386b",
+      "name": "مجموعة الرسم والتلوين مع جهاز عرض",
+      "nameAr": "مجموعة الرسم والتلوين مع جهاز عرض",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "190.00",
+      "compareAtPrice": "253.00",
+      "imageUrl": "product-images/مجموعة-الرسم-والتلوين-مع-جهاز-عرض.jpg",
+      "images": [
+        "product-images/مجموعة-الرسم-والتلوين-مع-جهاز-عرض.jpg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "kids"
+    },
+    {
+      "id": "d41b41ba-5998-4137-a3ca-8ed8cfa67c91",
+      "name": "مجموعة العناية الكاملة بأظافر الأطفال",
+      "nameAr": "مجموعة العناية الكاملة بأظافر الأطفال",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "246.00",
+      "compareAtPrice": "282.00",
+      "imageUrl": "product-images/مجموعة-العناية-الكاملة-بأظافر-الأطفال.jpg",
+      "images": [
+        "product-images/مجموعة-العناية-الكاملة-بأظافر-الأطفال.jpg"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "kids"
+    },
+    {
+      "id": "2712ef7a-cf3d-43aa-bb11-e57074961b4c",
+      "name": "مجموعة تلميع مانيكير",
+      "nameAr": "مجموعة تلميع مانيكير",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "151.00",
+      "compareAtPrice": "202.00",
+      "imageUrl": "product-images/مجموعة-تلميع-مانيكير.jpeg",
+      "images": [
+        "product-images/مجموعة-تلميع-مانيكير.jpeg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "various"
+    },
+    {
+      "id": "fbb6a5a3-911c-486e-a5aa-a1c09fd4ddbc",
+      "name": "مجموعة فرش تنظيف كهربائية",
+      "nameAr": "مجموعة فرش تنظيف كهربائية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "263.00",
+      "compareAtPrice": "300.00",
+      "imageUrl": "product-images/مجموعة-فرش-تنظيف-كهربائية.jpg",
+      "images": [
+        "product-images/مجموعة-فرش-تنظيف-كهربائية.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.9",
+      "categoryId": "various"
+    },
+    {
+      "id": "a9d5e3ce-cf23-4e4c-911a-d3c60c72d88e",
+      "name": "مجموعة ملاكمة للأطفال",
+      "nameAr": "مجموعة ملاكمة للأطفال",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "117.00",
+      "compareAtPrice": "160.00",
+      "imageUrl": "product-images/مجموعة-ملاكمة-للأطفال.jpg",
+      "images": [
+        "product-images/مجموعة-ملاكمة-للأطفال.jpg"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.4",
+      "categoryId": "kids"
+    },
+    {
+      "id": "4923b1e2-ff2c-448a-a51b-0808723c73ae",
+      "name": "مدفأة زجاجات الأطفال المحمولة",
+      "nameAr": "مدفأة زجاجات الأطفال المحمولة",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "167.00",
+      "compareAtPrice": "238.00",
+      "imageUrl": "product-images/مدفأة-زجاجات-الأطفال-المحمولة.jpg",
+      "images": [
+        "product-images/مدفأة-زجاجات-الأطفال-المحمولة.jpg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "kids"
+    },
+    {
+      "id": "a10792aa-c742-46a2-872f-d3236dde2ee2",
+      "name": "مدلك للوجه مصنوع من الكوارتز الوردي",
+      "nameAr": "مدلك للوجه مصنوع من الكوارتز الوردي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "185.00",
+      "compareAtPrice": "223.00",
+      "imageUrl": "product-images/مدلك-للوجه-مصنوع-من-الكوارتز-الوردي.jpg",
+      "images": [
+        "product-images/مدلك-للوجه-مصنوع-من-الكوارتز-الوردي.jpg"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "99ca6d98-9c9c-4b52-93bb-5932ba0f461c",
+      "name": "مرتبة هوائية للمقعد الخلفي",
+      "nameAr": "مرتبة هوائية للمقعد الخلفي",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "162.00",
+      "compareAtPrice": "216.00",
+      "imageUrl": "product-images/مرتبة-هوائية-للمقعد-الخلفي.jpg",
+      "images": [
+        "product-images/مرتبة-هوائية-للمقعد-الخلفي.jpg"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "9a98ee38-b000-43bb-8cbc-d2a179cebc6f",
+      "name": "مرهم سريع المفعول لتخفيف الآلام",
+      "nameAr": "مرهم سريع المفعول لتخفيف الآلام",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "255.00",
+      "compareAtPrice": "314.00",
+      "imageUrl": "product-images/مرهم-سريع-المفعول-لتخفيف-الآلام.jpg",
+      "images": [
+        "product-images/مرهم-سريع-المفعول-لتخفيف-الآلام.jpg"
+      ],
+      "stock": 10,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.5",
+      "categoryId": "personal"
+    },
+    {
+      "id": "ff648211-7906-475d-9644-335a6166520f",
+      "name": "مروحة توربو صغيرة، مروحة توربو نفاثة 5 في 1 60",
+      "nameAr": "مروحة توربو صغيرة، مروحة توربو نفاثة 5 في 1 60",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "194.00",
+      "compareAtPrice": "215.00",
+      "imageUrl": "product-images/مروحة-توربو-صغيرة،-مروحة-توربو-نفاثة-5-في-1-60.jpg",
+      "images": [
+        "product-images/مروحة-توربو-صغيرة،-مروحة-توربو-نفاثة-5-في-1-60.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.3",
+      "categoryId": "home"
+    },
+    {
+      "id": "5967620a-0d58-4ca5-b8cb-8eb3d71b739a",
+      "name": "مروحة كهربائية توربينية لاسلكية",
+      "nameAr": "مروحة كهربائية توربينية لاسلكية",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "85.00",
+      "compareAtPrice": "160.00",
+      "imageUrl": "product-images/مروحة-كهربائية-توربينية-لاسلكية.jpg",
+      "images": [
+        "product-images/مروحة-كهربائية-توربينية-لاسلكية.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "home"
+    },
+    {
+      "id": "58e93c52-6973-48f8-9993-7553b2469972",
+      "name": "مزيل الرؤوس السوداء",
+      "nameAr": "مزيل الرؤوس السوداء",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "96.00",
+      "compareAtPrice": "146.00",
+      "imageUrl": "product-images/مزيل-الرؤوس-السوداء.jpg",
+      "images": [
+        "product-images/مزيل-الرؤوس-السوداء.jpg"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "ad63d0c4-161a-4446-bdf3-fd8f30551081",
+      "name": "مزيل شعر الوجه المثالي",
+      "nameAr": "مزيل شعر الوجه المثالي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "321.00",
+      "compareAtPrice": "366.00",
+      "imageUrl": "product-images/مزيل-شعر-الوجه-المثالي.jpg",
+      "images": [
+        "product-images/مزيل-شعر-الوجه-المثالي.jpg"
+      ],
+      "stock": 19,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "d5e0d869-d648-423a-ab7f-a2b81bace76e",
+      "name": "مستخلص سائل من جذر عرق السوس",
+      "nameAr": "مستخلص سائل من جذر عرق السوس",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "76.00",
+      "compareAtPrice": "132.00",
+      "imageUrl": "product-images/مستخلص-سائل-من-جذر-عرق-السوس.jpg",
+      "images": [
+        "product-images/مستخلص-سائل-من-جذر-عرق-السوس.jpg"
+      ],
+      "stock": 21,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "d61277d0-902a-45c3-ade1-65e2edf3b628",
+      "name": "مسحوق شاي الماكا",
+      "nameAr": "مسحوق شاي الماكا",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "127.00",
+      "compareAtPrice": "191.00",
+      "imageUrl": "product-images/مسحوق-شاي-الماكا.jpg",
+      "images": [
+        "product-images/مسحوق-شاي-الماكا.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "9c2dfe3f-cf3f-423b-8b7d-10cdd7f36e32",
+      "name": "مسدس فقاعات ببطاريات",
+      "nameAr": "مسدس فقاعات ببطاريات",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "239.00",
+      "compareAtPrice": "262.00",
+      "imageUrl": "product-images/مسدس-فقاعات-ببطاريات.jpg",
+      "images": [
+        "product-images/مسدس-فقاعات-ببطاريات.jpg"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.3",
+      "categoryId": "various"
+    },
+    {
+      "id": "50de158f-c9ca-4a7a-8d53-20f5dce42f90",
+      "name": "مشط تجعيد الشعر اللاسلكي ومشط فرد الشعر اللاسلكي",
+      "nameAr": "مشط تجعيد الشعر اللاسلكي ومشط فرد الشعر اللاسلكي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "161.00",
+      "compareAtPrice": "227.00",
+      "imageUrl": "product-images/مشط-تجعيد-الشعر-اللاسلكي-ومشط-فرد-الشعر-اللاسلكي.jpg",
+      "images": [
+        "product-images/مشط-تجعيد-الشعر-اللاسلكي-ومشط-فرد-الشعر-اللاسلكي.jpg"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.9",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "5851ee7c-f33d-4c49-8a64-8ac1de6ddc2e",
+      "name": "مشط وفرشاة فرد الشعر",
+      "nameAr": "مشط وفرشاة فرد الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "243.00",
+      "compareAtPrice": "324.00",
+      "imageUrl": "product-images/مشط-وفرشاة-فرد-الشعر.jpg",
+      "images": [
+        "product-images/مشط-وفرشاة-فرد-الشعر.jpg"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "fd6c5d8f-f3c3-4bf4-a902-18cef27ec7f3",
+      "name": "مصباح ليد للقرآن الكريم مع مكبر صوت",
+      "nameAr": "مصباح ليد للقرآن الكريم مع مكبر صوت",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "318.00",
+      "compareAtPrice": "346.00",
+      "imageUrl": "product-images/مصباح-led-للقرآن-الكريم-مع-مكبر-صوت.jpg",
+      "images": [
+        "product-images/مصباح-led-للقرآن-الكريم-مع-مكبر-صوت.jpg"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "710c2570-1bc6-497d-b890-07a8cd5f28ad",
+      "name": "مصباح إسقاط دوار النجوم",
+      "nameAr": "مصباح إسقاط دوار النجوم",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "154.00",
+      "compareAtPrice": "219.00",
+      "imageUrl": "product-images/مصباح-إسقاط-دوار-النجوم.jpg",
+      "images": [
+        "product-images/مصباح-إسقاط-دوار-النجوم.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.7",
+      "categoryId": "home"
+    },
+    {
+      "id": "61977816-8837-4ff6-9836-1a011558aab4",
+      "name": "مصباح متعدد الاستعمالات للمخيمين",
+      "nameAr": "مصباح متعدد الاستعمالات للمخيمين",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "46.00",
+      "compareAtPrice": "103.00",
+      "imageUrl": "product-images/مصباح-متعدد-الاستعمالات-للمخيمين.jpg",
+      "images": [
+        "product-images/مصباح-متعدد-الاستعمالات-للمخيمين.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.5",
+      "categoryId": "home"
+    },
+    {
+      "id": "918f9d17-e676-40f1-8b59-c4ef8605af0f",
+      "name": "مصباح نقال مع صندوق ادوات",
+      "nameAr": "مصباح نقال مع صندوق ادوات",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "186.00",
+      "compareAtPrice": "245.00",
+      "imageUrl": "product-images/مصباح-نقال-مع-صندوق-ادوات.jpg",
+      "images": [
+        "product-images/مصباح-نقال-مع-صندوق-ادوات.jpg"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.3",
+      "categoryId": "home"
+    },
+    {
+      "id": "f6033145-ba25-4ffa-93c4-c47a19f8f29c",
+      "name": "مصباح يدوي يعمل بالأشعة فوق البنفسجية",
+      "nameAr": "مصباح يدوي يعمل بالأشعة فوق البنفسجية",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "83.00",
+      "compareAtPrice": "133.00",
+      "imageUrl": "product-images/مصباح-يدوي-يعمل-بالأشعة-فوق-البنفسجية.jpg",
+      "images": [
+        "product-images/مصباح-يدوي-يعمل-بالأشعة-فوق-البنفسجية.jpg"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "home"
+    },
+    {
+      "id": "b32f247c-6bce-4364-be4d-625beff254de",
+      "name": "مصحح أصبع القدم الكبير",
+      "nameAr": "مصحح أصبع القدم الكبير",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "134.00",
+      "compareAtPrice": "183.00",
+      "imageUrl": "product-images/مصحح-أصبع-القدم-الكبير.jpeg",
+      "images": [
+        "product-images/مصحح-أصبع-القدم-الكبير.jpeg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "personal"
+    },
+    {
+      "id": "73dea5a3-5ea6-424a-bad0-c8e8b9e4f8f7",
+      "name": "مصحح وضعية الكتفين",
+      "nameAr": "مصحح وضعية الكتفين",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "109.00",
+      "compareAtPrice": "131.00",
+      "imageUrl": "product-images/مصحح-وضعية-الكتفين.jpg",
+      "images": [
+        "product-images/مصحح-وضعية-الكتفين.jpg"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.3",
+      "categoryId": "personal"
+    },
+    {
+      "id": "176066a5-490b-4443-8b76-e23d11e04c04",
+      "name": "مصفف شعر الرجال واللحية سهلة",
+      "nameAr": "مصفف شعر الرجال واللحية سهلة",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "92.00",
+      "compareAtPrice": "177.00",
+      "imageUrl": "product-images/مصفف-شعر-الرجال-واللحية-سهلة.jpg",
+      "images": [
+        "product-images/مصفف-شعر-الرجال-واللحية-سهلة.jpg"
+      ],
+      "stock": 28,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "7f82c929-d1d8-45e7-80b3-00af0c11a167",
+      "name": "مضخة مياه الشرب",
+      "nameAr": "مضخة مياه الشرب",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "57.00",
+      "compareAtPrice": "100.00",
+      "imageUrl": "product-images/مضخة-مياه-الشرب.jpg",
+      "images": [
+        "product-images/مضخة-مياه-الشرب.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.3",
+      "categoryId": "various"
+    },
+    {
+      "id": "4df704a1-ad40-4276-83eb-bf0d84851947",
+      "name": "مطحنة كهربائية",
+      "nameAr": "مطحنة كهربائية",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "289.00",
+      "compareAtPrice": "326.00",
+      "imageUrl": "product-images/مطحنة-كهربائية.jpg",
+      "images": [
+        "product-images/مطحنة-كهربائية.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "various"
+    },
+    {
+      "id": "dc70d4dc-f98b-42f4-83a7-406d806536a6",
+      "name": "مظلة شمسية قابلة للسحب للزجاج الأمامي",
+      "nameAr": "مظلة شمسية قابلة للسحب للزجاج الأمامي",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "86.00",
+      "compareAtPrice": "166.00",
+      "imageUrl": "product-images/مظلة-شمسية-قابلة-للسحب-للزجاج-الأمامي.jpg",
+      "images": [
+        "product-images/مظلة-شمسية-قابلة-للسحب-للزجاج-الأمامي.jpg"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "various"
+    },
+    {
+      "id": "e6a92a93-9b0f-44c4-b3e7-b5289c90db0b",
+      "name": "معجون أسنان وايت بلس",
+      "nameAr": "معجون أسنان وايت بلس",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "197.00",
+      "compareAtPrice": "235.00",
+      "imageUrl": "product-images/معجون-أسنان-وايت-بلس.png",
+      "images": [
+        "product-images/معجون-أسنان-وايت-بلس.png"
+      ],
+      "stock": 9,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "smart"
+    },
+    {
+      "id": "48f93a4f-de65-453d-bd6f-e01ad9589cd8",
+      "name": "معجون الأسنان v34",
+      "nameAr": "معجون الأسنان v34",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "315.00",
+      "compareAtPrice": "348.00",
+      "imageUrl": "product-images/معجون-الأسنان-v34.jpg",
+      "images": [
+        "product-images/معجون-الأسنان-v34.jpg"
+      ],
+      "stock": 15,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "94d82cdb-9815-4619-9fcc-5b8010659a71",
+      "name": "معدات تقوية قبضة اليد",
+      "nameAr": "معدات تقوية قبضة اليد",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "316.00",
+      "compareAtPrice": "372.00",
+      "imageUrl": "product-images/معدات-تقوية-قبضة-اليد.jpg",
+      "images": [
+        "product-images/معدات-تقوية-قبضة-اليد.jpg"
+      ],
+      "stock": 8,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "18c93897-9844-45e0-97cc-3792fc16046b",
+      "name": "معقم للقدمين بزيت شجرة الشاي",
+      "nameAr": "معقم للقدمين بزيت شجرة الشاي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "202.00",
+      "compareAtPrice": "227.00",
+      "imageUrl": "product-images/معقم-للقدمين-بزيت-شجرة-الشاي.jpg",
+      "images": [
+        "product-images/معقم-للقدمين-بزيت-شجرة-الشاي.jpg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.3",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "9d8cfef9-9e59-4118-920d-cba1c5605733",
+      "name": "مغنيزيوم",
+      "nameAr": "مغنيزيوم",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "271.00",
+      "compareAtPrice": "316.00",
+      "imageUrl": "product-images/مغنيزيوم.png",
+      "images": [
+        "product-images/مغنيزيوم.png"
+      ],
+      "stock": 7,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "8faade93-58e3-450f-bcb6-fbdd971ef30c",
+      "name": "مفتاح متعدد الوظائف",
+      "nameAr": "مفتاح متعدد الوظائف",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "63.00",
+      "compareAtPrice": "119.00",
+      "imageUrl": "product-images/مفتاح-متعدد-الوظائف.jpg",
+      "images": [
+        "product-images/مفتاح-متعدد-الوظائف.jpg"
+      ],
+      "stock": 14,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "7e8dfee4-b41b-4526-b91c-36c9083379e2",
+      "name": "مقص أظافر للأطفال والرضع",
+      "nameAr": "مقص أظافر للأطفال والرضع",
+      "description": "منتجات آمنة وممتعة للأطفال.",
+      "descriptionAr": "منتجات آمنة وممتعة للأطفال.",
+      "price": "145.00",
+      "compareAtPrice": "213.00",
+      "imageUrl": "product-images/مقص-أظافر-للأطفال-والرضع.png",
+      "images": [
+        "product-images/مقص-أظافر-للأطفال-والرضع.png"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "kids"
+    },
+    {
+      "id": "8b1abae2-ef06-4375-8f52-3851b4dc4900",
+      "name": "مكبر صوت بتصميم الكعبة العربية",
+      "nameAr": "مكبر صوت بتصميم الكعبة العربية",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "299.00",
+      "compareAtPrice": "369.00",
+      "imageUrl": "product-images/مكبر-صوت-بتصميم-الكعبة-العربية.jpg",
+      "images": [
+        "product-images/مكبر-صوت-بتصميم-الكعبة-العربية.jpg"
+      ],
+      "stock": 26,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "personal"
+    },
+    {
+      "id": "2e4e27b7-0059-470b-97f9-aad97c26754e",
+      "name": "مكبر صوت بلوتوث مزود بمصباح ليد",
+      "nameAr": "مكبر صوت بلوتوث مزود بمصباح ليد",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "282.00",
+      "compareAtPrice": "360.00",
+      "imageUrl": "product-images/مكبر-صوت-بلوتوث-مزود-بمصباح-led.jpg",
+      "images": [
+        "product-images/مكبر-صوت-بلوتوث-مزود-بمصباح-led.jpg"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "home"
+    },
+    {
+      "id": "131d8f75-52a6-4a01-b07b-b225cbff589a",
+      "name": "مكبر صوت على شكل مصباح القمر",
+      "nameAr": "مكبر صوت على شكل مصباح القمر",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "143.00",
+      "compareAtPrice": "200.00",
+      "imageUrl": "product-images/مكبر-صوت-على-شكل-مصباح-القمر.jpg",
+      "images": [
+        "product-images/مكبر-صوت-على-شكل-مصباح-القمر.jpg"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "home"
+    },
+    {
+      "id": "7609e3eb-ab44-4579-b7d0-ec448f4975e6",
+      "name": "مكبر صوت للأناشيد الإسلامية",
+      "nameAr": "مكبر صوت للأناشيد الإسلامية",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "63.00",
+      "compareAtPrice": "139.00",
+      "imageUrl": "product-images/مكبر-صوت-للأناشيد-الإسلامية.jpg",
+      "images": [
+        "product-images/مكبر-صوت-للأناشيد-الإسلامية.jpg"
+      ],
+      "stock": 11,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "smart"
+    },
+    {
+      "id": "92ab33cb-b3f8-4b6f-b9fa-5beca8ef2d3d",
+      "name": "مكبر صوت للقرآن الكريم مع ضوء ليلي وجهاز تحكم عن بعد",
+      "nameAr": "مكبر صوت للقرآن الكريم مع ضوء ليلي وجهاز تحكم عن بعد",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "96.00",
+      "compareAtPrice": "178.00",
+      "imageUrl": "product-images/مكبر-صوت-للقرآن-الكريم-مع-ضوء-ليلي-وجهاز-تحكم-عن-بعد.jpg",
+      "images": [
+        "product-images/مكبر-صوت-للقرآن-الكريم-مع-ضوء-ليلي-وجهاز-تحكم-عن-بعد.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "51ae2779-998e-4392-a721-0015b51475dd",
+      "name": "مكشطة الرؤوس السوداء",
+      "nameAr": "مكشطة الرؤوس السوداء",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "167.00",
+      "compareAtPrice": "238.00",
+      "imageUrl": "product-images/مكشطة-الرؤوس-السوداء.jpg",
+      "images": [
+        "product-images/مكشطة-الرؤوس-السوداء.jpg"
+      ],
+      "stock": 6,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "various"
+    },
+    {
+      "id": "b7619cd2-1f34-4b11-b4ef-edd039f94e44",
+      "name": "مكمل البيوتين لنمو الشعر",
+      "nameAr": "مكمل البيوتين لنمو الشعر",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "121.00",
+      "compareAtPrice": "198.00",
+      "imageUrl": "product-images/مكمل-البيوتين-لنمو-الشعر.jpg",
+      "images": [
+        "product-images/مكمل-البيوتين-لنمو-الشعر.jpg"
+      ],
+      "stock": 23,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "0162f359-e6ac-4c80-9bc2-d8f94e49f3af",
+      "name": "مكنسة شفط الغبار",
+      "nameAr": "مكنسة شفط الغبار",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "282.00",
+      "compareAtPrice": "355.00",
+      "imageUrl": "product-images/مكنسة-شفط-الغبار.jpeg",
+      "images": [
+        "product-images/مكنسة-شفط-الغبار.jpeg"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.4",
+      "categoryId": "home"
+    },
+    {
+      "id": "e76e3080-2893-4d09-b254-39b496fccfcd",
+      "name": "مكنسة كهربائية للسيارة 3 في 1",
+      "nameAr": "مكنسة كهربائية للسيارة 3 في 1",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "316.00",
+      "compareAtPrice": "384.00",
+      "imageUrl": "product-images/مكنسة-كهربائية-للسيارة-3-في-1.jpg",
+      "images": [
+        "product-images/مكنسة-كهربائية-للسيارة-3-في-1.jpg"
+      ],
+      "stock": 20,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.7",
+      "categoryId": "home"
+    },
+    {
+      "id": "d342f2f3-8f78-4cd6-8c75-0c700a0f4acb",
+      "name": "مكنسة كهربائية للسيارة والمنزل",
+      "nameAr": "مكنسة كهربائية للسيارة والمنزل",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "194.00",
+      "compareAtPrice": "266.00",
+      "imageUrl": "product-images/مكنسة-كهربائية-للسيارة-والمنزل.jpg",
+      "images": [
+        "product-images/مكنسة-كهربائية-للسيارة-والمنزل.jpg"
+      ],
+      "stock": 8,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.8",
+      "categoryId": "home"
+    },
+    {
+      "id": "635eb0a4-0d35-4f42-bfbb-dcd08bda0238",
+      "name": "مكينة ازالة الخلاية الميتة",
+      "nameAr": "مكينة ازالة الخلاية الميتة",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "198.00",
+      "compareAtPrice": "259.00",
+      "imageUrl": "product-images/مكينة-ازالة-الخلاية-الميتة.jpg",
+      "images": [
+        "product-images/مكينة-ازالة-الخلاية-الميتة.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "various"
+    },
+    {
+      "id": "b434332e-c46f-43f4-ba1f-837afa8beeed",
+      "name": "ملعقة إلكترونية ميزان",
+      "nameAr": "ملعقة إلكترونية ميزان",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "49.00",
+      "compareAtPrice": "107.00",
+      "imageUrl": "product-images/ملعقة-إلكترونية-ميزان.jpg",
+      "images": [
+        "product-images/ملعقة-إلكترونية-ميزان.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "smart"
+    },
+    {
+      "id": "fb3989c6-31f4-4f37-9ffa-e3c84c903d61",
+      "name": "ممسحات الرش لتنظيف الأرضيات",
+      "nameAr": "ممسحات الرش لتنظيف الأرضيات",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "76.00",
+      "compareAtPrice": "146.00",
+      "imageUrl": "product-images/ممسحات-الرش-لتنظيف-الأرضيات.jpg",
+      "images": [
+        "product-images/ممسحات-الرش-لتنظيف-الأرضيات.jpg"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.7",
+      "categoryId": "various"
+    },
+    {
+      "id": "1f444e37-d81d-4c56-b3b7-938412ad3771",
+      "name": "مناديل إزالة البقع",
+      "nameAr": "مناديل إزالة البقع",
+      "description": "منتجات مفيدة للاستخدام اليومي.",
+      "descriptionAr": "منتجات مفيدة للاستخدام اليومي.",
+      "price": "193.00",
+      "compareAtPrice": "258.00",
+      "imageUrl": "product-images/مناديل-إزالة-البقع.jpg",
+      "images": [
+        "product-images/مناديل-إزالة-البقع.jpg"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.3",
+      "categoryId": "various"
+    },
+    {
+      "id": "a60ae587-8cf1-49bb-bf5a-6c24ddef0a0d",
+      "name": "منظف فرش المكياج الكهربائي",
+      "nameAr": "منظف فرش المكياج الكهربائي",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "128.00",
+      "compareAtPrice": "190.00",
+      "imageUrl": "product-images/منظف-فرش-المكياج-الكهربائي.jpg",
+      "images": [
+        "product-images/منظف-فرش-المكياج-الكهربائي.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.8",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "fb6711a1-9821-49cf-8f08-a54fed7ff3c8",
+      "name": "منظم أحذية للمدخل",
+      "nameAr": "منظم أحذية للمدخل",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "181.00",
+      "compareAtPrice": "219.00",
+      "imageUrl": "product-images/منظم-أحذية-للمدخل.png",
+      "images": [
+        "product-images/منظم-أحذية-للمدخل.png"
+      ],
+      "stock": 8,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "home"
+    },
+    {
+      "id": "550c5dd8-39b9-4fb4-a024-6693f6915b10",
+      "name": "منظم مستحضرات التجميل",
+      "nameAr": "منظم مستحضرات التجميل",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "239.00",
+      "compareAtPrice": "326.00",
+      "imageUrl": "product-images/منظم-مستحضرات-التجميل.jpg",
+      "images": [
+        "product-images/منظم-مستحضرات-التجميل.jpg"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.3",
+      "categoryId": "home"
+    },
+    {
+      "id": "5460432d-d0b8-4f21-be4e-84a9607ea391",
+      "name": "موزع معجون أسنان أوتوماتيكي",
+      "nameAr": "موزع معجون أسنان أوتوماتيكي",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "234.00",
+      "compareAtPrice": "277.00",
+      "imageUrl": "product-images/موزع-معجون-أسنان-أوتوماتيكي.jpg",
+      "images": [
+        "product-images/موزع-معجون-أسنان-أوتوماتيكي.jpg"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "عرض",
+      "rating": "4.3",
+      "categoryId": "home"
+    },
+    {
+      "id": "5c31f88b-f317-4240-bd7a-397e5f7b8b63",
+      "name": "موزع معجون الاسنان",
+      "nameAr": "موزع معجون الاسنان",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "129.00",
+      "compareAtPrice": "212.00",
+      "imageUrl": "product-images/موزع-معجون-الاسنان.jpg",
+      "images": [
+        "product-images/موزع-معجون-الاسنان.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.5",
+      "categoryId": "home"
+    },
+    {
+      "id": "09535525-9ac4-4f75-9205-ec23e9b985a4",
+      "name": "موسع التنفس الانفي",
+      "nameAr": "موسع التنفس الانفي",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "115.00",
+      "compareAtPrice": "138.00",
+      "imageUrl": "product-images/موسع-التنفس-الانفي.jpg",
+      "images": [
+        "product-images/موسع-التنفس-الانفي.jpg"
+      ],
+      "stock": 16,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "personal"
+    },
+    {
+      "id": "083c5886-132f-405f-8c90-ec877735cef0",
+      "name": "موقد غاز محمول مقاوم للرياح للاستخدام الخارجي",
+      "nameAr": "موقد غاز محمول مقاوم للرياح للاستخدام الخارجي",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "291.00",
+      "compareAtPrice": "358.00",
+      "imageUrl": "product-images/موقد-غاز-محمول-مقاوم-للرياح-للاستخدام-الخارجي.jpg",
+      "images": [
+        "product-images/موقد-غاز-محمول-مقاوم-للرياح-للاستخدام-الخارجي.jpg"
+      ],
+      "stock": 21,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "home"
+    },
+    {
+      "id": "1fd232d8-03c5-4c31-94dc-1b76379e8265",
+      "name": "ميرايا إضاءة مكياج",
+      "nameAr": "ميرايا إضاءة مكياج",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "308.00",
+      "compareAtPrice": "383.00",
+      "imageUrl": "product-images/ميرايا-إضاءة-مكياج.jpg",
+      "images": [
+        "product-images/ميرايا-إضاءة-مكياج.jpg"
+      ],
+      "stock": 24,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "61b0e1c4-ac6e-4367-9cbc-8f26dbd56914",
+      "name": "ميزان الكتروني بلوتوث",
+      "nameAr": "ميزان الكتروني بلوتوث",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "254.00",
+      "compareAtPrice": "342.00",
+      "imageUrl": "product-images/ميزان-الكتروني-بلوتوث.jpg",
+      "images": [
+        "product-images/ميزان-الكتروني-بلوتوث.jpg"
+      ],
+      "stock": 13,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.8",
+      "categoryId": "smart"
+    },
+    {
+      "id": "8eefb81a-e3a7-4979-8229-6f132f966973",
+      "name": "ميلاتونين",
+      "nameAr": "ميلاتونين",
+      "description": "مكملات غذائية بجودة موثوقة.",
+      "descriptionAr": "مكملات غذائية بجودة موثوقة.",
+      "price": "85.00",
+      "compareAtPrice": "152.00",
+      "imageUrl": "product-images/ميلاتونين.png",
+      "images": [
+        "product-images/ميلاتونين.png"
+      ],
+      "stock": 17,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.9",
+      "categoryId": "supplements"
+    },
+    {
+      "id": "82b80c43-e033-4c66-a73c-be4de388ab0d",
+      "name": "مُشكِّل ظلال العيون اللامع",
+      "nameAr": "مُشكِّل ظلال العيون اللامع",
+      "description": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "descriptionAr": "عناية فاخرة بنتيجة واضحة للبشرة والشعر.",
+      "price": "98.00",
+      "compareAtPrice": "160.00",
+      "imageUrl": "product-images/مُشكِّل-ظلال-العيون-اللامع.png",
+      "images": [
+        "product-images/مُشكِّل-ظلال-العيون-اللامع.png"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.6",
+      "categoryId": "beauty"
+    },
+    {
+      "id": "47e53fd4-6a14-4745-b7d6-6616b4e10135",
+      "name": "نظارات شمسية بلوتوث مع سماعة رأس مدمجة",
+      "nameAr": "نظارات شمسية بلوتوث مع سماعة رأس مدمجة",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "156.00",
+      "compareAtPrice": "190.00",
+      "imageUrl": "product-images/نظارات-شمسية-بلوتوث-مع-سماعة-رأس-مدمجة.jpg",
+      "images": [
+        "product-images/نظارات-شمسية-بلوتوث-مع-سماعة-رأس-مدمجة.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.9",
+      "categoryId": "smart"
+    },
+    {
+      "id": "0eddb300-e584-4881-942e-68552dda667b",
+      "name": "نظام العناية الشخصية بالقدمين",
+      "nameAr": "نظام العناية الشخصية بالقدمين",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "166.00",
+      "compareAtPrice": "253.00",
+      "imageUrl": "product-images/نظام-العناية-الشخصية-بالقدمين.png",
+      "images": [
+        "product-images/نظام-العناية-الشخصية-بالقدمين.png"
+      ],
+      "stock": 12,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.4",
+      "categoryId": "personal"
+    },
+    {
+      "id": "24669edb-799e-492b-b8f9-97e7d1119805",
+      "name": "هدية الصلاة سجادة وسبحة",
+      "nameAr": "هدية الصلاة سجادة وسبحة",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "47.00",
+      "compareAtPrice": "101.00",
+      "imageUrl": "product-images/هدية-الصلاة-سجادة-وسبحة.jpg",
+      "images": [
+        "product-images/هدية-الصلاة-سجادة-وسبحة.jpg"
+      ],
+      "stock": 22,
+      "featured": false,
+      "active": true,
+      "badge": "محدود",
+      "rating": "4.5",
+      "categoryId": "home"
+    },
+    {
+      "id": "71c0a577-80c0-451b-9cd0-5a5a5ede0095",
+      "name": "وحدة تحكم ألعاب m8 منتج باو 2 3g",
+      "nameAr": "وحدة تحكم ألعاب m8 منتج باو 2 3g",
+      "description": "أجهزة ذكية عملية للحياة اليومية.",
+      "descriptionAr": "أجهزة ذكية عملية للحياة اليومية.",
+      "price": "291.00",
+      "compareAtPrice": "368.00",
+      "imageUrl": "product-images/وحدة-تحكم-ألعاب-m8-u-bao-2-3g.jpg",
+      "images": [
+        "product-images/وحدة-تحكم-ألعاب-m8-u-bao-2-3g.jpg"
+      ],
+      "stock": 25,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.5",
+      "categoryId": "smart"
+    },
+    {
+      "id": "dfedaf84-9925-49fe-9b8d-c2c6e6768ef9",
+      "name": "وسادة التدفئة لألم البطن أو آلام الدورة الشهرية",
+      "nameAr": "وسادة التدفئة لألم البطن أو آلام الدورة الشهرية",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "135.00",
+      "compareAtPrice": "163.00",
+      "imageUrl": "product-images/وسادة-التدفئة-لألم-البطن-أو-آلام-الدورة-الشهرية.jpg",
+      "images": [
+        "product-images/وسادة-التدفئة-لألم-البطن-أو-آلام-الدورة-الشهرية.jpg"
+      ],
+      "stock": 29,
+      "featured": false,
+      "active": true,
+      "badge": "جديد",
+      "rating": "4.4",
+      "categoryId": "personal"
+    },
+    {
+      "id": "73441e7d-41f2-4ef2-9b2c-e34f7f274995",
+      "name": "وسادة دعم مرنة",
+      "nameAr": "وسادة دعم مرنة",
+      "description": "راحة يومية ودعم صحي موثوق.",
+      "descriptionAr": "راحة يومية ودعم صحي موثوق.",
+      "price": "203.00",
+      "compareAtPrice": "231.00",
+      "imageUrl": "product-images/وسادة-دعم-مرنة.jpg",
+      "images": [
+        "product-images/وسادة-دعم-مرنة.jpg"
+      ],
+      "stock": 27,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.8",
+      "categoryId": "personal"
+    },
+    {
+      "id": "f8e2dc69-c67e-4685-92d9-285be5b94ca4",
+      "name": "ولاعة كهربائية مزدوجة مع مصباح",
+      "nameAr": "ولاعة كهربائية مزدوجة مع مصباح",
+      "description": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "descriptionAr": "أدوات منزلية تسهل حياتك وتنظيمك.",
+      "price": "120.00",
+      "compareAtPrice": "150.00",
+      "imageUrl": "product-images/ولاعة-كهربائية-مزدوجة-مع-مصباح.png",
+      "images": [
+        "product-images/ولاعة-كهربائية-مزدوجة-مع-مصباح.png"
+      ],
+      "stock": 18,
+      "featured": false,
+      "active": true,
+      "badge": "الأكثر طلباً",
+      "rating": "4.6",
+      "categoryId": "home"
+    }
+  ]
+}

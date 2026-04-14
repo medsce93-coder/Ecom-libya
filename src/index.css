@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Tajawal', system-ui, sans-serif;
+
+  /* ── Core Brand Palette ── */
+  --color-primary:            #1d4ed8;
+  --color-primary-foreground: #ffffff;
+  --color-primary-border:     #1e40af;
+
+  --color-secondary:            #f1f5f9;
+  --color-secondary-foreground: #334155;
+  --color-secondary-border:     #e2e8f0;
+
+  --color-destructive:            #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-destructive-border:     #dc2626;
+
+  --color-accent:            #dbeafe;
+  --color-accent-foreground: #1e40af;
+
+  --color-muted:            #f1f5f9;
+  --color-muted-foreground: #64748b;
+
+  --color-ring:       #1d4ed8;
+  --color-background: #f8fafc;
+  --color-foreground: #0f172a;
+
+  /* ── Alias / Legacy ── */
+  --color-sand:     #f8fafc;
+  --color-brand:    #1d4ed8;
+  --color-mint:     #10b981;
+  --color-ink-900:  #0f172a;
+  --color-ink-700:  #1e293b;
+
+  /* ── Button outline border color ── */
+  --button-outline: #cbd5e1;
+
+  /* ── Shadows ── */
+  --shadow-card: 0 4px 24px -4px rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 2px 12px -2px rgba(15, 23, 42, 0.08);
+}
+
+:root {
+  color-scheme: light;
+  --radius: 0.75rem;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #f8fafc;
+  font-family: 'Tajawal', system-ui, sans-serif;
+  min-height: 100vh;
+  direction: rtl;
+  text-align: right;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea,
+a {
+  touch-action: manipulation;
+}
+
+::selection {
+  background: #1d4ed8;
+  color: #fff;
+}
+
+/* Smooth fade-in animation */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease both;
+}
+
+/* Card hover elevation */
+.hover-elevate { transition: box-shadow 0.2s ease, transform 0.2s ease; }
+.hover-elevate:hover { box-shadow: 0 8px 30px -8px rgba(29, 78, 216, 0.2); transform: translateY(-1px); }
+
+/* Active press effect */
+.active-elevate-2:active { transform: translateY(0); box-shadow: none; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Announcement bar marquee */
+@keyframes marquee-rtl {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.announcement-track {
+  display: inline-block;
+  animation: marquee-rtl linear infinite;
+  will-change: transform;
+}

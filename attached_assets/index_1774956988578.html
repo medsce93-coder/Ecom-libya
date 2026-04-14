@@ -1,0 +1,1803 @@
+﻿<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>متجر ليبيا – تسوق داخل ليبيا بثقة</title>
+  <meta name="description" content="متجر ليبيا يقدم منتجات رائجة مع توصيل داخل ليبيا والدفع عند الاستلام." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Tajawal"', 'system-ui', 'sans-serif'] },
+          colors: {
+            ink: { 900: '#0b1021', 700: '#111c3d' },
+            sand: '#f7f9fc',
+            brand: '#0b6bcb',
+            mint: '#10b981'
+          },
+          boxShadow: {
+            card: '0 20px 45px -18px rgba(15,23,42,0.2)',
+            soft: '0 10px 30px -16px rgba(0,0,0,0.15)'
+          }
+        },
+      },
+    };
+  </script>
+  <style>
+    :root { color-scheme: light; }
+    body { background: linear-gradient(145deg,#f9fbff 0%,#eef2f7 40%,#ffffff 100%); font-family: "Tajawal", system-ui, sans-serif; }
+    ::selection { background: #0b1021; color: #fff; }
+  </style>
+</head>
+<body class="min-h-screen text-slate-900 antialiased text-right">
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+  <script type="text/babel" data-presets="react">
+
+const { useState, useEffect, useMemo } = React;
+ const SUPABASE_URL = "https://wkwyvlrkjpecwiwmxlcw.supabase.co";
+const SUPABASE_KEY = "sb_publishable_z-Rmb1bXxAUGcfgf5dnZwg_xMh6ACqT";
+
+const supabaseLib = window.supabase;
+const supabaseClient =
+  supabaseLib && typeof supabaseLib.createClient === "function"
+    ? supabaseLib.createClient(SUPABASE_URL, SUPABASE_KEY)
+    : null;
+
+    function EcommerceHomepage() {
+      const whatsappNumber = "212765074750";
+
+      const ADMIN_PASSWORD = "LibyaStore@2026";
+
+      const categories = [
+        { id: "beauty", name: "الجمال والعناية", image: "https://images.unsplash.com/photo-1506617420156-8e4536971650?auto=format&fit=crop&w=1200&q=80", description: "بشرة وشعر بمنتجات موثوقة." },
+        { id: "personal", name: "الصحة والعناية الشخصية", image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=80", description: "أدوات صحة ويومية أساسية." },
+        { id: "home", name: "المنزل والمطبخ", image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80", description: "تنظيم المطبخ والبيت بذكاء." },
+        { id: "smart", name: "الأجهزة الذكية", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1200&q=80", description: "إلكترونيات وأجهزة حديثة." },
+        { id: "kids", name: "الأطفال", image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=80", description: "ألعاب تعليمية وآمنة." },
+        { id: "supplements", name: "المكملات الغذائية", image: "img/فيتامينات-ب-متعددة.png", description: "فيتامينات وجودة مضمونة." },
+        { id: "various", name: "منتجات متنوعة", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80", description: "إكسسوارات وأدوات يومية." },
+      ];
+
+     const products = [
+  { 
+    id: 1, 
+    name: "كريم ايه سي ام ديبي وايت أدفانسد", // بدلت السمية باش تبان احترافية أكثر
+    slug: "acm", 
+    price: 76, 
+    oldPrice: 146, 
+    rating: 4.8, 
+    stock: 13, 
+    category: "العناية بالبشرة", 
+    badge: "الأكثر طلباً", 
+    image: "img/acm.jpg", 
+    
+    // الوصف العام للمنتج
+    description: "هو حل فعّال لعلاج التصبغات والبقع الداكنة وتوحيد لون البشرة، حيث يعمل على تقليل ظهور الكلف والتصبغات الناتجة عن الشمس أو العوامل الهرمونية، مع المساعدة على منع عودتها مرة أخرى. يتميز بتركيبة طبية متطورة غنية بمكونات فعالة تساعد على تفتيح البشرة تدريجيًا واستعادة إشراقها الطبيعي.",
+    
+    // المميزات وطريقة الاستخدام (غيبانو بعلامة الصح الأخضر)
+    features: [
+      "يساعد على علاج التصبغات والكلف والبقع الداكنة.",
+      "يساهم في توحيد لون البشرة وتحسين مظهرها.",
+      "يقلل من ظهور التصبغات مرة أخرى.",
+      "مناسب للاستخدام على الوجه والجسم.",
+      "قوام خفيف وسريع الامتصاص، لا يترك أثرًا دهنيًا.",
+      "🧴 طريقة الاستخدام: يُستخدم على بشرة نظيفة وجافة (مرة إلى مرتين يوميًا)، مع تجنب منطقة العينين. يُفضّل استخدام واقي شمس نهارًا."
+    ],
+
+    // التصاور الإضافية
+    gallery: [
+      "img/acm-2.jpg", 
+    ],
+
+    // آراء الزبناء (تقدر تبدلهم على ذوقك)
+    reviews: [
+      { 
+        name: "فاطمة - بنغازي", 
+        stars: 5, 
+        comment: "المنتج وصلني فـ يومين، الصراحة جودة ممتازة وبدا كينقص ليا الكلف، شكراً لكم!" 
+      },
+      { 
+        name: "سعاد - طرابلس", 
+        stars: 5, 
+        comment: "أحسن كريم جربتو، خفيف على البشرة وماكيخليش ليدام. التوصيل كان سريع." 
+      },
+      { 
+        name: "مريم - مصراتة", 
+        stars: 4, 
+        comment: "شكراً على المصداقية، الدفع عند الاستلام ريحني بزاف والمنتج أصلي." 
+      }
+    ]
+  },
+
+{ id: 2, name: "سير 100 طلاء الكولاجين للشعر", slug: "cer-100-طلاء-الكولاجين-للشعر", price: 182, oldPrice: 207, rating: 4.7, stock: 11, category: "الجمال والعناية", badge: "عرض", image: "img/cer-100-طلاء-الكولاجين-للشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 3, name: "تقنية نبض عضلي لتدليك القدمين", slug: "ems-لتدليك-القدمين", price: 206, oldPrice: 255, rating: 4.4, stock: 24, category: "الصحة والعناية الشخصية", badge: "محدود", image: "img/ems-لتدليك-القدمين.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 4, name: "يوسرين q10 مضاد للتجاعيد كريم الليل", slug: "eucerin-q10-مضاد-للتجاعيد-كريم-الليل", price: 79, oldPrice: 116, rating: 4.9, stock: 24, category: "الجمال والعناية", badge: "جديد", image: "img/eucerin-q10-مضاد-للتجاعيد-كريم-الليل.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 5, name: "قماشي الشعر لفافة وردي", slug: "fabric-hair-wrap-rose", price: 142, oldPrice: 226, rating: 4.9, stock: 16, category: "الجمال والعناية", badge: "محدود", image: "img/fabric-hair-wrap-rose.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 6, name: "للوجه مقشرات طبيعي للوجه مقشر", slug: "facial-scrubs-natural-facial-exfoliator", price: 316, oldPrice: 349, rating: 4.6, stock: 29, category: "الجمال والعناية", badge: "عرض", image: "img/facial-scrubs-natural-facial-exfoliator.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 7, name: "خالٍ من العيوب الساقين جهاز إزالة الشعر", slug: "flawless-legs-epilateur", price: 323, oldPrice: 400, rating: 4.8, stock: 9, category: "الجمال والعناية", badge: "محدود", image: "img/flawless-legs-epilateur.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 8, name: "كي 18 قناع إصلاح الشعر", slug: "k18-قناع-إصلاح-الشعر", price: 253, oldPrice: 323, rating: 4.6, stock: 28, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/k18-قناع-إصلاح-الشعر.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 9, name: "قابل لإعادة الاستخدام سيليكون مزدوج الذقن مشّد منتج خط الوجه العنق", slug: "reusable-silicone-double-chin-reducer-v-line-face-neck", price: 306, oldPrice: 364, rating: 4.6, stock: 10, category: "الجمال والعناية", badge: "عرض", image: "img/reusable-silicone-double-chin-reducer-v-line-face-neck.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 10, name: "منتج منتج 5d", slug: "teeth-whitening-5d", price: 259, oldPrice: 319, rating: 4.4, stock: 19, category: "منتجات متنوعة", badge: "محدود", image: "img/teeth-whitening-5d.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 11, name: "في عشرة كريم فيتامين تون أب لتفتيح وترطيب البشرة", slug: "v10-كريم-فيتامين-تون-أب-لتفتيح-وترطيب-البشرة", price: 313, oldPrice: 388, rating: 4.6, stock: 8, category: "الجمال والعناية", badge: "عرض", image: "img/v10-كريم-فيتامين-تون-أب-لتفتيح-وترطيب-البشرة.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 12, name: "اكس 8 مروحة توربو جيت", slug: "x8-مروحة-توربو-جيت", price: 100, oldPrice: 173, rating: 4.9, stock: 16, category: "المنزل والمطبخ", badge: "محدود", image: "img/x8-مروحة-توربو-جيت.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 13, name: "آلة ختم الأكياس المحمولة", slug: "آلة-ختم-الأكياس-المحمولة", price: 128, oldPrice: 188, rating: 4.7, stock: 28, category: "منتجات متنوعة", badge: "عرض", image: "img/آلة-ختم-الأكياس-المحمولة.jpeg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 14, name: "آلة صنع قوالب الزلابية الأوتوماتيكية", slug: "آلة-صنع-قوالب-الزلابية-الأوتوماتيكية", price: 255, oldPrice: 316, rating: 4.9, stock: 29, category: "منتجات متنوعة", badge: "جديد", image: "img/آلة-صنع-قوالب-الزلابية-الأوتوماتيكية.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 15, name: "أداة إزالة شعر الجسم والإبط للنساء", slug: "أداة-إزالة-شعر-الجسم-والإبط-للنساء", price: 158, oldPrice: 233, rating: 4.3, stock: 10, category: "الجمال والعناية", badge: "جديد", image: "img/أداة-إزالة-شعر-الجسم-والإبط-للنساء.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 16, name: "أداة تصفيف الشعر 5 في 1", slug: "أداة-تصفيف-الشعر-5-في-1", price: 267, oldPrice: 320, rating: 4.8, stock: 28, category: "الجمال والعناية", badge: "جديد", image: "img/أداة-تصفيف-الشعر-5-في-1.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 17, name: "أداة تنظيف الصرف", slug: "أداة-تنظيف-الصرف", price: 155, oldPrice: 241, rating: 4.9, stock: 6, category: "المنزل والمطبخ", badge: "عرض", image: "img/أداة-تنظيف-الصرف.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 18, name: "أسطوانة الثلج للعناية ببشرة الوجه", slug: "أسطوانة-الثلج-للعناية-ببشرة-الوجه", price: 99, oldPrice: 137, rating: 4.7, stock: 23, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/أسطوانة-الثلج-للعناية-ببشرة-الوجه.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 19, name: "أقراص السنا الملينات لعلاج الإمساك", slug: "أقراص-السنا-الملينات-لعلاج-الإمساك", price: 317, oldPrice: 391, rating: 4.3, stock: 7, category: "منتجات متنوعة", badge: "عرض", image: "img/أقراص-السنا-الملينات-لعلاج-الإمساك.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 20, name: "أقنعة عيون مرصعة بالنجوم", slug: "أقنعة-عيون-مرصعة-بالنجوم", price: 143, oldPrice: 222, rating: 4.6, stock: 25, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/أقنعة-عيون-مرصعة-بالنجوم.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 21, name: "ألياف توبيك لتكثيف الشعر", slug: "ألياف-توبيك-لتكثيف-الشعر", price: 93, oldPrice: 155, rating: 4.5, stock: 15, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/ألياف-توبيك-لتكثيف-الشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 22, name: "إزالة شعر الحيوانات الأليفة", slug: "إزالة-شعر-الحيوانات-الأليفة", price: 91, oldPrice: 165, rating: 4.5, stock: 26, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/إزالة-شعر-الحيوانات-الأليفة.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 23, name: "إسفنجات استحمام مقشرة ومزيلة للجلد الميت", slug: "إسفنجات-استحمام-مقشرة-ومزيلة-للجلد-الميت", price: 245, oldPrice: 266, rating: 4.9, stock: 12, category: "الجمال والعناية", badge: "عرض", image: "img/إسفنجات-استحمام-مقشرة-ومزيلة-للجلد-الميت.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 24, name: "اداة تجميل للتدليك والرفع والثبات", slug: "اداة-تجميل-للتدليك-والرفع-والثبات", price: 140, oldPrice: 205, rating: 4.7, stock: 19, category: "الصحة والعناية الشخصية", badge: "جديد", image: "img/اداة-تجميل-للتدليك-والرفع-والثبات.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 25, name: "اضاءة متعددة للسيارات بالوان مختلفة", slug: "اضاءة-متعددة-للسيارات-بالوان-مختلفة", price: 181, oldPrice: 261, rating: 4.4, stock: 14, category: "المنزل والمطبخ", badge: "جديد", image: "img/اضاءة-متعددة-للسيارات-بالوان-مختلفة.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 26, name: "الخلاط الالماني", slug: "الخلاط-الالماني", price: 221, oldPrice: 294, rating: 4.9, stock: 28, category: "المنزل والمطبخ", badge: "محدود", image: "img/الخلاط-الالماني.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 27, name: "الزنك", slug: "الزنك", price: 307, oldPrice: 395, rating: 4.9, stock: 11, category: "المكملات الغذائية", badge: "محدود", image: "img/الزنك.png", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 28, name: "الزيت الافغاني الاصلي", slug: "الزيت-الافغاني-الاصلي", price: 266, oldPrice: 333, rating: 4.6, stock: 16, category: "الجمال والعناية", badge: "جديد", image: "img/الزيت-الافغاني-الاصلي.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 29, name: "الزيت الافغاني النسخة التانية", slug: "الزيت-الافغاني-النسخة-التانية", price: 159, oldPrice: 242, rating: 4.8, stock: 9, category: "الجمال والعناية", badge: "محدود", image: "img/الزيت-الافغاني-النسخة-التانية.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 30, name: "الزيت الافغاني", slug: "الزيت-الافغاني", price: 312, oldPrice: 387, rating: 4.7, stock: 19, category: "الجمال والعناية", badge: "محدود", image: "img/الزيت-الافغاني.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 31, name: "الصبار الراقص والمغني", slug: "الصبار-الراقص-والمغني", price: 241, oldPrice: 272, rating: 4.9, stock: 19, category: "منتجات متنوعة", badge: "جديد", image: "img/الصبار-الراقص-والمغني.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 32, name: "العكر الفاسي لتطهير مناطق البيكيني", slug: "العكر-الفاسي-لتطهير-مناطق-البيكيني", price: 131, oldPrice: 176, rating: 4.9, stock: 10, category: "منتجات متنوعة", badge: "محدود", image: "img/العكر-الفاسي-لتطهير-مناطق-البيكيني.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 33, name: "المصباح القوي", slug: "المصباح-القوي", price: 158, oldPrice: 235, rating: 4.6, stock: 29, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/المصباح-القوي.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 34, name: "المكنسة الذكية", slug: "المكنسة-الذكية", price: 250, oldPrice: 274, rating: 4.7, stock: 13, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/المكنسة-الذكية.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 35, name: "بخاخ ازالة الشعر", slug: "بخاخ-ازالة-الشعر", price: 228, oldPrice: 255, rating: 4.4, stock: 15, category: "الجمال والعناية", badge: "محدود", image: "img/بخاخ-ازالة-الشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 36, name: "بخاخ البواسير ٣٠مل", slug: "بخاخ-البواسير-٣٠مل", price: 207, oldPrice: 296, rating: 4.4, stock: 16, category: "منتجات متنوعة", badge: "جديد", image: "img/بخاخ-البواسير-٣٠مل.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 37, name: "بخاخ تحديد الشعر", slug: "بخاخ-تحديد-الشعر", price: 279, oldPrice: 300, rating: 4.5, stock: 29, category: "الجمال والعناية", badge: "جديد", image: "img/بخاخ-تحديد-الشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 38, name: "بروتين لاين مضاد للتجاعيد", slug: "بروتين-لاين-مضاد-للتجاعيد", price: 261, oldPrice: 284, rating: 4.5, stock: 6, category: "المكملات الغذائية", badge: "الأكثر طلباً", image: "img/بروتين-لاين-مضاد-للتجاعيد.png", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 39, name: "بكج قصه الامارتي للجسم يتكون من سبلاش و لوشن", slug: "بكج-قصه-الامارتي-للجسم-يتكون-من-سبلاش-و-لوشن", price: 162, oldPrice: 235, rating: 4.5, stock: 18, category: "منتجات متنوعة", badge: "محدود", image: "img/بكج-قصه-الامارتي-للجسم-يتكون-من-سبلاش-و-لوشن.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 40, name: "تدليك الركبة متعدد الوظائف", slug: "تدليك-الركبة-متعدد-الوظائف", price: 210, oldPrice: 262, rating: 4.8, stock: 17, category: "الصحة والعناية الشخصية", badge: "جديد", image: "img/تدليك-الركبة-متعدد-الوظائف.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 41, name: "تونر للوجه بحمض الكوجيك 100 مل", slug: "تونر-للوجه-بحمض-الكوجيك-100-مل", price: 295, oldPrice: 318, rating: 4.6, stock: 26, category: "الجمال والعناية", badge: "عرض", image: "img/تونر-للوجه-بحمض-الكوجيك-100-مل.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 42, name: "جل احترافي لإزالة الندبات", slug: "جل-احترافي-لإزالة-الندبات", price: 209, oldPrice: 293, rating: 4.6, stock: 24, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/جل-احترافي-لإزالة-الندبات.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 43, name: "جل استحمام بيوتي سيستم معطر 500 مل", slug: "جل-استحمام-بيوتي-سيستم-معطر-500-مل", price: 132, oldPrice: 170, rating: 4.6, stock: 29, category: "الجمال والعناية", badge: "جديد", image: "img/جل-استحمام-بيوتي-سيستم-معطر-500-مل.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 44, name: "جل تقشير البشرة", slug: "جل-تقشير-البشرة", price: 153, oldPrice: 201, rating: 4.6, stock: 24, category: "الجمال والعناية", badge: "محدود", image: "img/جل-تقشير-البشرة.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 45, name: "جل لإزالة الندبات", slug: "جل-لإزالة-الندبات", price: 237, oldPrice: 304, rating: 4.7, stock: 22, category: "الجمال والعناية", badge: "عرض", image: "img/جل-لإزالة-الندبات.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 46, name: "جنجكة بيلوبا", slug: "جنجكة-بيلوبا", price: 295, oldPrice: 369, rating: 4.7, stock: 20, category: "منتجات متنوعة", badge: "جديد", image: "img/جنجكة-بيلوبا.png", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 47, name: "جهاز إرسال واستقبال فيديو لاسلكي", slug: "جهاز-إرسال-واستقبال-فيديو-لاسلكي", price: 76, oldPrice: 101, rating: 4.7, stock: 12, category: "الأجهزة الذكية", badge: "عرض", image: "img/جهاز-إرسال-واستقبال-فيديو-لاسلكي.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 48, name: "جهاز التدليك", slug: "جهاز-التدليك", price: 267, oldPrice: 328, rating: 4.6, stock: 22, category: "الصحة والعناية الشخصية", badge: "الأكثر طلباً", image: "img/جهاز-التدليك.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 49, name: "جهاز الشفط للتنظيف الزرابي", slug: "جهاز-الشفط-للتنظيف-الزرابي", price: 283, oldPrice: 338, rating: 4.7, stock: 14, category: "الأجهزة الذكية", badge: "عرض", image: "img/جهاز-الشفط-للتنظيف-الزرابي.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 50, name: "جهاز تدليك الرقبة الكهربائي الاهتزازي", slug: "جهاز-تدليك-الرقبة-الكهربائي-الاهتزازي", price: 88, oldPrice: 128, rating: 4.5, stock: 15, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/جهاز-تدليك-الرقبة-الكهربائي-الاهتزازي.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 51, name: "جهاز تدليك القدمين الكهربائي", slug: "جهاز-تدليك-القدمين-الكهربائي", price: 95, oldPrice: 116, rating: 4.4, stock: 19, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/جهاز-تدليك-القدمين-الكهربائي.png", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 52, name: "جهاز تدليك القدمين والجسم واليدين", slug: "جهاز-تدليك-القدمين-والجسم-واليدين", price: 106, oldPrice: 147, rating: 4.8, stock: 19, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/جهاز-تدليك-القدمين-والجسم-واليدين.png", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 53, name: "جهاز تدليك للعناية بالوجه والجسم", slug: "جهاز-تدليك-للعناية-بالوجه-والجسم", price: 271, oldPrice: 303, rating: 4.9, stock: 18, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/جهاز-تدليك-للعناية-بالوجه-والجسم.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 54, name: "جهاز تدليك متعدد الأوضاع للرأس وفروة الرأس", slug: "جهاز-تدليك-متعدد-الأوضاع-للرأس-وفروة-الرأس", price: 109, oldPrice: 172, rating: 4.4, stock: 20, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/جهاز-تدليك-متعدد-الأوضاع-للرأس-وفروة-الرأس.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 55, name: "جهاز ترطيب الهواء بالرذاذ البارد يو اس بي", slug: "جهاز-ترطيب-الهواء-بالرذاذ-البارد-usb", price: 267, oldPrice: 347, rating: 4.7, stock: 9, category: "الأجهزة الذكية", badge: "جديد", image: "img/جهاز-ترطيب-الهواء-بالرذاذ-البارد-usb.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 56, name: "جهاز تنظيف الأسنان بالماء", slug: "جهاز-تنظيف-الأسنان-بالماء", price: 95, oldPrice: 118, rating: 4.5, stock: 13, category: "الأجهزة الذكية", badge: "جديد", image: "img/جهاز-تنظيف-الأسنان-بالماء.png", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 57, name: "جهاز تنقية الهواء 2 في 1 وجهاز مضاد للشخير", slug: "جهاز-تنقية-الهواء-2-في-1-وجهاز-مضاد-للشخير", price: 213, oldPrice: 261, rating: 4.5, stock: 10, category: "الجمال والعناية", badge: "جديد", image: "img/جهاز-تنقية-الهواء-2-في-1-وجهاز-مضاد-للشخير.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 58, name: "جهاز تنقية مياه الصنبور المنزلي", slug: "جهاز-تنقية-مياه-الصنبور-المنزلي", price: 72, oldPrice: 157, rating: 4.3, stock: 25, category: "المنزل والمطبخ", badge: "جديد", image: "img/جهاز-تنقية-مياه-الصنبور-المنزلي.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 59, name: "جهاز طارد الحشرات بالموجات فوق الصوتية", slug: "جهاز-طارد-الحشرات-بالموجات-فوق-الصوتية", price: 179, oldPrice: 258, rating: 4.9, stock: 13, category: "الأجهزة الذكية", badge: "محدود", image: "img/جهاز-طارد-الحشرات-بالموجات-فوق-الصوتية.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 60, name: "جهاز عرض جالاكسي مزود بسماعة بلوتوث", slug: "جهاز-عرض-جالاكسي-مزود-بسماعة-بلوتوث", price: 232, oldPrice: 291, rating: 4.4, stock: 25, category: "الأجهزة الذكية", badge: "جديد", image: "img/جهاز-عرض-جالاكسي-مزود-بسماعة-بلوتوث.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 61, name: "جهاز عرض صغير محمول", slug: "جهاز-عرض-صغير-محمول", price: 195, oldPrice: 222, rating: 4.7, stock: 8, category: "الأجهزة الذكية", badge: "الأكثر طلباً", image: "img/جهاز-عرض-صغير-محمول.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 62, name: "جوارب داء السكري الوان", slug: "جوارب-داء-السكري-الوان", price: 132, oldPrice: 170, rating: 4.9, stock: 18, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/جوارب-داء-السكري-الوان.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 63, name: "حامل أكواب السيارة متعدد الوظائف", slug: "حامل-أكواب-السيارة-متعدد-الوظائف", price: 93, oldPrice: 178, rating: 4.6, stock: 16, category: "المنزل والمطبخ", badge: "محدود", image: "img/حامل-أكواب-السيارة-متعدد-الوظائف.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 64, name: "حبوب القهوة الخضراء", slug: "حبوب-القهوة-الخضراء", price: 156, oldPrice: 235, rating: 4.7, stock: 17, category: "المكملات الغذائية", badge: "عرض", image: "img/حبوب-القهوة-الخضراء.png", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 65, name: "حبوب المغنيزيوم مع جهاز قياس الضغط هدية", slug: "حبوب-المغنيزيوم-مع-جهاز-قياس-الضغط-هدية", price: 128, oldPrice: 185, rating: 4.5, stock: 17, category: "المكملات الغذائية", badge: "محدود", image: "img/حبوب-المغنيزيوم-مع-جهاز-قياس-الضغط-هدية.png", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 66, name: "حزام تدريب الخصر", slug: "حزام-تدريب-الخصر", price: 310, oldPrice: 393, rating: 4.6, stock: 14, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/حزام-تدريب-الخصر.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 67, name: "حظيرة للعب الاطفال", slug: "حظيرة-للعب-الاطفال", price: 217, oldPrice: 303, rating: 4.6, stock: 10, category: "الأطفال", badge: "الأكثر طلباً", image: "img/حظيرة-للعب-الاطفال.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 68, name: "حقيبة جمع البول مقاومة للتسرب", slug: "حقيبة-جمع-البول-مقاومة-للتسرب", price: 182, oldPrice: 248, rating: 4.4, stock: 20, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/حقيبة-جمع-البول-مقاومة-للتسرب.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 69, name: "حقيبة مضادة للسرقة", slug: "حقيبة-مضادة-للسرقة", price: 278, oldPrice: 363, rating: 4.6, stock: 18, category: "منتجات متنوعة", badge: "محدود", image: "img/حقيبة-مضادة-للسرقة.png", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 70, name: "حلقة تمرين القبضة", slug: "حلقة-تمرين-القبضة", price: 196, oldPrice: 245, rating: 4.6, stock: 18, category: "منتجات متنوعة", badge: "عرض", image: "img/حلقة-تمرين-القبضة.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 71, name: "حلقة مفاتيح متعدد الوظائف", slug: "حلقة-مفاتيح-متعدد-الوظائف", price: 274, oldPrice: 352, rating: 4.7, stock: 15, category: "منتجات متنوعة", badge: "محدود", image: "img/حلقة-مفاتيح-متعدد-الوظائف.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 72, name: "حلوى أشواغاندا تقلل التوتر", slug: "حلوى-أشواغاندا-تقلل-التوتر", price: 324, oldPrice: 394, rating: 4.5, stock: 12, category: "المكملات الغذائية", badge: "الأكثر طلباً", image: "img/حلوى-أشواغاندا-تقلل-التوتر.jpeg", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 73, name: "حلوى البروبيوتيك لدعم المناعة", slug: "حلوى-البروبيوتيك-لدعم-المناعة", price: 159, oldPrice: 237, rating: 4.7, stock: 9, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/حلوى-البروبيوتيك-لدعم-المناعة.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 74, name: "حلوى للنوم تحتوي على الميلاتونين", slug: "حلوى-للنوم-تحتوي-على-الميلاتونين", price: 105, oldPrice: 152, rating: 4.4, stock: 26, category: "المكملات الغذائية", badge: "عرض", image: "img/حلوى-للنوم-تحتوي-على-الميلاتونين.jpeg", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 75, name: "حمالة صدر داعمة غير مرئية", slug: "حمالة-صدر-داعمة-غير-مرئية", price: 251, oldPrice: 313, rating: 4.4, stock: 24, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/حمالة-صدر-داعمة-غير-مرئية.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 76, name: "خاتم التسبيح الذكي", slug: "خاتم-التسبيح-الذكي", price: 146, oldPrice: 234, rating: 4.8, stock: 18, category: "الأجهزة الذكية", badge: "عرض", image: "img/خاتم-التسبيح-الذكي.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 77, name: "خرطوم مياه قابل للتمدد من ماجيك هوز", slug: "خرطوم-مياه-قابل-للتمدد-من-ماجيك-هوز", price: 193, oldPrice: 240, rating: 4.8, stock: 28, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/خرطوم-مياه-قابل-للتمدد-من-ماجيك-هوز.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 78, name: "خزانة ملابس قابلة للطي", slug: "خزانة-ملابس-قابلة-للطي", price: 263, oldPrice: 307, rating: 4.4, stock: 15, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/خزانة-ملابس-قابلة-للطي.png", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 79, name: "خزنة كتب من ورق الذهب مع قفل", slug: "خزنة-كتب-من-ورق-الذهب-مع-قفل", price: 259, oldPrice: 307, rating: 4.9, stock: 28, category: "منتجات متنوعة", badge: "عرض", image: "img/خزنة-كتب-من-ورق-الذهب-مع-قفل.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 80, name: "خلاصة مخاط الحلزون", slug: "خلاصة-مخاط-الحلزون", price: 324, oldPrice: 363, rating: 4.6, stock: 25, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/خلاصة-مخاط-الحلزون.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 81, name: "خلاط فواكه محمول", slug: "خلاط-فواكه-محمول", price: 85, oldPrice: 118, rating: 4.7, stock: 11, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/خلاط-فواكه-محمول.jpeg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 82, name: "خيمة لعب قلعة ساحرة قابلة للطي", slug: "خيمة-لعب-قلعة-ساحرة-قابلة-للطي", price: 102, oldPrice: 171, rating: 4.8, stock: 24, category: "الأطفال", badge: "عرض", image: "img/خيمة-لعب-قلعة-ساحرة-قابلة-للطي.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 83, name: "درج المرحاض للاطفال", slug: "درج-المرحاض-للاطفال", price: 51, oldPrice: 130, rating: 4.7, stock: 29, category: "الأطفال", badge: "جديد", image: "img/درج-المرحاض-للاطفال.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 84, name: "دعامة الركبة مع العلاج المغناطيسي", slug: "دعامة-الركبة-مع-العلاج-المغناطيسي", price: 49, oldPrice: 134, rating: 4.7, stock: 19, category: "الصحة والعناية الشخصية", badge: "محدود", image: "img/دعامة-الركبة-مع-العلاج-المغناطيسي.jpeg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 85, name: "دعامة العنق لعلاج آلام الرقبة مع الحرارة العميقة", slug: "دعامة-العنق-لعلاج-آلام-الرقبة-مع-الحرارة-العميقة", price: 286, oldPrice: 322, rating: 4.8, stock: 12, category: "الصحة والعناية الشخصية", badge: "الأكثر طلباً", image: "img/دعامة-العنق-لعلاج-آلام-الرقبة-مع-الحرارة-العميقة.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 86, name: "دعامة ثني الركبة زوج واحد أسود", slug: "دعامة-ثني-الركبة-زوج-واحد-أسود", price: 137, oldPrice: 202, rating: 4.4, stock: 16, category: "الصحة والعناية الشخصية", badge: "الأكثر طلباً", image: "img/دعامة-ثني-الركبة-زوج-واحد-أسود.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 87, name: "دعامة ركبة واحدة عالية المرونة", slug: "دعامة-ركبة-واحدة-عالية-المرونة", price: 67, oldPrice: 125, rating: 4.3, stock: 25, category: "الصحة والعناية الشخصية", badge: "جديد", image: "img/دعامة-ركبة-واحدة-عالية-المرونة.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 88, name: "دعم ظهر السائق", slug: "دعم-ظهر-السائق", price: 137, oldPrice: 208, rating: 4.7, stock: 12, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/دعم-ظهر-السائق.png", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 89, name: "رأس دش توربيني يدور 360 درجة", slug: "رأس-دش-توربيني-يدور-360-درجة", price: 67, oldPrice: 123, rating: 4.5, stock: 28, category: "الأطفال", badge: "الأكثر طلباً", image: "img/رأس-دش-توربيني-يدور-360-درجة.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 90, name: "رأس دش متقدم", slug: "رأس-دش-متقدم", price: 302, oldPrice: 369, rating: 4.9, stock: 25, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/رأس-دش-متقدم.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 91, name: "رف المطبخ", slug: "رف-المطبخ", price: 64, oldPrice: 124, rating: 4.8, stock: 27, category: "المنزل والمطبخ", badge: "محدود", image: "img/رف-المطبخ.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 92, name: "رقعة تصحيح أظافر القدم", slug: "رقعة-تصحيح-أظافر-القدم", price: 299, oldPrice: 344, rating: 4.5, stock: 22, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/رقعة-تصحيح-أظافر-القدم.png", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 93, name: "زيت الاهتمام بالارجل و اليدين", slug: "زيت-الاهتمام-بالارجل-و-اليدين", price: 202, oldPrice: 257, rating: 4.5, stock: 9, category: "الجمال والعناية", badge: "عرض", image: "img/زيت-الاهتمام-بالارجل-و-اليدين.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 94, name: "زيت الثوم الأسود", slug: "زيت-الثوم-الأسود", price: 176, oldPrice: 250, rating: 4.9, stock: 25, category: "الجمال والعناية", badge: "محدود", image: "img/زيت-الثوم-الأسود.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 95, name: "زيت الزنجبيل للشعر", slug: "زيت-الزنجبيل-للشعر", price: 123, oldPrice: 160, rating: 4.6, stock: 11, category: "الجمال والعناية", badge: "محدود", image: "img/زيت-الزنجبيل-للشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 96, name: "زيت السمك", slug: "زيت-السمك", price: 140, oldPrice: 219, rating: 4.8, stock: 22, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/زيت-السمك.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 97, name: "زيت تقشير الوجه واليدين", slug: "زيت-تقشير-الوجه-واليدين", price: 226, oldPrice: 291, rating: 4.5, stock: 9, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/زيت-تقشير-الوجه-واليدين.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 98, name: "زيت لتقوية الشعر منتج", slug: "زيت-لتقوية-الشعر-feg", price: 187, oldPrice: 256, rating: 4.4, stock: 28, category: "الجمال والعناية", badge: "جديد", image: "img/زيت-لتقوية-الشعر-feg.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 99, name: "زيت لتقوية الشعر", slug: "زيت-لتقوية-الشعر", price: 314, oldPrice: 358, rating: 4.9, stock: 28, category: "الجمال والعناية", badge: "محدود", image: "img/زيت-لتقوية-الشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 100, name: "زيت نمو اللحية", slug: "زيت-نمو-اللحية", price: 205, oldPrice: 233, rating: 4.4, stock: 18, category: "الجمال والعناية", badge: "جديد", image: "img/زيت-نمو-اللحية.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 101, name: "زينة معلقة رمضان مبارك", slug: "زينة-معلقة-رمضان-مبارك", price: 83, oldPrice: 156, rating: 4.4, stock: 6, category: "منتجات متنوعة", badge: "جديد", image: "img/زينة-معلقة-رمضان-مبارك.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 102, name: "سادور كريم اليدين بالكولاجين المضاد للتجاعيد 30جم", slug: "سادور-كريم-اليدين-بالكولاجين-المضاد-للتجاعيد-30جم", price: 273, oldPrice: 302, rating: 4.7, stock: 7, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/سادور-كريم-اليدين-بالكولاجين-المضاد-للتجاعيد-30جم.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 103, name: "سجاد لتدليك بتقنية تقنية نبض عضلي", slug: "سجاد-لتدليك-بتقنية-ems", price: 62, oldPrice: 114, rating: 4.7, stock: 7, category: "الصحة والعناية الشخصية", badge: "الأكثر طلباً", image: "img/سجاد-لتدليك-بتقنية-ems.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 104, name: "سجادات صلاة للأطفال", slug: "سجادات-صلاة-للأطفال", price: 298, oldPrice: 326, rating: 4.5, stock: 20, category: "الأطفال", badge: "محدود", image: "img/سجادات-صلاة-للأطفال.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 105, name: "سخان شمع صغير من موهير", slug: "سخان-شمع-صغير-من-موهير", price: 259, oldPrice: 322, rating: 4.3, stock: 20, category: "المنزل والمطبخ", badge: "محدود", image: "img/سخان-شمع-صغير-من-موهير.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 106, name: "سكاكين الطبخ", slug: "سكاكين-الطبخ", price: 305, oldPrice: 343, rating: 4.6, stock: 15, category: "منتجات متنوعة", badge: "عرض", image: "img/سكاكين-الطبخ.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 107, name: "سماعة الادن لضعاف السمع f138", slug: "سماعة-الادن-لضعاف-السمع-f138", price: 108, oldPrice: 171, rating: 4.5, stock: 19, category: "الأجهزة الذكية", badge: "عرض", image: "img/سماعة-الادن-لضعاف-السمع-f138.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 108, name: "سياراة الدوارة جهاز التحكم عن بعد أو ساعة اليد", slug: "سياراة-الدوارة-جهاز-التحكم-عن-بعد-أو-ساعة-اليد", price: 293, oldPrice: 347, rating: 4.5, stock: 8, category: "الأجهزة الذكية", badge: "الأكثر طلباً", image: "img/سياراة-الدوارة-جهاز-التحكم-عن-بعد-أو-ساعة-اليد.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 109, name: "سيارة بهلوانية جذابة وقوية", slug: "سيارة-بهلوانية-جذابة-وقوية", price: 150, oldPrice: 174, rating: 4.4, stock: 15, category: "منتجات متنوعة", badge: "جديد", image: "img/سيارة-بهلوانية-جذابة-وقوية.jpeg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 110, name: "سيروم الزنجبيل لنمو الشعر", slug: "سيروم-الزنجبيل-لنمو-الشعر", price: 185, oldPrice: 250, rating: 4.8, stock: 11, category: "الجمال والعناية", badge: "محدود", image: "img/سيروم-الزنجبيل-لنمو-الشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 111, name: "سيروم الوجه بحمض الكوجيك من غوانجينغ بيوتي", slug: "سيروم-الوجه-بحمض-الكوجيك-من-غوانجينغ-بيوتي", price: 169, oldPrice: 247, rating: 4.7, stock: 21, category: "الجمال والعناية", badge: "عرض", image: "img/سيروم-الوجه-بحمض-الكوجيك-من-غوانجينغ-بيوتي.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 112, name: "سيروم باكوشيول سيروم نفخ البشرة من ايكوالبيري", slug: "سيروم-باكوشيول-سيروم-نفخ-البشرة-من-ايكوالبيري", price: 191, oldPrice: 263, rating: 4.6, stock: 10, category: "الجمال والعناية", badge: "جديد", image: "img/سيروم-باكوشيول-سيروم-نفخ-البشرة-من-ايكوالبيري.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 113, name: "سيروم تبييض البشرة وإزالة النمش", slug: "سيروم-تبييض-البشرة-وإزالة-النمش", price: 199, oldPrice: 261, rating: 4.4, stock: 25, category: "الجمال والعناية", badge: "عرض", image: "img/سيروم-تبييض-البشرة-وإزالة-النمش.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 114, name: "سيروم تصحيح البقع الداكنة", slug: "سيروم-تصحيح-البقع-الداكنة", price: 167, oldPrice: 193, rating: 4.4, stock: 20, category: "الجمال والعناية", badge: "محدود", image: "img/سيروم-تصحيح-البقع-الداكنة.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 115, name: "سيروم تفتيح فيتامين سي بالنياسيناميد من ايكوالبيري", slug: "سيروم-تفتيح-فيتامين-سي-بالنياسيناميد-من-ايكوالبيري", price: 159, oldPrice: 232, rating: 4.4, stock: 27, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/سيروم-تفتيح-فيتامين-سي-بالنياسيناميد-من-ايكوالبيري.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 116, name: "سيروم سول 1988 الاصلي", slug: "سيروم-سول-1988-الاصلي", price: 241, oldPrice: 298, rating: 4.7, stock: 15, category: "الجمال والعناية", badge: "عرض", image: "img/سيروم-سول-1988-الاصلي.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 117, name: "سيروم لتقويه الرموش والحواجب", slug: "سيروم-لتقويه-الرموش-والحواجب", price: 123, oldPrice: 167, rating: 4.5, stock: 18, category: "الجمال والعناية", badge: "محدود", image: "img/سيروم-لتقويه-الرموش-والحواجب.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 118, name: "شامبو الثوم الأسود", slug: "شامبو-الثوم-الأسود", price: 152, oldPrice: 173, rating: 4.7, stock: 11, category: "الجمال والعناية", badge: "محدود", image: "img/شامبو-الثوم-الأسود.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 119, name: "شامبو ساكورا لنمو الشعر", slug: "شامبو-ساكورا-لنمو-الشعر", price: 81, oldPrice: 166, rating: 4.4, stock: 29, category: "الجمال والعناية", badge: "جديد", image: "img/شامبو-ساكورا-لنمو-الشعر.jpeg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 120, name: "شامبو نيزورال لعلاج قشرة الرأس والتهاب الجلد الدهني", slug: "شامبو-نيزورال-لعلاج-قشرة-الرأس-والتهاب-الجلد-الدهني", price: 259, oldPrice: 338, rating: 4.5, stock: 7, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/شامبو-نيزورال-لعلاج-قشرة-الرأس-والتهاب-الجلد-الدهني.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 121, name: "شاي علاجي للقرحة", slug: "شاي-علاجي-للقرحة", price: 159, oldPrice: 216, rating: 4.5, stock: 16, category: "المكملات الغذائية", badge: "عرض", image: "img/شاي-علاجي-للقرحة.jpeg", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 122, name: "شريط الحركة الرياضية والعلاجية", slug: "شريط-الحركة-الرياضية-والعلاجية", price: 237, oldPrice: 303, rating: 4.7, stock: 9, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/شريط-الحركة-الرياضية-والعلاجية.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 123, name: "شنطة مفك كهربائي", slug: "شنطة-مفك-كهربائي", price: 322, oldPrice: 350, rating: 4.4, stock: 26, category: "منتجات متنوعة", badge: "محدود", image: "img/شنطة-مفك-كهربائي.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 124, name: "شنطة مكياج للسفر اللون الأسود", slug: "شنطة-مكياج-للسفر-اللون-الأسود", price: 101, oldPrice: 143, rating: 4.7, stock: 6, category: "الجمال والعناية", badge: "محدود", image: "img/شنطة-مكياج-للسفر-اللون-الأسود.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 125, name: "شنطة مكياج للسفر", slug: "شنطة-مكياج-للسفر", price: 163, oldPrice: 210, rating: 4.8, stock: 21, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/شنطة-مكياج-للسفر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 126, name: "صبغة شعر نباتية طبيعية", slug: "صبغة-شعر-نباتية-طبيعية", price: 178, oldPrice: 237, rating: 4.4, stock: 22, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/صبغة-شعر-نباتية-طبيعية.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 127, name: "صفائح سيليكون لعلاج الندبات", slug: "صفائح-سيليكون-لعلاج-الندبات", price: 284, oldPrice: 322, rating: 4.6, stock: 22, category: "منتجات متنوعة", badge: "محدود", image: "img/صفائح-سيليكون-لعلاج-الندبات.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 128, name: "صندوق غداء حراري مع حقيبة محمولة", slug: "صندوق-غداء-حراري-مع-حقيبة-محمولة", price: 253, oldPrice: 274, rating: 4.8, stock: 6, category: "المنزل والمطبخ", badge: "جديد", image: "img/صندوق-غداء-حراري-مع-حقيبة-محمولة.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 129, name: "ضوء السماء الليلي لغرفة النوم", slug: "ضوء-السماء-الليلي-لغرفة-النوم", price: 247, oldPrice: 287, rating: 4.6, stock: 20, category: "المنزل والمطبخ", badge: "محدود", image: "img/ضوء-السماء-الليلي-لغرفة-النوم.png", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 130, name: "ضوء على شكل كاميرا يعمل بالطاقة الشمسية", slug: "ضوء-على-شكل-كاميرا-يعمل-بالطاقة-الشمسية", price: 45, oldPrice: 119, rating: 4.5, stock: 9, category: "الأجهزة الذكية", badge: "محدود", image: "img/ضوء-على-شكل-كاميرا-يعمل-بالطاقة-الشمسية.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 131, name: "طائرة هليكوبتر لاسلكية يتم التحكم فيها عن بعد", slug: "طائرة-هليكوبتر-لاسلكية-يتم-التحكم-فيها-عن-بعد", price: 167, oldPrice: 197, rating: 4.5, stock: 9, category: "الأطفال", badge: "عرض", image: "img/طائرة-هليكوبتر-لاسلكية-يتم-التحكم-فيها-عن-بعد.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 132, name: "طاولة القهوة", slug: "طاولة-القهوة", price: 48, oldPrice: 114, rating: 4.7, stock: 23, category: "المكملات الغذائية", badge: "جديد", image: "img/طاولة-القهوة.jpg", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 133, name: "طاولة عاجلة قيادة", slug: "طاولة-عاجلة-قيادة", price: 78, oldPrice: 130, rating: 4.3, stock: 16, category: "الجمال والعناية", badge: "محدود", image: "img/طاولة-عاجلة-قيادة.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 134, name: "طقم تبييض أسنان قابل لإعادة الشحن 3 في 1", slug: "طقم-تبييض-أسنان-قابل-لإعادة-الشحن-3-في-1", price: 247, oldPrice: 306, rating: 4.6, stock: 27, category: "الجمال والعناية", badge: "جديد", image: "img/طقم-تبييض-أسنان-قابل-لإعادة-الشحن-3-في-1.jpeg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 135, name: "عصارة برتقال كهربائية محمولة", slug: "عصارة-برتقال-كهربائية-محمولة", price: 95, oldPrice: 147, rating: 4.7, stock: 27, category: "المنزل والمطبخ", badge: "جديد", image: "img/عصارة-برتقال-كهربائية-محمولة.png", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 136, name: "عصارة ليمون يدوية مصنوعة من سبائك الألومنيوم", slug: "عصارة-ليمون-يدوية-مصنوعة-من-سبائك-الألومنيوم", price: 81, oldPrice: 161, rating: 4.5, stock: 21, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/عصارة-ليمون-يدوية-مصنوعة-من-سبائك-الألومنيوم.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 137, name: "عصى باديكير ناعمة", slug: "عصى-باديكير-ناعمة", price: 239, oldPrice: 274, rating: 4.3, stock: 23, category: "منتجات متنوعة", badge: "عرض", image: "img/عصى-باديكير-ناعمة.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 138, name: "عطر أوري كيتي جيرل للنساء 100 مل", slug: "عطر-أوري-كيتي-جيرل-للنساء-100-مل", price: 243, oldPrice: 263, rating: 4.6, stock: 14, category: "الجمال والعناية", badge: "محدود", image: "img/عطر-أوري-كيتي-جيرل-للنساء-100-مل.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 139, name: "عطر المسك", slug: "عطر-المسك", price: 68, oldPrice: 110, rating: 4.4, stock: 6, category: "الجمال والعناية", badge: "جديد", image: "img/عطر-المسك.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 140, name: "علاج الجلوكوزامين لآلام المفاصل", slug: "علاج-الجلوكوزامين-لآلام-المفاصل", price: 116, oldPrice: 155, rating: 4.4, stock: 25, category: "الجمال والعناية", badge: "عرض", image: "img/علاج-الجلوكوزامين-لآلام-المفاصل.jpeg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 141, name: "علاج لصقات الأظافر الفطرية", slug: "علاج-لصقات-الأظافر-الفطرية", price: 167, oldPrice: 208, rating: 4.6, stock: 7, category: "منتجات متنوعة", badge: "محدود", image: "img/علاج-لصقات-الأظافر-الفطرية.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 142, name: "علاج للحكة نتيجة الاصابة بالطفيليات", slug: "علاج-للحكة-نتيجة-الاصابة-بالطفيليات", price: 318, oldPrice: 371, rating: 4.5, stock: 28, category: "منتجات متنوعة", badge: "جديد", image: "img/علاج-للحكة-نتيجة-الاصابة-بالطفيليات.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 143, name: "علكات للشعر والبشرة والأظافر", slug: "علكات-للشعر-والبشرة-والأظافر", price: 88, oldPrice: 134, rating: 4.3, stock: 7, category: "الجمال والعناية", badge: "عرض", image: "img/علكات-للشعر-والبشرة-والأظافر.jpeg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 144, name: "غسول الوجه اليومي", slug: "غسول-الوجه-اليومي", price: 297, oldPrice: 347, rating: 4.5, stock: 9, category: "الجمال والعناية", badge: "جديد", image: "img/غسول-الوجه-اليومي.jpeg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 145, name: "غسول الوجه للبشرة الزيتية", slug: "غسول-الوجه-للبشرة-الزيتية", price: 244, oldPrice: 273, rating: 4.4, stock: 29, category: "الجمال والعناية", badge: "جديد", image: "img/غسول-الوجه-للبشرة-الزيتية.jpeg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 146, name: "فانوس رمضان أبيض", slug: "فانوس-رمضان-أبيض", price: 286, oldPrice: 329, rating: 4.7, stock: 26, category: "منتجات متنوعة", badge: "محدود", image: "img/فانوس-رمضان-أبيض.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 147, name: "فانوس رمضان أسود", slug: "فانوس-رمضان-أسود", price: 285, oldPrice: 357, rating: 4.6, stock: 15, category: "منتجات متنوعة", badge: "جديد", image: "img/فانوس-رمضان-أسود.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 148, name: "فانوس رمضان بني اللون", slug: "فانوس-رمضان-بني-اللون", price: 154, oldPrice: 228, rating: 4.9, stock: 28, category: "منتجات متنوعة", badge: "عرض", image: "img/فانوس-رمضان-بني-اللون.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 149, name: "فانوس رمضان رمضان مبارك", slug: "فانوس-رمضان-رمضان-مبارك", price: 107, oldPrice: 171, rating: 4.6, stock: 9, category: "منتجات متنوعة", badge: "محدود", image: "img/فانوس-رمضان-رمضان-مبارك.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 150, name: "فوهة دوارة مع فلتر للصنبور المنزلي", slug: "فوهة-دوارة-مع-فلتر-للصنبور-المنزلي", price: 241, oldPrice: 279, rating: 4.3, stock: 22, category: "المنزل والمطبخ", badge: "جديد", image: "img/فوهة-دوارة-مع-فلتر-للصنبور-المنزلي.png", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 151, name: "فيتامينات ب متعددة", slug: "فيتامينات-ب-متعددة", price: 272, oldPrice: 360, rating: 4.9, stock: 23, category: "المكملات الغذائية", badge: "الأكثر طلباً", image: "img/فيتامينات-ب-متعددة.png", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 152, name: "فيتامينات متعددة فائقة الفعالية للرجال والنساء", slug: "فيتامينات-متعددة-فائقة-الفعالية-للرجال-والنساء", price: 131, oldPrice: 162, rating: 4.6, stock: 7, category: "المكملات الغذائية", badge: "محدود", image: "img/فيتامينات-متعددة-فائقة-الفعالية-للرجال-والنساء.jpg", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 153, name: "قالب يدوي لتغليف الزلابية", slug: "قالب-يدوي-لتغليف-الزلابية", price: 226, oldPrice: 305, rating: 4.6, stock: 29, category: "منتجات متنوعة", badge: "عرض", image: "img/قالب-يدوي-لتغليف-الزلابية.png", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 154, name: "قصة عود 100 مل", slug: "قصة-عود-100-مل", price: 158, oldPrice: 241, rating: 4.7, stock: 25, category: "منتجات متنوعة", badge: "محدود", image: "img/قصة-عود-100-مل.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 155, name: "قطاعة خضراوات متعددة الوظائف 9 في 1 مع سلة تصفية", slug: "قطاعة-خضراوات-متعددة-الوظائف-9-في-1-مع-سلة-تصفية", price: 79, oldPrice: 133, rating: 4.5, stock: 25, category: "المنزل والمطبخ", badge: "محدود", image: "img/قطاعة-خضراوات-متعددة-الوظائف-9-في-1-مع-سلة-تصفية.jpeg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 156, name: "قطاعة خضروات 14 في 1", slug: "قطاعة-خضروات-14-في-1", price: 68, oldPrice: 131, rating: 4.9, stock: 11, category: "المنزل والمطبخ", badge: "عرض", image: "img/قطاعة-خضروات-14-في-1.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 157, name: "قطاعة خضروات كهربائية", slug: "قطاعة-خضروات-كهربائية", price: 211, oldPrice: 248, rating: 4.9, stock: 24, category: "المنزل والمطبخ", badge: "جديد", image: "img/قطاعة-خضروات-كهربائية.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 158, name: "قطاعة خضروات يدوية متعددة الوظائف 4 في 1", slug: "قطاعة-خضروات-يدوية-متعددة-الوظائف-4-في-1", price: 291, oldPrice: 364, rating: 4.7, stock: 26, category: "المنزل والمطبخ", badge: "محدود", image: "img/قطاعة-خضروات-يدوية-متعددة-الوظائف-4-في-1.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 159, name: "قطاعة ماندولين آمنة لتقطيع الخضراوات", slug: "قطاعة-ماندولين-آمنة-لتقطيع-الخضراوات", price: 107, oldPrice: 150, rating: 4.8, stock: 29, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/قطاعة-ماندولين-آمنة-لتقطيع-الخضراوات.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 160, name: "قطرات مزيل العرق الفموية", slug: "قطرات-مزيل-العرق-الفموية", price: 151, oldPrice: 179, rating: 4.6, stock: 25, category: "الجمال والعناية", badge: "عرض", image: "img/قطرات-مزيل-العرق-الفموية.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 161, name: "قطعة واحدة من دعامة الكوع المرنة", slug: "قطعة-واحدة-من-دعامة-الكوع-المرنة", price: 265, oldPrice: 328, rating: 4.5, stock: 24, category: "منتجات متنوعة", badge: "محدود", image: "img/قطعة-واحدة-من-دعامة-الكوع-المرنة.png", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 162, name: "قطعة واحدة من واقيات الركبة غير القابلة للانزلاق", slug: "قطعة-واحدة-من-واقيات-الركبة-غير-القابلة-للانزلاق", price: 134, oldPrice: 196, rating: 4.4, stock: 26, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/قطعة-واحدة-من-واقيات-الركبة-غير-القابلة-للانزلاق.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 163, name: "قلم إزالة الثآليل ذو الرأسين", slug: "قلم-إزالة-الثآليل-ذو-الرأسين", price: 237, oldPrice: 270, rating: 4.4, stock: 24, category: "منتجات متنوعة", badge: "عرض", image: "img/قلم-إزالة-الثآليل-ذو-الرأسين.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 164, name: "قلم تعبئة اللحية", slug: "قلم-تعبئة-اللحية", price: 156, oldPrice: 239, rating: 4.8, stock: 25, category: "منتجات متنوعة", badge: "عرض", image: "img/قلم-تعبئة-اللحية.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 165, name: "قلم تعبئة فراغات", slug: "قلم-تعبئة-فراغات", price: 223, oldPrice: 255, rating: 4.8, stock: 26, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/قلم-تعبئة-فراغات.jpeg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 166, name: "قلم لتبييض الاسنان", slug: "قلم-لتبييض-الاسنان", price: 265, oldPrice: 328, rating: 4.5, stock: 8, category: "الجمال والعناية", badge: "عرض", image: "img/قلم-لتبييض-الاسنان.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 167, name: "قناع الشعر بالكولاجين لإصلاح الشعر بخلاصة الماكا", slug: "قناع-الشعر-بالكولاجين-لإصلاح-الشعر-بخلاصة-الماكا", price: 315, oldPrice: 340, rating: 4.4, stock: 27, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/قناع-الشعر-بالكولاجين-لإصلاح-الشعر-بخلاصة-الماكا.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 168, name: "قناع الوجه المقشر والمنعم بالأعشاب", slug: "قناع-الوجه-المقشر-والمنعم-بالأعشاب", price: 318, oldPrice: 406, rating: 4.4, stock: 24, category: "الجمال والعناية", badge: "محدود", image: "img/قناع-الوجه-المقشر-والمنعم-بالأعشاب.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 169, name: "قناع تقشير القدمين", slug: "قناع-تقشير-القدمين", price: 121, oldPrice: 181, rating: 4.8, stock: 15, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/قناع-تقشير-القدمين.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 170, name: "قهوة خضراء 1000 ملغ", slug: "قهوة-خضراء-1000-ملغ", price: 54, oldPrice: 82, rating: 4.4, stock: 21, category: "منتجات متنوعة", badge: "عرض", image: "img/قهوة-خضراء-1000-ملغ.png", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 171, name: "قولون للتطهير", slug: "قولون-للتطهير", price: 177, oldPrice: 221, rating: 4.7, stock: 14, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/قولون-للتطهير.png", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 172, name: "كاميرا بانوراما واي فاي", slug: "كاميرا-بانوراما-واي-فاي", price: 216, oldPrice: 293, rating: 4.5, stock: 7, category: "الأجهزة الذكية", badge: "جديد", image: "img/كاميرا-بانوراما-واي-فاي.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 173, name: "كرسي الصلاة", slug: "كرسي-الصلاة", price: 241, oldPrice: 276, rating: 4.3, stock: 15, category: "منتجات متنوعة", badge: "عرض", image: "img/كرسي-الصلاة.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 174, name: "كريم أساس للبشرة ذات اللون الدافئ", slug: "كريم-أساس-للبشرة-ذات-اللون-الدافئ", price: 215, oldPrice: 236, rating: 4.5, stock: 12, category: "الجمال والعناية", badge: "عرض", image: "img/كريم-أساس-للبشرة-ذات-اللون-الدافئ.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 175, name: "كريم أكريتين المضاد لحب الشباب والبقع", slug: "كريم-أكريتين-المضاد-لحب-الشباب-والبقع", price: 161, oldPrice: 232, rating: 4.9, stock: 29, category: "الجمال والعناية", badge: "جديد", image: "img/كريم-أكريتين-المضاد-لحب-الشباب-والبقع.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 176, name: "كريم البروستاتا", slug: "كريم-البروستاتا", price: 60, oldPrice: 101, rating: 4.5, stock: 20, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/كريم-البروستاتا.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 177, name: "كريم التهاب الجلد والحكة والصدفية", slug: "كريم-التهاب-الجلد-والحكة-والصدفية", price: 230, oldPrice: 285, rating: 4.7, stock: 26, category: "الجمال والعناية", badge: "جديد", image: "img/كريم-التهاب-الجلد-والحكة-والصدفية.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 178, name: "كريم العيون ريتينول ببتيد سم الثعبان", slug: "كريم-العيون-ريتينول-ببتيد-سم-الثعبان", price: 216, oldPrice: 260, rating: 4.8, stock: 9, category: "الجمال والعناية", badge: "محدود", image: "img/كريم-العيون-ريتينول-ببتيد-سم-الثعبان.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 179, name: "كريم الوجه بالكولاجين والذهب الخالص عيار 24", slug: "كريم-الوجه-بالكولاجين-والذهب-الخالص-عيار-24", price: 86, oldPrice: 146, rating: 4.4, stock: 19, category: "الجمال والعناية", badge: "جديد", image: "img/كريم-الوجه-بالكولاجين-والذهب-الخالص-عيار-24.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 180, name: "كريم تبييض الإبط بالحليب", slug: "كريم-تبييض-الإبط-بالحليب", price: 57, oldPrice: 113, rating: 4.6, stock: 27, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/كريم-تبييض-الإبط-بالحليب.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 181, name: "كريم تبييض بالبابايا", slug: "كريم-تبييض-بالبابايا", price: 47, oldPrice: 122, rating: 4.8, stock: 12, category: "الجمال والعناية", badge: "محدود", image: "img/كريم-تبييض-بالبابايا.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 182, name: "كريم تنعيم العين", slug: "كريم-تنعيم-العين", price: 250, oldPrice: 295, rating: 4.7, stock: 10, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/كريم-تنعيم-العين.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 183, name: "كريم حساسيه", slug: "كريم-حساسيه", price: 131, oldPrice: 181, rating: 4.8, stock: 15, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/كريم-حساسيه.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 184, name: "كريم سم النحل للمفاصل", slug: "كريم-سم-النحل-للمفاصل", price: 97, oldPrice: 151, rating: 4.4, stock: 15, category: "الجمال والعناية", badge: "محدود", image: "img/كريم-سم-النحل-للمفاصل.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 185, name: "كريم سم النحل", slug: "كريم-سم-النحل", price: 116, oldPrice: 151, rating: 4.4, stock: 14, category: "الجمال والعناية", badge: "جديد", image: "img/كريم-سم-النحل.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 186, name: "كريم سيليماكس ريتينول", slug: "كريم-سيليماكس-ريتينول", price: 280, oldPrice: 344, rating: 4.6, stock: 26, category: "الجمال والعناية", badge: "جديد", image: "img/كريم-سيليماكس-ريتينول.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 187, name: "كريم لتفتيح البشرة", slug: "كريم-لتفتيح-البشرة", price: 195, oldPrice: 272, rating: 4.6, stock: 29, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/كريم-لتفتيح-البشرة.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 188, name: "كريم للبشرة لعلاج الصدفية والتهاب الجلد والأكزيما", slug: "كريم-للبشرة-لعلاج-الصدفية-والتهاب-الجلد-والأكزيما", price: 287, oldPrice: 353, rating: 4.6, stock: 29, category: "الجمال والعناية", badge: "عرض", image: "img/كريم-للبشرة-لعلاج-الصدفية-والتهاب-الجلد-والأكزيما.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 189, name: "كريم لليدين برائحة الفواكه ومضاد للتشقق", slug: "كريم-لليدين-برائحة-الفواكه-ومضاد-للتشقق", price: 115, oldPrice: 179, rating: 4.7, stock: 17, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/كريم-لليدين-برائحة-الفواكه-ومضاد-للتشقق.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 190, name: "كريم معالج الشيخوخة", slug: "كريم-معالج-الشيخوخة", price: 243, oldPrice: 318, rating: 4.7, stock: 6, category: "الجمال والعناية", badge: "محدود", image: "img/كريم-معالج-الشيخوخة.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 191, name: "كريم هاي كوين لتفتيح البشرة 4 30 غرام", slug: "كريم-هاي-كوين-لتفتيح-البشرة-4-30-غرام", price: 201, oldPrice: 241, rating: 4.4, stock: 6, category: "الجمال والعناية", badge: "عرض", image: "img/كريم-هاي-كوين-لتفتيح-البشرة-4-30-غرام.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 192, name: "كريم يفتح المناطق الداكنة", slug: "كريم-يفتح-المناطق-الداكنة", price: 266, oldPrice: 329, rating: 4.6, stock: 7, category: "الجمال والعناية", badge: "جديد", image: "img/كريم-يفتح-المناطق-الداكنة.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 193, name: "كريمة ثآليل", slug: "كريمة-wart", price: 72, oldPrice: 156, rating: 4.8, stock: 6, category: "الجمال والعناية", badge: "جديد", image: "img/كريمة-wart.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 194, name: "كشاف شمسي مع جهاز تحكم عن بعد وكاشف حركة للاستخدام الخارجي", slug: "كشاف-شمسي-مع-جهاز-تحكم-عن-بعد-وكاشف-حركة-للاستخدام-الخارجي", price: 180, oldPrice: 267, rating: 4.8, stock: 23, category: "الأجهزة الذكية", badge: "الأكثر طلباً", image: "img/كشاف-شمسي-مع-جهاز-تحكم-عن-بعد-وكاشف-حركة-للاستخدام-الخارجي.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 195, name: "كم الركبة الضاغط", slug: "كم-الركبة-الضاغط", price: 193, oldPrice: 214, rating: 4.5, stock: 8, category: "الصحة والعناية الشخصية", badge: "الأكثر طلباً", image: "img/كم-الركبة-الضاغط.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 196, name: "كوب قهوة بغطاء", slug: "كوب-قهوة-بغطاء", price: 218, oldPrice: 278, rating: 4.7, stock: 23, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/كوب-قهوة-بغطاء.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 197, name: "كولاجين", slug: "كولاجين", price: 60, oldPrice: 144, rating: 4.5, stock: 28, category: "المكملات الغذائية", badge: "الأكثر طلباً", image: "img/كولاجين.png", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 198, name: "كوول لغسل المناطق الحميمية", slug: "كوول-لغسل-المناطق-الحميمية", price: 114, oldPrice: 184, rating: 4.6, stock: 19, category: "منتجات متنوعة", badge: "محدود", image: "img/كوول-لغسل-المناطق-الحميمية.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 199, name: "كيتو للرجال لإنقاص الوزن", slug: "كيتو-للرجال-لإنقاص-الوزن", price: 113, oldPrice: 143, rating: 4.6, stock: 28, category: "المكملات الغذائية", badge: "جديد", image: "img/كيتو-للرجال-لإنقاص-الوزن.jpg", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 200, name: "كيتو للنساء لإنقاص الوزن", slug: "كيتو-للنساء-لإنقاص-الوزن", price: 137, oldPrice: 211, rating: 4.7, stock: 14, category: "المكملات الغذائية", badge: "جديد", image: "img/كيتو-للنساء-لإنقاص-الوزن.jpg", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 201, name: "كيليكسو حامل غسالة ملابس", slug: "كيليكسو-حامل-غسالة-ملابس", price: 253, oldPrice: 340, rating: 4.9, stock: 14, category: "المنزل والمطبخ", badge: "عرض", image: "img/كيليكسو-حامل-غسالة-ملابس.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 202, name: "لاصقات تنحيف البطن", slug: "لاصقات-تنحيف-البطن", price: 197, oldPrice: 218, rating: 4.3, stock: 15, category: "الصحة والعناية الشخصية", badge: "محدود", image: "img/لاصقات-تنحيف-البطن.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 203, name: "لاصقات سم النحل", slug: "لاصقات-سم-النحل", price: 103, oldPrice: 188, rating: 4.8, stock: 18, category: "الصحة والعناية الشخصية", badge: "محدود", image: "img/لاصقات-سم-النحل.jpeg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 204, name: "لاصقات لإزالة الزوائد الجلدية", slug: "لاصقات-لإزالة-الزوائد-الجلدية", price: 96, oldPrice: 151, rating: 4.9, stock: 16, category: "الجمال والعناية", badge: "محدود", image: "img/لاصقات-لإزالة-الزوائد-الجلدية.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 205, name: "لعبة طائرة مقاتلة يتم التحكم فيها عن بعد", slug: "لعبة-طائرة-مقاتلة-يتم-التحكم-فيها-عن-بعد", price: 257, oldPrice: 312, rating: 4.5, stock: 26, category: "الأطفال", badge: "عرض", image: "img/لعبة-طائرة-مقاتلة-يتم-التحكم-فيها-عن-بعد.png", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 206, name: "لوحة لوحة للكتابة والرسم", slug: "لوحة-lcd-للكتابة-والرسم", price: 151, oldPrice: 212, rating: 4.5, stock: 27, category: "الأطفال", badge: "عرض", image: "img/لوحة-lcd-للكتابة-والرسم.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 207, name: "لوحة تعلم بالصوت", slug: "لوحة-تعلم-بالصوت", price: 280, oldPrice: 368, rating: 4.5, stock: 20, category: "منتجات متنوعة", badge: "محدود", image: "img/لوحة-تعلم-بالصوت.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 208, name: "لوشن تبييض الجسم", slug: "لوشن-تبييض-الجسم", price: 71, oldPrice: 155, rating: 4.3, stock: 18, category: "الجمال والعناية", badge: "جديد", image: "img/لوشن-تبييض-الجسم.jpeg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 209, name: "ماسكارا المقاومة للماء منتج", slug: "ماسكارا-المقاومة-للماء-sheglam", price: 106, oldPrice: 176, rating: 4.3, stock: 25, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/ماسكارا-المقاومة-للماء-sheglam.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 210, name: "ماسكارا مقاومة للماء", slug: "ماسكارا-مقاومة-للماء", price: 133, oldPrice: 179, rating: 4.8, stock: 29, category: "الجمال والعناية", badge: "جديد", image: "img/ماسكارا-مقاومة-للماء.jpeg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 211, name: "ماكينة حلاقة الشعر اللاسلكية كيمي 666 للرجال", slug: "ماكينة-حلاقة-الشعر-اللاسلكية-kemei-666-للرجال", price: 274, oldPrice: 353, rating: 4.4, stock: 17, category: "الجمال والعناية", badge: "عرض", image: "img/ماكينة-حلاقة-الشعر-اللاسلكية-kemei-666-للرجال.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 212, name: "ماكينة حلاقة كهربائية جديدة من كيمي 4 في 1", slug: "ماكينة-حلاقة-كهربائية-جديدة-من-كيمي-4-في-1", price: 110, oldPrice: 179, rating: 4.4, stock: 27, category: "منتجات متنوعة", badge: "جديد", image: "img/ماكينة-حلاقة-كهربائية-جديدة-من-كيمي-4-في-1.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 213, name: "ماكينة حلاقة كهربائية لاسلكية قابلة للشحن عبر يو اس بي", slug: "ماكينة-حلاقة-كهربائية-لاسلكية-قابلة-للشحن-عبر-usb", price: 312, oldPrice: 381, rating: 4.4, stock: 8, category: "الأجهزة الذكية", badge: "محدود", image: "img/ماكينة-حلاقة-كهربائية-لاسلكية-قابلة-للشحن-عبر-usb.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 214, name: "ماكينة حلاقة كهربائية لاسلكية للنساء", slug: "ماكينة-حلاقة-كهربائية-لاسلكية-للنساء", price: 111, oldPrice: 172, rating: 4.4, stock: 24, category: "الأجهزة الذكية", badge: "محدود", image: "img/ماكينة-حلاقة-كهربائية-لاسلكية-للنساء.jpeg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 215, name: "مانع تسرب الهواء والغبار أسفل الباب", slug: "مانع-تسرب-الهواء-والغبار-أسفل-الباب", price: 119, oldPrice: 169, rating: 4.5, stock: 15, category: "منتجات متنوعة", badge: "الأكثر طلباً", image: "img/مانع-تسرب-الهواء-والغبار-أسفل-الباب.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 216, name: "مجفف الأحذية الكهربائي", slug: "مجفف-الأحذية-الكهربائي", price: 57, oldPrice: 108, rating: 4.6, stock: 10, category: "منتجات متنوعة", badge: "جديد", image: "img/مجفف-الأحذية-الكهربائي.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 217, name: "مجموعة أدوات العناية بالجسم من ماكينة حلاقة الظهر", slug: "مجموعة-أدوات-العناية-بالجسم-من-ماكينة-حلاقة-الظهر", price: 323, oldPrice: 391, rating: 4.5, stock: 27, category: "الصحة والعناية الشخصية", badge: "عرض", image: "img/مجموعة-أدوات-العناية-بالجسم-من-ماكينة-حلاقة-الظهر.png", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 218, name: "مجموعة أدوات تنظيف الممسحة والدلو", slug: "مجموعة-أدوات-تنظيف-الممسحة-والدلو", price: 320, oldPrice: 396, rating: 4.8, stock: 12, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/مجموعة-أدوات-تنظيف-الممسحة-والدلو.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 219, name: "مجموعة احماض دهنية", slug: "مجموعة-احماض-دهنية", price: 154, oldPrice: 227, rating: 4.4, stock: 17, category: "منتجات متنوعة", badge: "جديد", image: "img/مجموعة-احماض-دهنية.png", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 220, name: "مجموعة الرسم والتلوين مع جهاز عرض", slug: "مجموعة-الرسم-والتلوين-مع-جهاز-عرض", price: 190, oldPrice: 253, rating: 4.9, stock: 26, category: "الأطفال", badge: "عرض", image: "img/مجموعة-الرسم-والتلوين-مع-جهاز-عرض.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 221, name: "مجموعة العناية الكاملة بأظافر الأطفال", slug: "مجموعة-العناية-الكاملة-بأظافر-الأطفال", price: 246, oldPrice: 282, rating: 4.4, stock: 7, category: "الأطفال", badge: "الأكثر طلباً", image: "img/مجموعة-العناية-الكاملة-بأظافر-الأطفال.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 222, name: "مجموعة تلميع مانيكير", slug: "مجموعة-تلميع-مانيكير", price: 151, oldPrice: 202, rating: 4.8, stock: 25, category: "منتجات متنوعة", badge: "عرض", image: "img/مجموعة-تلميع-مانيكير.jpeg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 223, name: "مجموعة فرش تنظيف كهربائية", slug: "مجموعة-فرش-تنظيف-كهربائية", price: 263, oldPrice: 300, rating: 4.9, stock: 24, category: "منتجات متنوعة", badge: "جديد", image: "img/مجموعة-فرش-تنظيف-كهربائية.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 224, name: "مجموعة ملاكمة للأطفال", slug: "مجموعة-ملاكمة-للأطفال", price: 117, oldPrice: 160, rating: 4.4, stock: 20, category: "الأطفال", badge: "محدود", image: "img/مجموعة-ملاكمة-للأطفال.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 225, name: "مدفأة زجاجات الأطفال المحمولة", slug: "مدفأة-زجاجات-الأطفال-المحمولة", price: 167, oldPrice: 238, rating: 4.8, stock: 11, category: "الأطفال", badge: "عرض", image: "img/مدفأة-زجاجات-الأطفال-المحمولة.jpg", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 226, name: "مدلك للوجه مصنوع من الكوارتز الوردي", slug: "مدلك-للوجه-مصنوع-من-الكوارتز-الوردي", price: 185, oldPrice: 223, rating: 4.9, stock: 13, category: "الجمال والعناية", badge: "جديد", image: "img/مدلك-للوجه-مصنوع-من-الكوارتز-الوردي.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 227, name: "مرتبة هوائية للمقعد الخلفي", slug: "مرتبة-هوائية-للمقعد-الخلفي", price: 162, oldPrice: 216, rating: 4.7, stock: 23, category: "منتجات متنوعة", badge: "عرض", image: "img/مرتبة-هوائية-للمقعد-الخلفي.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 228, name: "مرهم سريع المفعول لتخفيف الآلام", slug: "مرهم-سريع-المفعول-لتخفيف-الآلام", price: 255, oldPrice: 314, rating: 4.5, stock: 10, category: "الصحة والعناية الشخصية", badge: "جديد", image: "img/مرهم-سريع-المفعول-لتخفيف-الآلام.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 229, name: "مروحة توربو صغيرة، مروحة توربو نفاثة 5 في 1 60", slug: "مروحة-توربو-صغيرة،-مروحة-توربو-نفاثة-5-في-1-60", price: 194, oldPrice: 215, rating: 4.3, stock: 28, category: "المنزل والمطبخ", badge: "محدود", image: "img/مروحة-توربو-صغيرة،-مروحة-توربو-نفاثة-5-في-1-60.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 230, name: "مروحة كهربائية توربينية لاسلكية", slug: "مروحة-كهربائية-توربينية-لاسلكية", price: 85, oldPrice: 160, rating: 4.5, stock: 16, category: "المنزل والمطبخ", badge: "محدود", image: "img/مروحة-كهربائية-توربينية-لاسلكية.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 231, name: "مزيل الرؤوس السوداء", slug: "مزيل-الرؤوس-السوداء", price: 96, oldPrice: 146, rating: 4.5, stock: 27, category: "الجمال والعناية", badge: "محدود", image: "img/مزيل-الرؤوس-السوداء.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 232, name: "مزيل شعر الوجه المثالي", slug: "مزيل-شعر-الوجه-المثالي", price: 321, oldPrice: 366, rating: 4.8, stock: 19, category: "الجمال والعناية", badge: "جديد", image: "img/مزيل-شعر-الوجه-المثالي.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 233, name: "مستخلص سائل من جذر عرق السوس", slug: "مستخلص-سائل-من-جذر-عرق-السوس", price: 76, oldPrice: 132, rating: 4.6, stock: 21, category: "منتجات متنوعة", badge: "محدود", image: "img/مستخلص-سائل-من-جذر-عرق-السوس.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 234, name: "مسحوق شاي الماكا", slug: "مسحوق-شاي-الماكا", price: 127, oldPrice: 191, rating: 4.4, stock: 14, category: "المكملات الغذائية", badge: "عرض", image: "img/مسحوق-شاي-الماكا.jpg", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 235, name: "مسدس فقاعات ببطاريات", slug: "مسدس-فقاعات-ببطاريات", price: 239, oldPrice: 262, rating: 4.3, stock: 17, category: "منتجات متنوعة", badge: "عرض", image: "img/مسدس-فقاعات-ببطاريات.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 236, name: "مشط تجعيد الشعر اللاسلكي ومشط فرد الشعر اللاسلكي", slug: "مشط-تجعيد-الشعر-اللاسلكي-ومشط-فرد-الشعر-اللاسلكي", price: 161, oldPrice: 227, rating: 4.9, stock: 17, category: "الجمال والعناية", badge: "عرض", image: "img/مشط-تجعيد-الشعر-اللاسلكي-ومشط-فرد-الشعر-اللاسلكي.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 237, name: "مشط وفرشاة فرد الشعر", slug: "مشط-وفرشاة-فرد-الشعر", price: 243, oldPrice: 324, rating: 4.6, stock: 17, category: "الجمال والعناية", badge: "محدود", image: "img/مشط-وفرشاة-فرد-الشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 238, name: "مصباح ليد للقرآن الكريم مع مكبر صوت", slug: "مصباح-led-للقرآن-الكريم-مع-مكبر-صوت", price: 318, oldPrice: 346, rating: 4.7, stock: 23, category: "الجمال والعناية", badge: "عرض", image: "img/مصباح-led-للقرآن-الكريم-مع-مكبر-صوت.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 239, name: "مصباح إسقاط دوار النجوم", slug: "مصباح-إسقاط-دوار-النجوم", price: 154, oldPrice: 219, rating: 4.7, stock: 28, category: "المنزل والمطبخ", badge: "محدود", image: "img/مصباح-إسقاط-دوار-النجوم.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 240, name: "مصباح متعدد الاستعمالات للمخيمين", slug: "مصباح-متعدد-الاستعمالات-للمخيمين", price: 46, oldPrice: 103, rating: 4.5, stock: 6, category: "المنزل والمطبخ", badge: "عرض", image: "img/مصباح-متعدد-الاستعمالات-للمخيمين.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 241, name: "مصباح نقال مع صندوق ادوات", slug: "مصباح-نقال-مع-صندوق-ادوات", price: 186, oldPrice: 245, rating: 4.3, stock: 9, category: "المنزل والمطبخ", badge: "جديد", image: "img/مصباح-نقال-مع-صندوق-ادوات.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 242, name: "مصباح يدوي يعمل بالأشعة فوق البنفسجية", slug: "مصباح-يدوي-يعمل-بالأشعة-فوق-البنفسجية", price: 83, oldPrice: 133, rating: 4.8, stock: 17, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/مصباح-يدوي-يعمل-بالأشعة-فوق-البنفسجية.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 243, name: "مصحح أصبع القدم الكبير", slug: "مصحح-أصبع-القدم-الكبير", price: 134, oldPrice: 183, rating: 4.6, stock: 11, category: "الصحة والعناية الشخصية", badge: "الأكثر طلباً", image: "img/مصحح-أصبع-القدم-الكبير.jpeg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 244, name: "مصحح وضعية الكتفين", slug: "مصحح-وضعية-الكتفين", price: 109, oldPrice: 131, rating: 4.3, stock: 22, category: "الصحة والعناية الشخصية", badge: "محدود", image: "img/مصحح-وضعية-الكتفين.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 245, name: "مصفف شعر الرجال واللحية سهلة", slug: "مصفف-شعر-الرجال-واللحية-سهلة", price: 92, oldPrice: 177, rating: 4.6, stock: 28, category: "الجمال والعناية", badge: "محدود", image: "img/مصفف-شعر-الرجال-واللحية-سهلة.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 246, name: "مضخة مياه الشرب", slug: "مضخة-مياه-الشرب", price: 57, oldPrice: 100, rating: 4.3, stock: 18, category: "منتجات متنوعة", badge: "عرض", image: "img/مضخة-مياه-الشرب.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 247, name: "مطحنة كهربائية", slug: "مطحنة-كهربائية", price: 289, oldPrice: 326, rating: 4.8, stock: 29, category: "منتجات متنوعة", badge: "محدود", image: "img/مطحنة-كهربائية.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 248, name: "مظلة شمسية قابلة للسحب للزجاج الأمامي", slug: "مظلة-شمسية-قابلة-للسحب-للزجاج-الأمامي", price: 86, oldPrice: 166, rating: 4.5, stock: 13, category: "منتجات متنوعة", badge: "محدود", image: "img/مظلة-شمسية-قابلة-للسحب-للزجاج-الأمامي.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 249, name: "معجون أسنان وايت بلس", slug: "معجون-أسنان-وايت-بلس", price: 197, oldPrice: 235, rating: 4.4, stock: 9, category: "الأجهزة الذكية", badge: "جديد", image: "img/معجون-أسنان-وايت-بلس.png", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 250, name: "معجون الأسنان v34", slug: "معجون-الأسنان-v34", price: 315, oldPrice: 348, rating: 4.6, stock: 15, category: "منتجات متنوعة", badge: "محدود", image: "img/معجون-الأسنان-v34.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 251, name: "معدات تقوية قبضة اليد", slug: "معدات-تقوية-قبضة-اليد", price: 316, oldPrice: 372, rating: 4.7, stock: 8, category: "منتجات متنوعة", badge: "عرض", image: "img/معدات-تقوية-قبضة-اليد.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 252, name: "معقم للقدمين بزيت شجرة الشاي", slug: "معقم-للقدمين-بزيت-شجرة-الشاي", price: 202, oldPrice: 227, rating: 4.3, stock: 11, category: "الجمال والعناية", badge: "جديد", image: "img/معقم-للقدمين-بزيت-شجرة-الشاي.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 253, name: "مغنيزيوم", slug: "مغنيزيوم", price: 271, oldPrice: 316, rating: 4.5, stock: 7, category: "المكملات الغذائية", badge: "الأكثر طلباً", image: "img/مغنيزيوم.png", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 254, name: "مفتاح متعدد الوظائف", slug: "مفتاح-متعدد-الوظائف", price: 63, oldPrice: 119, rating: 4.6, stock: 14, category: "منتجات متنوعة", badge: "عرض", image: "img/مفتاح-متعدد-الوظائف.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 255, name: "مقص أظافر للأطفال والرضع", slug: "مقص-أظافر-للأطفال-والرضع", price: 145, oldPrice: 213, rating: 4.7, stock: 26, category: "الأطفال", badge: "عرض", image: "img/مقص-أظافر-للأطفال-والرضع.png", description: "منتجات آمنة وممتعة للأطفال." },
+{ id: 256, name: "مكبر صوت بتصميم الكعبة العربية", slug: "مكبر-صوت-بتصميم-الكعبة-العربية", price: 299, oldPrice: 369, rating: 4.5, stock: 26, category: "الصحة والعناية الشخصية", badge: "محدود", image: "img/مكبر-صوت-بتصميم-الكعبة-العربية.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 257, name: "مكبر صوت بلوتوث مزود بمصباح ليد", slug: "مكبر-صوت-بلوتوث-مزود-بمصباح-led", price: 282, oldPrice: 360, rating: 4.7, stock: 23, category: "المنزل والمطبخ", badge: "عرض", image: "img/مكبر-صوت-بلوتوث-مزود-بمصباح-led.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 258, name: "مكبر صوت على شكل مصباح القمر", slug: "مكبر-صوت-على-شكل-مصباح-القمر", price: 143, oldPrice: 200, rating: 4.8, stock: 22, category: "المنزل والمطبخ", badge: "عرض", image: "img/مكبر-صوت-على-شكل-مصباح-القمر.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 259, name: "مكبر صوت للأناشيد الإسلامية", slug: "مكبر-صوت-للأناشيد-الإسلامية", price: 63, oldPrice: 139, rating: 4.4, stock: 11, category: "الأجهزة الذكية", badge: "جديد", image: "img/مكبر-صوت-للأناشيد-الإسلامية.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 260, name: "مكبر صوت للقرآن الكريم مع ضوء ليلي وجهاز تحكم عن بعد", slug: "مكبر-صوت-للقرآن-الكريم-مع-ضوء-ليلي-وجهاز-تحكم-عن-بعد", price: 96, oldPrice: 178, rating: 4.4, stock: 16, category: "الجمال والعناية", badge: "جديد", image: "img/مكبر-صوت-للقرآن-الكريم-مع-ضوء-ليلي-وجهاز-تحكم-عن-بعد.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 261, name: "مكشطة الرؤوس السوداء", slug: "مكشطة-الرؤوس-السوداء", price: 167, oldPrice: 238, rating: 4.4, stock: 6, category: "منتجات متنوعة", badge: "عرض", image: "img/مكشطة-الرؤوس-السوداء.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 262, name: "مكمل البيوتين لنمو الشعر", slug: "مكمل-البيوتين-لنمو-الشعر", price: 121, oldPrice: 198, rating: 4.8, stock: 23, category: "الجمال والعناية", badge: "عرض", image: "img/مكمل-البيوتين-لنمو-الشعر.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 263, name: "مكنسة شفط الغبار", slug: "مكنسة-شفط-الغبار", price: 282, oldPrice: 355, rating: 4.4, stock: 13, category: "المنزل والمطبخ", badge: "عرض", image: "img/مكنسة-شفط-الغبار.jpeg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 264, name: "مكنسة كهربائية للسيارة 3 في 1", slug: "مكنسة-كهربائية-للسيارة-3-في-1", price: 316, oldPrice: 384, rating: 4.7, stock: 20, category: "المنزل والمطبخ", badge: "عرض", image: "img/مكنسة-كهربائية-للسيارة-3-في-1.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 265, name: "مكنسة كهربائية للسيارة والمنزل", slug: "مكنسة-كهربائية-للسيارة-والمنزل", price: 194, oldPrice: 266, rating: 4.8, stock: 8, category: "المنزل والمطبخ", badge: "عرض", image: "img/مكنسة-كهربائية-للسيارة-والمنزل.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 266, name: "مكينة ازالة الخلاية الميتة", slug: "مكينة-ازالة-الخلاية-الميتة", price: 198, oldPrice: 259, rating: 4.6, stock: 25, category: "منتجات متنوعة", badge: "جديد", image: "img/مكينة-ازالة-الخلاية-الميتة.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 267, name: "ملعقة إلكترونية ميزان", slug: "ملعقة-إلكترونية-ميزان", price: 49, oldPrice: 107, rating: 4.8, stock: 25, category: "الأجهزة الذكية", badge: "الأكثر طلباً", image: "img/ملعقة-إلكترونية-ميزان.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 268, name: "ممسحات الرش لتنظيف الأرضيات", slug: "ممسحات-الرش-لتنظيف-الأرضيات", price: 76, oldPrice: 146, rating: 4.7, stock: 13, category: "منتجات متنوعة", badge: "جديد", image: "img/ممسحات-الرش-لتنظيف-الأرضيات.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 269, name: "مناديل إزالة البقع", slug: "مناديل-إزالة-البقع", price: 193, oldPrice: 258, rating: 4.3, stock: 13, category: "منتجات متنوعة", badge: "عرض", image: "img/مناديل-إزالة-البقع.jpg", description: "منتجات مفيدة للاستخدام اليومي." },
+{ id: 270, name: "منظف فرش المكياج الكهربائي", slug: "منظف-فرش-المكياج-الكهربائي", price: 128, oldPrice: 190, rating: 4.8, stock: 29, category: "الجمال والعناية", badge: "جديد", image: "img/منظف-فرش-المكياج-الكهربائي.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 271, name: "منظم أحذية للمدخل", slug: "منظم-أحذية-للمدخل", price: 181, oldPrice: 219, rating: 4.6, stock: 8, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/منظم-أحذية-للمدخل.png", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 272, name: "منظم مستحضرات التجميل", slug: "منظم-مستحضرات-التجميل", price: 239, oldPrice: 326, rating: 4.3, stock: 22, category: "المنزل والمطبخ", badge: "محدود", image: "img/منظم-مستحضرات-التجميل.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 273, name: "موزع معجون أسنان أوتوماتيكي", slug: "موزع-معجون-أسنان-أوتوماتيكي", price: 234, oldPrice: 277, rating: 4.3, stock: 18, category: "المنزل والمطبخ", badge: "عرض", image: "img/موزع-معجون-أسنان-أوتوماتيكي.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 274, name: "موزع معجون الاسنان", slug: "موزع-معجون-الاسنان", price: 129, oldPrice: 212, rating: 4.5, stock: 25, category: "المنزل والمطبخ", badge: "جديد", image: "img/موزع-معجون-الاسنان.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 275, name: "موسع التنفس الانفي", slug: "موسع-التنفس-الانفي", price: 115, oldPrice: 138, rating: 4.5, stock: 16, category: "الصحة والعناية الشخصية", badge: "محدود", image: "img/موسع-التنفس-الانفي.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 276, name: "موقد غاز محمول مقاوم للرياح للاستخدام الخارجي", slug: "موقد-غاز-محمول-مقاوم-للرياح-للاستخدام-الخارجي", price: 291, oldPrice: 358, rating: 4.6, stock: 21, category: "المنزل والمطبخ", badge: "جديد", image: "img/موقد-غاز-محمول-مقاوم-للرياح-للاستخدام-الخارجي.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 277, name: "ميرايا إضاءة مكياج", slug: "ميرايا-إضاءة-مكياج", price: 308, oldPrice: 383, rating: 4.6, stock: 24, category: "الجمال والعناية", badge: "الأكثر طلباً", image: "img/ميرايا-إضاءة-مكياج.jpg", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 278, name: "ميزان الكتروني بلوتوث", slug: "ميزان-الكتروني-بلوتوث", price: 254, oldPrice: 342, rating: 4.8, stock: 13, category: "الأجهزة الذكية", badge: "محدود", image: "img/ميزان-الكتروني-بلوتوث.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 279, name: "ميلاتونين", slug: "ميلاتونين", price: 85, oldPrice: 152, rating: 4.9, stock: 17, category: "المكملات الغذائية", badge: "الأكثر طلباً", image: "img/ميلاتونين.png", description: "مكملات غذائية بجودة موثوقة." },
+{ id: 280, name: "مُشكِّل ظلال العيون اللامع", slug: "مُشكِّل-ظلال-العيون-اللامع", price: 98, oldPrice: 160, rating: 4.6, stock: 27, category: "الجمال والعناية", badge: "جديد", image: "img/مُشكِّل-ظلال-العيون-اللامع.png", description: "عناية فاخرة بنتيجة واضحة للبشرة والشعر." },
+{ id: 281, name: "نظارات شمسية بلوتوث مع سماعة رأس مدمجة", slug: "نظارات-شمسية-بلوتوث-مع-سماعة-رأس-مدمجة", price: 156, oldPrice: 190, rating: 4.9, stock: 25, category: "الأجهزة الذكية", badge: "محدود", image: "img/نظارات-شمسية-بلوتوث-مع-سماعة-رأس-مدمجة.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 282, name: "نظام العناية الشخصية بالقدمين", slug: "نظام-العناية-الشخصية-بالقدمين", price: 166, oldPrice: 253, rating: 4.4, stock: 12, category: "الصحة والعناية الشخصية", badge: "الأكثر طلباً", image: "img/نظام-العناية-الشخصية-بالقدمين.png", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 283, name: "هدية الصلاة سجادة وسبحة", slug: "هدية-الصلاة-سجادة-وسبحة", price: 47, oldPrice: 101, rating: 4.5, stock: 22, category: "المنزل والمطبخ", badge: "محدود", image: "img/هدية-الصلاة-سجادة-وسبحة.jpg", description: "أدوات منزلية تسهل حياتك وتنظيمك." },
+{ id: 284, name: "وحدة تحكم ألعاب m8 منتج باو 2 3g", slug: "وحدة-تحكم-ألعاب-m8-u-bao-2-3g", price: 291, oldPrice: 368, rating: 4.5, stock: 25, category: "الأجهزة الذكية", badge: "الأكثر طلباً", image: "img/وحدة-تحكم-ألعاب-m8-u-bao-2-3g.jpg", description: "أجهزة ذكية عملية للحياة اليومية." },
+{ id: 285, name: "وسادة التدفئة لألم البطن أو آلام الدورة الشهرية", slug: "وسادة-التدفئة-لألم-البطن-أو-آلام-الدورة-الشهرية", price: 135, oldPrice: 163, rating: 4.4, stock: 29, category: "الصحة والعناية الشخصية", badge: "جديد", image: "img/وسادة-التدفئة-لألم-البطن-أو-آلام-الدورة-الشهرية.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 286, name: "وسادة دعم مرنة", slug: "وسادة-دعم-مرنة", price: 203, oldPrice: 231, rating: 4.8, stock: 27, category: "الصحة والعناية الشخصية", badge: "الأكثر طلباً", image: "img/وسادة-دعم-مرنة.jpg", description: "راحة يومية ودعم صحي موثوق." },
+{ id: 287, name: "ولاعة كهربائية مزدوجة مع مصباح", slug: "ولاعة-كهربائية-مزدوجة-مع-مصباح", price: 120, oldPrice: 150, rating: 4.6, stock: 18, category: "المنزل والمطبخ", badge: "الأكثر طلباً", image: "img/ولاعة-كهربائية-مزدوجة-مع-مصباح.png", description: "أدوات منزلية تسهل حياتك وتنظيمك." }];
+
+      const testimonials = [
+        { name: "سارة", text: "الموقع منظم والطلب سهل والتوصيل كان سريع." },
+        { name: "محمد", text: "المنتجات واضحة والأسعار مناسبة والدفع عند الاستلام مريح." },
+        { name: "آية", text: "عجبني التنسيق والثقة اللي كيعطيها الموقع." }
+      ];
+
+      const [view, setView] = useState("home");
+      const [selectedCategory, setSelectedCategory] = useState("الكل");
+      const [search, setSearch] = useState("");
+      const [selectedProduct, setSelectedProduct] = useState(products[0] || null);
+      const [cart, setCart] = useState([]);
+      const [wishlist, setWishlist] = useState([]);
+      const [coupon, setCoupon] = useState("");
+      const [couponApplied, setCouponApplied] = useState(false);
+
+      const [checkoutData, setCheckoutData] = useState({
+        fullName: "",
+        city: "",
+        phone: "",
+        payment: "الدفع عند الاستلام",
+      });
+      const [checkoutError, setCheckoutError] = useState("");
+      const [orderSuccess, setOrderSuccess] = useState(null);
+
+      const [authMode, setAuthMode] = useState("login");
+      const [mobileMenu, setMobileMenu] = useState(false);
+
+      const [adminPassword, setAdminPassword] = useState("");
+      const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+      const [orders, setOrders] = useState([]);
+
+     // هاد الكود كيقرأ الرابط وكيحل المنتج ديريكت
+      useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const productSlug = params.get("p");
+
+        if (productSlug) {
+          const foundProduct = products.find(p => p.slug === productSlug);
+          if (foundProduct) {
+            setSelectedProduct(foundProduct);
+            setView("product");
+          }
+        }
+      }, []);
+
+      useEffect(() => {
+        if (products.length > 0 && !selectedProduct) {
+          setSelectedProduct(products[0]);
+        }
+      }, [products, selectedProduct]);
+
+      useEffect(() => {
+        const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+        const savedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+        const savedAdmin = localStorage.getItem("adminLoggedIn") === "true";
+
+        if (savedCart.length) setCart(savedCart);
+        if (savedWishlist.length) setWishlist(savedWishlist);
+        if (savedAdmin) setAdminLoggedIn(true);
+
+        loadOrders();
+      }, []);
+
+      useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }, [cart]);
+
+      useEffect(() => {
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      }, [wishlist]);
+
+      useEffect(() => {
+        localStorage.setItem("adminLoggedIn", adminLoggedIn ? "true" : "false");
+      }, [adminLoggedIn]);
+
+      async function loadOrders() {
+  const localOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+
+  if (!supabaseClient) {
+    setOrders(localOrders);
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Load orders error:", error);
+    setOrders(localOrders);
+    return;
+  }
+
+  const formattedOrders = (data || []).map((row) => {
+    let parsedItems = [];
+    try {
+      const maybeItems = JSON.parse(row.product_name || "[]");
+      if (Array.isArray(maybeItems)) {
+        parsedItems = maybeItems;
+      }
+    } catch (e) {
+      parsedItems = [];
+    }
+
+    return {
+      id: row.order_code, // مطابقة مع قاعدة البيانات
+      customer: {
+        fullName: row.full_name, // مطابقة مع قاعدة البيانات
+        city: row.city,
+        phone: row.phone,
+      },
+      paymentMethod: "الدفع عند الاستلام",
+      items: parsedItems,
+      subtotal: Number(row.unit_price || 0), // استعملنا unit_price
+      shipping: Number(row.shipping || 0),
+      discount: 0, // ماعندكش فالداتابيز، غنخليوها 0
+      total: Number(row.total || 0),
+      status: row.status || "new",
+      createdAt: row.created_at || new Date().toISOString(),
+    };
+  });
+
+  setOrders(formattedOrders);
+}
+      const filteredProducts = useMemo(() => {
+        const searchValue = search.trim().toLowerCase();
+        return products.filter((product) => {
+          const matchCategory = selectedCategory === "الكل" || product.category === selectedCategory;
+          const matchSearch =
+            !searchValue ||
+            String(product.name || "").toLowerCase().includes(searchValue) ||
+            String(product.description || "").toLowerCase().includes(searchValue) ||
+            String(product.category || "").toLowerCase().includes(searchValue);
+          return matchCategory && matchSearch;
+        });
+      }, [products, selectedCategory, search]);
+
+      const newProducts = useMemo(() => products.filter((p) => p.badge === "جديد"), [products]);
+      const popularProducts = useMemo(() => products.filter((p) => p.badge === "الأكثر طلباً"), [products]);
+      const dealProducts = useMemo(() => products.filter((p) => p.badge === "عرض"), [products]);
+
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const shipping = cart.length > 0 ? 0 : 0;
+      const discount = couponApplied ? Math.round(subtotal * 0.1) : 0;
+      const total = subtotal + shipping - discount;
+
+      function openProduct(product) {
+        setSelectedProduct(product);
+        setView("product");
+        // هاد السطر هو اللي كيبدل الرابط الفوق بسمية المنتج
+        window.history.pushState(null, '', '?p=' + product.slug);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function addToCart(product) {
+        setCart((current) => {
+          const found = current.find((item) => item.id === product.id);
+          if (found) {
+            return current.map((item) =>
+              item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+            );
+          }
+          return [...current, { ...product, quantity: 1 }];
+        });
+      }
+
+      function updateQuantity(id, change) {
+        setCart((current) =>
+          current
+            .map((item) =>
+              item.id === id ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
+            )
+            .filter((item) => item.quantity > 0)
+        );
+      }
+
+      function removeFromCart(id) {
+        setCart((current) => current.filter((item) => item.id !== id));
+      }
+
+      function toggleWishlist(id) {
+        setWishlist((current) =>
+          current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
+        );
+      }
+
+      function handleCheckoutChange(field, value) {
+        setCheckoutData((prev) => ({
+          ...prev,
+          [field]: value,
+        }));
+      }
+
+      async function handleCheckoutSubmit() {
+  setCheckoutError("");
+  setOrderSuccess(null);
+
+  const fullName = checkoutData.fullName.trim();
+  const city = checkoutData.city.trim();
+  const phone = checkoutData.phone.trim();
+
+  if (!fullName || !city || !phone) {
+    setCheckoutError("المرجو تعمير الاسم الكامل والمدينة ورقم الهاتف.");
+    return;
+  }
+
+  const cleanedPhone = phone.replace(/[^\d+]/g, "");
+  if (cleanedPhone.length < 8) {
+    setCheckoutError("رقم الهاتف غير صحيح.");
+    return;
+  }
+
+  if (cart.length === 0) {
+    setCheckoutError("السلة فارغة.");
+    return;
+  }
+
+  const orderId = `ORD-${Date.now()}`;
+
+  const cartItems = cart.map((item) => ({
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
+    image: item.image,
+  }));
+
+  // هاد payload دابا مطابق 100% للجدول ديالك
+  const payload = {
+    order_code: orderId,
+    full_name: fullName,
+    city: city,
+    phone: phone,
+    product_name: JSON.stringify(cartItems),
+    quantity: cart.reduce((sum, item) => sum + item.quantity, 0),
+    unit_price: subtotal,
+    shipping: shipping,
+    total: total,
+    status: "new"
+  };
+
+  if (supabaseClient) {
+    const { error } = await supabaseClient
+      .from("orders")
+      .insert([payload]);
+
+    if (error) {
+      console.error("Insert order error:", error);
+      setCheckoutError("وقع مشكل فحفظ الطلب. المرجو المحاولة مرة أخرى.");
+      return;
+    }
+  }
+
+  const localOrder = {
+    id: orderId,
+    customer: { fullName, city, phone },
+    paymentMethod: "الدفع عند الاستلام",
+    items: cartItems,
+    subtotal,
+    shipping,
+    discount,
+    total,
+    status: "new",
+    createdAt: new Date().toISOString(),
+  };
+
+  const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+  localStorage.setItem("orders", JSON.stringify([localOrder, ...existingOrders]));
+
+  setOrderSuccess({ id: orderId });
+  setCart([]);
+  setCoupon("");
+  setCouponApplied(false);
+  setCheckoutData({ fullName: "", city: "", phone: "", payment: "الدفع عند الاستلام" });
+
+  loadOrders();
+  setView("thankyou");
+  window.history.pushState(null, '', '?step=thankyou');
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+      function handleAdminLogin() {
+        if (adminPassword === ADMIN_PASSWORD) {
+          setAdminLoggedIn(true);
+          loadOrders();
+        } else {
+          alert("كلمة السر غير صحيحة");
+        }
+      }
+
+      function handleAdminLogout() {
+        setAdminLoggedIn(false);
+        setAdminPassword("");
+      }
+
+      async function updateOrderStatus(orderId, newStatus) {
+    const { data, error } = await supabaseClient
+      .from("orders")
+      .update({ status: newStatus })
+      .eq("id", orderId) // 🔴 رديناها id (هادا هو العمود الأصلي غالبا)
+      .select(); // هادي زدناها باش الداتابيز ترجع لينا الجواب واش بصح بدلات ولا لا
+
+    if (error) {
+      console.error("Update status error:", error);
+      alert("ما قدرناش نحدثو حالة الطلب");
+      return;
+    }
+
+    // هاد السطر غيأكد لينا واش الداتابيز لقات الطلب وبدلاتو ولا لا
+    if (data && data.length === 0) {
+      console.error("الطلب مالقيناهش فالداتابيز! تأكد من سمية العمود.");
+    }
+
+    // تحديث الشاشة
+    setOrders((prevOrders) => 
+      prevOrders.map((order) => 
+        order.id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+   
+
+  loadOrders();
+}
+      async function deleteOrder(orderId) {
+        const { error } = await supabaseClient
+          .from("orders")
+          .delete()
+          .eq("order_code", orderId); // بدلناها هنا
+
+        if (error) {
+          console.error("Delete order error:", error);
+          alert("ما قدرناش نمسحو الطلب");
+          return;
+        }
+
+        loadOrders();
+      }
+
+      async function clearAllOrders() {
+        const confirmed = window.confirm("واش متأكد بغيتي تمسح جميع الطلبات؟");
+        if (!confirmed) return;
+
+        const { error } = await supabaseClient
+          .from("orders")
+          .delete()
+          .neq("order_code", ""); // وبدلناها حتى هنا
+
+        if (error) {
+          console.error("Clear all orders error:", error);
+          alert("ما قدرناش نمسحو جميع الطلبات");
+          return;
+        }
+
+        setOrders([]);
+      }
+
+      function exportOrdersCSV() {
+        if (!orders.length) {
+          alert("ما كايناش طلبات باش تصدّر.");
+          return;
+        }
+
+        const rows = [
+          [
+            "Order ID",
+            "Customer Name",
+            "City",
+            "Phone",
+            "Payment Method",
+            "Status",
+            "Subtotal",
+            "Shipping",
+            "Discount",
+            "Total",
+            "Created At",
+            "Items"
+          ]
+        ];
+
+        orders.forEach((order) => {
+          const itemsText = order.items
+            .map((item) => `${item.name} x${item.quantity}`)
+            .join(" | ");
+
+          rows.push([
+            order.id,
+            order.customer.fullName,
+            order.customer.city,
+            order.customer.phone,
+            order.paymentMethod,
+            order.status,
+            order.subtotal,
+            order.shipping,
+            order.discount,
+            order.total,
+            order.createdAt,
+            itemsText
+          ]);
+        });
+
+        const csvContent = "\uFEFF" + rows
+          .map((row) =>
+            row.map((value) => `"${String(value).replace(/"/g, '""')}"`).join(",")
+          )
+          .join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "orders.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+
+      function copyOrderToWhatsApp(order) {
+        const text = [
+          `طلب جديد`,
+          `رقم الطلب: ${order.id}`,
+          `الاسم: ${order.customer.fullName}`,
+          `المدينة: ${order.customer.city}`,
+          `الهاتف: ${order.customer.phone}`,
+          `طريقة الدفع: ${order.paymentMethod}`,
+          `الحالة: ${statusLabel(order.status)}`,
+          `المنتجات:`,
+          ...order.items.map((item) => `- ${item.name} × ${item.quantity} = د.ل ${item.price * item.quantity}`),
+          `المجموع الفرعي: د.ل ${order.subtotal}`,
+          `الشحن: د.ل ${order.shipping}`,
+          `الخصم: د.ل ${order.discount}`,
+          `الإجمالي: د.ل ${order.total}`,
+        ].join("\n");
+
+        navigator.clipboard.writeText(text)
+          .then(() => alert("تم نسخ الطلب بنجاح."))
+          .catch(() => alert("تعذر نسخ الطلب."));
+      }
+
+      function openOrderInWhatsApp(order) {
+        const text = [
+          `طلب جديد`,
+          `رقم الطلب: ${order.id}`,
+          `الاسم: ${order.customer.fullName}`,
+          `المدينة: ${order.customer.city}`,
+          `الهاتف: ${order.customer.phone}`,
+          `طريقة الدفع: ${order.paymentMethod}`,
+          `الحالة: ${statusLabel(order.status)}`,
+          `المنتجات:`,
+          ...order.items.map((item) => `- ${item.name} × ${item.quantity} = د.ل ${item.price * item.quantity}`),
+          `المجموع الفرعي: د.ل ${order.subtotal}`,
+          `الشحن: د.ل ${order.shipping}`,
+          `الخصم: د.ل ${order.discount}`,
+          `الإجمالي: د.ل ${order.total}`,
+        ].join("\n");
+
+        window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, "_blank");
+      }
+
+      function statusLabel(status) {
+        const map = {
+          new: "جديد",
+          confirmed: "تم التأكيد",
+          shipped: "تم الشحن",
+          delivered: "تم التسليم",
+          cancelled: "ملغي"
+        };
+        return map[status] || status;
+      }
+
+      function statusClass(status) {
+        const map = {
+          new: "bg-blue-50 text-blue-700 border-blue-200",
+          confirmed: "bg-amber-50 text-amber-700 border-amber-200",
+          shipped: "bg-purple-50 text-purple-700 border-purple-200",
+          delivered: "bg-green-50 text-green-700 border-green-200",
+          cancelled: "bg-red-50 text-red-700 border-red-200",
+        };
+        return map[status] || "bg-slate-50 text-slate-700 border-slate-200";
+      }
+
+      function NavButton({ label, target }) {
+        const active = view === target;
+        return (
+          <button
+
+            onClick={() => {
+              setView(target);
+              setMobileMenu(false);
+              window.history.pushState(null, '', '/'); // هاد السطر كينقي الرابط ملي كترجع للرئيسية
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+
+            className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
+              active ? "bg-ink-900 text-white" : "text-slate-700 hover:bg-slate-100"
+            }`}
+          >
+            {label}
+          </button>
+        );
+      }
+
+      function ProductCard({ product }) {
+        const inWishlist = wishlist.includes(product.id);
+        
+        return (
+          <div className="overflow-hidden rounded-[1.6rem] border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-soft">
+            
+            <div 
+              className="relative h-64 overflow-hidden bg-slate-100 cursor-pointer"
+              onClick={() => openProduct(product)}
+            >
+              <img src={product.image} alt={product.name} className="h-full w-full object-cover hover:scale-105 transition duration-300" />
+              <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-semibold shadow">
+                {product.badge}
+              </span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleWishlist(product.id);
+                }}
+                className="absolute right-4 top-4 rounded-full bg-white px-3 py-2 text-sm shadow"
+                aria-label="إضافة إلى المفضلة"
+              >
+                {inWishlist ? "♥" : "♡"}
+              </button>
+            </div>
+
+            <div className="p-5 space-y-3 text-right">
+              <p className="text-sm text-slate-500">{product.category}</p>
+              <h3 className="text-xl font-semibold leading-7 text-ink-900">{product.name}</h3>
+              <p className="text-sm text-slate-600 leading-6">{product.description}</p>
+              <div className="flex items-center justify-between text-xs font-semibold">
+                <span className="text-green-600">{product.stock > 0 ? "متوفر" : "غير متوفر"}</span>
+                <span className="text-slate-500">شحن داخل ليبيا</span>
+              </div>
+              <div className="mt-2 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-bold">د.ل {product.price}</span>
+                  <span className="text-sm text-slate-400 line-through">د.ل {product.oldPrice}</span>
+                </div>
+                <span className="text-sm text-amber-600">★ {product.rating}</span>
+              </div>
+              
+              <div className="mt-4">
+                <button
+                  onClick={() => {
+                    addToCart(product);
+                    setView("checkout");
+                    window.history.pushState(null, '', '?step=checkout');
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="w-full rounded-xl bg-ink-900 px-4 py-3 text-sm font-bold text-white shadow-md hover:opacity-90 transition"
+                >
+                  اطلب الآن
+                </button>
+              </div>
+
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="min-h-screen bg-sand text-ink-900">
+          <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+            <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-4 md:px-6">
+              <button onClick={() => setView("home")} className="text-2xl font-bold tracking-tight">
+                متجر ليبيا
+              </button>
+
+              <div className="hidden flex-1 items-center gap-3 md:flex">
+                <div className="flex items-center gap-2 rounded-2xl border border-slate-200 px-3 py-2 bg-white shadow-sm flex-1">
+                  <input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="ابحث عن منتج..."
+                    className="w-full bg-transparent text-right text-sm outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="hidden items-center gap-2 md:flex">
+                <NavButton label="الرئيسية" target="home" />
+                <NavButton label="المتجر" target="shop" />
+                <NavButton label="السلة" target="cart" />
+                <NavButton label="إتمام الطلب" target="checkout" />
+                <NavButton label="الحساب" target="account" />
+                <NavButton label="الإدارة" target="admin" />
+              </div>
+
+              <div className="hidden items-center gap-2 md:flex">
+                <button onClick={() => setView("wishlist")} className="rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold">
+                  المفضلة ({wishlist.length})
+                </button>
+                <button onClick={() => setView("cart")} className="rounded-xl bg-ink-900 px-4 py-2 text-sm font-semibold text-white shadow-sm">
+                  السلة ({cart.reduce((sum, item) => sum + item.quantity, 0)})
+                </button>
+              </div>
+
+              <button
+                onClick={() => setMobileMenu((prev) => !prev)}
+                className="rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold md:hidden"
+              >
+                القائمة
+              </button>
+            </div>
+
+            {mobileMenu && (
+              <div className="border-t border-slate-200 px-4 py-4 md:hidden">
+                <div className="mb-3 flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2">
+                  <input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="ابحث عن منتج..."
+                    className="w-full bg-transparent text-right text-sm outline-none"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <NavButton label="الرئيسية" target="home" />
+                  <NavButton label="المتجر" target="shop" />
+                  <NavButton label="السلة" target="cart" />
+                  <NavButton label="إتمام الطلب" target="checkout" />
+                  <NavButton label="الحساب" target="account" />
+                  <NavButton label="المفضلة" target="wishlist" />
+                  <NavButton label="الإدارة" target="admin" />
+                </div>
+              </div>
+            )}
+          </header>
+
+          {view === "home" && (
+            <React.Fragment>
+              <section className="relative overflow-hidden bg-ink-900 text-white">
+                <div className="absolute inset-0">
+                  <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80" alt="بانر" className="h-full w-full object-cover opacity-35" />
+                </div>
+                <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-18 md:grid-cols-2 md:items-center md:px-6 md:py-24">
+                  <div className="max-w-xl space-y-5">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm backdrop-blur">
+                      <span className="h-2 w-2 rounded-full bg-mint"></span> التوصيل داخل ليبيا • الدفع عند الاستلام
+                    </span>
+                    <h1 className="text-4xl font-bold leading-tight md:text-5xl">
+                      متجر ليبيا للمنتجات الرائجة والعروض اليومية
+                    </h1>
+                    <p className="text-lg text-slate-200">
+                      منتجات مختارة بعناية، أسعار واضحة بالدينار، وخدمة دعم محلية. اطلب الآن واحصل على توصيل سريع أينما كنت في ليبيا.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <button onClick={() => setView("shop")} className="rounded-2xl bg-white px-6 py-3 font-semibold text-ink-900 shadow-md">
+                        تسوق الآن
+                      </button>
+                      <button onClick={() => setView("shop")} className="rounded-2xl border border-white/40 px-6 py-3 font-semibold text-white">
+                        اكتشف العروض
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
+                <div className="mb-8 flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">تسوق حسب الفئة</p>
+                    <h2 className="mt-2 text-3xl font-bold">فئات تناسب احتياجاتك اليومية</h2>
+                  </div>
+                  <button onClick={() => setView("shop")} className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold">عرض كل المنتجات</button>
+                </div>
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => { setSelectedCategory(category.name); setView("shop"); }}
+                      className="group overflow-hidden rounded-[1.6rem] border border-slate-200 bg-white text-right shadow-sm transition hover:-translate-y-1 hover:shadow-card"
+                    >
+                      <div className="h-52 overflow-hidden">
+                        <img src={category.image} alt={category.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="text-lg font-semibold">{category.name}</h3>
+                        <p className="mt-2 text-sm text-slate-600">{category.description}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              <section className="bg-white/70 py-14">
+                <div className="mx-auto max-w-7xl px-4 md:px-6">
+                  <div className="mb-8 flex items-end justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">منتجات جديدة</p>
+                      <h2 className="mt-2 text-3xl font-bold">وصلت حديثاً إلى متجر ليبيا</h2>
+                    </div>
+                  </div>
+                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {newProducts.slice(0, 8).map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
+                <div className="mb-8">
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">الأكثر طلباً</p>
+                  <h2 className="mt-2 text-3xl font-bold">منتجات يختارها العملاء باستمرار</h2>
+                </div>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {popularProducts.slice(0, 8).map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </section>
+
+              <section className="bg-white/70 py-14">
+                <div className="mx-auto max-w-7xl px-4 md:px-6">
+                  <div className="mb-8">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">عروض اليوم</p>
+                    <h2 className="mt-2 text-3xl font-bold">تخفيضات لا تفوت</h2>
+                  </div>
+                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {dealProducts.slice(0, 8).map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section className="bg-ink-900 py-14 text-white">
+                <div className="mx-auto max-w-7xl px-4 md:px-6">
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">آراء العملاء</p>
+                  <h2 className="mt-2 text-3xl font-bold">ماذا يقول عملاؤنا</h2>
+                  <div className="mt-8 grid gap-6 md:grid-cols-3">
+                    {testimonials.map((item) => (
+                      <div key={item.name} className="rounded-[1.6rem] bg-white/5 p-6 text-right">
+                        <p className="text-slate-200">“{item.text}”</p>
+                        <p className="mt-4 font-semibold">{item.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            </React.Fragment>
+          )}
+
+          {view === "shop" && (
+            <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
+              <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">قائمة المنتجات</p>
+                  <h2 className="mt-2 text-4xl font-bold">تسوق كل الأصناف</h2>
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="ابحث باسم المنتج أو الوصف"
+                    className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none"
+                  />
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none"
+                  >
+                    <option>الكل</option>
+                    {categories.map((category) => (
+                      <option key={category.id}>{category.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="mb-6 flex flex-wrap gap-2">
+                {["الكل", ...categories.map((c) => c.name)].map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`rounded-full border px-4 py-2 text-sm font-semibold ${
+                      selectedCategory === cat ? "border-ink-900 bg-ink-900 text-white" : "border-slate-300"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Landing Page - صفحة المنتج الاحترافية */}
+          {view === "product" && selectedProduct && (
+            <section className="mx-auto max-w-2xl px-4 py-8 md:px-6 text-right animate-fade-in">
+              <h1 className="text-3xl font-bold text-ink-900 leading-tight">{selectedProduct.name}</h1>
+              
+              <div className="mt-4 flex items-center justify-between border-b border-slate-200 pb-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl font-extrabold text-brand">د.ل {selectedProduct.price}</span>
+                  {selectedProduct.oldPrice && <span className="text-lg text-slate-400 line-through">د.ل {selectedProduct.oldPrice}</span>}
+                </div>
+                <span className="rounded-full bg-red-100 px-3 py-1 text-sm font-bold text-red-600 animate-pulse">
+                  عرض محدود
+                </span>
+              </div>
+
+              <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+                <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full object-cover" />
+              </div>
+
+              <div className="mt-6">
+                <button
+                  onClick={() => {
+                    addToCart(selectedProduct);
+                    setView("checkout");
+                    window.history.pushState(null, '', '?step=checkout');
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="w-full rounded-2xl bg-ink-900 px-6 py-4 text-2xl font-black text-white shadow-[0_4px_15px_rgba(0,0,0,0.2)] hover:opacity-90 transition"
+                >
+                  اطلب الآن - الدفع عند الاستلام
+                </button>
+              </div>
+
+              <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm border border-slate-100">
+                <h3 className="mb-5 text-xl font-bold border-b border-slate-100 pb-3">لماذا هذا المنتج؟</h3>
+                {selectedProduct.features ? (
+                  <ul className="space-y-4">
+                    {selectedProduct.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-slate-700 text-lg font-medium">
+                        <span className="text-green-500 mt-1">✅</span> 
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-lg text-slate-700 leading-relaxed">{selectedProduct.description}</p>
+                )}
+              </div>
+
+              {selectedProduct.gallery && (
+                <div className="mt-8 space-y-4">
+                  {selectedProduct.gallery.map((img, idx) => (
+                    <div key={idx} className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+                      <img src={img} alt={`تفاصيل ${idx}`} className="w-full object-cover" />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="mt-8 rounded-2xl bg-slate-50 p-6 text-center border border-slate-200">
+                <h3 className="text-xl font-bold mb-6">ضمانات متجرنا</h3>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                  <div className="flex flex-col items-center">
+                    <span className="text-4xl mb-2">🚚</span>
+                    <span className="font-bold">توصيل لجميع المدن</span>
+                    <span className="text-sm text-slate-500 mt-1">توصيل سريع ومضمون</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-4xl mb-2">💵</span>
+                    <span className="font-bold">الدفع عند الاستلام</span>
+                    <span className="text-sm text-slate-500 mt-1">خلص حتى تشد سلعتك</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="text-4xl mb-2">⭐</span>
+                    <span className="font-bold">جودة مضمونة</span>
+                    <span className="text-sm text-slate-500 mt-1">منتجات أصلية 100%</span>
+                  </div>
+                </div>
+              </div>
+
+{/* آراء الزبناء (Reviews) */}
+              {selectedProduct.reviews && (
+                <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm border border-slate-100 text-right">
+                  <h3 className="mb-5 text-xl font-bold border-b border-slate-100 pb-3">آراء الزبناء (تقييمات حقيقية)</h3>
+                  <div className="space-y-4">
+                    {selectedProduct.reviews.map((review, idx) => (
+                      <div key={idx} className="rounded-xl bg-slate-50 p-4 border border-slate-100">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-bold text-ink-900">{review.name}</span>
+                          <span className="text-amber-500 text-sm">{"★".repeat(review.stars)}</span>
+                        </div>
+                        <p className="text-slate-700 text-sm leading-relaxed">{review.comment}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-8 mb-12">
+                <button
+                  onClick={() => {
+                    addToCart(selectedProduct);
+                    setView("checkout");
+                    window.history.pushState(null, '', '?step=checkout');
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="w-full rounded-2xl bg-green-600 px-6 py-4 text-2xl font-black text-white shadow-md hover:bg-green-700 transition"
+                >
+                  اطلب الآن - الكمية محدودة
+                </button>
+              </div>
+            </section>
+          )}
+
+          {view === "wishlist" && (
+            <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
+              <div className="mb-8">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">المفضلة</p>
+                <h2 className="mt-2 text-4xl font-bold">المنتجات المحفوظة</h2>
+              </div>
+              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                {products.filter((product) => wishlist.includes(product.id)).map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {view === "cart" && (
+            <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
+              <div className="mb-8 flex items-end justify-between gap-4">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">سلة المشتريات</p>
+                  <h2 className="mt-2 text-4xl font-bold">سلة تسوقك</h2>
+                </div>
+                <button onClick={() => setView("shop")} className="rounded-xl border border-slate-300 px-5 py-3 font-semibold">مواصلة التسوق</button>
+              </div>
+
+              <div className="grid gap-8 lg:grid-cols-[1.6fr_0.8fr]">
+                <div className="space-y-5">
+                  {cart.length === 0 && (
+                    <div className="rounded-[1.6rem] border border-dashed border-slate-300 p-10 text-center text-slate-500">
+                      السلة فارغة حالياً.
+                    </div>
+                  )}
+
+                  {cart.map((item) => (
+                    <div key={item.id} className="grid gap-4 rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-soft md:grid-cols-[140px_1fr_auto] md:items-center">
+                      <div className="h-32 overflow-hidden rounded-2xl bg-slate-100">
+                        <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                      </div>
+                      <div className="text-right">
+                        <h3 className="text-xl font-semibold">{item.name}</h3>
+                        <p className="mt-2 text-sm text-slate-600">{item.description}</p>
+                        <p className="mt-3 font-bold">د.ل {item.price}</p>
+                      </div>
+                      <div className="flex flex-col items-start gap-3 md:items-end">
+                        <div className="flex items-center gap-3 rounded-2xl border border-slate-300 px-3 py-2">
+                          <button onClick={() => updateQuantity(item.id, -1)} className="text-lg font-bold">-</button>
+                          <span className="min-w-6 text-center font-semibold">{item.quantity}</span>
+                          <button onClick={() => updateQuantity(item.id, 1)} className="text-lg font-bold">+</button>
+                        </div>
+                        <button onClick={() => removeFromCart(item.id)} className="text-sm font-semibold text-red-600">إزالة</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="h-fit rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-soft text-right">
+                  <h3 className="text-2xl font-bold">ملخص الطلب</h3>
+
+                  <div className="mt-4 flex gap-2">
+                    <input
+                      value={coupon}
+                      onChange={(e) => setCoupon(e.target.value)}
+                      placeholder="كود الخصم"
+                      className="flex-1 rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none"
+                    />
+                    <button
+                      onClick={() => setCouponApplied(coupon.trim() === "خصم10")}
+                      className="rounded-2xl bg-ink-900 px-4 py-3 text-sm font-semibold text-white"
+                    >
+                      تطبيق
+                    </button>
+                  </div>
+                  {couponApplied && <p className="mt-3 text-sm font-medium text-green-600">تم تطبيق خصم 10%</p>}
+
+                  <div className="mt-5 space-y-3 text-sm text-slate-600">
+                    <div className="flex items-center justify-between"><span>المجموع الفرعي</span><span className="font-semibold text-ink-900">د.ل {subtotal}</span></div>
+                    <div className="flex items-center justify-between"><span>الشحن</span><span className="font-bold text-green-600">مجانًا</span></div>
+                    <div className="flex items-center justify-between"><span>الخصم</span><span className="font-semibold text-ink-900">- د.ل {discount}</span></div>
+                    <div className="border-t border-slate-200 pt-3">
+                      <div className="flex items-center justify-between text-base">
+                        <span className="font-semibold text-ink-900">الإجمالي</span>
+                        <span className="text-xl font-bold text-ink-900">د.ل {total}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button onClick={() => setView("checkout")} className="mt-5 w-full rounded-2xl bg-ink-900 px-5 py-3 font-semibold text-white">
+                    إتمام الطلب
+                  </button>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {view === "checkout" && (
+            <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
+              <div className="mb-8">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">إتمام الطلب</p>
+                <h2 className="mt-2 text-4xl font-bold">أكمل طلبك بسرعة</h2>
+                <p className="mt-3 text-slate-600">عمّر غير المعلومات الضرورية وسنتواصل معك لتأكيد الطلب وتفاصيل التوصيل.</p>
+              </div>
+
+           
+              <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+                <div className="grid gap-6">
+                  <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-soft text-right">
+                    <h3 className="text-xl font-bold">معلومات الطلب</h3>
+
+                    <div className="mt-6 grid gap-4">
+                      <input
+                        type="text"
+                        value={checkoutData.fullName}
+                        onChange={(e) => handleCheckoutChange("fullName", e.target.value)}
+                        placeholder="الاسم الكامل"
+                        className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none"
+                      />
+
+                      <input
+                        type="text"
+                        value={checkoutData.city}
+                        onChange={(e) => handleCheckoutChange("city", e.target.value)}
+                        placeholder="المدينة"
+                        className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none"
+                      />
+
+                      <input
+                        type="tel"
+                        value={checkoutData.phone}
+                        onChange={(e) => handleCheckoutChange("phone", e.target.value)}
+                        placeholder="رقم الهاتف"
+                        className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none"
+                      />
+                    </div>
+
+                    <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
+                      <p className="font-semibold text-ink-900">طريقة الدفع</p>
+                      <p className="mt-2 text-sm text-slate-600">الدفع عند الاستلام</p>
+                    </div>
+
+                    {checkoutError && (
+                      <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+                        {checkoutError}
+                      </div>
+                    )}
+
+                    <button
+  type="button"
+  onClick={handleCheckoutSubmit}
+  className="mt-6 w-full rounded-2xl bg-ink-900 px-5 py-3 font-semibold text-white"
+>
+  تأكيد الطلب
+</button>
+
+                    <p className="mt-3 text-sm text-slate-500">
+                      سنتواصل معك لتأكيد الطلب وتفاصيل التوصيل.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="h-fit rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-soft text-right">
+                  <h3 className="text-2xl font-bold">ملخص الطلب</h3>
+
+                  <div className="mt-5 space-y-4">
+                    {cart.length === 0 ? (
+                      <p className="text-sm text-slate-500">السلة فارغة حالياً.</p>
+                    ) : (
+                      cart.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between gap-3 text-sm">
+                          <span className="text-slate-600">{item.name} × {item.quantity}</span>
+                          <span className="font-semibold">د.ل {item.price * item.quantity}</span>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  <div className="mt-6 space-y-3 border-t border-slate-200 pt-4 text-sm">
+                    <div className="flex items-center justify-between">
+                      <span>المجموع الفرعي</span>
+                      <span className="font-semibold">د.ل {subtotal}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>الشحن</span>
+                      <span className="font-semibold">د.ل {shipping}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>الخصم</span>
+                      <span className="font-semibold">- د.ل {discount}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-base font-bold">
+                      <span>الإجمالي</span>
+                      <span>د.ل {total}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+{view === "thankyou" && orderSuccess && (
+            <section className="mx-auto max-w-3xl px-4 py-24 md:px-6 text-center">
+              <div className="rounded-[1.6rem] border border-green-200 bg-white p-10 shadow-soft">
+                <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-100 text-green-600 text-5xl">
+                  ✓
+                </div>
+                <h2 className="text-4xl font-bold text-ink-900">شكراً لك! تم تأكيد طلبك بنجاح</h2>
+                <p className="mt-5 text-lg text-slate-700">
+                  رقم الطلب ديالك هو: <span className="font-bold text-brand">{orderSuccess.id}</span>
+                </p>
+                <p className="mt-3 text-slate-600">
+                  سنتواصل معك في أقرب وقت لتأكيد تفاصيل الشحن والتوصيل.
+                </p>
+                <button
+                  onClick={() => {
+                    setView("home");
+                    window.history.pushState(null, '', '/');
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="mt-10 rounded-2xl bg-ink-900 px-8 py-3 font-semibold text-white transition hover:opacity-90 shadow-md"
+                >
+                  العودة للرئيسية
+                </button>
+              </div>
+            </section>
+          )}
+
+          {view === "admin" && (
+            <section className="mx-auto max-w-7xl px-4 py-14 md:px-6">
+              <div className="mb-8 text-right">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">لوحة الإدارة</p>
+                <h2 className="mt-2 text-4xl font-bold">إدارة الطلبات</h2>
+              </div>
+
+              {!adminLoggedIn ? (
+                <div className="mx-auto max-w-md rounded-[1.6rem] border border-slate-200 bg-white p-8 shadow-soft text-right">
+                  <h3 className="text-2xl font-bold">تسجيل الدخول للإدارة</h3>
+                  <p className="mt-2 text-sm text-slate-600">أدخل كلمة السر لعرض الطلبات.</p>
+
+                  <input
+                    type="password"
+                    value={adminPassword}
+                    onChange={(e) => setAdminPassword(e.target.value)}
+                    placeholder="كلمة السر"
+                    className="mt-5 w-full rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none"
+                  />
+
+                  <button
+                    onClick={handleAdminLogin}
+                    className="mt-4 w-full rounded-2xl bg-ink-900 px-5 py-3 font-semibold text-white"
+                  >
+                    دخول
+                  </button>
+                </div>
+              ) : (
+                <div className="grid gap-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-soft">
+                    <div className="text-right">
+                      <p className="text-lg font-bold">عدد الطلبات: {orders.length}</p>
+                      <p className="text-sm text-slate-500">يمكنك تغيير الحالة أو حذف أي طلب.</p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        onClick={loadOrders}
+                        className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold"
+                      >
+                        تحديث
+                      </button>
+                      <button
+                        onClick={exportOrdersCSV}
+                        className="rounded-xl border border-green-300 px-4 py-2 text-sm font-semibold text-green-700"
+                      >
+                        تصدير الطلبات CSV
+                      </button>
+                      <button
+                        onClick={clearAllOrders}
+                        className="rounded-xl border border-red-300 px-4 py-2 text-sm font-semibold text-red-600"
+                      >
+                        مسح الكل
+                      </button>
+                      <button
+                        onClick={handleAdminLogout}
+                        className="rounded-xl bg-ink-900 px-4 py-2 text-sm font-semibold text-white"
+                      >
+                        خروج
+                      </button>
+                    </div>
+                  </div>
+
+                  {orders.length === 0 ? (
+                    <div className="rounded-[1.6rem] border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">
+                      لا توجد طلبات حالياً.
+                    </div>
+                  ) : (
+                    <div className="grid gap-5">
+                      {orders.map((order) => (
+                        <div
+                          key={order.id}
+                          className="rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-soft text-right"
+                        >
+                          <div className="flex flex-wrap items-start justify-between gap-4">
+                            <div>
+                              <div className="flex flex-wrap items-center gap-2 mb-2">
+                                <h3 className="text-xl font-bold">{order.customer.fullName}</h3>
+                                <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${statusClass(order.status)}`}>
+                                  {statusLabel(order.status)}
+                                </span>
+                              </div>
+ {/* هادي هي التسكينة اللي تحت statusLabel فـ الكود ديالك */}
+
+                              {/* 👇 هادا هو الكود الجديد اللي كيبين المنتجات اللي تشرّاو 👇 */}
+                              <div className="mt-4 w-full rounded-xl bg-slate-50 p-4 border border-slate-100">
+                                <h4 className="mb-3 text-sm font-bold text-slate-800 border-b border-slate-200 pb-2">📦 تفاصيل الطلبية:</h4>
+                                <ul className="space-y-2">
+                                  {/* كنقراو المنتجات من السلة ديال الطلب */}
+                                  {(order.cart || order.items || []).map((item, idx) => (
+                                    <li key={idx} className="flex justify-between items-center text-sm">
+                                      <div className="flex items-center gap-2">
+                                        <span className="font-semibold text-ink-900">{item.name}</span>
+                                        <span className="rounded-md bg-slate-200 px-2 py-0.5 text-xs font-bold text-slate-600">x{item.quantity || 1}</span>
+                                      </div>
+                                      <span className="font-bold text-slate-700">د.ل {item.price}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                                <div className="mt-3 pt-3 border-t border-slate-200 flex justify-between items-center">
+                                  <span className="text-sm font-bold text-slate-600">الإجمالي:</span>
+                                  <span className="text-lg font-black text-green-600">د.ل {order.total}</span>
+                                </div>
+                              </div>
+                              {/* 👆 نهاية كود المنتجات 👆 */}
+
+                              <p className="mt-1 text-sm text-slate-600">رقم الطلب: {order.id}</p>
+                              <p className="mt-1 text-sm text-slate-600">المدينة: {order.customer.city}</p>
+                              <p className="mt-1 text-sm text-slate-600">الهاتف: {order.customer.phone}</p>
+                              <p className="mt-1 text-sm text-slate-600">الإجمالي: د.ل {order.total}</p>
+                              <p className="mt-1 text-sm text-slate-600">الدفع: {order.paymentMethod}</p>
+                              <p className="mt-1 text-sm text-slate-600">
+                                التاريخ: {new Date(order.createdAt).toLocaleString("ar-EG")}
+                              </p>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                              <select
+                                value={order.status || "new"}
+                                onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                                className="rounded-xl border border-slate-300 px-4 py-2 text-sm outline-none"
+                              >
+                                <option value="new">جديد</option>
+                                <option value="confirmed">تم التأكيد</option>
+                                <option value="shipped">تم الشحن</option>
+                                <option value="delivered">تم التسليم</option>
+                                <option value="cancelled">ملغي</option>
+                              </select>
+
+                              <button
+                                onClick={() => copyOrderToWhatsApp(order)}
+                                className="rounded-xl border border-blue-300 px-4 py-2 text-sm font-semibold text-blue-700"
+                              >
+                                نسخ الطلب
+                              </button>
+
+                              <button
+                                onClick={() => openOrderInWhatsApp(order)}
+                                className="rounded-xl border border-mint px-4 py-2 text-sm font-semibold text-mint"
+                              >
+                                إرسال لواتساب
+                              </button>
+
+                              <button
+                                onClick={() => deleteOrder(order.id)}
+                                className="rounded-xl border border-red-300 px-4 py-2 text-sm font-semibold text-red-600"
+                              >
+                                حذف الطلب
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="mt-5 border-t border-slate-200 pt-4">
+                            <h4 className="font-bold">المنتجات</h4>
+                            <div className="mt-3 grid gap-3">
+                              {order.items.map((item) => (
+                                <div
+                                  key={`${order.id}-${item.id}`}
+                                  className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3"
+                                >
+                                  <span className="text-sm text-slate-700">
+                                    {item.name} × {item.quantity}
+                                  </span>
+                                  <span className="text-sm font-semibold">
+                                    د.ل {item.price * item.quantity}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </section>
+          )}
+
+          {view === "account" && (
+            <section className="mx-auto max-w-5xl px-4 py-14 md:px-6">
+              <div className="mx-auto max-w-xl rounded-[1.6rem] border border-slate-200 bg-white p-8 shadow-soft text-right">
+                <div className="mb-6 flex gap-3">
+                  <button onClick={() => setAuthMode("login")} className={`rounded-2xl px-5 py-3 text-sm font-semibold ${authMode === "login" ? "bg-ink-900 text-white" : "border border-slate-300"}`}>
+                    تسجيل الدخول
+                  </button>
+                  <button onClick={() => setAuthMode("signup")} className={`rounded-2xl px-5 py-3 text-sm font-semibold ${authMode === "signup" ? "bg-ink-900 text-white" : "border border-slate-300"}`}>
+                    إنشاء حساب
+                  </button>
+                </div>
+
+                <h2 className="text-3xl font-bold">{authMode === "login" ? "أهلاً بعودتك" : "أنشئ حسابك"}</h2>
+                <p className="mt-3 text-slate-600">{authMode === "login" ? "إدارة طلباتك بسهولة" : "تابع طلباتك واحصل على العروض"}</p>
+
+                <div className="mt-6 grid gap-4">
+                  {authMode === "signup" && <input type="text" placeholder="الاسم الكامل" className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none" />}
+                  <input type="email" placeholder="البريد الإلكتروني" className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none" />
+                  <input type="password" placeholder="كلمة المرور" className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none" />
+                  {authMode === "signup" && <input type="password" placeholder="تأكيد كلمة المرور" className="rounded-2xl border border-slate-300 px-4 py-3 text-right outline-none" />}
+                  <button className="rounded-2xl bg-ink-900 px-5 py-3 font-semibold text-white">
+                    {authMode === "login" ? "تسجيل الدخول" : "إنشاء الحساب"}
+                  </button>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <footer className="border-t border-slate-200 bg-white">
+            <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-4 md:px-6 text-right">
+              <div>
+                <h3 className="text-xl font-bold">متجر ليبيا</h3>
+                <p className="mt-3 text-sm text-slate-600">متجر إلكتروني ليبي يقدم منتجات مختارة بعناية مع توصيل محلي ودفع عند الاستلام.</p>
+              </div>
+              <div>
+                <h4 className="font-semibold">الروابط</h4>
+                <div className="mt-3 grid gap-2 text-sm text-slate-600">
+                  <button onClick={() => setView("home")} className="text-right">الرئيسية</button>
+                  <button onClick={() => setView("shop")} className="text-right">المتجر</button>
+                  <button onClick={() => setView("cart")} className="text-right">السلة</button>
+                  <button onClick={() => setView("checkout")} className="text-right">إتمام الطلب</button>
+                  <button onClick={() => setView("admin")} className="text-right">الإدارة</button>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold">الفئات</h4>
+                <div className="mt-3 grid gap-2 text-sm text-slate-600">
+                  {categories.slice(0, 6).map((c) => <span key={c.id}>{c.name}</span>)}
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold">تواصل معنا</h4>
+                <div className="mt-3 grid gap-2 text-sm text-slate-600">
+                  <span>طرابلس، ليبيا</span>
+                  <span>support@libyastore.ly</span>
+                  <span>+218 91 000 0000</span>
+                  <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener" className="text-mint font-semibold">تواصل واتساب</a>
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-slate-200 px-4 py-6 text-center text-sm text-slate-500">
+              © 2026 متجر ليبيا. جميع الحقوق محفوظة.
+            </div>
+          </footer>
+
+          <a
+            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent("مرحبا، أحتاج مساعدة من متجر ليبيا")}`}
+            target="_blank"
+            rel="noopener"
+            className="fixed bottom-4 left-4 z-50 flex items-center gap-2 rounded-full bg-mint px-4 py-3 text-sm font-semibold text-white shadow-card"
+          >
+            تواصل عبر واتساب
+          </a>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(React.createElement(EcommerceHomepage));
+  </script>
+</body>
+</html>
