@@ -72,7 +72,7 @@ export function HeroSlider() {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-16 md:py-24 flex items-center min-h-[inherit]">
-        <div className="w-full max-w-3xl rounded-3xl border border-white/20 bg-black/25 backdrop-blur-md p-6 md:p-10 text-center md:text-right shadow-2xl">
+        <div className="w-full max-w-3xl py-2 text-center md:text-right">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/95 text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
             <Sparkles className="h-3.5 w-3.5 text-amber-400" />
             متجر موثوق للتسوق داخل ليبيا
