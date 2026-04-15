@@ -1,4 +1,4 @@
-import { query } from "./db";
+import { query } from "./db.js";
 
 const DEFAULT_SETTINGS = {
   currencySymbol: "د.ل",

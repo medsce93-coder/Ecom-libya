@@ -1,15 +1,15 @@
 import { randomUUID } from "node:crypto";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { requireAdmin } from "./_lib/auth";
-import { query, withTransaction } from "./_lib/db";
+import { requireAdmin } from "./_lib/auth.js";
+import { query, withTransaction } from "./_lib/db.js";
 import {
   getRouteParam,
   methodNotAllowed,
   parseIntParam,
   sendJson,
-} from "./_lib/http";
-import { fetchOrderWithItems, insertOrder } from "./_lib/order-queries";
-import { mapOrder, type OrderItemRow, type OrderRow } from "./_lib/orders";
+} from "./_lib/http.js";
+import { fetchOrderWithItems, insertOrder } from "./_lib/order-queries.js";
+import { mapOrder, type OrderItemRow, type OrderRow } from "./_lib/orders.js";
 
 type CartCheckoutItem = {
   id?: string;

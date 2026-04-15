@@ -1,20 +1,20 @@
 import { randomUUID } from "node:crypto";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { requireAdmin } from "./_lib/auth";
-import { query } from "./_lib/db";
+import { requireAdmin } from "./_lib/auth.js";
+import { query } from "./_lib/db.js";
 import {
   getRouteParam,
   methodNotAllowed,
   parseBoolParam,
   parseIntParam,
   sendJson,
-} from "./_lib/http";
+} from "./_lib/http.js";
 import {
   UUID_RE,
   generateSlug,
   mapProduct,
   type ProductRow,
-} from "./_lib/products";
+} from "./_lib/products.js";
 
 function buildProductsWhere(
   req: VercelRequest,

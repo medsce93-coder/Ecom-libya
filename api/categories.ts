@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { requireAdmin } from "./_lib/auth";
-import { query } from "./_lib/db";
-import { methodNotAllowed, sendJson } from "./_lib/http";
+import { requireAdmin } from "./_lib/auth.js";
+import { query } from "./_lib/db.js";
+import { methodNotAllowed, sendJson } from "./_lib/http.js";
 
 async function listCategories(res: VercelResponse) {
   try {

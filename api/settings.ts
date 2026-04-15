@@ -1,12 +1,12 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { requireAdmin } from "./_lib/auth";
-import { methodNotAllowed, sendJson } from "./_lib/http";
+import { requireAdmin } from "./_lib/auth.js";
+import { methodNotAllowed, sendJson } from "./_lib/http.js";
 import {
   DEFAULT_SETTINGS,
   KEY_MAP,
   readSettings,
   upsertSetting,
-} from "./_lib/settings";
+} from "./_lib/settings.js";
 
 async function getSettings(res: VercelResponse) {
   try {

@@ -3,8 +3,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import formidable from "formidable";
-import { getSupabaseAdminStorageClient, requireAdmin } from "./_lib/auth";
-import { methodNotAllowed, sendJson } from "./_lib/http";
+import { getSupabaseAdminStorageClient, requireAdmin } from "./_lib/auth.js";
+import { methodNotAllowed, sendJson } from "./_lib/http.js";
 
 const MAX_UPLOAD_BYTES = Number.parseInt(
   process.env.UPLOAD_MAX_BYTES ?? "",

@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { requireAdmin } from "./_lib/auth";
-import { query } from "./_lib/db";
-import { getRouteParam, methodNotAllowed, sendJson } from "./_lib/http";
+import { requireAdmin } from "./_lib/auth.js";
+import { query } from "./_lib/db.js";
+import { getRouteParam, methodNotAllowed, sendJson } from "./_lib/http.js";
 
 function normalizeLandingPageRow<T extends Record<string, unknown>>(row: T): T {
   return {

@@ -1,7 +1,7 @@
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@supabase/supabase-js";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { sendJson } from "./http";
+import { sendJson } from "./http.js";
 
 let cachedClient: ReturnType<typeof createClient> | null = null;
 

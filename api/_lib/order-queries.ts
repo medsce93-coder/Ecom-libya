@@ -1,6 +1,6 @@
 import type { PoolClient } from "pg";
-import { query } from "./db";
-import { mapOrder, type OrderItemRow, type OrderRow } from "./orders";
+import { query } from "./db.js";
+import { mapOrder, type OrderItemRow, type OrderRow } from "./orders.js";
 
 export async function fetchOrderWithItems(orderId: string) {
   const [order] = await query<OrderRow>(
