@@ -20,6 +20,7 @@ function getPool(): Pool {
     // Serverless-safe defaults: keep pool small per function instance and reuse globally.
     global.__ecomPool = new Pool({
       connectionString,
+      ssl: { rejectUnauthorized: false },
       max: parsePositiveInt(process.env.DB_POOL_MAX, 3),
       idleTimeoutMillis: parsePositiveInt(process.env.DB_IDLE_TIMEOUT_MS, 10_000),
       connectionTimeoutMillis: parsePositiveInt(
