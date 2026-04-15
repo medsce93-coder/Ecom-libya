@@ -16,6 +16,25 @@ import {
   type ProductRow,
 } from "./_lib/products.js";
 
+const PRODUCT_ACTIVE_SQL = `(
+  COALESCE(
+    NULLIF(LOWER(to_jsonb(p)->>'active'), ''),
+    NULLIF(LOWER(to_jsonb(p)->>'is_active'), ''),
+    'true'
+  ) IN ('true', 't', '1', 'yes', 'y', 'on')
+)`;
+
+const PRODUCT_FEATURED_SQL = `(
+  COALESCE(
+    NULLIF(LOWER(to_jsonb(p)->>'featured'), ''),
+    NULLIF(LOWER(to_jsonb(p)->>'is_featured'), ''),
+    'false'
+  ) IN ('true', 't', '1', 'yes', 'y', 'on')
+)`;
+
+const PRODUCT_IMAGE_SQL = `COALESCE(to_jsonb(p)->>'image_url', to_jsonb(p)->>'image')`;
+const CATEGORY_NAME_SQL = `COALESCE(to_jsonb(c)->>'name_ar', to_jsonb(c)->>'nameAr', to_jsonb(c)->>'name')`;
+
 function buildProductsWhere(
   req: VercelRequest,
   includeInactive = false,
@@ -24,20 +43,23 @@ function buildProductsWhere(
   const clauses: string[] = [];
 
   if (!includeInactive) {
-    clauses.push("p.active = true");
+    clauses.push(PRODUCT_ACTIVE_SQL);
   }
 
   const categoryId = req.query.categoryId;
   if (typeof categoryId === "string" && categoryId.trim()) {
     values.push(categoryId.trim());
-    clauses.push(`p.category_id = $${values.length}`);
+    clauses.push(`COALESCE(to_jsonb(p)->>'category_id', to_jsonb(p)->>'categoryId') = $${values.length}`);
   }
 
   const search = req.query.search;
   if (typeof search === "string" && search.trim()) {
     values.push(`%${search.trim()}%`);
     const searchIndex = values.length;
-    clauses.push(`(p.name_ar ILIKE $${searchIndex} OR p.name ILIKE $${searchIndex})`);
+    clauses.push(`(
+      COALESCE(to_jsonb(p)->>'name_ar', to_jsonb(p)->>'nameAr', to_jsonb(p)->>'name', '') ILIKE $${searchIndex}
+      OR COALESCE(to_jsonb(p)->>'name', '') ILIKE $${searchIndex}
+    )`);
   }
 
   const minPrice = req.query.minPrice;
@@ -45,7 +67,7 @@ function buildProductsWhere(
     const parsed = Number(minPrice);
     if (Number.isFinite(parsed)) {
       values.push(parsed);
-      clauses.push(`p.price::numeric >= $${values.length}`);
+      clauses.push(`COALESCE(NULLIF(to_jsonb(p)->>'price', ''), '0')::numeric >= $${values.length}`);
     }
   }
 
@@ -54,12 +76,12 @@ function buildProductsWhere(
     const parsed = Number(maxPrice);
     if (Number.isFinite(parsed)) {
       values.push(parsed);
-      clauses.push(`p.price::numeric <= $${values.length}`);
+      clauses.push(`COALESCE(NULLIF(to_jsonb(p)->>'price', ''), '0')::numeric <= $${values.length}`);
     }
   }
 
   if (parseBoolParam(req.query.inStock, false)) {
-    clauses.push("p.stock >= 1");
+    clauses.push(`COALESCE(NULLIF(to_jsonb(p)->>'stock', ''), '0')::int >= 1`);
   }
 
   return {
@@ -87,31 +109,36 @@ async function listProducts(req: VercelRequest, res: VercelResponse) {
       `
         SELECT
           p.id,
-          p.slug,
+          COALESCE(to_jsonb(p)->>'slug', p.id) AS slug,
           p.name,
-          p.name_ar AS "nameAr",
-          p.description,
-          p.description_ar AS "descriptionAr",
-          p.price,
-          p.compare_at_price AS "compareAtPrice",
-          p.price_qty_2 AS "priceQty2",
-          p.price_qty_3 AS "priceQty3",
-          p.image_url AS "imageUrl",
-          p.images,
-          p.category_id AS "categoryId",
-          c.name_ar AS "categoryName",
-          p.stock,
-          p.sku,
-          p.featured,
-          p.active,
-          p.badge,
-          p.rating,
-          p.created_at AS "createdAt",
-          p.updated_at AS "updatedAt"
+          COALESCE(to_jsonb(p)->>'name_ar', to_jsonb(p)->>'nameAr', p.name) AS "nameAr",
+          COALESCE(to_jsonb(p)->>'description', '') AS description,
+          COALESCE(to_jsonb(p)->>'description_ar', to_jsonb(p)->>'descriptionAr', to_jsonb(p)->>'description', '') AS "descriptionAr",
+          COALESCE(NULLIF(to_jsonb(p)->>'price', ''), '0') AS price,
+          COALESCE(to_jsonb(p)->>'compare_at_price', to_jsonb(p)->>'compareAtPrice') AS "compareAtPrice",
+          COALESCE(to_jsonb(p)->>'price_qty_2', to_jsonb(p)->>'priceQty2') AS "priceQty2",
+          COALESCE(to_jsonb(p)->>'price_qty_3', to_jsonb(p)->>'priceQty3') AS "priceQty3",
+          ${PRODUCT_IMAGE_SQL} AS "imageUrl",
+          CASE
+            WHEN jsonb_typeof(to_jsonb(p)->'images') = 'array'
+              THEN ARRAY(SELECT jsonb_array_elements_text(to_jsonb(p)->'images'))
+            ELSE ARRAY[]::text[]
+          END AS images,
+          COALESCE(to_jsonb(p)->>'category_id', to_jsonb(p)->>'categoryId') AS "categoryId",
+          ${CATEGORY_NAME_SQL} AS "categoryName",
+          COALESCE(NULLIF(to_jsonb(p)->>'stock', ''), '0')::int AS stock,
+          NULLIF(COALESCE(to_jsonb(p)->>'sku', ''), '') AS sku,
+          ${PRODUCT_FEATURED_SQL} AS featured,
+          ${PRODUCT_ACTIVE_SQL} AS active,
+          NULLIF(COALESCE(to_jsonb(p)->>'badge', ''), '') AS badge,
+          COALESCE(to_jsonb(p)->>'rating', '4.5') AS rating,
+          COALESCE(to_jsonb(p)->>'created_at', now()::text) AS "createdAt",
+          COALESCE(to_jsonb(p)->>'updated_at', to_jsonb(p)->>'created_at', now()::text) AS "updatedAt"
         FROM products p
-        LEFT JOIN categories c ON c.id = p.category_id
+        LEFT JOIN categories c
+          ON c.id = COALESCE(to_jsonb(p)->>'category_id', to_jsonb(p)->>'categoryId')
         ${whereSql}
-        ORDER BY p.created_at DESC
+        ORDER BY COALESCE(NULLIF(to_jsonb(p)->>'created_at', '')::timestamptz, NOW()) DESC
         LIMIT $${pagingStart}
         OFFSET $${pagingStart + 1}
       `,
@@ -137,6 +164,7 @@ async function listProducts(req: VercelRequest, res: VercelResponse) {
       totalPages: Math.ceil(total / limit),
     });
   } catch (error) {
+    console.error("Failed to fetch products", { error, query: req.query });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to fetch products",
@@ -151,31 +179,36 @@ async function listFeaturedProducts(req: VercelRequest, res: VercelResponse) {
       `
         SELECT
           p.id,
-          p.slug,
+          COALESCE(to_jsonb(p)->>'slug', p.id) AS slug,
           p.name,
-          p.name_ar AS "nameAr",
-          p.description,
-          p.description_ar AS "descriptionAr",
-          p.price,
-          p.compare_at_price AS "compareAtPrice",
-          p.price_qty_2 AS "priceQty2",
-          p.price_qty_3 AS "priceQty3",
-          p.image_url AS "imageUrl",
-          p.images,
-          p.category_id AS "categoryId",
-          c.name_ar AS "categoryName",
-          p.stock,
-          p.sku,
-          p.featured,
-          p.active,
-          p.badge,
-          p.rating,
-          p.created_at AS "createdAt",
-          p.updated_at AS "updatedAt"
+          COALESCE(to_jsonb(p)->>'name_ar', to_jsonb(p)->>'nameAr', p.name) AS "nameAr",
+          COALESCE(to_jsonb(p)->>'description', '') AS description,
+          COALESCE(to_jsonb(p)->>'description_ar', to_jsonb(p)->>'descriptionAr', to_jsonb(p)->>'description', '') AS "descriptionAr",
+          COALESCE(NULLIF(to_jsonb(p)->>'price', ''), '0') AS price,
+          COALESCE(to_jsonb(p)->>'compare_at_price', to_jsonb(p)->>'compareAtPrice') AS "compareAtPrice",
+          COALESCE(to_jsonb(p)->>'price_qty_2', to_jsonb(p)->>'priceQty2') AS "priceQty2",
+          COALESCE(to_jsonb(p)->>'price_qty_3', to_jsonb(p)->>'priceQty3') AS "priceQty3",
+          ${PRODUCT_IMAGE_SQL} AS "imageUrl",
+          CASE
+            WHEN jsonb_typeof(to_jsonb(p)->'images') = 'array'
+              THEN ARRAY(SELECT jsonb_array_elements_text(to_jsonb(p)->'images'))
+            ELSE ARRAY[]::text[]
+          END AS images,
+          COALESCE(to_jsonb(p)->>'category_id', to_jsonb(p)->>'categoryId') AS "categoryId",
+          ${CATEGORY_NAME_SQL} AS "categoryName",
+          COALESCE(NULLIF(to_jsonb(p)->>'stock', ''), '0')::int AS stock,
+          NULLIF(COALESCE(to_jsonb(p)->>'sku', ''), '') AS sku,
+          ${PRODUCT_FEATURED_SQL} AS featured,
+          ${PRODUCT_ACTIVE_SQL} AS active,
+          NULLIF(COALESCE(to_jsonb(p)->>'badge', ''), '') AS badge,
+          COALESCE(to_jsonb(p)->>'rating', '4.5') AS rating,
+          COALESCE(to_jsonb(p)->>'created_at', now()::text) AS "createdAt",
+          COALESCE(to_jsonb(p)->>'updated_at', to_jsonb(p)->>'created_at', now()::text) AS "updatedAt"
         FROM products p
-        LEFT JOIN categories c ON c.id = p.category_id
-        WHERE p.featured = true AND p.active = true
-        ORDER BY p.created_at DESC
+        LEFT JOIN categories c
+          ON c.id = COALESCE(to_jsonb(p)->>'category_id', to_jsonb(p)->>'categoryId')
+        WHERE ${PRODUCT_FEATURED_SQL} AND ${PRODUCT_ACTIVE_SQL}
+        ORDER BY COALESCE(NULLIF(to_jsonb(p)->>'created_at', '')::timestamptz, NOW()) DESC
         LIMIT $1
       `,
       [limit],
@@ -183,6 +216,7 @@ async function listFeaturedProducts(req: VercelRequest, res: VercelResponse) {
 
     return sendJson(res, 200, rows.map(mapProduct));
   } catch (error) {
+    console.error("Failed to fetch featured products", { error, query: req.query });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to fetch featured products",
@@ -203,35 +237,41 @@ async function getProduct(
     }
 
     const byId = UUID_RE.test(idParam);
+    const identifierField = byId ? "p.id" : "COALESCE(to_jsonb(p)->>'slug', p.id)";
     const [row] = await query<ProductRow>(
       `
         SELECT
           p.id,
-          p.slug,
+          COALESCE(to_jsonb(p)->>'slug', p.id) AS slug,
           p.name,
-          p.name_ar AS "nameAr",
-          p.description,
-          p.description_ar AS "descriptionAr",
-          p.price,
-          p.compare_at_price AS "compareAtPrice",
-          p.price_qty_2 AS "priceQty2",
-          p.price_qty_3 AS "priceQty3",
-          p.image_url AS "imageUrl",
-          p.images,
-          p.category_id AS "categoryId",
-          c.name_ar AS "categoryName",
-          p.stock,
-          p.sku,
-          p.featured,
-          p.active,
-          p.badge,
-          p.rating,
-          p.created_at AS "createdAt",
-          p.updated_at AS "updatedAt"
+          COALESCE(to_jsonb(p)->>'name_ar', to_jsonb(p)->>'nameAr', p.name) AS "nameAr",
+          COALESCE(to_jsonb(p)->>'description', '') AS description,
+          COALESCE(to_jsonb(p)->>'description_ar', to_jsonb(p)->>'descriptionAr', to_jsonb(p)->>'description', '') AS "descriptionAr",
+          COALESCE(NULLIF(to_jsonb(p)->>'price', ''), '0') AS price,
+          COALESCE(to_jsonb(p)->>'compare_at_price', to_jsonb(p)->>'compareAtPrice') AS "compareAtPrice",
+          COALESCE(to_jsonb(p)->>'price_qty_2', to_jsonb(p)->>'priceQty2') AS "priceQty2",
+          COALESCE(to_jsonb(p)->>'price_qty_3', to_jsonb(p)->>'priceQty3') AS "priceQty3",
+          ${PRODUCT_IMAGE_SQL} AS "imageUrl",
+          CASE
+            WHEN jsonb_typeof(to_jsonb(p)->'images') = 'array'
+              THEN ARRAY(SELECT jsonb_array_elements_text(to_jsonb(p)->'images'))
+            ELSE ARRAY[]::text[]
+          END AS images,
+          COALESCE(to_jsonb(p)->>'category_id', to_jsonb(p)->>'categoryId') AS "categoryId",
+          ${CATEGORY_NAME_SQL} AS "categoryName",
+          COALESCE(NULLIF(to_jsonb(p)->>'stock', ''), '0')::int AS stock,
+          NULLIF(COALESCE(to_jsonb(p)->>'sku', ''), '') AS sku,
+          ${PRODUCT_FEATURED_SQL} AS featured,
+          ${PRODUCT_ACTIVE_SQL} AS active,
+          NULLIF(COALESCE(to_jsonb(p)->>'badge', ''), '') AS badge,
+          COALESCE(to_jsonb(p)->>'rating', '4.5') AS rating,
+          COALESCE(to_jsonb(p)->>'created_at', now()::text) AS "createdAt",
+          COALESCE(to_jsonb(p)->>'updated_at', to_jsonb(p)->>'created_at', now()::text) AS "updatedAt"
         FROM products p
-        LEFT JOIN categories c ON c.id = p.category_id
-        WHERE ${byId ? "p.id" : "p.slug"} = $1
-          ${includeInactive ? "" : "AND p.active = true"}
+        LEFT JOIN categories c
+          ON c.id = COALESCE(to_jsonb(p)->>'category_id', to_jsonb(p)->>'categoryId')
+        WHERE ${identifierField} = $1
+          ${includeInactive ? "" : `AND ${PRODUCT_ACTIVE_SQL}`}
         LIMIT 1
       `,
       [decodeURIComponent(idParam)],
@@ -246,6 +286,11 @@ async function getProduct(
 
     return sendJson(res, 200, mapProduct(row));
   } catch (error) {
+    console.error("Failed to fetch single product", {
+      error,
+      id: idParam,
+      query: req.query,
+    });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to fetch product",
@@ -324,6 +369,7 @@ async function createProduct(req: VercelRequest, res: VercelResponse) {
 
     return sendJson(res, 201, mapProduct(created));
   } catch (error) {
+    console.error("Failed to create product", { error, body: req.body });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to create product",
@@ -441,6 +487,11 @@ async function updateProduct(
 
     return sendJson(res, 200, mapProduct(updated));
   } catch (error) {
+    console.error("Failed to update product", {
+      error,
+      productId,
+      body: req.body,
+    });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to update product",
@@ -460,6 +511,7 @@ async function deleteProduct(
     await query("DELETE FROM products WHERE id = $1", [productId]);
     return res.status(204).end();
   } catch (error) {
+    console.error("Failed to delete product", { error, productId });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to delete product",

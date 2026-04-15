@@ -4,6 +4,14 @@ import { requireAdmin } from "./_lib/auth.js";
 import { query } from "./_lib/db.js";
 import { methodNotAllowed, sendJson } from "./_lib/http.js";
 
+const PRODUCT_ACTIVE_SQL = `(
+  COALESCE(
+    NULLIF(LOWER(to_jsonb(p)->>'active'), ''),
+    NULLIF(LOWER(to_jsonb(p)->>'is_active'), ''),
+    'true'
+  ) IN ('true', 't', '1', 'yes', 'y', 'on')
+)`;
+
 async function listCategories(res: VercelResponse) {
   try {
     const rows = await query<{
@@ -18,21 +26,25 @@ async function listCategories(res: VercelResponse) {
       `
         SELECT
           c.id,
-          c.name,
-          c.name_ar AS "nameAr",
-          c.description,
-          c.image_url AS "imageUrl",
-          c.created_at AS "createdAt",
-          COUNT(p.id)::int AS "productCount"
+          COALESCE(to_jsonb(c)->>'name', to_jsonb(c)->>'name_ar', to_jsonb(c)->>'nameAr', c.id) AS name,
+          COALESCE(to_jsonb(c)->>'name_ar', to_jsonb(c)->>'nameAr', to_jsonb(c)->>'name', c.id) AS "nameAr",
+          to_jsonb(c)->>'description' AS description,
+          COALESCE(to_jsonb(c)->>'image_url', to_jsonb(c)->>'image') AS "imageUrl",
+          COALESCE(to_jsonb(c)->>'created_at', now()::text) AS "createdAt",
+          (
+            SELECT COUNT(*)::int
+            FROM products p
+            WHERE COALESCE(to_jsonb(p)->>'category_id', to_jsonb(p)->>'categoryId') = c.id
+              AND ${PRODUCT_ACTIVE_SQL}
+          ) AS "productCount"
         FROM categories c
-        LEFT JOIN products p ON p.category_id = c.id AND p.active = true
-        GROUP BY c.id
-        ORDER BY c.name_ar ASC
+        ORDER BY "nameAr" ASC
       `,
     );
 
     return sendJson(res, 200, rows);
   } catch (error) {
+    console.error("Failed to fetch categories", { error });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to fetch categories",
@@ -87,6 +99,7 @@ async function createCategory(req: VercelRequest, res: VercelResponse) {
       productCount: 0,
     });
   } catch (error) {
+    console.error("Failed to create category", { error, body: req.body });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to create category",
