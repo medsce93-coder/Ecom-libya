@@ -1,4 +1,4 @@
-﻿import { useParams, useLocation } from "wouter";
+import { useParams, useLocation } from "wouter";
 import { useGetProduct, getGetProductQueryKey } from "@/lib/api-client";
 import { useState, useEffect, useRef } from "react";
 import { useStore } from "@/lib/store-context";
@@ -10,18 +10,18 @@ import {
   ChevronDown, Play, Package,
 } from "lucide-react";
 
-/* â”€â”€ Per-category benefit bullets â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Per-category benefit bullets ──────────────────────── */
 const CATEGORY_BENEFITS: Record<string, string[]> = {
-  "Ø§Ù„Ø£Ø¬Ù‡Ø²Ø© Ø§Ù„Ø°ÙƒÙŠØ©":           ["ÙŠÙˆÙÙ‘Ø± ÙˆÙ‚ØªÙƒ ÙˆÙŠØ±ÙØ¹ Ø¥Ù†ØªØ§Ø¬ÙŠØªÙƒ ÙƒÙ„ ÙŠÙˆÙ…", "ØªØµÙ…ÙŠÙ… Ø£Ù†ÙŠÙ‚ ÙŠÙ„ÙŠÙ‚ Ø¨Ø£Ø³Ù„ÙˆØ¨ Ø­ÙŠØ§ØªÙƒ", "ÙŠØ¹Ù…Ù„ ÙÙˆØ±Ø§Ù‹ â€” Ø¨Ø¯ÙˆÙ† ØªØ¹Ù‚ÙŠØ¯", "Ø¶Ù…Ø§Ù† Ø´Ø§Ù…Ù„ Ø¹Ù„Ù‰ ÙƒÙ„ Ù‚Ø·Ø¹Ø©"],
-  "Ø§Ù„Ø£Ø·ÙØ§Ù„":                   ["Ø¢Ù…Ù† 100% â€” Ø®Ø§Ù„Ù Ù…Ù† Ø£ÙŠ Ù…ÙˆØ§Ø¯ Ø¶Ø§Ø±Ø©", "ÙŠØ­ÙÙ‘Ø² Ø¥Ø¨Ø¯Ø§Ø¹ Ø·ÙÙ„Ùƒ ÙˆØ°ÙƒØ§Ø¡Ù‡", "Ù…ØªÙŠÙ† ÙŠØµÙ…Ø¯ Ø£Ù…Ø§Ù… Ø§Ù„Ù„Ø¹Ø¨ Ø§Ù„ÙŠÙˆÙ…ÙŠ", "Ø³Ø¹Ø§Ø¯Ø© Ø§Ù„Ø£Ø·ÙØ§Ù„ = Ø±Ø§Ø­Ø© Ø¨Ø§Ù„Ùƒ Ø£Ù†ØªÙŽ"],
-  "Ø§Ù„Ø¬Ù…Ø§Ù„ ÙˆØ§Ù„Ø¹Ù†Ø§ÙŠØ©":           ["Ù†ØªØ§Ø¦Ø¬ Ù…Ø±Ø¦ÙŠØ© Ù…Ù† Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ Ø§Ù„Ø£ÙˆÙ„", "Ù…Ù†Ø§Ø³Ø¨ Ù„Ù…Ù†Ø§Ø® Ù„ÙŠØ¨ÙŠØ§ Ø§Ù„Ø­Ø§Ø± ÙˆØ§Ù„Ø¬Ø§Ù", "ØªØ±ÙƒÙŠØ¨Ø© Ù…Ø¬Ø±Ù‘Ø¨Ø© Ù…Ù† Ø¢Ù„Ø§Ù Ø§Ù„Ø¹Ù…ÙŠÙ„Ø§Øª", "Ø³Ø¹Ø± Ø¹Ø§Ø¯Ù„ Ø¨Ø¬ÙˆØ¯Ø© Ø§Ù„Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ©"],
-  "Ø§Ù„ØµØ­Ø© ÙˆØ§Ù„Ø¹Ù†Ø§ÙŠØ© Ø§Ù„Ø´Ø®ØµÙŠØ©":   ["ÙŠØ¯Ø¹Ù… ØµØ­ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ© ÙØ¹Ù„Ø§Ù‹", "Ù…ÙƒÙˆÙ‘Ù†Ø§Øª Ù…Ø®ØªØ§Ø±Ø© ÙˆÙ…Ø¶Ù…ÙˆÙ†Ø© Ø§Ù„Ø³Ù„Ø§Ù…Ø©", "Ù†ØªØ§Ø¦Ø¬ Ø³Ø±ÙŠØ¹Ø© ØªØ­Ø³Ù‘Ù‡Ø§ Ù…Ù† Ø§Ù„Ø£ÙˆÙ„", "Ù…Ù†Ø§Ø³Ø¨ Ù„Ø¬Ù…ÙŠØ¹ Ø§Ù„ÙØ¦Ø§Øª ÙˆØ§Ù„Ø£Ø¹Ù…Ø§Ø±"],
-  "Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø¨Ø´Ø±Ø©":           ["ÙŠÙØ±Ø·Ù‘Ø¨ ÙˆÙŠØ¬Ø¯Ø¯ Ù†Ø¶Ø§Ø±Ø© Ø¨Ø´Ø±ØªÙƒ Ø¨Ø¹Ù…Ù‚", "ØªØ±ÙƒÙŠØ¨Ø© Ù„Ø·ÙŠÙØ© â€” Ø¢Ù…Ù†Ø© Ù„Ù„Ø¨Ø´Ø±Ø© Ø§Ù„Ø­Ø³Ø§Ø³Ø©", "Ø¨Ø´Ø±Ø© Ø£ÙƒØ«Ø± Ø¥Ø´Ø±Ø§Ù‚Ø§Ù‹ ÙˆÙ†Ø¹ÙˆÙ…Ø©", "Ù…Ø¬Ø±Ù‘Ø¨ ÙˆÙ…Ø­Ø¨ÙˆØ¨ Ù…Ù† Ø¢Ù„Ø§Ù Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…Ø§Øª"],
-  "Ø§Ù„Ù…ÙƒÙ…Ù„Ø§Øª Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ©":         ["ÙŠØ¹Ø²Ø² Ø·Ø§Ù‚ØªÙƒ ÙˆØ£Ø¯Ø§Ø¡Ùƒ Ø·ÙˆØ§Ù„ Ø§Ù„ÙŠÙˆÙ…", "ØªØ±ÙƒÙŠØ² Ø¹Ø§Ù„Ù Ø¨Ø£Ø¹Ù„Ù‰ Ù…Ø¹Ø§ÙŠÙŠØ± Ø§Ù„Ø¬ÙˆØ¯Ø©", "Ù†ØªØ§Ø¦Ø¬ ÙˆØ§Ø¶Ø­Ø© Ø®Ù„Ø§Ù„ Ø£Ø³Ø¨ÙˆØ¹ÙŠÙ†", "Ù…Ø«Ø§Ù„ÙŠ Ù„Ù„Ø±ÙŠØ§Ø¶ÙŠÙŠÙ† ÙˆØ£ØµØ­Ø§Ø¨ Ø§Ù„Ù†Ø´Ø§Ø·"],
-  "Ø§Ù„Ù…Ù†Ø²Ù„ ÙˆØ§Ù„Ù…Ø·Ø¨Ø®":            ["ÙŠØ­ÙˆÙ‘Ù„ Ù…Ù†Ø²Ù„Ùƒ Ù„Ø¨ÙŠØ¦Ø© Ù…Ù†Ø¸Ù…Ø© ÙˆØ£Ù†ÙŠÙ‚Ø©", "Ø¬ÙˆØ¯Ø© Ù…ÙˆØ§Ø¯ ØªØµÙ…Ø¯ Ù„Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„ÙŠÙˆÙ…ÙŠ", "ÙŠÙˆÙÙ‘Ø± ÙˆÙ‚ØªÙƒ ÙˆØ¬Ù‡Ø¯Ùƒ ÙÙŠ Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„Ù…Ù†Ø²Ù„", "Ù…Ø«Ø§Ù„ÙŠ Ù„Ù„Ù…Ø·Ø¨Ø® Ø§Ù„Ù„ÙŠØ¨ÙŠ ÙˆØ­ÙŠØ§Ø© Ø§Ù„Ø¹Ø§Ø¦Ù„Ø©"],
-  "Ù…Ù†ØªØ¬Ø§Øª Ù…ØªÙ†ÙˆØ¹Ø©":             ["Ø¬ÙˆØ¯Ø© Ù…Ø¶Ù…ÙˆÙ†Ø© 100% Ø¹Ù„Ù‰ ÙƒÙ„ Ø·Ù„Ø¨", "Ù…Ù†ØªØ¬ Ù…Ø¬Ø±Ù‘Ø¨ ÙˆÙ…Ø­Ø¨ÙˆØ¨ Ù…Ù† Ø§Ù„Ù„ÙŠØ¨ÙŠÙŠÙ†", "ÙŠÙØ­Ø³Ù‘Ù† Ø­ÙŠØ§ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ© ÙØ¹Ù„Ø§Ù‹", "Ù‚ÙŠÙ…Ø© Ø­Ù‚ÙŠÙ‚ÙŠØ© Ù„ÙƒÙ„ Ø¯ÙŠÙ†Ø§Ø± ØªÙ†ÙÙ‚Ù‡"],
+  "الأجهزة الذكية":           ["يوفّر وقتك ويرفع إنتاجيتك كل يوم", "تصميم أنيق يليق بأسلوب حياتك", "يعمل فوراً — بدون تعقيد", "ضمان شامل على كل قطعة"],
+  "الأطفال":                   ["آمن 100% — خالٍ من أي مواد ضارة", "يحفّز إبداع طفلك وذكاءه", "متين يصمد أمام اللعب اليومي", "سعادة الأطفال = راحة بالك أنتَ"],
+  "الجمال والعناية":           ["نتائج مرئية من الأسبوع الأول", "مناسب لمناخ ليبيا الحار والجاف", "تركيبة مجرّبة من آلاف العميلات", "سعر عادل بجودة العلامات العالمية"],
+  "الصحة والعناية الشخصية":   ["يدعم صحتك اليومية فعلاً", "مكوّنات مختارة ومضمونة السلامة", "نتائج سريعة تحسّها من الأول", "مناسب لجميع الفئات والأعمار"],
+  "العناية بالبشرة":           ["يُرطّب ويجدد نضارة بشرتك بعمق", "تركيبة لطيفة — آمنة للبشرة الحساسة", "بشرة أكثر إشراقاً ونعومة", "مجرّب ومحبوب من آلاف المستخدمات"],
+  "المكملات الغذائية":         ["يعزز طاقتك وأداءك طوال اليوم", "تركيز عالٍ بأعلى معايير الجودة", "نتائج واضحة خلال أسبوعين", "مثالي للرياضيين وأصحاب النشاط"],
+  "المنزل والمطبخ":            ["يحوّل منزلك لبيئة منظمة وأنيقة", "جودة مواد تصمد للاستخدام اليومي", "يوفّر وقتك وجهدك في أعمال المنزل", "مثالي للمطبخ الليبي وحياة العائلة"],
+  "منتجات متنوعة":             ["جودة مضمونة 100% على كل طلب", "منتج مجرّب ومحبوب من الليبيين", "يُحسّن حياتك اليومية فعلاً", "قيمة حقيقية لكل دينار تنفقه"],
 };
-const DEFAULT_BENEFITS = ["Ø¬ÙˆØ¯Ø© Ù…Ø¶Ù…ÙˆÙ†Ø© 100%", "Ù…Ù†ØªØ¬ Ø£ØµÙ„ÙŠ ÙˆÙ…ÙˆØ«ÙˆÙ‚", "ØªÙˆØµÙŠÙ„ Ø³Ø±ÙŠØ¹ Ù„Ø¬Ù…ÙŠØ¹ Ù„ÙŠØ¨ÙŠØ§", "Ø¯ÙØ¹ Ù…Ø±ÙŠØ­ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…"];
+const DEFAULT_BENEFITS = ["جودة مضمونة 100%", "منتج أصلي وموثوق", "توصيل سريع لجميع ليبيا", "دفع مريح عند الاستلام"];
 
 function getBenefits(cat?: string | null) {
   if (!cat) return DEFAULT_BENEFITS;
@@ -31,33 +31,33 @@ function getBenefits(cat?: string | null) {
   return DEFAULT_BENEFITS;
 }
 
-/* â”€â”€ Hardcoded testimonials â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Hardcoded testimonials ─────────────────────────────── */
 const TESTIMONIALS = [
   {
-    name: "Ø±Ø§Ù†ÙŠØ§ Ø§Ù„Ø·ÙŠØ¨",     city: "Ø¨Ù†ØºØ§Ø²ÙŠ",  avatar: "Ø±", color: "bg-rose-500",
+    name: "رانيا الطيب",     city: "بنغازي",  avatar: "ر", color: "bg-rose-500",
     rating: 5,
-    text: "Ø§Ø³ØªÙ„Ù…Øª Ø§Ù„Ù…Ù†ØªØ¬ ÙÙŠ ÙŠÙˆÙ…ÙŠÙ† ÙˆÙƒØ§Ù† Ø£ÙØ¶Ù„ Ù…Ù…Ø§ ØªÙˆÙ‚Ø¹Øª! Ø§Ù„Ø¬ÙˆØ¯Ø© Ù…Ù…ØªØ§Ø²Ø© Ø¬Ø¯Ø§Ù‹ ÙˆØ§Ù„ØªØºÙ„ÙŠÙ ÙƒØ§Ù† Ø±Ø§Ø¦Ø¹Ø§Ù‹. Ø³Ø£Ø·Ù„Ø¨ Ù…Ø±Ø© Ø«Ø§Ù†ÙŠØ© Ø¨ÙƒÙ„ ØªØ£ÙƒÙŠØ¯.",
+    text: "استلمت المنتج في يومين وكان أفضل مما توقعت! الجودة ممتازة جداً والتغليف كان رائعاً. سأطلب مرة ثانية بكل تأكيد.",
   },
   {
-    name: "Ø¹Ø¨Ø¯ Ø§Ù„Ù„Ù‡ Ø§Ù„Ù…Ù†ØµÙˆØ±", city: "Ø·Ø±Ø§Ø¨Ù„Ø³", avatar: "Ø¹", color: "bg-blue-600",
+    name: "عبد الله المنصور", city: "طرابلس", avatar: "ع", color: "bg-blue-600",
     rating: 5,
-    text: "ÙƒÙ†Øª Ù…ØªØ±Ø¯Ø¯Ø§Ù‹ ÙÙŠ Ø§Ù„Ø¨Ø¯Ø§ÙŠØ© Ù…Ù† Ø§Ù„ØªØ³ÙˆÙ‚ Ø£ÙˆÙ†Ù„Ø§ÙŠÙ†ØŒ Ù„ÙƒÙ† Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù… Ø£Ø²Ø§Ù„ ÙƒÙ„ Ù‚Ù„Ù‚ÙŠ. Ø§Ù„Ù…Ù†ØªØ¬ ÙˆØµÙ„ ÙˆØ£Ù†Ø§ Ù…Ø¨Ø³ÙˆØ· Ø¬Ø¯Ø§Ù‹. Ø´ÙƒØ±Ø§Ù‹ Ø¬ÙˆØ¯Ø© Ù…Ø§Ø±ÙƒØª!",
+    text: "كنت متردداً في البداية من التسوق أونلاين، لكن الدفع عند الاستلام أزال كل قلقي. المنتج وصل وأنا مبسوط جداً. شكراً جودة ماركت!",
   },
   {
-    name: "Ù†Ø³Ø±ÙŠÙ† Ø§Ù„Ø£Ù…ÙŠÙ†",    city: "Ù…ØµØ±Ø§ØªØ©", avatar: "Ù†", color: "bg-emerald-600",
+    name: "نسرين الأمين",    city: "مصراتة", avatar: "ن", color: "bg-emerald-600",
     rating: 5,
-    text: "Ø§Ø´ØªØ±ÙŠØª Ù„Ø£ÙˆÙ„Ø§Ø¯ÙŠ ÙˆÙ‡Ù… Ø³Ø¹Ø¯Ø§Ø¡ Ø¬Ø¯Ø§Ù‹. Ø®Ø¯Ù…Ø© Ø§Ù„ØªÙˆØµÙŠÙ„ ÙƒØ§Ù†Øª Ø³Ø±ÙŠØ¹Ø© ÙˆØ§Ù„Ù…ØªØ¬Ø± Ø£Ø¬Ø§Ø¨ Ø¹Ù„Ù‰ Ø§Ø³ØªÙØ³Ø§Ø±ÙŠ Ø¹Ù„Ù‰ Ø§Ù„ÙˆØ§ØªØ³Ø§Ø¨ Ø¨Ø¯Ù‚ÙŠÙ‚ØªÙŠÙ†. Ù…Ù…ØªØ§Ø²!",
+    text: "اشتريت لأولادي وهم سعداء جداً. خدمة التوصيل كانت سريعة والمتجر أجاب على استفساري على الواتساب بدقيقتين. ممتاز!",
   },
 ];
 
-/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── FAQ ────────────────────────────────────────────────── */
 const FAQS = [
-  { q: "ÙƒÙŠÙ ÙŠØªÙ… Ø§Ù„Ø¯ÙØ¹ØŸ",            a: "Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù… ÙÙ‚Ø· â€” ØªØ³ØªÙ„Ù… Ø§Ù„Ù…Ù†ØªØ¬ ÙˆØªØ¯ÙØ¹ØŒ Ø¨Ø¯ÙˆÙ† Ø£ÙŠ Ù…Ø®Ø§Ø·Ø±Ø© Ù…Ù† Ø·Ø±ÙÙƒ." },
-  { q: "ÙƒÙ… ÙŠØ³ØªØºØ±Ù‚ Ø§Ù„ØªÙˆØµÙŠÙ„ØŸ",        a: "ÙŠØµÙ„ Ø·Ù„Ø¨Ùƒ Ø®Ù„Ø§Ù„ 2â€“4 Ø£ÙŠØ§Ù… Ù„Ø¬Ù…ÙŠØ¹ Ù…Ø¯Ù† Ù„ÙŠØ¨ÙŠØ§. Ù†ÙˆØµÙ„ Ù„Ø£ÙƒØ«Ø± Ù…Ù† 18 Ù…Ø¯ÙŠÙ†Ø©." },
-  { q: "Ù…Ø§Ø°Ø§ Ù„Ùˆ Ù„Ù… ÙŠØ¹Ø¬Ø¨Ù†ÙŠ Ø§Ù„Ù…Ù†ØªØ¬ØŸ",  a: "Ø±Ø¶Ø§Ùƒ Ø¶Ù…Ø§Ù†Ù†Ø§. ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ ÙˆØ³Ù†Ø­Ù„ Ø§Ù„Ø£Ù…Ø± ÙÙˆØ±Ø§Ù‹ â€” Ø±Ø¯ ÙƒØ§Ù…Ù„ Ø£Ùˆ Ø§Ø³ØªØ¨Ø¯Ø§Ù„ Ø¨Ø¯ÙˆÙ† ØªØ¹Ù‚ÙŠØ¯." },
+  { q: "كيف يتم الدفع؟",            a: "الدفع عند الاستلام فقط — تستلم المنتج وتدفع، بدون أي مخاطرة من طرفك." },
+  { q: "كم يستغرق التوصيل؟",        a: "يصل طلبك خلال 2–4 أيام لجميع مدن ليبيا. نوصل لأكثر من 18 مدينة." },
+  { q: "ماذا لو لم يعجبني المنتج؟",  a: "رضاك ضماننا. تواصل معنا وسنحل الأمر فوراً — رد كامل أو استبدال بدون تعقيد." },
 ];
 
-/* â”€â”€ Stars component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Stars component ────────────────────────────────────── */
 function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
@@ -68,7 +68,7 @@ function Stars({ count }: { count: number }) {
   );
 }
 
-/* â”€â”€ FAQ Item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── FAQ Item ───────────────────────────────────────────── */
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
@@ -89,7 +89,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ════════════════════════════════════════════════════════ */
 export default function LandingPage() {
   const { id } = useParams<{ id: string }>();
   const [, setLocation] = useLocation();
@@ -112,9 +112,9 @@ export default function LandingPage() {
   /* SEO */
   useEffect(() => {
     if (product) {
-      document.title = `${product.nameAr} â€” Ø¹Ø±Ø¶ Ø®Ø§Øµ | Ø¬ÙˆØ¯Ø© Ù…Ø§Ø±ÙƒØª`;
+      document.title = `${product.nameAr} — عرض خاص | جودة ماركت`;
     }
-    return () => { document.title = "Ø¬ÙˆØ¯Ø© Ù…Ø§Ø±ÙƒØª"; };
+    return () => { document.title = "جودة ماركت"; };
   }, [product]);
 
   const handleOrder = () => {
@@ -146,7 +146,7 @@ export default function LandingPage() {
     ? (product.imageUrl.startsWith("http") ? product.imageUrl : `/${product.imageUrl}`)
     : null;
 
-  /* â”€â”€ Loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── Loading ───────────────────────────── */
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
@@ -154,7 +154,7 @@ export default function LandingPage() {
           <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center animate-pulse">
             <Package className="h-8 w-8 text-primary/50" />
           </div>
-          <p className="text-slate-400 text-sm font-medium">Ø¬Ø§Ø±Ù ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ø¹Ø±Ø¶â€¦</p>
+          <p className="text-slate-400 text-sm font-medium">جارٍ تحميل العرض…</p>
         </div>
       </div>
     );
@@ -164,46 +164,46 @@ export default function LandingPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 text-center px-4">
         <div>
-          <div className="text-5xl mb-4">ðŸ”</div>
-          <h1 className="text-2xl font-extrabold text-slate-900 mb-2">Ø§Ù„Ø¹Ø±Ø¶ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯</h1>
-          <p className="text-slate-500 mb-6">Ù„Ù… Ù†ØªÙ…ÙƒÙ† Ù…Ù† Ø¥ÙŠØ¬Ø§Ø¯ Ù‡Ø°Ø§ Ø§Ù„Ø¹Ø±Ø¶.</p>
+          <div className="text-5xl mb-4">🔍</div>
+          <h1 className="text-2xl font-extrabold text-slate-900 mb-2">العرض غير موجود</h1>
+          <p className="text-slate-500 mb-6">لم نتمكن من إيجاد هذا العرض.</p>
           <a href="/products" className="inline-flex items-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-xl">
-            ØªØµÙØ­ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª
+            تصفح المنتجات
           </a>
         </div>
       </div>
     );
   }
 
-  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* ═══════════════════════════════════════════════════════ */
   return (
     <>
       <div className="bg-slate-50 pb-28">
 
-        {/* â”€â”€ TOP BRAND BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── TOP BRAND BAR ──────────────────────────────── */}
         <div className="bg-white border-b border-slate-100 px-4 py-3 flex items-center justify-between sticky top-0 z-40 shadow-sm">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center">
               <Package className="h-3.5 w-3.5 text-white" />
             </div>
             <span className="font-extrabold text-slate-900 text-sm">
-              Ù…ØªØ¬Ø± <span className="text-primary">Ù„ÙŠØ¨ÙŠØ§</span>
+              متجر <span className="text-primary">ليبيا</span>
             </span>
           </div>
           <button
             onClick={handleOrder}
             className="bg-primary text-white font-black text-sm px-4 py-2 rounded-full shadow hover:bg-blue-700 transition-colors touch-manipulation"
           >
-            Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù† â†
+            اطلب الآن ←
           </button>
         </div>
 
-        {/* â”€â”€ URGENCY STRIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── URGENCY STRIP ──────────────────────────────── */}
         <div className="bg-rose-600 text-white text-center py-2 px-4 text-xs md:text-sm font-bold animate-pulse">
-          âš¡ Ø¹Ø±Ø¶ Ù…Ø­Ø¯ÙˆØ¯ â€” ØªØ¨Ù‚Ù‘Øª {stockLeft} Ù‚Ø·Ø¹ ÙÙ‚Ø·! Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù† Ù‚Ø¨Ù„ Ù†ÙØ§Ø¯ Ø§Ù„ÙƒÙ…ÙŠØ©
+          ⚡ عرض محدود — تبقّت {stockLeft} قطع فقط! اطلب الآن قبل نفاد الكمية
         </div>
 
-        {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── HERO ───────────────────────────────────────── */}
         <div ref={heroRef} className="bg-white">
           <div className="container mx-auto px-4 py-8 md:py-12 max-w-2xl">
 
@@ -230,14 +230,14 @@ export default function LandingPage() {
             <div className="flex items-center justify-center gap-2 mb-6">
               <Stars count={5} />
               <span className="text-sm font-bold text-slate-700">4.9</span>
-              <span className="text-xs text-slate-400">(+2,300 Ø¹Ù…ÙŠÙ„ Ø±Ø§Ø¶Ù)</span>
+              <span className="text-xs text-slate-400">(+2,300 عميل راضٍ)</span>
             </div>
 
             {/* Product image */}
             <div className="relative mx-auto mb-6 max-w-sm">
               {discount && (
                 <span className="absolute top-3 right-3 z-10 bg-rose-500 text-white text-sm font-black px-3 py-1 rounded-full shadow-lg">
-                  Ø®ØµÙ… {discount}%
+                  خصم {discount}%
                 </span>
               )}
               <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl p-6 aspect-square flex items-center justify-center shadow-inner">
@@ -271,7 +271,7 @@ export default function LandingPage() {
               </div>
               {savings && (
                 <p className="text-center text-emerald-700 font-black text-sm mt-1">
-                  ðŸ’° ÙˆÙÙ‘Ø± {savings} {currency} â€” Ø¨Ø¯Ù„Ø§Ù‹ Ù…Ù† {product.compareAtPrice} {currency}
+                  💰 وفّر {savings} {currency} — بدلاً من {product.compareAtPrice} {currency}
                 </p>
               )}
             </div>
@@ -281,19 +281,19 @@ export default function LandingPage() {
               onClick={handleOrder}
               className="w-full bg-primary hover:bg-blue-700 text-white font-black text-xl py-5 rounded-2xl shadow-xl shadow-primary/30 transition-all active:scale-[0.98] touch-manipulation mb-3"
             >
-              ðŸ›’ Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù† â€” Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…
+              🛒 اطلب الآن — الدفع عند الاستلام
             </button>
 
             {/* Micro trust */}
             <div className="flex items-center justify-center gap-4 text-xs text-slate-400 font-medium">
-              <span className="flex items-center gap-1"><Banknote className="h-3.5 w-3.5 text-emerald-500" /> Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…</span>
-              <span className="flex items-center gap-1"><Truck className="h-3.5 w-3.5 text-blue-500" /> ØªÙˆØµÙŠÙ„ Ø³Ø±ÙŠØ¹</span>
-              <span className="flex items-center gap-1"><Shield className="h-3.5 w-3.5 text-purple-500" /> Ø¶Ù…Ø§Ù† Ø§Ù„Ø¬ÙˆØ¯Ø©</span>
+              <span className="flex items-center gap-1"><Banknote className="h-3.5 w-3.5 text-emerald-500" /> دفع عند الاستلام</span>
+              <span className="flex items-center gap-1"><Truck className="h-3.5 w-3.5 text-blue-500" /> توصيل سريع</span>
+              <span className="flex items-center gap-1"><Shield className="h-3.5 w-3.5 text-purple-500" /> ضمان الجودة</span>
             </div>
           </div>
         </div>
 
-        {/* â”€â”€ VIDEO / GIF PLACEHOLDER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── VIDEO / GIF PLACEHOLDER ────────────────────── */}
         <div className="container mx-auto px-4 py-8 max-w-2xl">
           <div className="rounded-3xl overflow-hidden bg-slate-800 aspect-video flex flex-col items-center justify-center gap-3 shadow-xl relative">
             <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-900" />
@@ -301,8 +301,8 @@ export default function LandingPage() {
               <div className="w-16 h-16 rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center backdrop-blur-sm">
                 <Play className="h-7 w-7 text-white fill-white mr-[-3px]" />
               </div>
-              <p className="text-white font-bold text-base">Ø´Ø§Ù‡Ø¯ Ø§Ù„Ù…Ù†ØªØ¬ ÙˆÙ‡Ùˆ ÙŠØ¹Ù…Ù„</p>
-              <p className="text-white/60 text-xs">Ø£Ø¶Ù Ø±Ø§Ø¨Ø· Ø§Ù„ÙÙŠØ¯ÙŠÙˆ Ø£Ùˆ GIF Ù‡Ù†Ø§</p>
+              <p className="text-white font-bold text-base">شاهد المنتج وهو يعمل</p>
+              <p className="text-white/60 text-xs">أضف رابط الفيديو أو GIF هنا</p>
             </div>
             <div className="absolute bottom-3 right-3 bg-black/50 text-white text-[10px] font-bold px-2 py-0.5 rounded">
               VIDEO / GIF PLACEHOLDER
@@ -310,12 +310,12 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* â”€â”€ BENEFITS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── BENEFITS ───────────────────────────────────── */}
         <div className="bg-white py-10">
           <div className="container mx-auto px-4 max-w-2xl">
             <div className="text-center mb-7">
-              <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Ù„Ù…Ø§Ø°Ø§ ÙŠØ®ØªØ§Ø±Ù‡ Ø§Ù„Ø¢Ù„Ø§ÙØŸ</span>
-              <h2 className="text-2xl font-extrabold text-slate-900 mt-3">Ø§Ù„Ù…Ù…ÙŠØ²Ø§Øª Ø§Ù„ØªÙŠ Ø³ØªØºÙŠÙ‘Ø± ÙŠÙˆÙ…Ùƒ</h2>
+              <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">لماذا يختاره الآلاف؟</span>
+              <h2 className="text-2xl font-extrabold text-slate-900 mt-3">المميزات التي ستغيّر يومك</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {benefits.map((b, i) => (
@@ -331,19 +331,19 @@ export default function LandingPage() {
               onClick={handleOrder}
               className="w-full mt-8 bg-slate-900 hover:bg-primary text-white font-black text-lg py-4 rounded-2xl shadow-lg transition-all active:scale-[0.98] touch-manipulation"
             >
-              Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù† ÙˆØ§Ø³ØªÙØ¯ Ù…Ù† Ø§Ù„Ø¹Ø±Ø¶ â†
+              اطلب الآن واستفد من العرض ←
             </button>
           </div>
         </div>
 
-        {/* â”€â”€ STATS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── STATS ──────────────────────────────────────── */}
         <div className="bg-primary py-10 text-white">
           <div className="container mx-auto px-4 max-w-2xl">
             <div className="grid grid-cols-3 gap-4 text-center">
               {[
-                { value: "5000+", label: "Ø¹Ù…ÙŠÙ„ Ø³Ø¹ÙŠØ¯" },
-                { value: "18+",   label: "Ù…Ø¯ÙŠÙ†Ø© Ù„ÙŠØ¨ÙŠØ©" },
-                { value: "4.9",   label: "ØªÙ‚ÙŠÙŠÙ… Ù…Ù† 5" },
+                { value: "5000+", label: "عميل سعيد" },
+                { value: "18+",   label: "مدينة ليبية" },
+                { value: "4.9",   label: "تقييم من 5" },
               ].map((s) => (
                 <div key={s.label}>
                   <div className="text-3xl font-extrabold">{s.value}</div>
@@ -354,14 +354,14 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* â”€â”€ TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── TESTIMONIALS ───────────────────────────────── */}
         <div className="bg-white py-10">
           <div className="container mx-auto px-4 max-w-2xl">
             <div className="text-center mb-7">
               <span className="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-100">
-                â­ Ø¢Ø±Ø§Ø¡ Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡ Ø§Ù„Ø­Ù‚ÙŠÙ‚ÙŠØ©
+                ⭐ آراء العملاء الحقيقية
               </span>
-              <h2 className="text-2xl font-extrabold text-slate-900 mt-3">Ù…Ø§Ø°Ø§ ÙŠÙ‚ÙˆÙ„ÙˆÙ† Ø¹Ù† Ø§Ù„Ù…Ù†ØªØ¬ØŸ</h2>
+              <h2 className="text-2xl font-extrabold text-slate-900 mt-3">ماذا يقولون عن المنتج؟</h2>
             </div>
             <div className="flex flex-col gap-4">
               {TESTIMONIALS.map((t) => (
@@ -377,7 +377,7 @@ export default function LandingPage() {
                       </div>
                     </div>
                     <span className="text-xs text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
-                      Ù…Ø´ØªØ±Ù Ù…ÙˆØ«Ù‘Ù‚ âœ“
+                      مشترٍ موثّق ✓
                     </span>
                   </div>
                   <Stars count={t.rating} />
@@ -388,17 +388,17 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* â”€â”€ FINAL PRICING + CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── FINAL PRICING + CTA ────────────────────────── */}
         <div className="bg-gradient-to-br from-slate-900 to-blue-950 py-12 text-white">
           <div className="container mx-auto px-4 max-w-2xl text-center">
-            <p className="text-blue-300 text-sm font-bold mb-2">âš¡ Ù„Ø§ ØªÙÙˆÙ‘Øª Ù‡Ø°Ø§ Ø§Ù„Ø¹Ø±Ø¶</p>
+            <p className="text-blue-300 text-sm font-bold mb-2">⚡ لا تفوّت هذا العرض</p>
             <h2 className="text-2xl md:text-3xl font-extrabold mb-6">{product.nameAr}</h2>
 
             {/* Stock + timer */}
             <div className="bg-white/10 border border-white/20 rounded-2xl p-4 mb-6 backdrop-blur-sm">
               <div className="flex flex-col gap-2">
                 <FlashSaleTimer productId={product.id} />
-                <p className="text-rose-300 font-bold text-sm">ðŸ”¥ ØªØ¨Ù‚Ù‘Øª {stockLeft} Ù‚Ø·Ø¹ ÙÙ‚Ø· ÙÙŠ Ø§Ù„Ù…Ø®Ø²Ù†</p>
+                <p className="text-rose-300 font-bold text-sm">🔥 تبقّت {stockLeft} قطع فقط في المخزن</p>
               </div>
             </div>
 
@@ -411,42 +411,42 @@ export default function LandingPage() {
               )}
             </div>
             {savings && (
-              <p className="text-emerald-400 font-bold text-sm mb-6">âœ… ØªÙˆÙÙŠØ± {savings} {currency} Ø¹Ù† Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø£ØµÙ„ÙŠ</p>
+              <p className="text-emerald-400 font-bold text-sm mb-6">✅ توفير {savings} {currency} عن السعر الأصلي</p>
             )}
 
             <button
               onClick={handleOrder}
               className="w-full bg-primary hover:bg-blue-500 text-white font-black text-xl py-5 rounded-2xl shadow-2xl transition-all active:scale-[0.98] touch-manipulation"
             >
-              ðŸ›’ Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù† â€” Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…
+              🛒 اطلب الآن — الدفع عند الاستلام
             </button>
-            <p className="text-slate-400 text-xs mt-3">Ù„Ø§ Ø­Ø§Ø¬Ø© Ù„Ø¨Ø·Ø§Ù‚Ø© Ø¨Ù†ÙƒÙŠØ© Â· ØªÙˆØµÙŠÙ„ Ù„Ø¬Ù…ÙŠØ¹ Ù…Ø¯Ù† Ù„ÙŠØ¨ÙŠØ§</p>
+            <p className="text-slate-400 text-xs mt-3">لا حاجة لبطاقة بنكية · توصيل لجميع مدن ليبيا</p>
           </div>
         </div>
 
-        {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── FAQ ────────────────────────────────────────── */}
         <div className="bg-white py-10">
           <div className="container mx-auto px-4 max-w-2xl">
-            <h2 className="text-xl font-extrabold text-slate-900 text-center mb-6">Ø£Ø³Ø¦Ù„Ø© Ø´Ø§Ø¦Ø¹Ø©</h2>
+            <h2 className="text-xl font-extrabold text-slate-900 text-center mb-6">أسئلة شائعة</h2>
             <div className="flex flex-col gap-3">
               {FAQS.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}
             </div>
           </div>
         </div>
 
-        {/* â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── FOOTER ─────────────────────────────────────── */}
         <div className="bg-slate-900 text-center py-6 px-4">
           <div className="flex items-center justify-center gap-2 mb-2">
             <div className="w-6 h-6 bg-primary rounded-md flex items-center justify-center">
               <Package className="h-3 w-3 text-white" />
             </div>
-            <span className="text-white font-extrabold text-sm">Ø¬ÙˆØ¯Ø© Ù…Ø§Ø±ÙƒØª</span>
+            <span className="text-white font-extrabold text-sm">جودة ماركت</span>
           </div>
-          <p className="text-slate-400 text-xs">Â© {new Date().getFullYear()} Ø¬ÙˆØ¯Ø© Ù…Ø§Ø±ÙƒØª Â· Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù… Â· ØªÙˆØµÙŠÙ„ Ù„Ø¬Ù…ÙŠØ¹ Ù…Ø¯Ù† Ù„ÙŠØ¨ÙŠØ§</p>
+          <p className="text-slate-400 text-xs">© {new Date().getFullYear()} جودة ماركت · دفع عند الاستلام · توصيل لجميع مدن ليبيا</p>
         </div>
       </div>
 
-      {/* â”€â”€ STICKY BOTTOM BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── STICKY BOTTOM BAR ──────────────────────────────── */}
       <div
         className={`fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-[0_-6px_24px_rgba(0,0,0,0.14)] transition-transform duration-300 ease-out ${
           stickyVisible ? "translate-y-0" : "translate-y-full"
@@ -467,7 +467,7 @@ export default function LandingPage() {
             <div className="flex items-baseline gap-1">
               <span className="text-lg font-black text-primary">{product.price}</span>
               <span className="text-xs font-bold text-primary/80">{currency}</span>
-              {discount && <span className="text-[10px] text-rose-500 font-bold mr-1">Ø®ØµÙ… {discount}%</span>}
+              {discount && <span className="text-[10px] text-rose-500 font-bold mr-1">خصم {discount}%</span>}
             </div>
           </div>
           {/* CTA */}
@@ -475,12 +475,12 @@ export default function LandingPage() {
             onClick={handleOrder}
             className="shrink-0 bg-primary text-white font-black text-sm px-5 py-3 rounded-xl shadow-lg hover:bg-blue-700 transition-colors touch-manipulation active:scale-95"
           >
-            Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù† â†
+            اطلب الآن ←
           </button>
         </div>
       </div>
 
-      {/* Social proof popup â€” sits above sticky bar */}
+      {/* Social proof popup — sits above sticky bar */}
       <SocialProofPopup />
     </>
   );

@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase, WHATSAPP_NUMBER, COUPON_CODE, ADMIN_EMAIL } from "./supabase";
 import { apiFetch } from "./api";
@@ -90,7 +90,7 @@ function mapApiOrder(row: any): Order {
       phone: row.customerPhone ?? "",
       address: row.customerAddress ?? "",
     },
-    paymentMethod: "Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…",
+    paymentMethod: "الدفع عند الاستلام",
     items: (row.items || []).map((item: any) => ({
       id: item.productId ?? item.id ?? "",
       name: item.productNameAr || item.productName || "",
@@ -115,7 +115,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [orders, setOrders] = useState<Order[]>([]);
   const ordersRef = useRef<Order[]>([]);
   useEffect(() => { ordersRef.current = orders; }, [orders]);
-  const currencyRef = useRef("Ø¯.Ù„");
+  const currencyRef = useRef("د.ل");
   useEffect(() => {
     apiFetch<{ currencySymbol?: string }>("/api/settings", { auth: false })
       .then((d) => {
@@ -125,7 +125,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, []);
   const [adminSession, setAdminSession] = useState<Session | null>(null);
   const [adminSessionLoading, setAdminSessionLoading] = useState(true);
-  const [checkoutData, setCheckoutData] = useState({ fullName: "", city: "", phone: "", payment: "Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…" });
+  const [checkoutData, setCheckoutData] = useState({ fullName: "", city: "", phone: "", payment: "الدفع عند الاستلام" });
   const [checkoutError, setCheckoutError] = useState("");
   const [orderSuccess, setOrderSuccess] = useState<{ id: string } | null>(null);
 
@@ -206,7 +206,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const handleCheckoutSubmit = useCallback(async () => {
     const { fullName, city, phone } = checkoutData;
     if (!fullName.trim() || !city.trim() || !phone.trim()) {
-      setCheckoutError("ÙŠØ±Ø¬Ù‰ Ù…Ù„Ø¡ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ„.");
+      setCheckoutError("يرجى ملء جميع الحقول.");
       return;
     }
     setCheckoutError("");
@@ -249,10 +249,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       setCart([]);
       setCoupon("");
       setCouponApplied(false);
-      setCheckoutData({ fullName: "", city: "", phone: "", payment: "Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…" });
+      setCheckoutData({ fullName: "", city: "", phone: "", payment: "الدفع عند الاستلام" });
       await loadOrders();
     } catch {
-      setCheckoutError("Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø·Ù„Ø¨.");
+      setCheckoutError("حدث خطأ أثناء إرسال الطلب.");
     }
   }, [cart, checkoutData, loadOrders]);
 
@@ -306,11 +306,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const clearAllOrders = useCallback(async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!isAdminSession(session)) return;
-    if (!window.confirm("ÙˆØ§Ø´ Ù…ØªØ£ÙƒØ¯ Ø¨ØºÙŠØªÙŠ ØªÙ…Ø³Ø­ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø·Ù„Ø¨Ø§ØªØŸ")) return;
+    if (!window.confirm("واش متأكد بغيتي تمسح جميع الطلبات؟")) return;
     try {
       await apiFetch("/api/orders", { method: "DELETE" });
     } catch {
-      alert("Ù…Ø§ Ù‚Ø¯Ø±Ù†Ø§Ø´ Ù†Ù…Ø³Ø­Ùˆ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø·Ù„Ø¨Ø§Øª");
+      alert("ما قدرناش نمسحو جميع الطلبات");
       return;
     }
     setOrders([]);
@@ -319,7 +319,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const exportOrdersCSV = useCallback(() => {
-    if (!orders.length) { alert("Ù…Ø§ ÙƒØ§ÙŠÙ†Ø§Ø´ Ø·Ù„Ø¨Ø§Øª Ø¨Ø§Ø´ ØªØµØ¯Ù‘Ø±."); return; }
+    if (!orders.length) { alert("ما كايناش طلبات باش تصدّر."); return; }
     const rows = [["Order ID","Customer Name","City","Phone","Payment Method","Status","Subtotal","Shipping","Discount","Total","Created At","Items"]];
     orders.forEach((order) => {
       const itemsText = order.items.map((item) => `${item.name} x${item.quantity}`).join(" | ");
@@ -336,12 +336,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const statusLabel = useCallback((status: string) => {
     const map: Record<string, string> = {
-      new: "Ø¬Ø¯ÙŠØ¯",
-      pending: "Ø¬Ø¯ÙŠØ¯",
-      confirmed: "ØªÙ… Ø§Ù„ØªØ£ÙƒÙŠØ¯",
-      shipped: "ØªÙ… Ø§Ù„Ø´Ø­Ù†",
-      delivered: "ØªÙ… Ø§Ù„ØªØ³Ù„ÙŠÙ…",
-      cancelled: "Ù…Ù„ØºÙŠ",
+      new: "جديد",
+      pending: "جديد",
+      confirmed: "تم التأكيد",
+      shipped: "تم الشحن",
+      delivered: "تم التسليم",
+      cancelled: "ملغي",
     };
     return map[status] || status;
   }, []);
@@ -360,7 +360,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const copyOrderToWhatsApp = useCallback((order: Order) => {
     const text = buildOrderText(order, statusLabel, currencyRef.current);
-    navigator.clipboard.writeText(text).then(() => alert("ØªÙ… Ù†Ø³Ø® Ø§Ù„Ø·Ù„Ø¨ Ø¨Ù†Ø¬Ø§Ø­.")).catch(() => alert("ØªØ¹Ø°Ø± Ù†Ø³Ø® Ø§Ù„Ø·Ù„Ø¨."));
+    navigator.clipboard.writeText(text).then(() => alert("تم نسخ الطلب بنجاح.")).catch(() => alert("تعذر نسخ الطلب."));
   }, [statusLabel]);
 
   const openOrderInWhatsApp = useCallback((order: Order) => {
@@ -385,21 +385,21 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   );
 }
 
-function buildOrderText(order: Order, statusLabel: (s: string) => string, currency = "Ø¯.Ù„"): string {
+function buildOrderText(order: Order, statusLabel: (s: string) => string, currency = "د.ل"): string {
   return [
-    `Ø·Ù„Ø¨ Ø¬Ø¯ÙŠØ¯`,
-    `Ø±Ù‚Ù… Ø§Ù„Ø·Ù„Ø¨: ${order.id}`,
-    `Ø§Ù„Ø§Ø³Ù…: ${order.customer.fullName}`,
-    `Ø§Ù„Ù…Ø¯ÙŠÙ†Ø©: ${order.customer.city}`,
-    `Ø§Ù„Ù‡Ø§ØªÙ: ${order.customer.phone}`,
-    `Ø·Ø±ÙŠÙ‚Ø© Ø§Ù„Ø¯ÙØ¹: ${order.paymentMethod}`,
-    `Ø§Ù„Ø­Ø§Ù„Ø©: ${statusLabel(order.status)}`,
-    `Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª:`,
-    ...order.items.map((item) => `- ${item.name} Ã— ${item.quantity} = ${currency} ${item.price * item.quantity}`),
-    `Ø§Ù„Ù…Ø¬Ù…ÙˆØ¹ Ø§Ù„ÙØ±Ø¹ÙŠ: ${currency} ${order.subtotal}`,
-    `Ø§Ù„Ø´Ø­Ù†: ${currency} ${order.shipping}`,
-    `Ø§Ù„Ø®ØµÙ…: ${currency} ${order.discount}`,
-    `Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ: ${currency} ${order.total}`,
+    `طلب جديد`,
+    `رقم الطلب: ${order.id}`,
+    `الاسم: ${order.customer.fullName}`,
+    `المدينة: ${order.customer.city}`,
+    `الهاتف: ${order.customer.phone}`,
+    `طريقة الدفع: ${order.paymentMethod}`,
+    `الحالة: ${statusLabel(order.status)}`,
+    `المنتجات:`,
+    ...order.items.map((item) => `- ${item.name} × ${item.quantity} = ${currency} ${item.price * item.quantity}`),
+    `المجموع الفرعي: ${currency} ${order.subtotal}`,
+    `الشحن: ${currency} ${order.shipping}`,
+    `الخصم: ${currency} ${order.discount}`,
+    `الإجمالي: ${currency} ${order.total}`,
   ].join("\n");
 }
 

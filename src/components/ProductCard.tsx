@@ -1,4 +1,4 @@
-﻿import { Link, useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import type { Product } from "@/lib/api-client";
 import { ShoppingCart, Star, Heart } from "lucide-react";
 import { useStore } from "@/lib/store-context";
@@ -6,10 +6,10 @@ import { useCurrency } from "@/lib/currency-context";
 import { toast } from "sonner";
 
 const BADGE_STYLES: Record<string, string> = {
-  "Ø§Ù„Ø£ÙƒØ«Ø± Ø·Ù„Ø¨Ø§Ù‹": "bg-amber-500 text-white",
-  "Ø¹Ø±Ø¶":          "bg-emerald-500 text-white",
-  "Ø¬Ø¯ÙŠØ¯":         "bg-blue-500 text-white",
-  "Ù…Ø­Ø¯ÙˆØ¯":        "bg-rose-500 text-white",
+  "الأكثر طلباً": "bg-amber-500 text-white",
+  "عرض":          "bg-emerald-500 text-white",
+  "جديد":         "bg-blue-500 text-white",
+  "محدود":        "bg-rose-500 text-white",
 };
 
 export function ProductCard({ product }: { product: Product }) {
@@ -31,7 +31,7 @@ export function ProductCard({ product }: { product: Product }) {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     addToCart(productPayload);
-    toast.success("âœ“ Ø£ÙØ¶ÙŠÙ Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©", { position: "top-center", duration: 2000 });
+    toast.success("✓ أُضيف إلى السلة", { position: "top-center", duration: 2000 });
   };
 
   const handleOrderNow = (e: React.MouseEvent) => {
@@ -53,7 +53,7 @@ export function ProductCard({ product }: { product: Product }) {
     ? Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)
     : null;
 
-  const initials = product.nameAr?.substring(0, 2) || "ØŸ";
+  const initials = product.nameAr?.substring(0, 2) || "؟";
 
   return (
     <div className="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden flex flex-col">
@@ -95,7 +95,7 @@ export function ProductCard({ product }: { product: Product }) {
         <button
           onClick={handleWishlist}
           className="absolute top-2 left-2 w-7 h-7 flex items-center justify-center rounded-full bg-white shadow hover:scale-110 transition-transform"
-          aria-label="Ø¥Ø¶Ø§ÙØ© Ø¥Ù„Ù‰ Ø§Ù„Ù…ÙØ¶Ù„Ø©"
+          aria-label="إضافة إلى المفضلة"
         >
           <Heart className={`h-3.5 w-3.5 ${inWishlist ? "fill-rose-500 text-rose-500" : "text-slate-400"}`} />
         </button>
@@ -129,7 +129,7 @@ export function ProductCard({ product }: { product: Product }) {
           <button
             onClick={handleAddToCart}
             className="w-9 h-9 flex items-center justify-center rounded-full bg-primary/10 hover:bg-primary hover:text-white text-primary transition-all duration-200 shrink-0"
-            title="Ø£Ø¶Ù Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©"
+            title="أضف إلى السلة"
           >
             <ShoppingCart className="h-4 w-4" />
           </button>
@@ -139,7 +139,7 @@ export function ProductCard({ product }: { product: Product }) {
           onClick={handleOrderNow}
           className="w-full rounded-xl bg-slate-900 px-3 py-2 text-xs font-bold text-white hover:opacity-90 transition mt-1"
         >
-          Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù†
+          اطلب الآن
         </button>
       </div>
     </div>

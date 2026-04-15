@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "wouter";
 import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
@@ -14,9 +14,9 @@ import {
   ToggleLeft, ToggleRight, Star, Megaphone, Plus, Upload, ImageIcon, Settings,
 } from "lucide-react";
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════
    ADMIN LOGIN
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════════════════════════════ */
 function AdminLogin() {
   const { adminSignIn } = useStore();
   const [email, setEmail] = useState("");
@@ -27,14 +27,14 @@ function AdminLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) {
-      setError("Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø¥Ø¯Ø®Ø§Ù„ Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ ÙˆÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±.");
+      setError("الرجاء إدخال البريد الإلكتروني وكلمة المرور.");
       return;
     }
     setLoading(true);
     setError("");
     const err = await adminSignIn(email.trim(), password);
     if (err) {
-      setError("Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¯Ø®ÙˆÙ„ ØºÙŠØ± ØµØ­ÙŠØ­Ø©. ÙŠØ±Ø¬Ù‰ Ø§Ù„Ù…Ø­Ø§ÙˆÙ„Ø© Ù…Ø±Ø© Ø£Ø®Ø±Ù‰.");
+      setError("بيانات الدخول غير صحيحة. يرجى المحاولة مرة أخرى.");
     }
     setLoading(false);
   };
@@ -48,14 +48,14 @@ function AdminLogin() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">Ù„ÙˆØ­Ø© Ø§Ù„Ø¥Ø¯Ø§Ø±Ø©</h1>
-          <p className="mt-2 text-sm text-blue-200/70">Ø£Ø¯Ø®Ù„ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø¯Ø®ÙˆÙ„ Ù„Ù„Ù…ØªØ§Ø¨Ø¹Ø©</p>
+          <h1 className="text-3xl font-bold text-white tracking-tight">لوحة الإدارة</h1>
+          <p className="mt-2 text-sm text-blue-200/70">أدخل بيانات الدخول للمتابعة</p>
         </div>
 
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-5" dir="rtl">
             <div>
-              <label className="block text-sm font-medium text-blue-100 mb-2">Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ</label>
+              <label className="block text-sm font-medium text-blue-100 mb-2">البريد الإلكتروني</label>
               <input
                 type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@example.com" autoComplete="email"
@@ -63,10 +63,10 @@ function AdminLogin() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-blue-100 mb-2">ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±</label>
+              <label className="block text-sm font-medium text-blue-100 mb-2">كلمة المرور</label>
               <input
                 type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" autoComplete="current-password"
+                placeholder="••••••••" autoComplete="current-password"
                 className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-white/30 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all text-right"
               />
             </div>
@@ -88,9 +88,9 @@ function AdminLogin() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  Ø¬Ø§Ø±Ù Ø§Ù„ØªØ­Ù‚Ù‚â€¦
+                  جارٍ التحقق…
                 </span>
-              ) : "ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„"}
+              ) : "تسجيل الدخول"}
             </button>
           </form>
         </div>
@@ -100,18 +100,18 @@ function AdminLogin() {
             <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 5l7 7-7 7" />
             </svg>
-            Ø§Ù„Ø¹ÙˆØ¯Ø© Ø¥Ù„Ù‰ Ø§Ù„Ù…ØªØ¬Ø±
+            العودة إلى المتجر
           </Link>
         </div>
-        <p className="text-center text-xs text-white/25 mt-6">Ø¬ÙˆØ¯Ø© Ù…Ø§Ø±ÙƒØª Â· Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… Ø§Ù„Ø¥Ø¯Ø§Ø±ÙŠØ©</p>
+        <p className="text-center text-xs text-white/25 mt-6">جودة ماركت · لوحة التحكم الإدارية</p>
       </div>
     </div>
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════
    ORDERS TAB
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════════════════════════════ */
 function OrdersTab() {
   const { orders, updateOrderStatus, deleteOrder, clearAllOrders, exportOrdersCSV, copyOrderToWhatsApp, openOrderInWhatsApp, loadOrders, statusLabel, statusClass } = useStore();
   const { currency } = useCurrency();
@@ -121,18 +121,18 @@ function OrdersTab() {
       {/* Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm">
         <div className="text-right">
-          <p className="text-lg font-bold">Ø¹Ø¯Ø¯ Ø§Ù„Ø·Ù„Ø¨Ø§Øª: {orders.length}</p>
-          <p className="text-sm text-slate-500">ÙŠÙ…ÙƒÙ†Ùƒ ØªØºÙŠÙŠØ± Ø§Ù„Ø­Ø§Ù„Ø© Ø£Ùˆ Ø­Ø°Ù Ø£ÙŠ Ø·Ù„Ø¨.</p>
+          <p className="text-lg font-bold">عدد الطلبات: {orders.length}</p>
+          <p className="text-sm text-slate-500">يمكنك تغيير الحالة أو حذف أي طلب.</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <button onClick={loadOrders} className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold hover:bg-slate-50 transition">ØªØ­Ø¯ÙŠØ«</button>
-          <button onClick={exportOrdersCSV} className="rounded-xl border border-green-300 px-4 py-2 text-sm font-semibold text-green-700 hover:bg-green-50 transition">ØªØµØ¯ÙŠØ± CSV</button>
-          <button onClick={clearAllOrders} className="rounded-xl border border-red-300 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 transition">Ù…Ø³Ø­ Ø§Ù„ÙƒÙ„</button>
+          <button onClick={loadOrders} className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold hover:bg-slate-50 transition">تحديث</button>
+          <button onClick={exportOrdersCSV} className="rounded-xl border border-green-300 px-4 py-2 text-sm font-semibold text-green-700 hover:bg-green-50 transition">تصدير CSV</button>
+          <button onClick={clearAllOrders} className="rounded-xl border border-red-300 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 transition">مسح الكل</button>
         </div>
       </div>
 
       {orders.length === 0 ? (
-        <div className="rounded-[1.6rem] border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">Ù„Ø§ ØªÙˆØ¬Ø¯ Ø·Ù„Ø¨Ø§Øª Ø­Ø§Ù„ÙŠØ§Ù‹.</div>
+        <div className="rounded-[1.6rem] border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">لا توجد طلبات حالياً.</div>
       ) : (
         <div className="grid gap-5">
           {orders.map((order) => (
@@ -145,7 +145,7 @@ function OrdersTab() {
                   </div>
 
                   <div className="mt-4 w-full rounded-xl bg-slate-50 p-4 border border-slate-100">
-                    <h4 className="mb-3 text-sm font-bold text-slate-800 border-b border-slate-200 pb-2">ðŸ“¦ ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø·Ù„Ø¨ÙŠØ©:</h4>
+                    <h4 className="mb-3 text-sm font-bold text-slate-800 border-b border-slate-200 pb-2">📦 تفاصيل الطلبية:</h4>
                     <ul className="space-y-2">
                       {(order.items || []).map((item, idx) => (
                         <li key={idx} className="flex justify-between items-center text-sm">
@@ -158,16 +158,16 @@ function OrdersTab() {
                       ))}
                     </ul>
                     <div className="mt-3 pt-3 border-t border-slate-200 flex justify-between items-center">
-                      <span className="text-sm font-bold text-slate-600">Ø§Ù„Ø¥Ø¬Ù…Ø§Ù„ÙŠ:</span>
+                      <span className="text-sm font-bold text-slate-600">الإجمالي:</span>
                       <span className="text-lg font-black text-green-600">{currency} {order.total}</span>
                     </div>
                   </div>
 
-                  <p className="mt-3 text-sm text-slate-600">Ø±Ù‚Ù… Ø§Ù„Ø·Ù„Ø¨: <span className="font-mono">{order.id}</span></p>
-                  <p className="mt-1 text-sm text-slate-600">Ø§Ù„Ù…Ø¯ÙŠÙ†Ø©: {order.customer.city}</p>
-                  <p className="mt-1 text-sm text-slate-600">Ø§Ù„Ù‡Ø§ØªÙ: <span dir="ltr">{order.customer.phone}</span></p>
-                  <p className="mt-1 text-sm text-slate-600">Ø§Ù„Ø¯ÙØ¹: {order.paymentMethod}</p>
-                  <p className="mt-1 text-sm text-slate-600">Ø§Ù„ØªØ§Ø±ÙŠØ®: {new Date(order.createdAt).toLocaleString("ar-EG")}</p>
+                  <p className="mt-3 text-sm text-slate-600">رقم الطلب: <span className="font-mono">{order.id}</span></p>
+                  <p className="mt-1 text-sm text-slate-600">المدينة: {order.customer.city}</p>
+                  <p className="mt-1 text-sm text-slate-600">الهاتف: <span dir="ltr">{order.customer.phone}</span></p>
+                  <p className="mt-1 text-sm text-slate-600">الدفع: {order.paymentMethod}</p>
+                  <p className="mt-1 text-sm text-slate-600">التاريخ: {new Date(order.createdAt).toLocaleString("ar-EG")}</p>
                 </div>
 
                 <div className="flex flex-col gap-2 min-w-[140px]">
@@ -176,15 +176,15 @@ function OrdersTab() {
                     onChange={(e) => updateOrderStatus(order.id, e.target.value)}
                     className="rounded-xl border border-slate-300 px-4 py-2 text-sm outline-none bg-white"
                   >
-                    <option value="new">Ø¬Ø¯ÙŠØ¯</option>
-                    <option value="confirmed">ØªÙ… Ø§Ù„ØªØ£ÙƒÙŠØ¯</option>
-                    <option value="shipped">ØªÙ… Ø§Ù„Ø´Ø­Ù†</option>
-                    <option value="delivered">ØªÙ… Ø§Ù„ØªØ³Ù„ÙŠÙ…</option>
-                    <option value="cancelled">Ù…Ù„ØºÙŠ</option>
+                    <option value="new">جديد</option>
+                    <option value="confirmed">تم التأكيد</option>
+                    <option value="shipped">تم الشحن</option>
+                    <option value="delivered">تم التسليم</option>
+                    <option value="cancelled">ملغي</option>
                   </select>
-                  <button onClick={() => copyOrderToWhatsApp(order)} className="rounded-xl border border-blue-300 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50 transition">Ù†Ø³Ø® Ø§Ù„Ø·Ù„Ø¨</button>
-                  <button onClick={() => openOrderInWhatsApp(order)} className="rounded-xl border border-green-400 px-4 py-2 text-sm font-semibold text-green-700 hover:bg-green-50 transition">Ø¥Ø±Ø³Ø§Ù„ ÙˆØ§ØªØ³Ø§Ø¨</button>
-                  <button onClick={() => deleteOrder(order.id)} className="rounded-xl border border-red-300 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 transition">Ø­Ø°Ù Ø§Ù„Ø·Ù„Ø¨</button>
+                  <button onClick={() => copyOrderToWhatsApp(order)} className="rounded-xl border border-blue-300 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50 transition">نسخ الطلب</button>
+                  <button onClick={() => openOrderInWhatsApp(order)} className="rounded-xl border border-green-400 px-4 py-2 text-sm font-semibold text-green-700 hover:bg-green-50 transition">إرسال واتساب</button>
+                  <button onClick={() => deleteOrder(order.id)} className="rounded-xl border border-red-300 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 transition">حذف الطلب</button>
                 </div>
               </div>
             </div>
@@ -195,16 +195,16 @@ function OrdersTab() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════
    EDIT PRICE MODAL
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════════════════════════════ */
 type Product = {
   id: string; nameAr: string; price: number; compareAtPrice: number | null;
   stock: number; imageUrl: string | null; categoryName: string | null;
   active: boolean; featured: boolean; badge: string | null; rating: number;
 };
 
-/* â”€â”€â”€ Shared Image Input (upload from device OR paste URL) â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Shared Image Input (upload from device OR paste URL) ──────── */
 function ProductImageInput({ value, onChange }: { value: string; onChange: (url: string) => void }) {
   const [uploading, setUploading] = useState(false);
   const [urlDraft, setUrlDraft] = useState(value);
@@ -224,7 +224,7 @@ function ProductImageInput({ value, onChange }: { value: string; onChange: (url:
         body: fd,
       });
       onChange(url);
-    } catch { /* silent â€” parent can show a generic error */ }
+    } catch { /* silent — parent can show a generic error */ }
     finally { setUploading(false); }
   };
 
@@ -259,7 +259,7 @@ function ProductImageInput({ value, onChange }: { value: string; onChange: (url:
       {/* Upload button */}
       <label className={`flex items-center justify-center gap-2 cursor-pointer rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-600 hover:border-primary hover:bg-primary/5 transition-colors w-full ${uploading ? "opacity-60 pointer-events-none" : ""}`}>
         {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-        {uploading ? "Ø¬Ø§Ø±Ù Ø§Ù„Ø±ÙØ¹â€¦" : "Ø±ÙØ¹ ØµÙˆØ±Ø© Ù…Ù† Ø§Ù„Ø¬Ù‡Ø§Ø²"}
+        {uploading ? "جارٍ الرفع…" : "رفع صورة من الجهاز"}
         <input type="file" accept="image/*,image/gif" className="hidden" onChange={handleFile} disabled={uploading} />
       </label>
 
@@ -270,7 +270,7 @@ function ProductImageInput({ value, onChange }: { value: string; onChange: (url:
         onChange={e => setUrlDraft(e.target.value)}
         onBlur={() => onChange(urlDraft.trim())}
         onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); onChange(urlDraft.trim()); } }}
-        placeholder="Ø£Ùˆ Ø§Ù„ØµÙ‚ Ø±Ø§Ø¨Ø· Ø§Ù„ØµÙˆØ±Ø© Ù…Ø¨Ø§Ø´Ø±Ø©Ù‹ Ù‡Ù†Ø§â€¦"
+        placeholder="أو الصق رابط الصورة مباشرةً هنا…"
         className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-primary focus:bg-white transition-all"
         dir="ltr"
       />
@@ -278,7 +278,7 @@ function ProductImageInput({ value, onChange }: { value: string; onChange: (url:
   );
 }
 
-/* â”€â”€â”€ Create Product Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Create Product Modal ───────────────────────────────── */
 function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
   const queryClient = useQueryClient();
   const [nameAr, setNameAr] = useState("");
@@ -293,9 +293,9 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!nameAr.trim()) { setError("Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬ Ù…Ø·Ù„ÙˆØ¨."); return; }
+    if (!nameAr.trim()) { setError("اسم المنتج مطلوب."); return; }
     const priceNum = parseFloat(price);
-    if (!price || isNaN(priceNum) || priceNum < 0) { setError("Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø¥Ø¯Ø®Ø§Ù„ Ø³Ø¹Ø± ØµØ­ÙŠØ­."); return; }
+    if (!price || isNaN(priceNum) || priceNum < 0) { setError("الرجاء إدخال سعر صحيح."); return; }
     const stockNum = Math.max(0, parseInt(stock) || 0);
 
     setSaving(true);
@@ -317,7 +317,7 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
       onSaved();
       onClose();
     } catch {
-      setError("Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø¥Ø¶Ø§ÙØ©. Ø­Ø§ÙˆÙ„ Ù…Ø±Ø© Ø£Ø®Ø±Ù‰.");
+      setError("حدث خطأ أثناء الإضافة. حاول مرة أخرى.");
     } finally {
       setSaving(false);
     }
@@ -332,8 +332,8 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
             <X className="h-5 w-5 text-slate-500" />
           </button>
           <div className="text-center">
-            <p className="text-xs text-slate-400 font-medium">Ø¥Ø¶Ø§ÙØ© Ù…Ù†ØªØ¬</p>
-            <h3 className="font-bold text-slate-900 text-base">Ù…Ù†ØªØ¬ Ø¬Ø¯ÙŠØ¯</h3>
+            <p className="text-xs text-slate-400 font-medium">إضافة منتج</p>
+            <h3 className="font-bold text-slate-900 text-base">منتج جديد</h3>
           </div>
           <div className="w-8" />
         </div>
@@ -341,12 +341,12 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
         <form onSubmit={handleSubmit} className="p-5 space-y-5">
           {/* Name */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">Ø§Ø³Ù… Ø§Ù„Ù…Ù†ØªØ¬ *</label>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5">اسم المنتج *</label>
             <input
               type="text"
               value={nameAr}
               onChange={e => setNameAr(e.target.value)}
-              placeholder="Ù…Ø«Ø§Ù„: ÙƒØ±ÙŠÙ… Ø§Ù„ØªØ±Ø·ÙŠØ¨ Ø§Ù„Ù„ÙŠÙ„ÙŠ"
+              placeholder="مثال: كريم الترطيب الليلي"
               className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all"
               autoFocus
             />
@@ -355,7 +355,7 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
           {/* Price + Stock side by side */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-bold text-slate-700 mb-1.5">Ø§Ù„Ø³Ø¹Ø± ({currency}) *</label>
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">السعر ({currency}) *</label>
               <input
                 type="number"
                 min="0"
@@ -367,7 +367,7 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-slate-700 mb-1.5">Ø§Ù„ÙƒÙ…ÙŠØ© (Ø³Ø·ÙˆÙƒ)</label>
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">الكمية (سطوك)</label>
               <input
                 type="number"
                 min="0"
@@ -382,23 +382,23 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
 
           {/* Volume pricing */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">Ø£Ø³Ø¹Ø§Ø± Ø§Ù„ÙƒÙ…ÙŠØ§Øª <span className="text-slate-400 font-normal">(Ø§Ø®ØªÙŠØ§Ø±ÙŠ â€” Ù„ØªÙØ¹ÙŠÙ„ Ø¹Ø±ÙˆØ¶ Ø§Ù„Ø­Ø¬Ù…)</span></label>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5">أسعار الكميات <span className="text-slate-400 font-normal">(اختياري — لتفعيل عروض الحجم)</span></label>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs text-slate-500 mb-1">Ø³Ø¹Ø± Ù‚Ø·Ø¹ØªÙŠÙ† ({currency})</label>
+                <label className="block text-xs text-slate-500 mb-1">سعر قطعتين ({currency})</label>
                 <input
                   type="number" min="0" step="0.5" value={priceQty2}
                   onChange={e => setPriceQty2(e.target.value)}
-                  placeholder="Ù…Ø«Ø§Ù„: 79"
+                  placeholder="مثال: 79"
                   className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all"
                 />
               </div>
               <div>
-                <label className="block text-xs text-slate-500 mb-1">Ø³Ø¹Ø± 3 Ù‚Ø·Ø¹ ({currency})</label>
+                <label className="block text-xs text-slate-500 mb-1">سعر 3 قطع ({currency})</label>
                 <input
                   type="number" min="0" step="0.5" value={priceQty3}
                   onChange={e => setPriceQty3(e.target.value)}
-                  placeholder="Ù…Ø«Ø§Ù„: 110"
+                  placeholder="مثال: 110"
                   className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all"
                 />
               </div>
@@ -407,7 +407,7 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
 
           {/* Image */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">Ø§Ù„ØµÙˆØ±Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© Ù„Ù„Ù…Ù†ØªØ¬</label>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5">الصورة الرئيسية للمنتج</label>
             <ProductImageInput value={imageUrl} onChange={setImageUrl} />
           </div>
 
@@ -421,7 +421,7 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
               onClick={onClose}
               className="flex-1 rounded-xl border border-slate-200 bg-white text-slate-700 font-bold py-3 text-sm hover:bg-slate-50 transition-colors"
             >
-              Ø¥Ù„ØºØ§Ø¡
+              إلغاء
             </button>
             <button
               type="submit"
@@ -429,7 +429,7 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
               className="flex-1 rounded-xl bg-primary text-white font-bold py-3 text-sm hover:bg-blue-700 transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
             >
               {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-              {saving ? "Ø¬Ø§Ø±Ù Ø§Ù„Ø­ÙØ¸â€¦" : "Ø¥Ø¶Ø§ÙØ© Ø§Ù„Ù…Ù†ØªØ¬"}
+              {saving ? "جارٍ الحفظ…" : "إضافة المنتج"}
             </button>
           </div>
         </form>
@@ -466,7 +466,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
     !isNaN(stockNum) && stockNum >= 0;
 
   const handleSave = async () => {
-    if (!valid) { setErr("ØªØ£ÙƒØ¯ Ù…Ù† ØµØ­Ø© Ø§Ù„Ù‚ÙŠÙ… Ø§Ù„Ù…ÙØ¯Ø®Ù„Ø©."); return; }
+    if (!valid) { setErr("تأكد من صحة القيم المُدخلة."); return; }
     setErr("");
     setSaving(true);
     try {
@@ -486,7 +486,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
       setSaved(true);
       setTimeout(() => { onSaved(); onClose(); }, 900);
     } catch {
-      setErr("Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø­ÙØ¸. ÙŠØ±Ø¬Ù‰ Ø§Ù„Ù…Ø­Ø§ÙˆÙ„Ø© Ù…Ø¬Ø¯Ø¯Ø§Ù‹.");
+      setErr("حدث خطأ أثناء الحفظ. يرجى المحاولة مجدداً.");
     } finally {
       setSaving(false);
     }
@@ -516,7 +516,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
             <X className="h-5 w-5" />
           </button>
           <div className="text-center flex-1">
-            <p className="text-xs text-slate-400 font-medium">ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬</p>
+            <p className="text-xs text-slate-400 font-medium">تعديل المنتج</p>
             <h3 className="font-bold text-slate-900 text-sm mt-0.5 truncate max-w-[220px] mx-auto">{product.nameAr}</h3>
           </div>
           <div className="w-9" />
@@ -531,14 +531,14 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
             }
           </div>
           <div className="text-right flex-1 min-w-0">
-            <p className="text-xs text-slate-400 truncate">{product.categoryName || "Ø¨Ø¯ÙˆÙ† ÙØ¦Ø©"}</p>
+            <p className="text-xs text-slate-400 truncate">{product.categoryName || "بدون فئة"}</p>
             <div className="flex items-center gap-2 flex-wrap mt-0.5">
               <span className="text-lg font-black text-primary">{product.price} {currency}</span>
               {product.compareAtPrice && (
                 <span className="text-sm text-slate-400 line-through">{product.compareAtPrice} {currency}</span>
               )}
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">Ø§Ù„Ù…Ø®Ø²ÙˆÙ† Ø§Ù„Ø­Ø§Ù„ÙŠ: <span className="font-bold text-slate-700">{product.stock}</span></p>
+            <p className="text-xs text-slate-400 mt-0.5">المخزون الحالي: <span className="font-bold text-slate-700">{product.stock}</span></p>
           </div>
         </div>
 
@@ -547,7 +547,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
           {/* Price */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">
-              Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø¬Ø¯ÙŠØ¯ <span className="text-slate-400 font-normal">({currency})</span>
+              السعر الجديد <span className="text-slate-400 font-normal">({currency})</span>
             </label>
             <div className="relative">
               <input
@@ -563,20 +563,20 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
           {/* Compare-at price */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">
-              Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø£ØµÙ„ÙŠ (Ù‚Ø¨Ù„ Ø§Ù„Ø®ØµÙ…) <span className="text-slate-400 font-normal">â€” Ø§Ø®ØªÙŠØ§Ø±ÙŠ</span>
+              السعر الأصلي (قبل الخصم) <span className="text-slate-400 font-normal">— اختياري</span>
             </label>
             <div className="relative">
               <input
                 type="number" min="0" step="0.5" value={comparePrice}
                 onChange={(e) => setComparePrice(e.target.value)}
                 className="w-full rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-lg font-bold text-slate-500 outline-none transition-colors bg-white text-right"
-                placeholder="Ø§ØªØ±ÙƒÙ‡ ÙØ§Ø±ØºØ§Ù‹ Ø¥Ù† Ù„Ù… ÙŠÙƒÙ† Ù‡Ù†Ø§Ùƒ Ø®ØµÙ…"
+                placeholder="اتركه فارغاً إن لم يكن هناك خصم"
               />
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">{currency}</span>
             </div>
             {comparePrice && comparePriceNum && priceNum && comparePriceNum > priceNum && (
               <p className="text-xs text-emerald-600 font-semibold mt-1 text-right">
-                âœ… Ø®ØµÙ… {Math.round(((comparePriceNum - priceNum) / comparePriceNum) * 100)}% â€” ØªÙˆÙÙŠØ± {(comparePriceNum - priceNum).toFixed(0)} {currency}
+                ✅ خصم {Math.round(((comparePriceNum - priceNum) / comparePriceNum) * 100)}% — توفير {(comparePriceNum - priceNum).toFixed(0)} {currency}
               </p>
             )}
           </div>
@@ -584,25 +584,25 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
           {/* Volume pricing */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">
-              Ø£Ø³Ø¹Ø§Ø± Ø§Ù„ÙƒÙ…ÙŠØ§Øª <span className="text-slate-400 font-normal">â€” Ø§Ø®ØªÙŠØ§Ø±ÙŠ</span>
+              أسعار الكميات <span className="text-slate-400 font-normal">— اختياري</span>
             </label>
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
-                <label className="block text-xs text-slate-500 mb-1">Ø³Ø¹Ø± Ù‚Ø·Ø¹ØªÙŠÙ†</label>
+                <label className="block text-xs text-slate-500 mb-1">سعر قطعتين</label>
                 <input
                   type="number" min="0" step="0.5" value={priceQty2}
                   onChange={(e) => setPriceQty2(e.target.value)}
                   className="w-full rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-2.5 text-base font-bold text-slate-700 outline-none transition-colors bg-white text-right"
-                  placeholder="ÙØ§Ø±Øº = ØºÙŠØ± Ù…ÙØ¹Ù‘Ù„"
+                  placeholder="فارغ = غير مفعّل"
                 />
               </div>
               <div className="relative">
-                <label className="block text-xs text-slate-500 mb-1">Ø³Ø¹Ø± 3 Ù‚Ø·Ø¹</label>
+                <label className="block text-xs text-slate-500 mb-1">سعر 3 قطع</label>
                 <input
                   type="number" min="0" step="0.5" value={priceQty3}
                   onChange={(e) => setPriceQty3(e.target.value)}
                   className="w-full rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-2.5 text-base font-bold text-slate-700 outline-none transition-colors bg-white text-right"
-                  placeholder="ÙØ§Ø±Øº = ØºÙŠØ± Ù…ÙØ¹Ù‘Ù„"
+                  placeholder="فارغ = غير مفعّل"
                 />
               </div>
             </div>
@@ -610,7 +610,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
 
           {/* Stock */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">Ø§Ù„ÙƒÙ…ÙŠØ© ÙÙŠ Ø§Ù„Ù…Ø®Ø²ÙˆÙ† (Ø³Ø·ÙˆÙƒ)</label>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5">الكمية في المخزون (سطوك)</label>
             <input
               type="number" min="0" step="1" value={stock}
               onChange={(e) => setStock(e.target.value)}
@@ -621,7 +621,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
 
           {/* Image */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">Ø§Ù„ØµÙˆØ±Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© Ù„Ù„Ù…Ù†ØªØ¬</label>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5">الصورة الرئيسية للمنتج</label>
             <ProductImageInput value={imageUrl} onChange={setImageUrl} />
           </div>
 
@@ -631,14 +631,14 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
               type="button" onClick={() => setActive(!active)}
               className={`flex items-center justify-between gap-2 rounded-xl border-2 px-4 py-3 transition-all ${active ? "border-emerald-400 bg-emerald-50 text-emerald-800" : "border-slate-200 bg-slate-50 text-slate-500"}`}
             >
-              <span className="text-sm font-bold">Ù†Ø´Ø·</span>
+              <span className="text-sm font-bold">نشط</span>
               {active ? <ToggleRight className="h-5 w-5" /> : <ToggleLeft className="h-5 w-5" />}
             </button>
             <button
               type="button" onClick={() => setFeatured(!featured)}
               className={`flex items-center justify-between gap-2 rounded-xl border-2 px-4 py-3 transition-all ${featured ? "border-amber-400 bg-amber-50 text-amber-800" : "border-slate-200 bg-slate-50 text-slate-500"}`}
             >
-              <span className="text-sm font-bold">Ù…Ù…ÙŠÙ‘Ø²</span>
+              <span className="text-sm font-bold">مميّز</span>
               <Star className={`h-4 w-4 ${featured ? "fill-amber-400 text-amber-400" : ""}`} />
             </button>
           </div>
@@ -660,10 +660,10 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
             }`}
           >
             {saved ? (
-              <span className="flex items-center justify-center gap-2"><Check className="h-5 w-5" /> ØªÙ… Ø§Ù„Ø­ÙØ¸ Ø¨Ù†Ø¬Ø§Ø­!</span>
+              <span className="flex items-center justify-center gap-2"><Check className="h-5 w-5" /> تم الحفظ بنجاح!</span>
             ) : saving ? (
-              <span className="flex items-center justify-center gap-2"><Loader2 className="h-5 w-5 animate-spin" /> Ø¬Ø§Ø±Ù Ø§Ù„Ø­ÙØ¸â€¦</span>
-            ) : "Ø­ÙØ¸ Ø§Ù„ØªØºÙŠÙŠØ±Ø§Øª"}
+              <span className="flex items-center justify-center gap-2"><Loader2 className="h-5 w-5 animate-spin" /> جارٍ الحفظ…</span>
+            ) : "حفظ التغييرات"}
           </button>
         </div>
       </div>
@@ -671,9 +671,9 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════
    PRODUCTS TAB
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════════════════════════════ */
 const PAGE_SIZE = 20;
 
 function ProductsTab() {
@@ -711,12 +711,12 @@ function ProductsTab() {
   }, [queryClient]);
 
   const handleDelete = useCallback(async (id: string, name: string) => {
-    if (!window.confirm(`Ù‡Ù„ Ø£Ù†Øª Ù…ØªØ£ÙƒØ¯ Ù…Ù† Ø­Ø°Ù Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬ØŸ\n"${name}"`)) return;
+    if (!window.confirm(`هل أنت متأكد من حذف هذا المنتج؟\n"${name}"`)) return;
     try {
       await apiFetch(`/api/products?id=${encodeURIComponent(id)}`, { method: "DELETE" });
       queryClient.invalidateQueries({ queryKey: ["getProducts"] });
     } catch {
-      alert("Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø­Ø°Ù Ø§Ù„Ù…Ù†ØªØ¬ØŒ Ø­Ø§ÙˆÙ„ Ù…Ø¬Ø¯Ø¯Ø§Ù‹.");
+      alert("حدث خطأ أثناء حذف المنتج، حاول مجدداً.");
     }
   }, [queryClient]);
 
@@ -729,7 +729,7 @@ function ProductsTab() {
           <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
           <input
             type="text" value={search} onChange={(e) => setSearch(e.target.value)}
-            placeholder="Ø¨Ø­Ø« Ø¹Ù† Ù…Ù†ØªØ¬ Ø¨Ø§Ù„Ø§Ø³Ù…â€¦"
+            placeholder="بحث عن منتج بالاسم…"
             className="w-full rounded-xl border border-slate-200 bg-slate-50 pr-10 pl-4 py-2.5 text-sm outline-none focus:border-primary focus:bg-white transition-all text-right"
           />
           {search && (
@@ -740,15 +740,15 @@ function ProductsTab() {
         </div>
         <div className="flex items-center gap-3 shrink-0">
           <div className="text-right">
-            <p className="text-sm font-bold text-slate-700">{total} Ù…Ù†ØªØ¬</p>
-            {isFetching && !isLoading && <p className="text-xs text-slate-400">Ø¬Ø§Ø±Ù Ø§Ù„ØªØ­Ø¯ÙŠØ«â€¦</p>}
+            <p className="text-sm font-bold text-slate-700">{total} منتج</p>
+            {isFetching && !isLoading && <p className="text-xs text-slate-400">جارٍ التحديث…</p>}
           </div>
           <button
             onClick={() => setShowCreateModal(true)}
             className="flex items-center gap-1.5 rounded-xl bg-primary hover:bg-blue-700 text-white text-sm font-bold px-4 py-2.5 transition-colors touch-manipulation"
           >
             <Plus className="h-4 w-4" />
-            Ø¥Ø¶Ø§ÙØ© Ù…Ù†ØªØ¬
+            إضافة منتج
           </button>
         </div>
       </div>
@@ -772,7 +772,7 @@ function ProductsTab() {
       {/* Error */}
       {error && (
         <div className="rounded-2xl border border-red-200 bg-red-50 p-5 text-center text-red-700 text-sm font-medium">
-          Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ ØªØ­Ù…ÙŠÙ„ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª. Ø­Ø§ÙˆÙ„ Ù…Ø±Ø© Ø£Ø®Ø±Ù‰.
+          حدث خطأ أثناء تحميل المنتجات. حاول مرة أخرى.
         </div>
       )}
 
@@ -780,7 +780,7 @@ function ProductsTab() {
       {!isLoading && !error && products.length === 0 && (
         <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center text-slate-400">
           <Package className="h-10 w-10 mx-auto mb-3 opacity-40" />
-          <p className="font-medium">Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù†ØªØ¬Ø§Øª Ù…Ø·Ø§Ø¨Ù‚Ø© Ù„Ø¨Ø­Ø«Ùƒ.</p>
+          <p className="font-medium">لا توجد منتجات مطابقة لبحثك.</p>
         </div>
       )}
 
@@ -814,10 +814,10 @@ function ProductsTab() {
                 <div className="flex-1 min-w-0 text-right">
                   <div className="flex items-center gap-1.5 flex-wrap justify-end">
                     <p className="font-bold text-slate-900 text-sm truncate">{p.nameAr}</p>
-                    {p.featured && <span className="text-[10px] bg-amber-100 text-amber-700 font-bold px-1.5 py-0.5 rounded-md">Ù…Ù…ÙŠØ²</span>}
-                    {!p.active && <span className="text-[10px] bg-slate-100 text-slate-500 font-bold px-1.5 py-0.5 rounded-md">Ù…Ø¹Ø·Ù‘Ù„</span>}
+                    {p.featured && <span className="text-[10px] bg-amber-100 text-amber-700 font-bold px-1.5 py-0.5 rounded-md">مميز</span>}
+                    {!p.active && <span className="text-[10px] bg-slate-100 text-slate-500 font-bold px-1.5 py-0.5 rounded-md">معطّل</span>}
                   </div>
-                  <p className="text-xs text-slate-400 mt-0.5">{p.categoryName || "Ø¨Ø¯ÙˆÙ† ÙØ¦Ø©"} Â· Ù…Ø®Ø²ÙˆÙ†: {p.stock}</p>
+                  <p className="text-xs text-slate-400 mt-0.5">{p.categoryName || "بدون فئة"} · مخزون: {p.stock}</p>
                   <div className="flex items-baseline gap-1.5 mt-1 justify-end">
                     <span className="text-base font-black text-primary">{p.price} {currency}</span>
                     {p.compareAtPrice && p.compareAtPrice > p.price && (
@@ -835,13 +835,13 @@ function ProductsTab() {
                     onClick={() => setEditingProduct(p)}
                     className="rounded-xl bg-slate-900 hover:bg-primary text-white text-xs font-bold px-3 py-2 transition-colors touch-manipulation"
                   >
-                    ØªØ¹Ø¯ÙŠÙ„
+                    تعديل
                   </button>
                   <button
                     onClick={() => handleDelete(p.id, p.nameAr)}
                     className="rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white text-xs font-bold px-3 py-2 transition-colors touch-manipulation border border-rose-200 hover:border-rose-600"
                   >
-                    Ø­Ø°Ù
+                    حذف
                   </button>
                 </div>
               </div>
@@ -859,7 +859,7 @@ function ProductsTab() {
             className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 transition"
           >
             <ChevronRight className="h-4 w-4" />
-            Ø§Ù„Ø³Ø§Ø¨Ù‚
+            السابق
           </button>
           <span className="text-sm text-slate-500 font-medium">
             {page} / {totalPages}
@@ -869,7 +869,7 @@ function ProductsTab() {
             disabled={page === totalPages}
             className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 transition"
           >
-            Ø§Ù„ØªØ§Ù„ÙŠ
+            التالي
             <ChevronLeft className="h-4 w-4" />
           </button>
         </div>
@@ -895,9 +895,9 @@ function ProductsTab() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════
    LANDING PAGES TAB
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════════════════════════════ */
 interface AdminLandingPage {
   id: string;
   productId: string;
@@ -975,7 +975,7 @@ function LandingPagesTab() {
   const handleSave = async () => {
     setFormError("");
     if (!form.productId || !form.slug || !form.headline) {
-      setFormError("Ø§Ù„Ù…Ù†ØªØ¬ ÙˆØ§Ù„Ø±Ø§Ø¨Ø· ÙˆØ§Ù„Ø¹Ù†ÙˆØ§Ù† Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ Ù…Ø·Ù„ÙˆØ¨Ø©.");
+      setFormError("المنتج والرابط والعنوان الرئيسي مطلوبة.");
       return;
     }
     setSaving(true);
@@ -997,7 +997,7 @@ function LandingPagesTab() {
       await loadPages();
       setMode("list");
     } catch (e: any) {
-      setFormError(e.message ?? "ØµØ§Ø± Ø®Ø·Ø£ØŒ Ø­Ø§ÙˆÙ„ Ù…Ø±Ø© Ø«Ø§Ù†ÙŠØ©.");
+      setFormError(e.message ?? "صار خطأ، حاول مرة ثانية.");
     } finally { setSaving(false); }
   };
 
@@ -1036,34 +1036,34 @@ function LandingPagesTab() {
       });
       updateMediaUrl(i, url);
     } catch {
-      setFormError("ÙØ´Ù„ Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø©ØŒ Ø­Ø§ÙˆÙ„ Ù…Ø±Ø© Ø«Ø§Ù†ÙŠØ©.");
+      setFormError("فشل رفع الصورة، حاول مرة ثانية.");
     } finally {
       setUploadingIdx(null);
     }
   };
 
-  /* â”€â”€ Form view (create / edit) â”€â”€ */
+  /* ── Form view (create / edit) ── */
   if (mode === "create" || mode === "edit") {
     return (
       <div className="space-y-4">
         <div className="flex items-center gap-3 mb-2">
           <button onClick={() => setMode("list")} className="text-slate-500 hover:text-slate-800 flex items-center gap-1 text-sm font-semibold">
-            <ChevronRight className="h-4 w-4" /> Ø±Ø¬ÙˆØ¹ Ù„Ù„Ù‚Ø§Ø¦Ù…Ø©
+            <ChevronRight className="h-4 w-4" /> رجوع للقائمة
           </button>
-          <h3 className="font-extrabold text-slate-900 text-lg">{mode === "create" ? "ØµÙØ­Ø© Ù‡Ø¨ÙˆØ· Ø¬Ø¯ÙŠØ¯Ø©" : "ØªØ¹Ø¯ÙŠÙ„ Ø§Ù„ØµÙØ­Ø©"}</h3>
+          <h3 className="font-extrabold text-slate-900 text-lg">{mode === "create" ? "صفحة هبوط جديدة" : "تعديل الصفحة"}</h3>
         </div>
 
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5 max-w-2xl">
 
           {/* Product */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1">Ø§Ù„Ù…Ù†ØªØ¬ *</label>
+            <label className="block text-sm font-bold text-slate-700 mb-1">المنتج *</label>
             <select
               value={form.productId}
               onChange={e => setForm({ ...form, productId: e.target.value })}
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white"
             >
-              <option value="">â€” Ø§Ø®ØªØ± Ù…Ù†ØªØ¬ â€”</option>
+              <option value="">— اختر منتج —</option>
               {allProducts.map((p: any) => (
                 <option key={p.id} value={p.id}>{p.nameAr} ({parseFloat(p.price)} {currency})</option>
               ))}
@@ -1073,7 +1073,7 @@ function LandingPagesTab() {
           {/* Slug */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1">
-              Ø±Ø§Ø¨Ø· Ø§Ù„ØµÙØ­Ø© * <span className="text-slate-400 font-normal">(Ù…Ø«Ø§Ù„: bubble-gun-promo)</span>
+              رابط الصفحة * <span className="text-slate-400 font-normal">(مثال: bubble-gun-promo)</span>
             </label>
             <div className="flex items-center border border-slate-300 rounded-xl overflow-hidden focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
               <span className="bg-slate-50 px-3 py-2.5 text-slate-400 text-sm border-l border-slate-300 select-none">/offer/</span>
@@ -1090,24 +1090,24 @@ function LandingPagesTab() {
 
           {/* Headline */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1">Ø§Ù„Ø¹Ù†ÙˆØ§Ù† Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ *</label>
+            <label className="block text-sm font-bold text-slate-700 mb-1">العنوان الرئيسي *</label>
             <input
               type="text"
               value={form.headline}
               onChange={e => setForm({ ...form, headline: e.target.value })}
-              placeholder="ÙØ±Ø­ ØµØºØ§Ø±Ùƒ Ù…Ø¹ Ù…Ø³Ø¯Ø³ Ø§Ù„ÙÙ‚Ø§Ø¹Ø§Øª Ø§Ù„Ø¢Ù„ÙŠ! ðŸ«§"
+              placeholder="فرح صغارك مع مسدس الفقاعات الآلي! 🫧"
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
 
           {/* Subheadline */}
           <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1">Ø§Ù„Ø¹Ù†ÙˆØ§Ù† Ø§Ù„ÙØ±Ø¹ÙŠ <span className="text-slate-400 font-normal">(Ø§Ø®ØªÙŠØ§Ø±ÙŠ)</span></label>
+            <label className="block text-sm font-bold text-slate-700 mb-1">العنوان الفرعي <span className="text-slate-400 font-normal">(اختياري)</span></label>
             <textarea
               value={form.subheadline}
               onChange={e => setForm({ ...form, subheadline: e.target.value })}
               rows={2}
-              placeholder="ÙˆØµÙ Ù…Ø®ØªØµØ± ÙˆÙ…Ù‚Ù†Ø¹ Ù„Ù„Ø¹Ø±Ø¶..."
+              placeholder="وصف مختصر ومقنع للعرض..."
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
             />
           </div>
@@ -1115,13 +1115,13 @@ function LandingPagesTab() {
           {/* Media (multi-upload) */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
-              Ø§Ù„ØµÙˆØ±ØŒ Ø§Ù„ÙÙŠØ¯ÙŠÙˆÙ‡Ø§ØªØŒ ÙˆØ§Ù„Ø±ÙˆØ§Ø¨Ø· (YouTube/TikTok) <span className="text-slate-400 font-normal">(Ø§Ø®ØªÙŠØ§Ø±ÙŠ â€” ÙŠØ³ØªØ¨Ø¯Ù„ ØµÙˆØ±Ø© Ø§Ù„Ù…Ù†ØªØ¬)</span>
+              الصور، الفيديوهات، والروابط (YouTube/TikTok) <span className="text-slate-400 font-normal">(اختياري — يستبدل صورة المنتج)</span>
             </label>
             <div className="space-y-3">
               {form.mediaUrls.map((url, i) => (
                 <div key={i} className="border border-slate-200 rounded-2xl p-3 bg-slate-50 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-500">ØµÙˆØ±Ø© {i + 1}</span>
+                    <span className="text-xs font-bold text-slate-500">صورة {i + 1}</span>
                     {form.mediaUrls.length > 1 && (
                       <button onClick={() => removeMedia(i)} className="text-slate-400 hover:text-rose-500 transition-colors p-1">
                         <X className="h-4 w-4" />
@@ -1133,10 +1133,10 @@ function LandingPagesTab() {
                   <label className={`flex items-center gap-2 cursor-pointer border border-dashed border-slate-300 rounded-xl px-3 py-2 hover:border-primary hover:bg-primary/5 transition-colors ${uploadingIdx === i ? "opacity-60 pointer-events-none" : ""}`}>
                     {uploadingIdx === i
                       ? <Loader2 className="h-4 w-4 text-primary animate-spin shrink-0" />
-                      : <span className="text-lg">ðŸ“</span>
+                      : <span className="text-lg">📁</span>
                     }
                     <span className="text-sm text-slate-600 font-semibold">
-                      {uploadingIdx === i ? "Ø¬Ø§Ø±Ù Ø§Ù„Ø±ÙØ¹..." : "Ø±ÙØ¹ Ù…Ù† Ø§Ù„Ø¬Ù‡Ø§Ø²"}
+                      {uploadingIdx === i ? "جارٍ الرفع..." : "رفع من الجهاز"}
                     </span>
                     <input
                       type="file"
@@ -1152,7 +1152,7 @@ function LandingPagesTab() {
 
                   <div className="flex items-center gap-2 text-xs text-slate-400">
                     <div className="flex-1 h-px bg-slate-200" />
-                    <span>Ø£Ùˆ</span>
+                    <span>أو</span>
                     <div className="flex-1 h-px bg-slate-200" />
                   </div>
 
@@ -1161,7 +1161,7 @@ function LandingPagesTab() {
                     type="text"
                     value={url}
                     onChange={e => updateMediaUrl(i, e.target.value)}
-                    placeholder="Ø±Ø§Ø¨Ø· Ø§Ù„ØµÙˆØ±Ø©ØŒ Ø£Ùˆ Ø±Ø§Ø¨Ø· ÙÙŠØ¯ÙŠÙˆ ÙŠÙˆØªÙŠÙˆØ¨ / ØªÙŠÙƒØªÙˆÙƒ"
+                    placeholder="رابط الصورة، أو رابط فيديو يوتيوب / تيكتوك"
                     dir="ltr"
                     className="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white"
                   />
@@ -1170,7 +1170,7 @@ function LandingPagesTab() {
                   {url.trim() && (
                     <img
                       src={url.startsWith("http") || url.startsWith("/") ? url : `/${url}`}
-                      alt="Ù…Ø¹Ø§ÙŠÙ†Ø©"
+                      alt="معاينة"
                       className="w-full max-h-32 object-contain rounded-xl border border-slate-200 bg-white"
                       onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                       onLoad={(e) => { (e.target as HTMLImageElement).style.display = ""; }}
@@ -1179,7 +1179,7 @@ function LandingPagesTab() {
                 </div>
               ))}
               <button onClick={addMedia} className="text-primary text-sm font-bold flex items-center gap-1 hover:underline mt-1">
-                + Ø£Ø¶Ù Ù…ÙŠØ¯ÙŠØ§ (ØµÙˆØ±Ø©ØŒ ÙÙŠØ¯ÙŠÙˆØŒ Ø±Ø§Ø¨Ø·)
+                + أضف ميديا (صورة، فيديو، رابط)
               </button>
             </div>
           </div>
@@ -1187,7 +1187,7 @@ function LandingPagesTab() {
           {/* Features */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
-              Ù†Ù‚Ø§Ø· Ø§Ù„Ø¨ÙŠØ¹ <span className="text-slate-400 font-normal">(Ù…Ù…ÙŠØ²Ø§Øª Ø§Ù„Ù…Ù†ØªØ¬)</span>
+              نقاط البيع <span className="text-slate-400 font-normal">(مميزات المنتج)</span>
             </label>
             <div className="space-y-2">
               {form.features.map((f, i) => (
@@ -1196,7 +1196,7 @@ function LandingPagesTab() {
                     type="text"
                     value={f}
                     onChange={e => updateFeature(i, e.target.value)}
-                    placeholder={`Ù…ÙŠØ²Ø© ${i + 1}ØŒ Ù…Ø«Ù„Ø§Ù‹: Ø¢Ù…Ù† 100% Ù„Ù„Ø£Ø·ÙØ§Ù„`}
+                    placeholder={`ميزة ${i + 1}، مثلاً: آمن 100% للأطفال`}
                     className="flex-1 border border-slate-300 rounded-xl px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                   {form.features.length > 1 && (
@@ -1207,7 +1207,7 @@ function LandingPagesTab() {
                 </div>
               ))}
               <button onClick={addFeature} className="text-primary text-sm font-bold flex items-center gap-1 hover:underline mt-1">
-                + Ø£Ø¶Ù Ù…ÙŠØ²Ø©
+                + أضف ميزة
               </button>
             </div>
           </div>
@@ -1215,13 +1215,13 @@ function LandingPagesTab() {
           {/* Box contents */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1">
-              Ù…Ø­ØªÙˆÙŠØ§Øª Ø§Ù„Ø¨Ø§ÙƒÙˆ <span className="text-slate-400 font-normal">(Ø³Ø·Ø± Ù„ÙƒÙ„ Ø¹Ù†ØµØ±ØŒ Ø§Ø®ØªÙŠØ§Ø±ÙŠ)</span>
+              محتويات الباكو <span className="text-slate-400 font-normal">(سطر لكل عنصر، اختياري)</span>
             </label>
             <textarea
               value={form.boxContents}
               onChange={e => setForm({ ...form, boxContents: e.target.value })}
               rows={3}
-              placeholder={"Ù…Ø³Ø¯Ø³ Ø§Ù„ÙÙ‚Ø§Ø¹Ø§Øª Ø§Ù„Ø¢Ù„ÙŠ\nØ´ÙŠØ´Ø© Ø³Ø§Ø¦Ù„ Ø§Ù„ÙÙ‚Ø§Ø¹Ø§Øª\nØµØ­Ù† ØµØºÙŠØ±"}
+              placeholder={"مسدس الفقاعات الآلي\nشيشة سائل الفقاعات\nصحن صغير"}
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
             />
           </div>
@@ -1229,19 +1229,19 @@ function LandingPagesTab() {
           {/* Urgency text */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1">
-              Ù†Øµ Ø§Ù„Ø¥Ù„Ø­Ø§Ø­ <span className="text-slate-400 font-normal">(Ø§Ù„Ø´Ø±ÙŠØ· Ø§Ù„Ø£Ø²Ø±Ù‚ Ø£Ø¹Ù„Ù‰ Ø§Ù„ØµÙØ­Ø©)</span>
+              نص الإلحاح <span className="text-slate-400 font-normal">(الشريط الأزرق أعلى الصفحة)</span>
             </label>
             <input
               type="text"
               value={form.urgencyText}
               onChange={e => setForm({ ...form, urgencyText: e.target.value })}
-              placeholder="Ø¹Ø±Ø¶ Ù…Ø­Ø¯ÙˆØ¯ â€” Ø§Ù„ØªÙˆØµÙŠÙ„ Ù…Ø¬Ø§Ù†ÙŠ Ù„Ø¹Ù†Ø¯ Ø¨Ø§Ø¨ Ø§Ù„Ø­ÙˆØ´!"
+              placeholder="عرض محدود — التوصيل مجاني لعند باب الحوش!"
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
 
           {formError && (
-            <p className="text-rose-600 text-sm bg-rose-50 border border-rose-200 rounded-xl px-4 py-2">âš ï¸ {formError}</p>
+            <p className="text-rose-600 text-sm bg-rose-50 border border-rose-200 rounded-xl px-4 py-2">⚠️ {formError}</p>
           )}
 
           <div className="flex gap-3 pt-2">
@@ -1251,13 +1251,13 @@ function LandingPagesTab() {
               className="flex-1 bg-primary hover:bg-primary/90 disabled:opacity-60 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2"
             >
               {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
-              {saving ? "Ø¬Ø§Ø±Ù Ø§Ù„Ø­ÙØ¸â€¦" : mode === "create" ? "Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„ØµÙØ­Ø©" : "Ø­ÙØ¸ Ø§Ù„ØªØ¹Ø¯ÙŠÙ„Ø§Øª"}
+              {saving ? "جارٍ الحفظ…" : mode === "create" ? "إنشاء الصفحة" : "حفظ التعديلات"}
             </button>
             <button
               onClick={() => setMode("list")}
               className="px-5 py-3 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:bg-slate-50 transition-colors text-sm"
             >
-              Ø¥Ù„ØºØ§Ø¡
+              إلغاء
             </button>
           </div>
         </div>
@@ -1265,16 +1265,16 @@ function LandingPagesTab() {
     );
   }
 
-  /* â”€â”€ List view â”€â”€ */
+  /* ── List view ── */
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-slate-500 text-sm">{pages.length} ØµÙØ­Ø©</p>
+        <p className="text-slate-500 text-sm">{pages.length} صفحة</p>
         <button
           onClick={openCreate}
           className="flex items-center gap-2 bg-primary text-white font-bold px-4 py-2.5 rounded-xl text-sm hover:bg-primary/90 transition-colors"
         >
-          <Megaphone className="h-4 w-4" /> ØµÙØ­Ø© Ø¬Ø¯ÙŠØ¯Ø©
+          <Megaphone className="h-4 w-4" /> صفحة جديدة
         </button>
       </div>
 
@@ -1284,11 +1284,11 @@ function LandingPagesTab() {
         </div>
       ) : pages.length === 0 ? (
         <div className="bg-white rounded-2xl border border-dashed border-slate-300 py-16 text-center">
-          <div className="text-4xl mb-3">ðŸ“£</div>
-          <p className="font-bold text-slate-700 mb-1">Ù„Ø§ ØªÙˆØ¬Ø¯ ØµÙØ­Ø§Øª Ù‡Ø¨ÙˆØ· Ø­ØªÙ‰ Ø§Ù„Ø¢Ù†</p>
-          <p className="text-slate-400 text-sm mb-4">Ø£Ù†Ø´Ø¦ Ø£ÙˆÙ„ ØµÙØ­Ø© ÙˆØ±ÙˆÙ‘Ø¬ Ù„Ù…Ù†ØªØ¬Ø§ØªÙƒ</p>
+          <div className="text-4xl mb-3">📣</div>
+          <p className="font-bold text-slate-700 mb-1">لا توجد صفحات هبوط حتى الآن</p>
+          <p className="text-slate-400 text-sm mb-4">أنشئ أول صفحة وروّج لمنتجاتك</p>
           <button onClick={openCreate} className="bg-primary text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-primary/90 transition-colors">
-            + Ø¥Ù†Ø´Ø§Ø¡ Ø£ÙˆÙ„ ØµÙØ­Ø©
+            + إنشاء أول صفحة
           </button>
         </div>
       ) : (
@@ -1297,11 +1297,11 @@ function LandingPagesTab() {
             <table className="w-full text-sm min-w-[600px]">
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  <th className="text-right px-4 py-3 font-bold text-slate-700">Ø§Ù„Ø±Ø§Ø¨Ø·</th>
-                  <th className="text-right px-4 py-3 font-bold text-slate-700">Ø§Ù„Ø¹Ù†ÙˆØ§Ù†</th>
-                  <th className="text-right px-4 py-3 font-bold text-slate-700">Ø§Ù„Ù…Ù†ØªØ¬</th>
-                  <th className="text-right px-4 py-3 font-bold text-slate-700">Ø§Ù„Ø³Ø¹Ø±</th>
-                  <th className="text-right px-4 py-3 font-bold text-slate-700">Ø¥Ø¬Ø±Ø§Ø¡Ø§Øª</th>
+                  <th className="text-right px-4 py-3 font-bold text-slate-700">الرابط</th>
+                  <th className="text-right px-4 py-3 font-bold text-slate-700">العنوان</th>
+                  <th className="text-right px-4 py-3 font-bold text-slate-700">المنتج</th>
+                  <th className="text-right px-4 py-3 font-bold text-slate-700">السعر</th>
+                  <th className="text-right px-4 py-3 font-bold text-slate-700">إجراءات</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -1327,13 +1327,13 @@ function LandingPagesTab() {
                           onClick={() => openEdit(p)}
                           className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-lg transition-colors"
                         >
-                          ØªØ¹Ø¯ÙŠÙ„
+                          تعديل
                         </button>
                         <button
                           onClick={() => setDeleteId(p.id)}
                           className="text-xs bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold px-3 py-1.5 rounded-lg transition-colors"
                         >
-                          Ø­Ø°Ù
+                          حذف
                         </button>
                       </div>
                     </td>
@@ -1349,9 +1349,9 @@ function LandingPagesTab() {
       {deleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
           <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full text-center">
-            <div className="text-4xl mb-3">ðŸ—‘ï¸</div>
-            <h3 className="font-extrabold text-slate-900 text-lg mb-1">Ø­Ø°Ù Ø§Ù„ØµÙØ­Ø©ØŸ</h3>
-            <p className="text-slate-500 text-sm mb-5">Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø§Ù„ØªØ±Ø§Ø¬Ø¹ Ø¹Ù† Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡.</p>
+            <div className="text-4xl mb-3">🗑️</div>
+            <h3 className="font-extrabold text-slate-900 text-lg mb-1">حذف الصفحة؟</h3>
+            <p className="text-slate-500 text-sm mb-5">لا يمكن التراجع عن هذا الإجراء.</p>
             <div className="flex gap-3">
               <button
                 onClick={handleDelete}
@@ -1359,13 +1359,13 @@ function LandingPagesTab() {
                 className="flex-1 bg-rose-500 hover:bg-rose-600 disabled:opacity-60 text-white font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
               >
                 {deleting && <Loader2 className="h-4 w-4 animate-spin" />}
-                {deleting ? "Ø¬Ø§Ø±Ù Ø§Ù„Ø­Ø°Ùâ€¦" : "ØªØ£ÙƒÙŠØ¯ Ø§Ù„Ø­Ø°Ù"}
+                {deleting ? "جارٍ الحذف…" : "تأكيد الحذف"}
               </button>
               <button
                 onClick={() => setDeleteId(null)}
                 className="flex-1 border border-slate-300 text-slate-700 font-semibold py-2.5 rounded-xl hover:bg-slate-50 transition-colors"
               >
-                Ø¥Ù„ØºØ§Ø¡
+                إلغاء
               </button>
             </div>
           </div>
@@ -1375,9 +1375,9 @@ function LandingPagesTab() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════
    SETTINGS TAB
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════════════════════════════ */
 function SettingsTab() {
   const { currency, setCurrency } = useCurrency();
   const [localCurrency, setLocalCurrency] = useState(currency);
@@ -1385,7 +1385,7 @@ function SettingsTab() {
   const [tiktokPixelId, setTiktokPixelId] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const [primaryColor, setPrimaryColor] = useState("#1d4ed8");
-  const [announcementText, setAnnouncementText] = useState("ðŸ”¥ Ø¹Ø±ÙˆØ¶ Ø­ØµØ±ÙŠØ© Ù„ÙØªØ±Ø© Ù…Ø­Ø¯ÙˆØ¯Ø© â€” Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…!");
+  const [announcementText, setAnnouncementText] = useState("🔥 عروض حصرية لفترة محدودة — الدفع عند الاستلام!");
   const [announcementActive, setAnnouncementActive] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -1407,7 +1407,7 @@ function SettingsTab() {
   }, []);
 
   const handleSave = async () => {
-    if (!localCurrency.trim()) { setError("Ø±Ù…Ø² Ø§Ù„Ø¹Ù…Ù„Ø© Ù„Ø§ ÙŠÙ…ÙƒÙ† Ø£Ù† ÙŠÙƒÙˆÙ† ÙØ§Ø±ØºØ§Ù‹"); return; }
+    if (!localCurrency.trim()) { setError("رمز العملة لا يمكن أن يكون فارغاً"); return; }
     setSaving(true); setError(""); setSaved(false);
     try {
       const data = await apiFetch<any>("/api/settings", {
@@ -1431,7 +1431,7 @@ function SettingsTab() {
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch {
-      setError("Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø§Ù„Ø­ÙØ¸. Ø­Ø§ÙˆÙ„ Ù…Ø±Ø© Ø£Ø®Ø±Ù‰.");
+      setError("حدث خطأ أثناء الحفظ. حاول مرة أخرى.");
     } finally {
       setSaving(false);
     }
@@ -1441,37 +1441,37 @@ function SettingsTab() {
     <div className="max-w-lg mx-auto">
       <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-sm text-right space-y-6">
         <div>
-          <h3 className="text-xl font-extrabold text-slate-900">Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ù…ØªØ¬Ø±</h3>
-          <p className="text-sm text-slate-500 mt-1">ØªØ­ÙƒÙ… ÙÙŠ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ø¹Ø§Ù…Ø© Ù„Ù„Ù…ØªØ¬Ø± Ø§Ù„ØªÙŠ ØªØ¤Ø«Ø± Ø¹Ù„Ù‰ Ø¬Ù…ÙŠØ¹ Ø§Ù„ØµÙØ­Ø§Øª.</p>
+          <h3 className="text-xl font-extrabold text-slate-900">إعدادات المتجر</h3>
+          <p className="text-sm text-slate-500 mt-1">تحكم في الإعدادات العامة للمتجر التي تؤثر على جميع الصفحات.</p>
         </div>
 
         <div className="space-y-2">
-          <label className="block text-sm font-bold text-slate-700">Ø±Ù…Ø² Ø§Ù„Ø¹Ù…Ù„Ø©</label>
-          <p className="text-xs text-slate-500">ÙŠÙØ¹Ø±Ø¶ Ø¨Ø¬Ø§Ù†Ø¨ ÙƒÙ„ Ø³Ø¹Ø± ÙÙŠ Ø§Ù„Ù…ØªØ¬Ø±. Ù…Ø«Ø§Ù„: Ø¯.Ù„ØŒ Ø¯Ø±Ù‡Ù…ØŒ Ø±ÙŠØ§Ù„ØŒ $ØŒ â‚¬</p>
+          <label className="block text-sm font-bold text-slate-700">رمز العملة</label>
+          <p className="text-xs text-slate-500">يُعرض بجانب كل سعر في المتجر. مثال: د.ل، درهم، ريال، $، €</p>
           <div className="flex items-center gap-3 mt-2">
             <input
               type="text"
               value={localCurrency}
               onChange={(e) => { setLocalCurrency(e.target.value); setSaved(false); }}
-              placeholder="Ø¯.Ù„"
+              placeholder="د.ل"
               className="flex-1 rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base font-bold text-right outline-none transition"
               dir="rtl"
               maxLength={10}
             />
             <div className="w-16 h-12 rounded-2xl bg-slate-50 border-2 border-slate-200 flex items-center justify-center font-black text-primary text-lg shrink-0">
-              {localCurrency || "ØŸ"}
+              {localCurrency || "؟"}
             </div>
           </div>
         </div>
 
         <div className="space-y-2">
           <label className="block text-sm font-bold text-slate-700">Facebook Pixel ID</label>
-          <p className="text-xs text-slate-500">Ø£Ø¯Ø®Ù„ Ù…Ø¹Ø±Ù‘Ù Ø¨ÙƒØ³Ù„ ÙÙŠØ³Ø¨ÙˆÙƒ Ù„ØªÙØ¹ÙŠÙ„ ØªØªØ¨Ø¹ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª. Ø§ØªØ±ÙƒÙ‡ ÙØ§Ø±ØºØ§Ù‹ Ù„Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„ØªØªØ¨Ø¹.</p>
+          <p className="text-xs text-slate-500">أدخل معرّف بكسل فيسبوك لتفعيل تتبع الإعلانات. اتركه فارغاً لإيقاف التتبع.</p>
           <input
             type="text"
             value={facebookPixelId}
             onChange={(e) => { setFacebookPixelId(e.target.value); setSaved(false); }}
-            placeholder="Ù…Ø«Ø§Ù„: 1234567890123456"
+            placeholder="مثال: 1234567890123456"
             className="w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-left outline-none transition"
             dir="ltr"
           />
@@ -1479,28 +1479,28 @@ function SettingsTab() {
 
         <div className="space-y-2">
           <label className="block text-sm font-bold text-slate-700">TikTok Pixel ID</label>
-          <p className="text-xs text-slate-500">Ø£Ø¯Ø®Ù„ Ù…Ø¹Ø±Ù‘Ù Ø¨ÙƒØ³Ù„ ØªÙŠÙƒ ØªÙˆÙƒ Ù„ØªÙØ¹ÙŠÙ„ ØªØªØ¨Ø¹ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª. Ø§ØªØ±ÙƒÙ‡ ÙØ§Ø±ØºØ§Ù‹ Ù„Ø¥ÙŠÙ‚Ø§Ù Ø§Ù„ØªØªØ¨Ø¹.</p>
+          <p className="text-xs text-slate-500">أدخل معرّف بكسل تيك توك لتفعيل تتبع الإعلانات. اتركه فارغاً لإيقاف التتبع.</p>
           <input
             type="text"
             value={tiktokPixelId}
             onChange={(e) => { setTiktokPixelId(e.target.value); setSaved(false); }}
-            placeholder="Ù…Ø«Ø§Ù„: ABCDE12345"
+            placeholder="مثال: ABCDE12345"
             className="w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-left outline-none transition"
             dir="ltr"
           />
         </div>
 
-        {/* â”€â”€ Announcement Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── Announcement Bar ────────────────────────── */}
         <div className="pt-2 border-t border-slate-100">
-          <h4 className="text-base font-extrabold text-slate-800 mb-1">Ø´Ø±ÙŠØ· Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª</h4>
-          <p className="text-xs text-slate-500 mb-4">Ø´Ø±ÙŠØ· Ù…ØªØ­Ø±Ùƒ ÙŠØ¸Ù‡Ø± Ø£Ø³ÙÙ„ Ø§Ù„Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ø¹Ù„ÙˆÙŠØ© ÙÙŠ Ø¬Ù…ÙŠØ¹ ØµÙØ­Ø§Øª Ø§Ù„Ù…ØªØ¬Ø±.</p>
+          <h4 className="text-base font-extrabold text-slate-800 mb-1">شريط الإعلانات</h4>
+          <p className="text-xs text-slate-500 mb-4">شريط متحرك يظهر أسفل القائمة العلوية في جميع صفحات المتجر.</p>
 
           <div className="space-y-4">
             {/* Toggle */}
             <div className="flex items-center justify-between gap-3 rounded-2xl border-2 border-slate-200 bg-slate-50 px-4 py-3">
               <div>
-                <p className="text-sm font-bold text-slate-700">ØªÙØ¹ÙŠÙ„ Ø§Ù„Ø´Ø±ÙŠØ·</p>
-                <p className="text-xs text-slate-500 mt-0.5">Ø¥Ø¸Ù‡Ø§Ø± Ø£Ùˆ Ø¥Ø®ÙØ§Ø¡ Ø´Ø±ÙŠØ· Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª Ø¨Ø§Ù„ÙƒØ§Ù…Ù„</p>
+                <p className="text-sm font-bold text-slate-700">تفعيل الشريط</p>
+                <p className="text-xs text-slate-500 mt-0.5">إظهار أو إخفاء شريط الإعلانات بالكامل</p>
               </div>
               <button
                 type="button"
@@ -1517,12 +1517,12 @@ function SettingsTab() {
 
             {/* Text */}
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-slate-700">Ù†Øµ Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†</label>
+              <label className="block text-sm font-bold text-slate-700">نص الإعلان</label>
               <input
                 type="text"
                 value={announcementText}
                 onChange={(e) => { setAnnouncementText(e.target.value); setSaved(false); }}
-                placeholder="ðŸ”¥ Ø¹Ø±ÙˆØ¶ Ø­ØµØ±ÙŠØ© Ù„ÙØªØ±Ø© Ù…Ø­Ø¯ÙˆØ¯Ø© â€” Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…!"
+                placeholder="🔥 عروض حصرية لفترة محدودة — الدفع عند الاستلام!"
                 className="w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-right outline-none transition"
                 dir="rtl"
               />
@@ -1536,8 +1536,8 @@ function SettingsTab() {
               >
                 <div className="flex items-center h-full">
                   <div className="announcement-track whitespace-nowrap" style={{ animationDuration: "12s" }}>
-                    <span className="px-6">{announcementText}   Â·   {announcementText}   Â·   {announcementText}</span>
-                    <span className="px-6" aria-hidden="true">{announcementText}   Â·   {announcementText}   Â·   {announcementText}</span>
+                    <span className="px-6">{announcementText}   ·   {announcementText}   ·   {announcementText}</span>
+                    <span className="px-6" aria-hidden="true">{announcementText}   ·   {announcementText}   ·   {announcementText}</span>
                   </div>
                 </div>
               </div>
@@ -1545,21 +1545,21 @@ function SettingsTab() {
           </div>
         </div>
 
-        {/* â”€â”€ Visual Branding â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── Visual Branding ─────────────────────────── */}
         <div className="pt-2 border-t border-slate-100">
-          <h4 className="text-base font-extrabold text-slate-800 mb-1">Ø§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ø¨ØµØ±ÙŠØ©</h4>
-          <p className="text-xs text-slate-500 mb-4">Ù„ÙˆØºÙˆ Ø§Ù„Ù…ØªØ¬Ø± ÙˆØ§Ù„Ù„ÙˆÙ† Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ Ø§Ù„Ø°ÙŠ ÙŠØ¸Ù‡Ø± ÙÙŠ Ø¬Ù…ÙŠØ¹ Ø§Ù„ØµÙØ­Ø§Øª.</p>
+          <h4 className="text-base font-extrabold text-slate-800 mb-1">الهوية البصرية</h4>
+          <p className="text-xs text-slate-500 mb-4">لوغو المتجر واللون الأساسي الذي يظهر في جميع الصفحات.</p>
 
           <div className="space-y-5">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-slate-700">Ù„ÙˆØºÙˆ Ø§Ù„Ù…ØªØ¬Ø±</label>
-              <p className="text-xs text-slate-500">Ø§Ø±ÙØ¹ ØµÙˆØ±Ø© Ø§Ù„Ù„ÙˆØºÙˆ Ø£Ùˆ Ø§Ù„ØµÙ‚ Ø±Ø§Ø¨Ø·Ù‡Ø§. Ø¥Ø°Ø§ ØªÙØ±Ùƒ ÙØ§Ø±ØºØ§Ù‹ ÙŠÙØ¹Ø±Ø¶ Ø§Ø³Ù… Ø§Ù„Ù…ØªØ¬Ø±.</p>
+              <label className="block text-sm font-bold text-slate-700">لوغو المتجر</label>
+              <p className="text-xs text-slate-500">ارفع صورة اللوغو أو الصق رابطها. إذا تُرك فارغاً يُعرض اسم المتجر.</p>
               <ProductImageInput value={logoUrl} onChange={(url) => { setLogoUrl(url); setSaved(false); }} />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-slate-700">Ø§Ù„Ù„ÙˆÙ† Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ Ù„Ù„Ù…ØªØ¬Ø±</label>
-              <p className="text-xs text-slate-500">ÙŠØ¤Ø«Ø± Ø¹Ù„Ù‰ Ø§Ù„Ø£Ø²Ø±Ø§Ø± ÙˆØ§Ù„Ø±ÙˆØ§Ø¨Ø· ÙˆØ§Ù„Ø¹Ù†Ø§ØµØ± Ø§Ù„Ø¨Ø§Ø±Ø²Ø© ÙÙŠ ÙƒØ§Ù…Ù„ Ø§Ù„Ù…ÙˆÙ‚Ø¹.</p>
+              <label className="block text-sm font-bold text-slate-700">اللون الأساسي للمتجر</label>
+              <p className="text-xs text-slate-500">يؤثر على الأزرار والروابط والعناصر البارزة في كامل الموقع.</p>
               <div className="flex items-center gap-3">
                 <input
                   type="color"
@@ -1593,7 +1593,7 @@ function SettingsTab() {
 
         {saved && (
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-bold text-emerald-700 flex items-center gap-2">
-            âœ… ØªÙ… Ø­ÙØ¸ Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø¨Ù†Ø¬Ø§Ø­
+            ✅ تم حفظ الإعدادات بنجاح
           </div>
         )}
 
@@ -1602,16 +1602,16 @@ function SettingsTab() {
           disabled={saving}
           className="w-full rounded-2xl bg-slate-900 hover:bg-primary px-5 py-3.5 text-base font-bold text-white transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {saving ? "Ø¬Ø§Ø±Ù Ø§Ù„Ø­ÙØ¸â€¦" : "Ø­ÙØ¸ Ø§Ù„ØªØºÙŠÙŠØ±Ø§Øª"}
+          {saving ? "جارٍ الحفظ…" : "حفظ التغييرات"}
         </button>
       </div>
     </div>
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════
    ADMIN DASHBOARD (tabbed shell)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════════════════════════════ */
 type Tab = "orders" | "products" | "landing-pages" | "settings";
 
 function AdminDashboard() {
@@ -1625,21 +1625,21 @@ function AdminDashboard() {
   };
 
   const TABS: { id: Tab; label: string; icon: typeof ShoppingBag; count?: number }[] = [
-    { id: "orders",         label: "Ø§Ù„Ø·Ù„Ø¨Ø§Øª",            icon: ShoppingBag, count: orders.length },
-    { id: "products",       label: "Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª",      icon: Tag },
-    { id: "landing-pages",  label: "ØµÙØ­Ø§Øª Ø§Ù„Ù‡Ø¨ÙˆØ·",        icon: Megaphone },
-    { id: "settings",       label: "Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ù…ØªØ¬Ø±",      icon: Settings },
+    { id: "orders",         label: "الطلبات",            icon: ShoppingBag, count: orders.length },
+    { id: "products",       label: "إدارة المنتجات",      icon: Tag },
+    { id: "landing-pages",  label: "صفحات الهبوط",        icon: Megaphone },
+    { id: "settings",       label: "إعدادات المتجر",      icon: Settings },
   ];
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 md:px-6">
 
-      {/* â”€â”€ Page header â”€â”€ */}
+      {/* ── Page header ── */}
       <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div className="text-right">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">Ù„ÙˆØ­Ø© Ø§Ù„Ø¥Ø¯Ø§Ø±Ø©</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">لوحة الإدارة</p>
           <h2 className="mt-1 text-3xl font-extrabold text-slate-900">
-            {activeTab === "orders" ? "Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø·Ù„Ø¨Ø§Øª" : activeTab === "products" ? "Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª" : activeTab === "landing-pages" ? "ØµÙØ­Ø§Øª Ø§Ù„Ù‡Ø¨ÙˆØ·" : "Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ù…ØªØ¬Ø±"}
+            {activeTab === "orders" ? "إدارة الطلبات" : activeTab === "products" ? "إدارة المنتجات" : activeTab === "landing-pages" ? "صفحات الهبوط" : "إعدادات المتجر"}
           </h2>
           {adminSession?.user?.email && (
             <p className="mt-0.5 text-xs text-slate-400">{adminSession.user.email}</p>
@@ -1652,11 +1652,11 @@ function AdminDashboard() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
-          {signingOut ? "Ø¬Ø§Ø±Ù Ø§Ù„Ø®Ø±ÙˆØ¬â€¦" : "ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬"}
+          {signingOut ? "جارٍ الخروج…" : "تسجيل الخروج"}
         </button>
       </div>
 
-      {/* â”€â”€ Tab bar â”€â”€ */}
+      {/* ── Tab bar ── */}
       <div className="flex gap-2 mb-6 bg-slate-100 p-1.5 rounded-2xl w-fit">
         {TABS.map((tab) => {
           const Icon = tab.icon;
@@ -1683,7 +1683,7 @@ function AdminDashboard() {
         })}
       </div>
 
-      {/* â”€â”€ Tab content â”€â”€ */}
+      {/* ── Tab content ── */}
       {activeTab === "orders"         && <OrdersTab />}
       {activeTab === "products"       && <ProductsTab />}
       {activeTab === "landing-pages"  && <LandingPagesTab />}
@@ -1692,9 +1692,9 @@ function AdminDashboard() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════
    ROOT EXPORT
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════════════════════════════ */
 export default function Admin() {
   const { adminSession, adminSessionLoading } = useStore();
 
@@ -1706,7 +1706,7 @@ export default function Admin() {
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          <p className="text-white/50 text-sm">Ø¬Ø§Ø±Ù Ø§Ù„ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„Ø¬Ù„Ø³Ø©â€¦</p>
+          <p className="text-white/50 text-sm">جارٍ التحقق من الجلسة…</p>
         </div>
       </div>
     );

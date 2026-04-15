@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useGetProducts, getGetProductsQueryKey, useGetCategories, getGetCategoriesQueryKey } from "@/lib/api-client";
 import { ProductCard } from "@/components/ProductCard";
 import { Input } from "@/components/ui/input";
@@ -91,13 +91,13 @@ export default function Products() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div>
-              <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900">Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</h1>
+              <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900">المنتجات</h1>
               {total > 0 && (
                 <p className="text-sm text-slate-500 mt-0.5">
-                  {total} Ù…Ù†ØªØ¬ Ù…ØªØ§Ø­
+                  {total} منتج متاح
                   {categoryId && categories && (
                     <span className="font-semibold text-primary">
-                      {" "}Â· {categories.find(c => c.id === categoryId)?.nameAr}
+                      {" "}· {categories.find(c => c.id === categoryId)?.nameAr}
                     </span>
                   )}
                 </p>
@@ -108,7 +108,7 @@ export default function Products() {
               onClick={() => setShowFilters(!showFilters)}
             >
               <SlidersHorizontal className="h-4 w-4" />
-              Ø§Ù„ÙÙ„Ø§ØªØ±
+              الفلاتر
             </button>
           </div>
         </div>
@@ -116,15 +116,15 @@ export default function Products() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-6">
-          {/* â”€â”€ Sidebar â”€â”€ */}
+          {/* ── Sidebar ── */}
           <aside className={`w-full md:w-56 shrink-0 space-y-5 ${showFilters ? "block" : "hidden md:block"}`}>
             {/* Search */}
             <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
-              <h3 className="font-bold text-sm text-slate-900 mb-3">Ø§Ù„Ø¨Ø­Ø«</h3>
+              <h3 className="font-bold text-sm text-slate-900 mb-3">البحث</h3>
               <div className="relative">
                 <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <Input
-                  placeholder="Ø§Ø¨Ø­Ø« Ø¹Ù† Ù…Ù†ØªØ¬..."
+                  placeholder="ابحث عن منتج..."
                   className="pr-9 bg-slate-50 rounded-xl border-slate-200 h-10 text-sm"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -135,10 +135,10 @@ export default function Products() {
             {/* Categories */}
             <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-sm text-slate-900">Ø§Ù„Ø£Ù‚Ø³Ø§Ù…</h3>
+                <h3 className="font-bold text-sm text-slate-900">الأقسام</h3>
                 {hasFilters && (
                   <button onClick={clearFilters} className="text-xs text-primary hover:underline flex items-center gap-0.5">
-                    <X className="h-3 w-3" /> Ù…Ø³Ø­
+                    <X className="h-3 w-3" /> مسح
                   </button>
                 )}
               </div>
@@ -150,7 +150,7 @@ export default function Products() {
                     }`}
                     onClick={() => setCategoryId("")}
                   >
-                    Ø§Ù„ÙƒÙ„
+                    الكل
                   </button>
                 </li>
                 {categories?.map((cat) => (
@@ -176,7 +176,7 @@ export default function Products() {
             </div>
           </aside>
 
-          {/* â”€â”€ Product Grid â”€â”€ */}
+          {/* ── Product Grid ── */}
           <div className="flex-1 min-w-0">
             {showInitialSkeleton ? (
               <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -189,13 +189,13 @@ export default function Products() {
                 <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Search className="h-7 w-7 text-slate-400" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù†ØªØ¬Ø§Øª</h3>
-                <p className="text-slate-500 text-sm mb-6">Ù„Ù… Ù†Ø¹Ø«Ø± Ø¹Ù„Ù‰ Ù…Ù†ØªØ¬Ø§Øª ØªØ·Ø§Ø¨Ù‚ Ø¨Ø­Ø«Ùƒ.</p>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">لا توجد منتجات</h3>
+                <p className="text-slate-500 text-sm mb-6">لم نعثر على منتجات تطابق بحثك.</p>
                 <button
                   onClick={clearFilters}
                   className="text-primary font-semibold hover:underline text-sm"
                 >
-                  Ù…Ø³Ø­ Ø§Ù„ÙÙ„Ø§ØªØ± ÙˆØ§Ù„Ø¨Ø­Ø«
+                  مسح الفلاتر والبحث
                 </button>
               </div>
             ) : (
@@ -222,13 +222,13 @@ export default function Products() {
                       {isLoadingMore || isFetching ? (
                         <>
                           <Loader2 className="h-5 w-5 animate-spin" />
-                          <span>Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</span>
+                          <span>جاري التحميل...</span>
                         </>
                       ) : (
                         <>
-                          <span>Ø¹Ø±Ø¶ Ø§Ù„Ù…Ø²ÙŠØ¯</span>
+                          <span>عرض المزيد</span>
                           <span className="bg-white/20 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
-                            {total - allProducts.length} Ù…Ù†ØªØ¬
+                            {total - allProducts.length} منتج
                           </span>
                         </>
                       )}
@@ -240,7 +240,7 @@ export default function Products() {
                 {!hasMore && allProducts.length > 0 && total > PAGE_LIMIT && (
                   <div className="flex items-center gap-3 justify-center mt-10 text-slate-400 text-sm">
                     <div className="h-px w-16 bg-slate-200" />
-                    <span>ØªÙ… Ø¹Ø±Ø¶ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª ({total})</span>
+                    <span>تم عرض جميع المنتجات ({total})</span>
                     <div className="h-px w-16 bg-slate-200" />
                   </div>
                 )}

@@ -1,4 +1,4 @@
-﻿import { useParams, Link, useLocation } from "wouter";
+import { useParams, Link, useLocation } from "wouter";
 import { useGetProduct, getGetProductQueryKey } from "@/lib/api-client";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,65 +12,65 @@ import { useCurrency } from "@/lib/currency-context";
 import { FlashSaleTimer } from "@/components/FlashSaleTimer";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    Persuasive features per category
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+────────────────────────────────────────────── */
 const CATEGORY_FEATURES: Record<string, string[]> = {
-  "Ø§Ù„Ø£Ø¬Ù‡Ø²Ø© Ø§Ù„Ø°ÙƒÙŠØ©": [
-    "Ø£Ø¯Ø§Ø¡ Ù…ØªÙ‚Ø¯Ù… ÙŠÙˆÙØ± ÙˆÙ‚ØªÙƒ ÙˆÙŠØ±ÙØ¹ Ø¥Ù†ØªØ§Ø¬ÙŠØªÙƒ",
-    "ØªØµÙ…ÙŠÙ… Ø£Ù†ÙŠÙ‚ Ù…Ù†Ø§Ø³Ø¨ Ù„Ø­ÙŠØ§ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©",
-    "Ù…ØªÙˆØ§ÙÙ‚ Ù…Ø¹ Ø£Ø­Ø¯Ø« Ø§Ù„ØªØ·Ø¨ÙŠÙ‚Ø§Øª ÙˆØ§Ù„Ø£Ù†Ø¸Ù…Ø©",
-    "Ø¶Ù…Ø§Ù† Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„ÙƒØ§Ù…Ù„Ø© Ø¹Ù„Ù‰ ÙƒÙ„ Ù‚Ø·Ø¹Ø©",
+  "الأجهزة الذكية": [
+    "أداء متقدم يوفر وقتك ويرفع إنتاجيتك",
+    "تصميم أنيق مناسب لحياتك اليومية",
+    "متوافق مع أحدث التطبيقات والأنظمة",
+    "ضمان الجودة الكاملة على كل قطعة",
   ],
-  "Ø§Ù„Ø£Ø·ÙØ§Ù„": [
-    "Ø¢Ù…Ù† 100% Ù„Ù„Ø£Ø·ÙØ§Ù„ â€” Ø®Ø§Ù„Ù Ù…Ù† Ø£ÙŠ Ù…ÙˆØ§Ø¯ Ø¶Ø§Ø±Ø©",
-    "ÙŠØ­ÙØ² Ø§Ù„Ø¥Ø¨Ø¯Ø§Ø¹ ÙˆØ§Ù„Ø°ÙƒØ§Ø¡ Ù…Ù†Ø° Ø§Ù„ØµØºØ±",
-    "Ù…ØªÙŠÙ† ÙˆÙŠØªØ­Ù…Ù„ Ø§Ù„Ù„Ø¹Ø¨ Ø§Ù„ÙŠÙˆÙ…ÙŠ Ø¨ÙƒÙ„ Ù‚ÙˆØ©",
-    "Ù…Ø­Ø¨ÙˆØ¨ Ù…Ù† Ø§Ù„Ø£Ø·ÙØ§Ù„ ÙˆÙ…Ø±ÙŠØ­ Ù„Ø±Ø§Ø­Ø© Ø¨Ø§Ù„ Ø§Ù„Ø¢Ø¨Ø§Ø¡",
+  "الأطفال": [
+    "آمن 100% للأطفال — خالٍ من أي مواد ضارة",
+    "يحفز الإبداع والذكاء منذ الصغر",
+    "متين ويتحمل اللعب اليومي بكل قوة",
+    "محبوب من الأطفال ومريح لراحة بال الآباء",
   ],
-  "Ø§Ù„Ø¬Ù…Ø§Ù„ ÙˆØ§Ù„Ø¹Ù†Ø§ÙŠØ©": [
-    "Ù†ØªØ§Ø¦Ø¬ Ù…Ù„Ù…ÙˆØ³Ø© ØªØ¸Ù‡Ø± Ù…Ù† Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ Ø§Ù„Ø£ÙˆÙ„",
-    "ØªØ±ÙƒÙŠØ¨Ø© Ù…ÙˆØ«ÙˆÙ‚Ø© ÙˆÙ…Ø¬Ø±Ù‘Ø¨Ø© Ù…Ù† Ø¢Ù„Ø§Ù Ø§Ù„Ø¹Ù…ÙŠÙ„Ø§Øª",
-    "Ù…Ù†Ø§Ø³Ø¨ Ù„Ù…Ù†Ø§Ø® Ù„ÙŠØ¨ÙŠØ§ Ø§Ù„Ø­Ø§Ø± ÙˆØ·Ø¨ÙŠØ¹Ø© Ø§Ù„Ø¨Ø´Ø±Ø© Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©",
-    "Ø³Ø¹Ø± Ø¹Ø§Ø¯Ù„ Ù„Ù…Ù†ØªØ¬ Ø¨Ø¬ÙˆØ¯Ø© Ø§Ù„Ø¹Ù„Ø§Ù…Ø§Øª Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ©",
+  "الجمال والعناية": [
+    "نتائج ملموسة تظهر من الأسبوع الأول",
+    "تركيبة موثوقة ومجرّبة من آلاف العميلات",
+    "مناسب لمناخ ليبيا الحار وطبيعة البشرة العربية",
+    "سعر عادل لمنتج بجودة العلامات العالمية",
   ],
-  "Ø§Ù„ØµØ­Ø© ÙˆØ§Ù„Ø¹Ù†Ø§ÙŠØ© Ø§Ù„Ø´Ø®ØµÙŠØ©": [
-    "ÙŠØ¯Ø¹Ù… ØµØ­ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ© Ø¨Ø´ÙƒÙ„ Ù…Ø­Ø³ÙˆØ³",
-    "Ù…ÙƒÙˆÙ†Ø§Øª Ù…Ø®ØªØ§Ø±Ø© Ø¨Ø¹Ù†Ø§ÙŠØ© Ù„Ø¶Ù…Ø§Ù† Ø§Ù„Ø³Ù„Ø§Ù…Ø©",
-    "Ù†ØªØ§Ø¦Ø¬ Ø³Ø±ÙŠØ¹Ø© ØªØ´Ø¹Ø± Ø¨Ù‡Ø§ Ù…Ù†Ø° Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©",
-    "Ù…Ù†Ø§Ø³Ø¨ Ù„Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„ÙŠÙˆÙ…ÙŠ Ù„ÙƒÙ„ Ø§Ù„ÙØ¦Ø§Øª",
+  "الصحة والعناية الشخصية": [
+    "يدعم صحتك اليومية بشكل محسوس",
+    "مكونات مختارة بعناية لضمان السلامة",
+    "نتائج سريعة تشعر بها منذ البداية",
+    "مناسب للاستخدام اليومي لكل الفئات",
   ],
-  "Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø¨Ø§Ù„Ø¨Ø´Ø±Ø©": [
-    "ÙŠÙØ±Ø·Ù‘Ø¨ Ø§Ù„Ø¨Ø´Ø±Ø© ÙˆÙŠØ¬Ø¯Ø¯ Ù†Ø¶Ø§Ø±ØªÙ‡Ø§ Ø¨Ø¹Ù…Ù‚",
-    "Ù…ØµÙ…Ù… Ø®ØµÙŠØµØ§Ù‹ Ù„Ù„Ù…Ù†Ø§Ø® Ø§Ù„Ø¬Ø§Ù ÙˆØ§Ù„Ø­Ø§Ø±",
-    "ØªØ±ÙƒÙŠØ¨Ø© Ù„Ø·ÙŠÙØ© â€” Ø¢Ù…Ù†Ø© Ø­ØªÙ‰ Ù„Ù„Ø¨Ø´Ø±Ø© Ø§Ù„Ø­Ø³Ø§Ø³Ø©",
-    "Ø¨Ø´Ø±Ø© Ø£ÙƒØ«Ø± Ø¥Ø´Ø±Ø§Ù‚Ø§Ù‹ ÙˆÙ†Ø¹ÙˆÙ…Ø© ÙÙŠ ÙˆÙ‚Øª Ù‚ÙŠØ§Ø³ÙŠ",
+  "العناية بالبشرة": [
+    "يُرطّب البشرة ويجدد نضارتها بعمق",
+    "مصمم خصيصاً للمناخ الجاف والحار",
+    "تركيبة لطيفة — آمنة حتى للبشرة الحساسة",
+    "بشرة أكثر إشراقاً ونعومة في وقت قياسي",
   ],
-  "Ø§Ù„Ù…ÙƒÙ…Ù„Ø§Øª Ø§Ù„ØºØ°Ø§Ø¦ÙŠØ©": [
-    "ØªØ±ÙƒÙŠØ² ÙØ§Ø¦Ù‚ Ø¨Ø£Ø¹Ù„Ù‰ Ù…Ø¹Ø§ÙŠÙŠØ± Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ©",
-    "ÙŠÙØ¹Ø²Ø² Ø·Ø§Ù‚ØªÙƒ ÙˆØ£Ø¯Ø§Ø¡Ùƒ Ø·ÙˆØ§Ù„ Ø§Ù„ÙŠÙˆÙ…",
-    "Ù…Ø«Ø§Ù„ÙŠ Ù„Ù„Ø±ÙŠØ§Ø¶ÙŠÙŠÙ† ÙˆÙ„Ù…Ù† ÙŠØ¨Ø­Ø« Ø¹Ù† Ù†Ø´Ø§Ø· Ø­Ù‚ÙŠÙ‚ÙŠ",
-    "Ù†ØªØ§Ø¦Ø¬ ÙˆØ§Ø¶Ø­Ø© ÙˆÙ…Ù„Ù…ÙˆØ³Ø© Ø®Ù„Ø§Ù„ Ø£Ø³Ø¨ÙˆØ¹ÙŠÙ† ÙÙ‚Ø·",
+  "المكملات الغذائية": [
+    "تركيز فائق بأعلى معايير الجودة العالمية",
+    "يُعزز طاقتك وأداءك طوال اليوم",
+    "مثالي للرياضيين ولمن يبحث عن نشاط حقيقي",
+    "نتائج واضحة وملموسة خلال أسبوعين فقط",
   ],
-  "Ø§Ù„Ù…Ù†Ø²Ù„ ÙˆØ§Ù„Ù…Ø·Ø¨Ø®": [
-    "ÙŠÙØ­ÙˆÙ‘Ù„ Ù…Ù†Ø²Ù„Ùƒ Ù„Ø¨ÙŠØ¦Ø© Ù…Ù†Ø¸Ù…Ø© ÙˆØ£Ù†ÙŠÙ‚Ø©",
-    "Ø¬ÙˆØ¯Ø© Ù…ÙˆØ§Ø¯ Ø¹Ø§Ù„ÙŠØ© ØªØµÙ…Ø¯ Ø£Ù…Ø§Ù… Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„ÙŠÙˆÙ…ÙŠ",
-    "ØªØµÙ…ÙŠÙ… Ø¹Ù…Ù„ÙŠ ÙŠÙˆÙØ± ÙˆÙ‚ØªÙƒ ÙˆØ¬Ù‡Ø¯Ùƒ ÙÙŠ Ø§Ù„Ø£Ø¹Ù…Ø§Ù„ Ø§Ù„Ù…Ù†Ø²Ù„ÙŠØ©",
-    "Ù…Ø«Ø§Ù„ÙŠ Ù„Ù„Ù…Ø·Ø¨Ø® Ø§Ù„Ù„ÙŠØ¨ÙŠ ÙˆØ­ÙŠØ§Ø© Ø§Ù„Ø¹Ø§Ø¦Ù„Ø©",
+  "المنزل والمطبخ": [
+    "يُحوّل منزلك لبيئة منظمة وأنيقة",
+    "جودة مواد عالية تصمد أمام الاستخدام اليومي",
+    "تصميم عملي يوفر وقتك وجهدك في الأعمال المنزلية",
+    "مثالي للمطبخ الليبي وحياة العائلة",
   ],
-  "Ù…Ù†ØªØ¬Ø§Øª Ù…ØªÙ†ÙˆØ¹Ø©": [
-    "Ø¬ÙˆØ¯Ø© Ù…Ø¶Ù…ÙˆÙ†Ø© 100% Ø¹Ù„Ù‰ ÙƒÙ„ Ø·Ù„Ø¨",
-    "Ù…Ù†ØªØ¬ Ù…Ø¬Ø±Ù‘Ø¨ ÙˆÙ…Ø­Ø¨ÙˆØ¨ Ù…Ù† Ø¢Ù„Ø§Ù Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡ Ø§Ù„Ù„ÙŠØ¨ÙŠÙŠÙ†",
-    "Ø§Ø®ØªÙŠØ§Ø± Ø°ÙƒÙŠ ÙŠÙØ­Ø³Ù‘Ù† Ø­ÙŠØ§ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ© ÙØ¹Ù„Ø§Ù‹",
-    "Ø³Ø¹Ø± Ø¹Ø§Ø¯Ù„ Ø¨Ø¯ÙˆÙ† Ù…Ø¨Ø§Ù„ØºØ© â€” Ù‚ÙŠÙ…Ø© Ø­Ù‚ÙŠÙ‚ÙŠØ© Ù„ÙƒÙ„ Ø¯ÙŠÙ†Ø§Ø±",
+  "منتجات متنوعة": [
+    "جودة مضمونة 100% على كل طلب",
+    "منتج مجرّب ومحبوب من آلاف العملاء الليبيين",
+    "اختيار ذكي يُحسّن حياتك اليومية فعلاً",
+    "سعر عادل بدون مبالغة — قيمة حقيقية لكل دينار",
   ],
 };
 
 const DEFAULT_FEATURES = [
-  "Ø¬ÙˆØ¯Ø© Ù…Ø¶Ù…ÙˆÙ†Ø© Ø¹Ù„Ù‰ ÙƒÙ„ Ø·Ù„Ø¨",
-  "Ù…Ù†ØªØ¬ Ø£ØµÙ„ÙŠ Ø¨Ø³Ø¹Ø± Ù…Ù†Ø§Ø³Ø¨",
-  "Ù…Ø¬Ø±Ù‘Ø¨ ÙˆÙ…Ø±Ø¶ÙŠ Ù…Ù† Ø§Ù„Ø¹Ù…Ù„Ø§Ø¡",
-  "Ø¯Ø¹Ù… ÙƒØ§Ù…Ù„ Ø¨Ø¹Ø¯ Ø§Ù„Ø´Ø±Ø§Ø¡",
+  "جودة مضمونة على كل طلب",
+  "منتج أصلي بسعر مناسب",
+  "مجرّب ومرضي من العملاء",
+  "دعم كامل بعد الشراء",
 ];
 
 function getFeatures(categoryName: string | null | undefined): string[] {
@@ -81,9 +81,9 @@ function getFeatures(categoryName: string | null | undefined): string[] {
   return DEFAULT_FEATURES;
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    Component
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+────────────────────────────────────────────── */
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [, setLocation] = useLocation();
@@ -95,7 +95,7 @@ export default function ProductDetail() {
     query: { enabled: !!slug, queryKey: getGetProductQueryKey(slug!) }
   });
 
-  /* Scroll-triggered sticky bar â€” window.scroll is reliable regardless of
+  /* Scroll-triggered sticky bar — window.scroll is reliable regardless of
      when the product data arrives (IntersectionObserver would miss the ref
      being null on initial mount before the product loads). */
   const [stickyVisible, setStickyVisible] = useState(false);
@@ -130,7 +130,7 @@ export default function ProductDetail() {
         category: product.categoryName ?? "",
       });
     }
-    toast.success(`âœ“ Ø£ÙØ¶ÙŠÙ Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø© (${qtyTier} ${qtyTier === 1 ? "Ù‚Ø·Ø¹Ø©" : "Ù‚Ø·Ø¹"})`, { position: "top-center", duration: 2000 });
+    toast.success(`✓ أُضيف إلى السلة (${qtyTier} ${qtyTier === 1 ? "قطعة" : "قطع"})`, { position: "top-center", duration: 2000 });
   };
 
   const handleOrderNow = () => {
@@ -178,11 +178,11 @@ export default function ProductDetail() {
   if (!product) {
     return (
       <div className="container mx-auto px-4 py-32 text-center">
-        <div className="text-6xl mb-4">ðŸ”</div>
-        <h2 className="text-2xl font-extrabold text-slate-900 mb-2">Ø§Ù„Ù…Ù†ØªØ¬ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯</h2>
-        <p className="text-slate-500 mb-6">Ù„Ù… Ù†Ø¹Ø«Ø± Ø¹Ù„Ù‰ Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬.</p>
+        <div className="text-6xl mb-4">🔍</div>
+        <h2 className="text-2xl font-extrabold text-slate-900 mb-2">المنتج غير موجود</h2>
+        <p className="text-slate-500 mb-6">لم نعثر على هذا المنتج.</p>
         <Link href="/products" className="inline-flex items-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-full">
-          <ArrowRight className="h-4 w-4" /> Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…Ù†ØªØ¬Ø§Øª
+          <ArrowRight className="h-4 w-4" /> العودة للمنتجات
         </Link>
       </div>
     );
@@ -200,26 +200,26 @@ export default function ProductDetail() {
   const hasVolume = !!(pq2 || pq3);
   const selectedPrice = qtyTier === 3 && pq3 ? pq3 : qtyTier === 2 && pq2 ? pq2 : product.price;
 
-  /* Stock scarcity â€” seeded by id so it stays stable across re-renders */
+  /* Stock scarcity — seeded by id so it stays stable across re-renders */
   const stockLeft = ((product.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % 5) + 3);
 
   const features = getFeatures(product.categoryName);
-  const initials = product.nameAr?.substring(0, 2) || "ØŸ";
+  const initials = product.nameAr?.substring(0, 2) || "؟";
   const ratingNum = product.rating ? Number(product.rating) : 4.5;
   const reviewCount = Math.floor(ratingNum * 47 + 31);
 
   return (
     <>
-      {/* â”€â”€ Page â”€â”€ */}
+      {/* ── Page ── */}
       <div className="bg-slate-50 min-h-screen py-5 md:py-8">
         {/* pb-28 on mobile = space so sticky bar never hides content */}
         <div className="container mx-auto px-3 sm:px-4 max-w-6xl pb-28 md:pb-0">
 
           {/* Breadcrumb */}
           <div className="flex items-center gap-1.5 text-xs md:text-sm text-slate-500 mb-4 md:mb-6 flex-wrap">
-            <Link href="/" className="hover:text-primary transition-colors">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</Link>
+            <Link href="/" className="hover:text-primary transition-colors">الرئيسية</Link>
             <span className="text-slate-300">/</span>
-            <Link href="/products" className="hover:text-primary transition-colors">Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª</Link>
+            <Link href="/products" className="hover:text-primary transition-colors">المنتجات</Link>
             <span className="text-slate-300">/</span>
             <span className="text-slate-700 font-medium line-clamp-1 max-w-[160px] md:max-w-[220px]">{product.nameAr}</span>
           </div>
@@ -228,7 +228,7 @@ export default function ProductDetail() {
           <div className="bg-white rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
             <div className="flex flex-col lg:flex-row">
 
-              {/* â”€â”€ Image Panel â”€â”€ */}
+              {/* ── Image Panel ── */}
               <div className="w-full lg:w-[46%] bg-gradient-to-br from-slate-50 to-slate-100 relative flex items-center justify-center min-h-[280px] md:min-h-[400px] lg:min-h-[560px] p-6 md:p-10 border-b lg:border-b-0 lg:border-l border-slate-100">
                 {product.imageUrl ? (
                   <img
@@ -254,7 +254,7 @@ export default function ProductDetail() {
                 <div className="absolute top-3 right-3 md:top-5 md:right-5 flex flex-col gap-1.5 md:gap-2">
                   {discount && (
                     <span className="bg-rose-500 text-white text-xs md:text-sm font-black px-2.5 py-1 md:px-3 md:py-1.5 rounded-full shadow-lg shadow-rose-200">
-                      Ø®ØµÙ… {discount}%
+                      خصم {discount}%
                     </span>
                   )}
                   {(product as any).badge && (
@@ -268,12 +268,12 @@ export default function ProductDetail() {
                 <div className="absolute bottom-3 right-3 left-3 md:bottom-5 md:right-5 md:left-5">
                   <div className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl md:rounded-2xl px-3 py-2 md:px-4 md:py-2.5 flex items-center gap-2 shadow-sm">
                     <Zap className="h-3.5 w-3.5 md:h-4 md:w-4 text-amber-500 shrink-0 fill-amber-400" />
-                    <span className="text-[11px] md:text-xs font-bold text-slate-700">ðŸ”¥ Ù…Ù†ØªØ¬ Ø±Ø§Ø¦Ø¬ â€” Ø¥Ù‚Ø¨Ø§Ù„ Ø¹Ø§Ù„Ù Ù‡Ø°Ø§ Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹</span>
+                    <span className="text-[11px] md:text-xs font-bold text-slate-700">🔥 منتج رائج — إقبال عالٍ هذا الأسبوع</span>
                   </div>
                 </div>
               </div>
 
-              {/* â”€â”€ Content Panel â”€â”€ */}
+              {/* ── Content Panel ── */}
               <div className="w-full lg:w-[54%] p-5 md:p-7 lg:p-10 flex flex-col gap-4 md:gap-5">
 
                 {/* Category + availability */}
@@ -284,11 +284,11 @@ export default function ProductDetail() {
                     </span>
                   )}
                   <span className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full border border-emerald-100">
-                    âœ“ Ù…ØªÙˆÙØ± ÙˆÙ…ØªØ§Ø­ Ù„Ù„Ø·Ù„Ø¨
+                    ✓ متوفر ومتاح للطلب
                   </span>
                   {/* Stock scarcity */}
                   <span className="bg-rose-50 text-rose-700 text-xs font-bold px-3 py-1 rounded-full border border-rose-100 animate-pulse">
-                    ðŸ”¥ ØªØ¨Ù‚Ù‘Øª {stockLeft} Ù‚Ø·Ø¹ ÙÙ‚Ø·!
+                    🔥 تبقّت {stockLeft} قطع فقط!
                   </span>
                 </div>
 
@@ -308,9 +308,9 @@ export default function ProductDetail() {
                     ))}
                   </div>
                   <span className="text-sm font-bold text-slate-700">{ratingNum.toFixed(1)}</span>
-                  <span className="text-xs md:text-sm text-slate-400">({reviewCount} ØªÙ‚ÙŠÙŠÙ…)</span>
+                  <span className="text-xs md:text-sm text-slate-400">({reviewCount} تقييم)</span>
                   <span className="text-xs text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full">
-                    Ù…ÙˆØµÙ‰ Ø¨Ù‡
+                    موصى به
                   </span>
                 </div>
 
@@ -329,9 +329,9 @@ export default function ProductDetail() {
                   {savings && (
                     <div className="mt-2 flex items-center gap-2">
                       <span className="text-xs md:text-sm font-black text-emerald-600 bg-emerald-100 px-2.5 py-0.5 rounded-full">
-                        ðŸ’° ÙˆÙÙ‘Ø± {savings} {currency}
+                        💰 وفّر {savings} {currency}
                       </span>
-                      <span className="text-xs text-slate-500">Ù…Ù‚Ø§Ø±Ù†Ø©Ù‹ Ø¨Ø§Ù„Ø³Ø¹Ø± Ø§Ù„Ø£ØµÙ„ÙŠ</span>
+                      <span className="text-xs text-slate-500">مقارنةً بالسعر الأصلي</span>
                     </div>
                   )}
                 </div>
@@ -341,7 +341,7 @@ export default function ProductDetail() {
                   <div className="bg-slate-50 rounded-xl md:rounded-2xl p-3.5 md:p-4 border border-slate-100">
                     <h3 className="text-sm font-black text-slate-700 mb-2 flex items-center gap-1.5">
                       <Award className="h-4 w-4 text-primary shrink-0" />
-                      Ù„Ù…Ø§Ø°Ø§ Ù‡Ø°Ø§ Ø§Ù„Ù…Ù†ØªØ¬ØŸ
+                      لماذا هذا المنتج؟
                     </h3>
                     <p className="text-slate-600 text-sm leading-relaxed">
                       {product.descriptionAr}
@@ -353,7 +353,7 @@ export default function ProductDetail() {
                 <div>
                   <h3 className="text-sm font-black text-slate-700 mb-3 flex items-center gap-1.5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                    Ø§Ù„Ù…Ù…ÙŠØ²Ø§Øª Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©
+                    المميزات الرئيسية
                   </h3>
                   <div className="grid grid-cols-1 gap-2">
                     {features.map((feat, i) => (
@@ -361,7 +361,7 @@ export default function ProductDetail() {
                         key={i}
                         className="flex items-start gap-2.5 bg-white border border-slate-100 rounded-xl px-3.5 py-2.5 shadow-sm"
                       >
-                        <span className="text-base leading-none mt-0.5 shrink-0">âœ…</span>
+                        <span className="text-base leading-none mt-0.5 shrink-0">✅</span>
                         <span className="text-sm text-slate-700 font-medium leading-snug">{feat}</span>
                       </div>
                     ))}
@@ -371,9 +371,9 @@ export default function ProductDetail() {
                 {/* Trust bar */}
                 <div className="grid grid-cols-3 gap-2 text-center">
                   {[
-                    { icon: <Banknote className="h-5 w-5 text-emerald-500 mx-auto mb-1" />, label: "Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…" },
-                    { icon: <Truck className="h-5 w-5 text-blue-500 mx-auto mb-1" />, label: "ØªÙˆØµÙŠÙ„ Ù„ÙƒÙ„ Ù„ÙŠØ¨ÙŠØ§" },
-                    { icon: <Shield className="h-5 w-5 text-purple-500 mx-auto mb-1" />, label: "Ø¶Ù…Ø§Ù† Ø§Ù„Ø¬ÙˆØ¯Ø© 100%" },
+                    { icon: <Banknote className="h-5 w-5 text-emerald-500 mx-auto mb-1" />, label: "الدفع عند الاستلام" },
+                    { icon: <Truck className="h-5 w-5 text-blue-500 mx-auto mb-1" />, label: "توصيل لكل ليبيا" },
+                    { icon: <Shield className="h-5 w-5 text-purple-500 mx-auto mb-1" />, label: "ضمان الجودة 100%" },
                   ].map(({ icon, label }) => (
                     <div key={label} className="bg-slate-50 border border-slate-100 rounded-xl py-3 px-2">
                       {icon}
@@ -382,21 +382,21 @@ export default function ProductDetail() {
                   ))}
                 </div>
 
-                {/* â”€â”€ Primary CTA: Order Now â”€â”€ */}
+                {/* ── Primary CTA: Order Now ── */}
                 <button
                   onClick={handleOrderNow}
                   className="flex w-full rounded-2xl bg-slate-900 hover:bg-primary px-6 py-4 text-lg font-black text-white shadow-lg hover:shadow-primary/30 transition-all duration-200 items-center justify-center gap-2 group touch-manipulation active:scale-[0.98]"
                 >
                   <Clock className="h-5 w-5 group-hover:animate-pulse" />
-                  Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù† â€” Ø§Ù„Ø¯ÙØ¹ Ø¹Ù†Ø¯ Ø§Ù„Ø§Ø³ØªÙ„Ø§Ù…
+                  اطلب الآن — الدفع عند الاستلام
                 </button>
 
                 {/* Volume tier selector */}
                 {hasVolume && (
                   <div className="space-y-2">
-                    <p className="text-xs font-bold text-slate-500 mb-1">Ø§Ø®ØªØ± Ø§Ù„ÙƒÙ…ÙŠØ©</p>
+                    <p className="text-xs font-bold text-slate-500 mb-1">اختر الكمية</p>
 
-                    {/* Tier 1 â€” always shown */}
+                    {/* Tier 1 — always shown */}
                     <button
                       onClick={() => setQtyTier(1)}
                       className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation ${
@@ -411,7 +411,7 @@ export default function ProductDetail() {
                         }`}>
                           {qtyTier === 1 && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
                         </div>
-                        <span className="font-bold text-slate-800 text-sm">Ù‚Ø·Ø¹Ø© ÙˆØ§Ø­Ø¯Ø©</span>
+                        <span className="font-bold text-slate-800 text-sm">قطعة واحدة</span>
                       </div>
                       <span className={`font-black text-base ${qtyTier === 1 ? "text-primary" : "text-slate-700"}`}>
                         {product.price} <span className="text-xs font-bold">{currency}</span>
@@ -429,7 +429,7 @@ export default function ProductDetail() {
                         }`}
                       >
                         <span className="absolute -top-2.5 right-3 bg-emerald-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
-                          Ø§Ù„Ø£ÙˆÙØ± âœ¦
+                          الأوفر ✦
                         </span>
                         <div className="flex items-center gap-2.5">
                           <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
@@ -438,9 +438,9 @@ export default function ProductDetail() {
                             {qtyTier === 2 && <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />}
                           </div>
                           <div className="text-right">
-                            <span className="font-bold text-slate-800 text-sm">Ù‚Ø·Ø¹ØªØ§Ù†</span>
+                            <span className="font-bold text-slate-800 text-sm">قطعتان</span>
                             <span className="text-[10px] text-emerald-600 font-bold mr-1.5">
-                              ÙˆÙÙ‘Ø± {(product.price * 2 - pq2).toFixed(0)} {currency}
+                              وفّر {(product.price * 2 - pq2).toFixed(0)} {currency}
                             </span>
                           </div>
                         </div>
@@ -461,7 +461,7 @@ export default function ProductDetail() {
                         }`}
                       >
                         <span className="absolute -top-2.5 right-3 bg-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
-                          Ø§Ù„ØªÙˆÙÙŠØ± Ø§Ù„Ø£Ù‚ØµÙ‰ âœ¦
+                          التوفير الأقصى ✦
                         </span>
                         <div className="flex items-center gap-2.5">
                           <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
@@ -470,9 +470,9 @@ export default function ProductDetail() {
                             {qtyTier === 3 && <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />}
                           </div>
                           <div className="text-right">
-                            <span className="font-bold text-slate-800 text-sm">Ù£ Ù‚Ø·Ø¹</span>
+                            <span className="font-bold text-slate-800 text-sm">٣ قطع</span>
                             <span className="text-[10px] text-amber-600 font-bold mr-1.5">
-                              ÙˆÙÙ‘Ø± {(product.price * 3 - pq3).toFixed(0)} {currency}
+                              وفّر {(product.price * 3 - pq3).toFixed(0)} {currency}
                             </span>
                           </div>
                         </div>
@@ -491,9 +491,9 @@ export default function ProductDetail() {
                   onClick={handleAddToCart}
                 >
                   <ShoppingCart className="h-4 w-4 md:h-5 md:w-5 shrink-0" />
-                  Ø£Ø¶Ù Ø¥Ù„Ù‰ Ø§Ù„Ø³Ù„Ø©
+                  أضف إلى السلة
                   {hasVolume && qtyTier > 1 && (
-                    <span className="text-xs opacity-80 font-semibold">â€” {selectedPrice} {currency}</span>
+                    <span className="text-xs opacity-80 font-semibold">— {selectedPrice} {currency}</span>
                   )}
                 </Button>
 
@@ -505,13 +505,13 @@ export default function ProductDetail() {
           <div className="mt-5 md:mt-6">
             <Link href="/products" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary font-semibold transition-colors min-h-[44px]">
               <ArrowRight className="h-4 w-4 shrink-0" />
-              Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª
+              العودة لجميع المنتجات
             </Link>
           </div>
         </div>
       </div>
 
-      {/* â”€â”€ Sticky Mobile Order Bar â€” scroll-triggered slide-up â”€â”€ */}
+      {/* ── Sticky Mobile Order Bar — scroll-triggered slide-up ── */}
       <div
         className={`md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-[0_-6px_24px_rgba(0,0,0,0.14)] px-4 pt-3 transition-transform duration-300 ease-out ${
           stickyVisible ? "translate-y-0" : "translate-y-full"
@@ -540,10 +540,10 @@ export default function ProductDetail() {
               <span className="text-lg font-black text-primary leading-none">{selectedPrice}</span>
               <span className="text-xs font-bold text-primary/80">{currency}</span>
               {qtyTier > 1 && (
-                <span className="text-[10px] text-emerald-600 font-bold mr-1">{qtyTier} Ù‚Ø·Ø¹</span>
+                <span className="text-[10px] text-emerald-600 font-bold mr-1">{qtyTier} قطع</span>
               )}
               {qtyTier === 1 && discount && (
-                <span className="text-[10px] text-rose-500 font-bold mr-1">Ø®ØµÙ… {discount}%</span>
+                <span className="text-[10px] text-rose-500 font-bold mr-1">خصم {discount}%</span>
               )}
             </div>
           </div>
@@ -554,12 +554,12 @@ export default function ProductDetail() {
             className="flex items-center justify-center gap-1.5 bg-slate-900 hover:bg-primary text-white font-black text-sm rounded-xl px-4 py-3 shadow-lg transition-all duration-200 touch-manipulation active:scale-95 shrink-0"
           >
             <Clock className="h-3.5 w-3.5 shrink-0" />
-            Ø§Ø·Ù„Ø¨ Ø§Ù„Ø¢Ù†
+            اطلب الآن
           </button>
         </div>
       </div>
 
-      {/* â”€â”€ Social Proof Popup â”€â”€ */}
+      {/* ── Social Proof Popup ── */}
       <SocialProofPopup />
     </>
   );
