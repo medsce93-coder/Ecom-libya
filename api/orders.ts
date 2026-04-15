@@ -45,7 +45,7 @@ async function listOrders(req: VercelRequest, res: VercelResponse) {
     const orders = await query<OrderRow>(
       `
         SELECT
-          id,
+          id::text AS id,
           order_number AS "orderNumber",
           status,
           customer_name AS "customerName",
@@ -129,7 +129,7 @@ async function getOrderById(
     const [order] = await query<OrderRow>(
       `
         SELECT
-          id,
+          id::text AS id,
           order_number AS "orderNumber",
           status,
           customer_name AS "customerName",
@@ -143,7 +143,7 @@ async function getOrderById(
           created_at AS "createdAt",
           updated_at AS "updatedAt"
         FROM orders
-        WHERE id = $1
+        WHERE id::text = $1
         LIMIT 1
       `,
       [idParam],
@@ -207,55 +207,77 @@ async function createCartOrder(req: VercelRequest, res: VercelResponse) {
     }, 0);
     const shippingFee = 0;
     const total = subtotal + shippingFee;
-    const orderId = randomUUID();
     const orderNumber = `ORD-${Date.now()}`;
 
-    await withTransaction(async (client) => {
-      await insertOrder(client, {
-        id: orderId,
-        orderNumber,
-        status: "new",
-        customerName,
-        customerPhone,
-        customerCity,
-        customerAddress,
-        subtotal,
-        shippingFee,
-        total,
-        notes,
-      });
+    const orderId = await withTransaction(async (client) => {
+      let insertedOrderId: bigint;
+      try {
+        insertedOrderId = await insertOrder(client, {
+          orderNumber,
+          status: "new",
+          customerName,
+          customerPhone,
+          customerCity,
+          customerAddress,
+          subtotal,
+          shippingFee,
+          total,
+          notes,
+        });
+      } catch (error) {
+        console.error("Failed to insert cart order row", {
+          orderNumber,
+          customerPhone,
+          error,
+        });
+        throw error;
+      }
+      const orderIdText = insertedOrderId.toString();
 
       for (const item of items) {
         const quantity = Math.max(1, Number(item.quantity ?? 1));
         const price = Number(item.price ?? 0);
         const lineSubtotal = price * quantity;
 
-        await client.query(
-          `
-            INSERT INTO order_items (
-              id, order_id, product_id, product_name, product_name_ar,
-              product_image, price, quantity, subtotal
-            )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-          `,
-          [
-            randomUUID(),
-            orderId,
-            String(item.productId ?? item.id ?? ""),
-            String(item.name ?? item.nameAr ?? ""),
-            String(item.nameAr ?? item.name ?? ""),
-            item.image ? String(item.image) : item.imageUrl ? String(item.imageUrl) : null,
-            String(price),
+        try {
+          await client.query(
+            `
+              INSERT INTO order_items (
+                id, order_id, product_id, product_name, product_name_ar,
+                product_image, price, quantity, subtotal
+              )
+              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            `,
+            [
+              randomUUID(),
+              orderIdText,
+              String(item.productId ?? item.id ?? ""),
+              String(item.name ?? item.nameAr ?? ""),
+              String(item.nameAr ?? item.name ?? ""),
+              item.image ? String(item.image) : item.imageUrl ? String(item.imageUrl) : null,
+              String(price),
+              quantity,
+              String(lineSubtotal),
+            ],
+          );
+        } catch (error) {
+          console.error("Failed to insert cart order item", {
+            orderId: orderIdText,
+            productId: String(item.productId ?? item.id ?? ""),
             quantity,
-            String(lineSubtotal),
-          ],
-        );
+            error,
+          });
+          throw error;
+        }
       }
+
+      return orderIdText;
     });
 
     const order = await fetchOrderWithItems(orderId);
     return sendJson(res, 201, order);
   } catch (error) {
+    console.error("Failed to create cart order", { error });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to create order",
@@ -323,49 +345,72 @@ async function createDirectOrder(req: VercelRequest, res: VercelResponse) {
     const shippingFee = 0;
     const total = subtotal + shippingFee;
 
-    const orderId = randomUUID();
     const orderNumber = `ORD-${Date.now()}`;
 
-    await withTransaction(async (client) => {
-      await insertOrder(client, {
-        id: orderId,
-        orderNumber,
-        status: "new",
-        customerName,
-        customerPhone,
-        customerCity,
-        customerAddress,
-        subtotal,
-        shippingFee,
-        total,
-        notes,
-      });
+    const orderId = await withTransaction(async (client) => {
+      let insertedOrderId: bigint;
+      try {
+        insertedOrderId = await insertOrder(client, {
+          orderNumber,
+          status: "new",
+          customerName,
+          customerPhone,
+          customerCity,
+          customerAddress,
+          subtotal,
+          shippingFee,
+          total,
+          notes,
+        });
+      } catch (error) {
+        console.error("Failed to insert direct order row", {
+          orderNumber,
+          customerPhone,
+          productId,
+          error,
+        });
+        throw error;
+      }
+      const orderIdText = insertedOrderId.toString();
 
-      await client.query(
-        `
-          INSERT INTO order_items (
-            id, order_id, product_id, product_name, product_name_ar,
-            product_image, price, quantity, subtotal
-          )
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-        `,
-        [
-          randomUUID(),
-          orderId,
-          product.id,
-          product.name ?? "",
-          product.nameAr ?? "",
-          product.imageUrl,
-          String(Number(product.price)),
-          itemQuantity,
-          String(subtotal),
-        ],
-      );
+      try {
+        await client.query(
+          `
+            INSERT INTO order_items (
+              id, order_id, product_id, product_name, product_name_ar,
+              product_image, price, quantity, subtotal
+            )
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+          `,
+          [
+            randomUUID(),
+            orderIdText,
+            product.id,
+            product.name ?? "",
+            product.nameAr ?? "",
+            product.imageUrl,
+            String(Number(product.price)),
+            itemQuantity,
+            String(subtotal),
+          ],
+        );
+      } catch (error) {
+        console.error("Failed to insert direct order item", {
+          orderId: orderIdText,
+          productId: product.id,
+          quantity: itemQuantity,
+          error,
+        });
+        throw error;
+      }
+
+      return orderIdText;
     });
 
     const order = await fetchOrderWithItems(orderId);
     return sendJson(res, 201, order);
   } catch (error) {
+    console.error("Failed to create direct order", { error });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to create direct order",
@@ -394,9 +439,9 @@ async function updateOrderStatus(
       `
         UPDATE orders
         SET status = $1, updated_at = NOW()
-        WHERE id = $2
+        WHERE id::text = $2
         RETURNING
-          id,
+          id::text AS id,
           order_number AS "orderNumber",
           status,
           customer_name AS "customerName",
@@ -460,8 +505,8 @@ async function deleteOrder(
     const [deleted] = await query<{ id: string }>(
       `
         DELETE FROM orders
-        WHERE id = $1
-        RETURNING id
+        WHERE id::text = $1
+        RETURNING id::text AS id
       `,
       [idParam],
     );

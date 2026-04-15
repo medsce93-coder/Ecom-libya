@@ -2,11 +2,17 @@ import type { PoolClient } from "pg";
 import { query } from "./db.js";
 import { mapOrder, type OrderItemRow, type OrderRow } from "./orders.js";
 
-export async function fetchOrderWithItems(orderId: string) {
+function normalizeOrderId(orderId: string | number | bigint) {
+  return String(orderId).trim();
+}
+
+export async function fetchOrderWithItems(orderId: string | number | bigint) {
+  const orderIdText = normalizeOrderId(orderId);
+
   const [order] = await query<OrderRow>(
     `
       SELECT
-        id,
+        id::text AS id,
         order_number AS "orderNumber",
         status,
         customer_name AS "customerName",
@@ -20,10 +26,10 @@ export async function fetchOrderWithItems(orderId: string) {
         created_at AS "createdAt",
         updated_at AS "updatedAt"
       FROM orders
-      WHERE id = $1
+      WHERE id::text = $1
       LIMIT 1
     `,
-    [orderId],
+    [orderIdText],
   );
   if (!order) return null;
 
@@ -42,7 +48,7 @@ export async function fetchOrderWithItems(orderId: string) {
       FROM order_items
       WHERE order_id = $1
     `,
-    [orderId],
+    [orderIdText],
   );
 
   return mapOrder(order, items);
@@ -51,7 +57,6 @@ export async function fetchOrderWithItems(orderId: string) {
 export async function insertOrder(
   client: PoolClient,
   payload: {
-    id: string;
     orderNumber: string;
     status: string;
     customerName: string;
@@ -64,31 +69,50 @@ export async function insertOrder(
     notes?: string | null;
   },
 ) {
-  await client.query(
-    `
-      INSERT INTO orders (
-        id, order_number, status,
-        customer_name, customer_phone, customer_city, customer_address,
-        subtotal, shipping_fee, total, notes, created_at, updated_at
-      )
-      VALUES (
-        $1, $2, $3,
-        $4, $5, $6, $7,
-        $8, $9, $10, $11, NOW(), NOW()
-      )
-    `,
-    [
-      payload.id,
-      payload.orderNumber,
-      payload.status,
-      payload.customerName,
-      payload.customerPhone,
-      payload.customerCity,
-      payload.customerAddress,
-      String(payload.subtotal),
-      String(payload.shippingFee),
-      String(payload.total),
-      payload.notes ?? null,
-    ],
-  );
+  try {
+    const result = await client.query<{ id: string | number | bigint }>(
+      `
+        INSERT INTO orders (
+          order_number, status,
+          customer_name, customer_phone, customer_city, customer_address,
+          subtotal, shipping_fee, total, notes, created_at, updated_at
+        )
+        VALUES (
+          $1, $2,
+          $3, $4, $5, $6,
+          $7, $8, $9, $10, NOW(), NOW()
+        )
+        RETURNING id
+      `,
+      [
+        payload.orderNumber,
+        payload.status,
+        payload.customerName,
+        payload.customerPhone,
+        payload.customerCity,
+        payload.customerAddress,
+        String(payload.subtotal),
+        String(payload.shippingFee),
+        String(payload.total),
+        payload.notes ?? null,
+      ],
+    );
+
+    const inserted = result.rows[0];
+    if (!inserted?.id) {
+      throw new Error("Order insert did not return id");
+    }
+
+    return typeof inserted.id === "bigint"
+      ? inserted.id
+      : BigInt(String(inserted.id));
+  } catch (error) {
+    console.error("Failed to insert order", {
+      orderNumber: payload.orderNumber,
+      status: payload.status,
+      customerPhone: payload.customerPhone,
+      error,
+    });
+    throw error;
+  }
 }
