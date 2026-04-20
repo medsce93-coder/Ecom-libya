@@ -205,26 +205,66 @@ type Product = {
 };
 
 /* ─── Shared Image Input (upload from device OR paste URL) ──────── */
-function ProductImageInput({ value, onChange }: { value: string; onChange: (url: string) => void }) {
+function ProductImageInput({
+  value,
+  onChange,
+}: {
+  value?: string | null;
+  onChange: (url: string) => void;
+}) {
+  const safeValue = typeof value === "string" ? value : "";
   const [uploading, setUploading] = useState(false);
-  const [urlDraft, setUrlDraft] = useState(value);
+  const [urlDraft, setUrlDraft] = useState(safeValue);
+  const [uploadError, setUploadError] = useState("");
 
-  useEffect(() => { setUrlDraft(value); }, [value]);
+  useEffect(() => { setUrlDraft(safeValue); }, [safeValue]);
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     e.target.value = "";
+    setUploadError("");
     setUploading(true);
     try {
       const fd = new FormData();
       fd.append("file", file);
-      const { url } = await apiFetch<{ url: string }>("/api/upload", {
+      const uploadResult = await apiFetch<{
+        url?: string;
+        publicUrl?: string;
+        path?: string;
+      }>("/api/upload", {
         method: "POST",
         body: fd,
       });
-      onChange(url);
-    } catch { /* silent — parent can show a generic error */ }
+      const uploadedUrl =
+        uploadResult?.url || uploadResult?.publicUrl || uploadResult?.path;
+      if (!uploadedUrl) {
+        console.error("Admin product image upload response missing URL", {
+          uploadResult,
+        });
+        throw new Error("Upload response missing URL");
+      }
+
+      try {
+        const normalizedUploadedUrl = String(uploadedUrl);
+        setUrlDraft(normalizedUploadedUrl);
+        onChange(normalizedUploadedUrl);
+      } catch (stateError) {
+        console.error("Admin product image state update failed", {
+          stateError,
+          uploadedUrl,
+        });
+        throw stateError;
+      }
+    } catch (error) {
+      console.error("Admin product image upload failed", {
+        error,
+        fileName: file?.name,
+        fileType: file?.type,
+        fileSize: file?.size,
+      });
+      setUploadError("Failed to upload image. Please try a smaller file.");
+    }
     finally { setUploading(false); }
   };
 
@@ -234,10 +274,10 @@ function ProductImageInput({ value, onChange }: { value: string; onChange: (url:
   return (
     <div className="space-y-2">
       {/* Preview */}
-      {value ? (
+      {safeValue ? (
         <div className="relative w-full h-36 rounded-xl bg-slate-50 border border-slate-200 overflow-hidden flex items-center justify-center">
           <img
-            src={resolvePreview(value)}
+            src={resolvePreview(safeValue)}
             alt=""
             className="max-h-full max-w-full object-contain"
             onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
@@ -263,13 +303,29 @@ function ProductImageInput({ value, onChange }: { value: string; onChange: (url:
         <input type="file" accept="image/*,image/gif" className="hidden" onChange={handleFile} disabled={uploading} />
       </label>
 
+      {uploadError && (
+        <p className="text-xs text-rose-600 bg-rose-50 border border-rose-200 rounded-lg px-2.5 py-1.5">
+          {uploadError}
+        </p>
+      )}
+
       {/* URL paste */}
       <input
         type="text"
         value={urlDraft}
         onChange={e => setUrlDraft(e.target.value)}
-        onBlur={() => onChange(urlDraft.trim())}
-        onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); onChange(urlDraft.trim()); } }}
+        onBlur={() => {
+          if (uploading) return;
+          const nextUrl = urlDraft.trim();
+          if (nextUrl !== safeValue) onChange(nextUrl);
+        }}
+        onKeyDown={e => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            const nextUrl = urlDraft.trim();
+            if (nextUrl !== safeValue) onChange(nextUrl);
+          }
+        }}
         placeholder="أو الصق رابط الصورة مباشرةً هنا…"
         className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-primary focus:bg-white transition-all"
         dir="ltr"
@@ -1009,8 +1065,12 @@ function LandingPagesTab() {
     try {
       const body = {
         ...form,
-        features: form.features.filter(f => f.trim()),
-        mediaUrls: form.mediaUrls.filter(u => u.trim()),
+        features: form.features
+          .filter((f): f is string => typeof f === "string" && f.trim().length > 0)
+          .map((f) => f.trim()),
+        mediaUrls: form.mediaUrls
+          .filter((u): u is string => typeof u === "string" && u.trim().length > 0)
+          .map((u) => u.trim()),
         boxContents: form.boxContents || null,
         urgencyText: form.urgencyText || null,
       };
@@ -1101,9 +1161,23 @@ function LandingPagesTab() {
       });
       const uploadedUrl = uploadResult?.url || uploadResult?.publicUrl || uploadResult?.path;
       if (!uploadedUrl) {
+        console.error("Landing page media upload response missing URL", {
+          uploadResult,
+          index: i,
+          fileName: file?.name,
+        });
         throw new Error("Upload response did not include media URL");
       }
-      updateMediaUrl(i, String(uploadedUrl));
+      try {
+        updateMediaUrl(i, String(uploadedUrl));
+      } catch (stateError) {
+        console.error("Landing page media state update failed", {
+          stateError,
+          index: i,
+          uploadedUrl,
+        });
+        throw stateError;
+      }
       setFormError("");
     } catch (error) {
       console.error("Landing page media upload failed", {
@@ -1136,7 +1210,7 @@ function LandingPagesTab() {
             <label className="block text-sm font-bold text-slate-700 mb-1">المنتج *</label>
             <select
               value={form.productId}
-              onChange={e => setForm({ ...form, productId: e.target.value })}
+              onChange={e => setForm((prev) => ({ ...prev, productId: e.target.value }))}
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white"
             >
               <option value="">— اختر منتج —</option>
@@ -1156,7 +1230,12 @@ function LandingPagesTab() {
               <input
                 type="text"
                 value={form.slug}
-                onChange={e => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
+                onChange={e =>
+                  setForm((prev) => ({
+                    ...prev,
+                    slug: e.target.value.toLowerCase().replace(/\s+/g, "-"),
+                  }))
+                }
                 placeholder="bubble-gun-promo"
                 className="flex-1 px-3 py-2.5 text-sm outline-none"
                 dir="ltr"
@@ -1170,7 +1249,7 @@ function LandingPagesTab() {
             <input
               type="text"
               value={form.headline}
-              onChange={e => setForm({ ...form, headline: e.target.value })}
+              onChange={e => setForm((prev) => ({ ...prev, headline: e.target.value }))}
               placeholder="فرح صغارك مع مسدس الفقاعات الآلي! 🫧"
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
@@ -1181,7 +1260,7 @@ function LandingPagesTab() {
             <label className="block text-sm font-bold text-slate-700 mb-1">العنوان الفرعي <span className="text-slate-400 font-normal">(اختياري)</span></label>
             <textarea
               value={form.subheadline}
-              onChange={e => setForm({ ...form, subheadline: e.target.value })}
+              onChange={e => setForm((prev) => ({ ...prev, subheadline: e.target.value }))}
               rows={2}
               placeholder="وصف مختصر ومقنع للعرض..."
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
@@ -1323,7 +1402,7 @@ function LandingPagesTab() {
             </label>
             <textarea
               value={form.boxContents}
-              onChange={e => setForm({ ...form, boxContents: e.target.value })}
+              onChange={e => setForm((prev) => ({ ...prev, boxContents: e.target.value }))}
               rows={3}
               placeholder={"مسدس الفقاعات الآلي\nشيشة سائل الفقاعات\nصحن صغير"}
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
@@ -1338,7 +1417,7 @@ function LandingPagesTab() {
             <input
               type="text"
               value={form.urgencyText}
-              onChange={e => setForm({ ...form, urgencyText: e.target.value })}
+              onChange={e => setForm((prev) => ({ ...prev, urgencyText: e.target.value }))}
               placeholder="عرض محدود — التوصيل مجاني لعند باب الحوش!"
               className="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
             />

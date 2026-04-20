@@ -91,6 +91,10 @@ export default async function handler(
     const file = Array.isArray(rawFile) ? rawFile[0] : rawFile;
 
     if (!file) {
+      console.error("Upload request missing file payload", {
+        hasFilesObject: Boolean(files),
+        fileKeys: Object.keys(files || {}),
+      });
       return sendJson(res, 400, {
         error: "bad_request",
         message: "No file uploaded",
@@ -106,6 +110,11 @@ export default async function handler(
     }
 
     if (!ALLOWED_MIME_TYPES.has(mimeType) || !ALLOWED_EXTENSIONS.has(ext)) {
+      console.error("Upload rejected by file type validation", {
+        mimeType,
+        ext,
+        originalFilename: file.originalFilename,
+      });
       return sendJson(res, 400, {
         error: "bad_request",
         message: "Only image or video files are allowed",
@@ -132,6 +141,13 @@ export default async function handler(
       });
 
     if (error) {
+      console.error("Supabase storage upload failed", {
+        error,
+        bucket,
+        objectPath,
+        mimeType,
+        size: bytes.byteLength,
+      });
       return sendJson(res, 500, {
         error: "upload_failed",
         message: error.message,
@@ -139,7 +155,22 @@ export default async function handler(
     }
 
     const { data } = supabase.storage.from(bucket).getPublicUrl(objectPath);
-    return sendJson(res, 201, { url: data.publicUrl });
+    if (!data?.publicUrl) {
+      console.error("Supabase storage did not return public URL", {
+        bucket,
+        objectPath,
+      });
+      return sendJson(res, 500, {
+        error: "upload_failed",
+        message: "Uploaded file but failed to resolve its public URL",
+      });
+    }
+
+    return sendJson(res, 201, {
+      url: data.publicUrl,
+      publicUrl: data.publicUrl,
+      path: objectPath,
+    });
   } catch (error: any) {
     if (error?.code === 1009 || error?.httpCode === 413) {
       return sendJson(res, 413, {
@@ -147,6 +178,13 @@ export default async function handler(
         message: `Upload size exceeds the ${Math.floor(MAX_UPLOAD_BYTES / (1024 * 1024))}MB limit`,
       });
     }
+
+    console.error("Unhandled upload failure", {
+      error,
+      name: error?.name,
+      code: error?.code,
+      message: error?.message,
+    });
 
     return sendJson(res, 500, {
       error: "internal_error",
