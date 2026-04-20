@@ -281,6 +281,7 @@ function ProductImageInput({ value, onChange }: { value: string; onChange: (url:
 /* ─── Create Product Modal ───────────────────────────────── */
 function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
   const queryClient = useQueryClient();
+  const { currency } = useCurrency();
   const [nameAr, setNameAr] = useState("");
   const [price, setPrice] = useState("");
   const [priceQty2, setPriceQty2] = useState("");
@@ -316,7 +317,8 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
       queryClient.invalidateQueries({ queryKey: ["getProducts"] });
       onSaved();
       onClose();
-    } catch {
+    } catch (error) {
+      console.error("Failed to create product from admin modal", error);
       setError("حدث خطأ أثناء الإضافة. حاول مرة أخرى.");
     } finally {
       setSaving(false);
@@ -439,21 +441,37 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
 }
 
 function EditModal({ product, onClose, onSaved }: { product: Product; onClose: () => void; onSaved: () => void }) {
+  const { currency } = useCurrency();
   const { mutateAsync: updateProduct } = useUpdateProduct();
-  const [price, setPrice] = useState(String(product.price));
-  const [comparePrice, setComparePrice] = useState(product.compareAtPrice ? String(product.compareAtPrice) : "");
-  const [priceQty2, setPriceQty2] = useState((product as any).priceQty2 ? String((product as any).priceQty2) : "");
-  const [priceQty3, setPriceQty3] = useState((product as any).priceQty3 ? String((product as any).priceQty3) : "");
-  const [stock, setStock] = useState(String(product.stock));
-  const [imageUrl, setImageUrl] = useState(product.imageUrl || "");
-  const [active, setActive] = useState(product.active);
-  const [featured, setFeatured] = useState(product.featured);
+  const initialPrice = Number.isFinite(Number(product.price)) ? String(Number(product.price)) : "0";
+  const initialComparePrice = Number.isFinite(Number(product.compareAtPrice))
+    ? String(Number(product.compareAtPrice))
+    : "";
+  const initialPriceQty2 = Number.isFinite(Number((product as any).priceQty2))
+    ? String(Number((product as any).priceQty2))
+    : "";
+  const initialPriceQty3 = Number.isFinite(Number((product as any).priceQty3))
+    ? String(Number((product as any).priceQty3))
+    : "";
+  const initialStock = Number.isFinite(Number(product.stock)) ? String(Number(product.stock)) : "0";
+  const initialImageUrl = typeof product.imageUrl === "string" ? product.imageUrl : "";
+  const initialActive = Boolean(product.active);
+  const initialFeatured = Boolean(product.featured);
+
+  const [price, setPrice] = useState(initialPrice);
+  const [comparePrice, setComparePrice] = useState(initialComparePrice);
+  const [priceQty2, setPriceQty2] = useState(initialPriceQty2);
+  const [priceQty3, setPriceQty3] = useState(initialPriceQty3);
+  const [stock, setStock] = useState(initialStock);
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
+  const [active, setActive] = useState(initialActive);
+  const [featured, setFeatured] = useState(initialFeatured);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [err, setErr] = useState("");
 
-  const imgSrc = product.imageUrl
-    ? (product.imageUrl.startsWith("http") || product.imageUrl.startsWith("/") ? product.imageUrl : `/${product.imageUrl}`)
+  const imgSrc = initialImageUrl
+    ? (initialImageUrl.startsWith("http") || initialImageUrl.startsWith("/") ? initialImageUrl : `/${initialImageUrl}`)
     : null;
 
   const priceNum = parseFloat(price);
@@ -485,7 +503,11 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
       });
       setSaved(true);
       setTimeout(() => { onSaved(); onClose(); }, 900);
-    } catch {
+    } catch (error) {
+      console.error("Failed to update product from admin modal", {
+        error,
+        productId: product.id,
+      });
       setErr("حدث خطأ أثناء الحفظ. يرجى المحاولة مجدداً.");
     } finally {
       setSaving(false);
@@ -943,7 +965,10 @@ function LandingPagesTab() {
         auth: false,
       });
       setPages(Array.isArray(data) ? data : []);
-    } catch { setPages([]); }
+    } catch (error) {
+      console.error("Failed to load admin landing pages", error);
+      setPages([]);
+    }
     finally { setLoadingPages(false); }
   }, []);
 
@@ -963,7 +988,9 @@ function LandingPagesTab() {
       slug: p.slug,
       headline: p.headline,
       subheadline: p.subheadline ?? "",
-      mediaUrls: p.mediaUrls && p.mediaUrls.length > 0 ? p.mediaUrls : [""],
+      mediaUrls: Array.isArray(p.mediaUrls) && p.mediaUrls.length > 0
+        ? p.mediaUrls.map((u) => (typeof u === "string" ? u : ""))
+        : [""],
       features: p.features.length > 0 ? p.features : [""],
       boxContents: p.boxContents ?? "",
       urgencyText: p.urgencyText ?? "",
@@ -997,6 +1024,11 @@ function LandingPagesTab() {
       await loadPages();
       setMode("list");
     } catch (e: any) {
+      console.error("Failed to save landing page", {
+        error: e,
+        mode,
+        landingPageId: editingPage?.id ?? null,
+      });
       setFormError(e.message ?? "صار خطأ، حاول مرة ثانية.");
     } finally { setSaving(false); }
   };
@@ -1013,30 +1045,74 @@ function LandingPagesTab() {
   };
 
   const updateFeature = (i: number, val: string) => {
-    const fs = [...form.features]; fs[i] = val; setForm({ ...form, features: fs });
+    setForm((prev) => {
+      const features = [...prev.features];
+      features[i] = val;
+      return { ...prev, features };
+    });
   };
-  const addFeature = () => setForm({ ...form, features: [...form.features, ""] });
-  const removeFeature = (i: number) => setForm({ ...form, features: form.features.filter((_, j) => j !== i) });
+  const addFeature = () =>
+    setForm((prev) => ({ ...prev, features: [...prev.features, ""] }));
+  const removeFeature = (i: number) =>
+    setForm((prev) => ({
+      ...prev,
+      features: prev.features.filter((_, j) => j !== i),
+    }));
 
   const updateMediaUrl = (i: number, val: string) => {
-    const ms = [...form.mediaUrls]; ms[i] = val; setForm({ ...form, mediaUrls: ms });
+    setForm((prev) => {
+      const mediaUrls = [...prev.mediaUrls];
+      if (i >= mediaUrls.length) {
+        mediaUrls.push(val);
+      } else {
+        mediaUrls[i] = val;
+      }
+      return { ...prev, mediaUrls };
+    });
   };
-  const addMedia = () => setForm({ ...form, mediaUrls: [...form.mediaUrls, ""] });
-  const removeMedia = (i: number) => setForm({ ...form, mediaUrls: form.mediaUrls.filter((_, j) => j !== i) });
+  const addMedia = () =>
+    setForm((prev) => ({ ...prev, mediaUrls: [...prev.mediaUrls, ""] }));
+  const removeMedia = (i: number) =>
+    setForm((prev) => ({
+      ...prev,
+      mediaUrls: prev.mediaUrls.filter((_, j) => j !== i),
+    }));
 
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
+  const normalizeMediaUrl = (url: string) =>
+    !url ? "" : url.startsWith("http") || url.startsWith("/") ? url : `/${url}`;
+  const isVideoMedia = (url: string) =>
+    /\.(mp4|webm|mov)(\?.*)?$/i.test(url.trim());
+  const isExternalEmbedLink = (url: string) =>
+    /(?:youtube\.com|youtu\.be|tiktok\.com)/i.test(url.trim());
+
   const handleFileUpload = async (i: number, file: File) => {
     setUploadingIdx(i);
     try {
       const fd = new FormData();
       fd.append("file", file);
-      const { url } = await apiFetch<{ url: string }>("/api/upload", {
+      const uploadResult = await apiFetch<{
+        url?: string;
+        publicUrl?: string;
+        path?: string;
+      }>("/api/upload", {
         method: "POST",
         body: fd,
       });
-      updateMediaUrl(i, url);
-    } catch {
-      setFormError("فشل رفع الصورة، حاول مرة ثانية.");
+      const uploadedUrl = uploadResult?.url || uploadResult?.publicUrl || uploadResult?.path;
+      if (!uploadedUrl) {
+        throw new Error("Upload response did not include media URL");
+      }
+      updateMediaUrl(i, String(uploadedUrl));
+      setFormError("");
+    } catch (error) {
+      console.error("Landing page media upload failed", {
+        error,
+        index: i,
+        fileName: file?.name,
+        fileType: file?.type,
+      });
+      setFormError("فشل رفع الوسائط، حاول مرة ثانية.");
     } finally {
       setUploadingIdx(null);
     }
@@ -1118,7 +1194,9 @@ function LandingPagesTab() {
               الصور، الفيديوهات، والروابط (YouTube/TikTok) <span className="text-slate-400 font-normal">(اختياري — يستبدل صورة المنتج)</span>
             </label>
             <div className="space-y-3">
-              {form.mediaUrls.map((url, i) => (
+              {form.mediaUrls.map((rawUrl, i) => {
+                const url = typeof rawUrl === "string" ? rawUrl : "";
+                return (
                 <div key={i} className="border border-slate-200 rounded-2xl p-3 bg-slate-50 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-slate-500">صورة {i + 1}</span>
@@ -1168,16 +1246,42 @@ function LandingPagesTab() {
 
                   {/* Preview */}
                   {url.trim() && (
-                    <img
-                      src={url.startsWith("http") || url.startsWith("/") ? url : `/${url}`}
-                      alt="معاينة"
-                      className="w-full max-h-32 object-contain rounded-xl border border-slate-200 bg-white"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                      onLoad={(e) => { (e.target as HTMLImageElement).style.display = ""; }}
-                    />
+                    isExternalEmbedLink(url) ? (
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-primary hover:underline"
+                        dir="ltr"
+                      >
+                        {url}
+                      </a>
+                    ) : isVideoMedia(url) ? (
+                      <video
+                        src={normalizeMediaUrl(url)}
+                        controls
+                        preload="metadata"
+                        className="w-full max-h-48 rounded-xl border border-slate-200 bg-black"
+                      />
+                    ) : (
+                      <img
+                        src={normalizeMediaUrl(url)}
+                        alt="معاينة"
+                        className="w-full max-h-32 object-contain rounded-xl border border-slate-200 bg-white"
+                        onError={(e) => {
+                          console.error("Landing page media preview failed", {
+                            url,
+                            type: "image",
+                          });
+                          (e.target as HTMLImageElement).style.display = "none";
+                        }}
+                        onLoad={(e) => { (e.target as HTMLImageElement).style.display = ""; }}
+                      />
+                    )
                   )}
                 </div>
-              ))}
+                );
+              })}
               <button onClick={addMedia} className="text-primary text-sm font-bold flex items-center gap-1 hover:underline mt-1">
                 + أضف ميديا (صورة، فيديو، رابط)
               </button>
