@@ -101,7 +101,7 @@ a {
 /* Announcement bar marquee */
 @keyframes announcement-marquee {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(var(--marquee-distance, 0px) * -1)); }
 }
 .announcement-track {
   display: flex;
@@ -114,14 +114,11 @@ a {
 .announcement-group {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   flex: 0 0 auto;
   width: max-content;
-  min-width: 100vw;
-  box-sizing: border-box;
-  padding-inline-end: clamp(2rem, 5vw, 5rem);
 }
 .announcement-item {
   flex: 0 0 auto;
+  padding-inline-end: clamp(2.5rem, 7vw, 6rem);
   white-space: nowrap;
 }

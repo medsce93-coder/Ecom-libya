@@ -4,6 +4,7 @@ import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { apiFetch } from "@/lib/api";
 import { getDefaultHeroSlides, type HeroSlide } from "@/lib/hero-slider";
+import { AnnouncementTicker } from "@/components/AnnouncementBar";
 import {
   useGetProducts, getGetProductsQueryKey,
   useUpdateProduct,
@@ -1617,8 +1618,6 @@ function isHexColor(value: unknown): value is string {
   return typeof value === "string" && /^#[0-9a-fA-F]{3,8}$/.test(value);
 }
 
-const ANNOUNCEMENT_MARQUEE_DURATION_SECONDS = 30;
-
 function SettingsTab() {
   const { currency, setCurrency } = useCurrency();
   const [localCurrency, setLocalCurrency] = useState(currency);
@@ -1719,8 +1718,6 @@ function SettingsTab() {
       secondaryCtaHref: slide.secondaryCtaHref.trim(),
       sortOrder: index,
     }));
-
-  const announcementPreviewText = announcementText.trim();
 
   const handleSave = async () => {
     if (!localCurrency.trim()) { setError("رمز العملة لا يمكن أن يكون فارغاً"); return; }
@@ -1903,30 +1900,13 @@ function SettingsTab() {
 
             {/* Preview */}
             {announcementActive && announcementText.trim() && (
-              <div
-                className="w-full overflow-hidden rounded-xl text-xs font-semibold"
-                style={{
-                  backgroundColor: announcementBgColor,
-                  color: announcementTextColor,
-                  height: "32px",
-                }}
-              >
-                <div className="flex items-center h-full">
-                  <div
-                    className="announcement-track"
-                    style={{ animationDuration: `${ANNOUNCEMENT_MARQUEE_DURATION_SECONDS}s` }}
-                    aria-hidden="true"
-                  >
-                    {[0, 1].map((group) => (
-                      <div className="announcement-group" key={group}>
-                        <span className="announcement-item" dir="rtl">
-                          {announcementPreviewText}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <AnnouncementTicker
+                text={announcementText}
+                backgroundColor={announcementBgColor}
+                color={announcementTextColor}
+                className="rounded-xl text-xs"
+                height={32}
+              />
             )}
           </div>
         </div>
