@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { apiFetch } from "@/lib/api";
+import { getDefaultHeroSlides, type HeroSlide } from "@/lib/hero-slider";
 import {
   useGetProducts, getGetProductsQueryKey,
   useUpdateProduct,
@@ -1561,18 +1562,15 @@ function LandingPagesTab() {
 /* ══════════════════════════════════════════════════════════
    SETTINGS TAB
 ══════════════════════════════════════════════════════════ */
-type HeroSliderAdminSlide = {
-  id: string;
-  imageUrl: string;
-  title: string;
-  subtitle: string;
-  primaryCtaText: string;
-  primaryCtaHref: string;
-  secondaryCtaText: string;
-  secondaryCtaHref: string;
-  isActive: boolean;
-  sortOrder: number;
-};
+type HeroSliderAdminSlide = HeroSlide;
+
+function getDefaultHeroSliderAdminSlides(): HeroSliderAdminSlide[] {
+  return getDefaultHeroSlides().map((slide, index) => ({
+    ...slide,
+    id: slide.id || `default-${index}`,
+    sortOrder: index,
+  }));
+}
 
 function createHeroSlide(sortOrder: number): HeroSliderAdminSlide {
   return {
@@ -1624,7 +1622,9 @@ function SettingsTab() {
   const [primaryColor, setPrimaryColor] = useState("#1d4ed8");
   const [announcementText, setAnnouncementText] = useState("🔥 عروض حصرية لفترة محدودة — الدفع عند الاستلام!");
   const [announcementActive, setAnnouncementActive] = useState(true);
-  const [heroSlides, setHeroSlides] = useState<HeroSliderAdminSlide[]>([]);
+  const [heroSlides, setHeroSlides] = useState<HeroSliderAdminSlide[]>(
+    () => getDefaultHeroSliderAdminSlides(),
+  );
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
@@ -1640,7 +1640,12 @@ function SettingsTab() {
         if (data.primaryColor     !== undefined) setPrimaryColor(data.primaryColor);
         if (data.announcementText !== undefined) setAnnouncementText(data.announcementText);
         if (typeof data.announcementActive === "boolean") setAnnouncementActive(data.announcementActive);
-        if (Array.isArray(data.heroSlider)) setHeroSlides(normalizeHeroSliderAdmin(data.heroSlider));
+        const normalizedSavedSlides = normalizeHeroSliderAdmin(data.heroSlider);
+        setHeroSlides(
+          normalizedSavedSlides.length
+            ? normalizedSavedSlides
+            : getDefaultHeroSliderAdminSlides(),
+        );
       })
       .catch(() => {});
   }, []);
