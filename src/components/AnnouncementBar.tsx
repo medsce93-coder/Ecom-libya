@@ -1,4 +1,5 @@
 import { useBranding } from "@/lib/branding-context";
+import { buildAnnouncementSegment, getAnnouncementDuration } from "@/lib/announcement-marquee";
 
 export function AnnouncementBar() {
   const {
@@ -10,9 +11,8 @@ export function AnnouncementBar() {
 
   if (!announcementActive || !announcementText.trim()) return null;
 
-  const repeatCount = Math.max(8, Math.ceil(240 / Math.max(announcementText.length, 1)));
-  const repeatedChunk = `${Array(repeatCount).fill(announcementText).join("   ·   ")}   ·   `;
-  const duration = Math.max(18, announcementText.length * 0.42);
+  const repeatedChunk = buildAnnouncementSegment(announcementText);
+  const duration = getAnnouncementDuration(announcementText);
 
   return (
     <div

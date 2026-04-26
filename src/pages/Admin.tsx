@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { apiFetch } from "@/lib/api";
+import { buildAnnouncementSegment, getAnnouncementDuration } from "@/lib/announcement-marquee";
 import { getDefaultHeroSlides, type HeroSlide } from "@/lib/hero-slider";
 import {
   useGetProducts, getGetProductsQueryKey,
@@ -1718,8 +1719,8 @@ function SettingsTab() {
       sortOrder: index,
     }));
 
-  const announcementRepeatCount = Math.max(8, Math.ceil(240 / Math.max(announcementText.length, 1)));
-  const announcementLoopText = `${Array(announcementRepeatCount).fill(announcementText).join("   ·   ")}   ·   `;
+  const announcementLoopText = buildAnnouncementSegment(announcementText);
+  const announcementDuration = getAnnouncementDuration(announcementText);
 
   const handleSave = async () => {
     if (!localCurrency.trim()) { setError("رمز العملة لا يمكن أن يكون فارغاً"); return; }
@@ -1913,7 +1914,7 @@ function SettingsTab() {
                 <div className="flex items-center h-full">
                   <div
                     className="announcement-track"
-                    style={{ animationDuration: `${Math.max(18, announcementText.length * 0.42)}s` }}
+                    style={{ animationDuration: `${announcementDuration}s` }}
                   >
                     <span className="announcement-segment">
                       {announcementLoopText}

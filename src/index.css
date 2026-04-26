@@ -105,11 +105,14 @@ a {
 }
 .announcement-track {
   display: flex;
+  align-items: center;
   width: max-content;
   animation: marquee-rtl linear infinite;
   will-change: transform;
 }
 .announcement-segment {
+  display: inline-flex;
+  align-items: center;
   flex-shrink: 0;
   white-space: nowrap;
 }
