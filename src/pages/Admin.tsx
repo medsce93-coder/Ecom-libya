@@ -1617,7 +1617,6 @@ function isHexColor(value: unknown): value is string {
   return typeof value === "string" && /^#[0-9a-fA-F]{3,8}$/.test(value);
 }
 
-const ANNOUNCEMENT_MARQUEE_ITEM_COUNT = 8;
 const ANNOUNCEMENT_MARQUEE_DURATION_SECONDS = 30;
 
 function SettingsTab() {
@@ -1722,9 +1721,6 @@ function SettingsTab() {
     }));
 
   const announcementPreviewText = announcementText.trim();
-  const announcementMarqueeItems = Array.from({
-    length: ANNOUNCEMENT_MARQUEE_ITEM_COUNT,
-  });
 
   const handleSave = async () => {
     if (!localCurrency.trim()) { setError("رمز العملة لا يمكن أن يكون فارغاً"); return; }
@@ -1923,11 +1919,9 @@ function SettingsTab() {
                   >
                     {[0, 1].map((group) => (
                       <div className="announcement-group" key={group}>
-                        {announcementMarqueeItems.map((_, index) => (
-                          <span className="announcement-item" dir="rtl" key={index}>
-                            {announcementPreviewText}
-                          </span>
-                        ))}
+                        <span className="announcement-item" dir="rtl">
+                          {announcementPreviewText}
+                        </span>
                       </div>
                     ))}
                   </div>
