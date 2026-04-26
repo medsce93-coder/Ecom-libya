@@ -39,6 +39,11 @@ function normalizeHeroSlider(input: unknown): HeroSliderSetting[] {
     .map((slide, index) => ({ ...slide, sortOrder: index }));
 }
 
+function normalizeColor(input: unknown, fallback: string) {
+  const color = String(input ?? "").trim();
+  return /^#[0-9a-fA-F]{3,8}$/.test(color) ? color : fallback;
+}
+
 async function getSettings(res: VercelResponse) {
   try {
     const settings = await readSettings();
@@ -68,6 +73,12 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
     const primaryColor = /^#[0-9a-fA-F]{3,8}$/.test(primaryColorRaw)
       ? primaryColorRaw
       : DEFAULT_SETTINGS.primaryColor;
+    const announcementBgColor = body.announcementBgColor === undefined
+      ? currentSettings.announcementBgColor
+      : normalizeColor(body.announcementBgColor, "");
+    const announcementTextColor = body.announcementTextColor === undefined
+      ? currentSettings.announcementTextColor
+      : normalizeColor(body.announcementTextColor, "");
 
     const next = {
       currencySymbol,
@@ -79,6 +90,8 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
         body.announcementText ?? DEFAULT_SETTINGS.announcementText,
       ).trim(),
       announcementActive: body.announcementActive === false ? "false" : "true",
+      announcementBgColor,
+      announcementTextColor,
       heroSlider: body.heroSlider === undefined
         ? currentSettings.heroSlider
         : normalizeHeroSlider(body.heroSlider),
@@ -92,6 +105,8 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
       upsertSetting(KEY_MAP.primaryColor, next.primaryColor),
       upsertSetting(KEY_MAP.announcementText, next.announcementText),
       upsertSetting(KEY_MAP.announcementActive, next.announcementActive),
+      upsertSetting(KEY_MAP.announcementBgColor, next.announcementBgColor),
+      upsertSetting(KEY_MAP.announcementTextColor, next.announcementTextColor),
       upsertSetting(KEY_MAP.heroSlider, JSON.stringify(next.heroSlider)),
     ]);
 

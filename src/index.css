@@ -104,7 +104,12 @@ a {
   100% { transform: translateX(-50%); }
 }
 .announcement-track {
-  display: inline-block;
+  display: flex;
+  width: max-content;
   animation: marquee-rtl linear infinite;
   will-change: transform;
+}
+.announcement-segment {
+  flex-shrink: 0;
+  white-space: nowrap;
 }

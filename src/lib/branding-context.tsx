@@ -11,6 +11,8 @@ interface BrandingState {
   storeName: string;
   announcementText: string;
   announcementActive: boolean;
+  announcementBgColor: string;
+  announcementTextColor: string;
 }
 
 const BrandingContext = createContext<BrandingState>({
@@ -19,6 +21,8 @@ const BrandingContext = createContext<BrandingState>({
   storeName: STORE_NAME,
   announcementText: DEFAULT_ANNOUNCEMENT,
   announcementActive: true,
+  announcementBgColor: DEFAULT_PRIMARY,
+  announcementTextColor: "#ffffff",
 });
 
 export function useBranding() {
@@ -30,6 +34,8 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
   const [primaryColor,       setPrimaryColor]       = useState(DEFAULT_PRIMARY);
   const [announcementText,   setAnnouncementText]   = useState(DEFAULT_ANNOUNCEMENT);
   const [announcementActive, setAnnouncementActive] = useState(true);
+  const [announcementBgColor, setAnnouncementBgColor] = useState("");
+  const [announcementTextColor, setAnnouncementTextColor] = useState("#ffffff");
 
   useEffect(() => {
     apiFetch<{
@@ -37,19 +43,34 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
       primaryColor?: string;
       announcementText?: string;
       announcementActive?: boolean;
+      announcementBgColor?: string;
+      announcementTextColor?: string;
     }>("/api/settings", { auth: false })
       .then((data: {
         logoUrl?: string;
         primaryColor?: string;
         announcementText?: string;
         announcementActive?: boolean;
+        announcementBgColor?: string;
+        announcementTextColor?: string;
       }) => {
         if (data.logoUrl) setLogoUrl(data.logoUrl);
-        if (data.primaryColor && /^#[0-9a-fA-F]{3,8}$/.test(data.primaryColor)) {
-          setPrimaryColor(data.primaryColor);
-        }
+        const resolvedPrimary = data.primaryColor && /^#[0-9a-fA-F]{3,8}$/.test(data.primaryColor)
+          ? data.primaryColor
+          : DEFAULT_PRIMARY;
+        setPrimaryColor(resolvedPrimary);
         if (typeof data.announcementText === "string") setAnnouncementText(data.announcementText);
         if (typeof data.announcementActive === "boolean") setAnnouncementActive(data.announcementActive);
+        if (typeof data.announcementBgColor === "string" && /^#[0-9a-fA-F]{3,8}$/.test(data.announcementBgColor)) {
+          setAnnouncementBgColor(data.announcementBgColor);
+        } else {
+          setAnnouncementBgColor("");
+        }
+        if (typeof data.announcementTextColor === "string" && /^#[0-9a-fA-F]{3,8}$/.test(data.announcementTextColor)) {
+          setAnnouncementTextColor(data.announcementTextColor);
+        } else {
+          setAnnouncementTextColor("#ffffff");
+        }
       })
       .catch(() => {});
   }, []);
@@ -67,6 +88,8 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
       storeName: STORE_NAME,
       announcementText,
       announcementActive,
+      announcementBgColor: announcementBgColor || primaryColor,
+      announcementTextColor,
     }}>
       {children}
     </BrandingContext.Provider>

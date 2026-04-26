@@ -1,25 +1,33 @@
 import { useBranding } from "@/lib/branding-context";
 
 export function AnnouncementBar() {
-  const { announcementActive, announcementText } = useBranding();
+  const {
+    announcementActive,
+    announcementText,
+    announcementBgColor,
+    announcementTextColor,
+  } = useBranding();
 
   if (!announcementActive || !announcementText.trim()) return null;
 
-  const repeated = Array(6).fill(announcementText).join("   ·   ");
+  const repeatCount = Math.max(8, Math.ceil(240 / Math.max(announcementText.length, 1)));
+  const repeatedChunk = `${Array(repeatCount).fill(announcementText).join("   ·   ")}   ·   `;
+  const duration = Math.max(18, announcementText.length * 0.42);
 
   return (
     <div
-      className="w-full overflow-hidden text-white text-sm font-semibold select-none"
-      style={{ backgroundColor: "var(--color-primary)", minHeight: "36px" }}
+      className="w-full overflow-hidden text-sm font-semibold select-none"
+      style={{
+        backgroundColor: announcementBgColor,
+        color: announcementTextColor,
+        minHeight: "36px",
+      }}
       aria-label="شريط الإعلانات"
     >
       <div className="flex items-center" style={{ height: "36px" }}>
-        <div
-          className="announcement-track whitespace-nowrap"
-          style={{ animationDuration: `${Math.max(18, announcementText.length * 0.35)}s` }}
-        >
-          <span className="px-8">{repeated}</span>
-          <span className="px-8" aria-hidden="true">{repeated}</span>
+        <div className="announcement-track" style={{ animationDuration: `${duration}s` }}>
+          <span className="announcement-segment">{repeatedChunk}</span>
+          <span className="announcement-segment" aria-hidden="true">{repeatedChunk}</span>
         </div>
       </div>
     </div>

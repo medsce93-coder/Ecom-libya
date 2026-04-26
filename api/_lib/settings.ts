@@ -21,6 +21,8 @@ const DEFAULT_SETTINGS: {
   primaryColor: string;
   announcementText: string;
   announcementActive: boolean;
+  announcementBgColor: string;
+  announcementTextColor: string;
   heroSlider: HeroSliderSetting[];
 } = {
   currencySymbol: "د.ل",
@@ -30,6 +32,8 @@ const DEFAULT_SETTINGS: {
   primaryColor: "#1d4ed8",
   announcementText: "🔥 عروض حصرية لفترة محدودة — الدفع عند الاستلام!",
   announcementActive: true,
+  announcementBgColor: "",
+  announcementTextColor: "",
   heroSlider: [],
 };
 
@@ -41,6 +45,8 @@ const KEY_MAP = {
   primaryColor: "primary_color",
   announcementText: "announcement_text",
   announcementActive: "announcement_active",
+  announcementBgColor: "announcement_bg_color",
+  announcementTextColor: "announcement_text_color",
   heroSlider: "hero_slider",
 } as const;
 
@@ -78,6 +84,10 @@ export async function readSettings(): Promise<StoreSettings> {
     announcementActive:
       (map.get(KEY_MAP.announcementActive) ??
         String(DEFAULT_SETTINGS.announcementActive)) === "true",
+    announcementBgColor:
+      map.get(KEY_MAP.announcementBgColor) ?? DEFAULT_SETTINGS.announcementBgColor,
+    announcementTextColor:
+      map.get(KEY_MAP.announcementTextColor) ?? DEFAULT_SETTINGS.announcementTextColor,
     heroSlider,
   };
 }

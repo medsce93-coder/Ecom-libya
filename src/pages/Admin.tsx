@@ -1613,6 +1613,10 @@ function normalizeHeroSliderAdmin(value: unknown): HeroSliderAdminSlide[] {
     .map((slide, index) => ({ ...slide, sortOrder: index }));
 }
 
+function isHexColor(value: unknown): value is string {
+  return typeof value === "string" && /^#[0-9a-fA-F]{3,8}$/.test(value);
+}
+
 function SettingsTab() {
   const { currency, setCurrency } = useCurrency();
   const [localCurrency, setLocalCurrency] = useState(currency);
@@ -1622,6 +1626,8 @@ function SettingsTab() {
   const [primaryColor, setPrimaryColor] = useState("#1d4ed8");
   const [announcementText, setAnnouncementText] = useState("🔥 عروض حصرية لفترة محدودة — الدفع عند الاستلام!");
   const [announcementActive, setAnnouncementActive] = useState(true);
+  const [announcementBgColor, setAnnouncementBgColor] = useState("#1d4ed8");
+  const [announcementTextColor, setAnnouncementTextColor] = useState("#ffffff");
   const [heroSlides, setHeroSlides] = useState<HeroSliderAdminSlide[]>(
     () => getDefaultHeroSliderAdminSlides(),
   );
@@ -1637,9 +1643,22 @@ function SettingsTab() {
         if (data.facebookPixelId  !== undefined) setFacebookPixelId(data.facebookPixelId);
         if (data.tiktokPixelId    !== undefined) setTiktokPixelId(data.tiktokPixelId);
         if (data.logoUrl          !== undefined) setLogoUrl(data.logoUrl);
-        if (data.primaryColor     !== undefined) setPrimaryColor(data.primaryColor);
+        const resolvedPrimaryColor = isHexColor(data.primaryColor)
+          ? data.primaryColor
+          : "#1d4ed8";
+        setPrimaryColor(resolvedPrimaryColor);
         if (data.announcementText !== undefined) setAnnouncementText(data.announcementText);
         if (typeof data.announcementActive === "boolean") setAnnouncementActive(data.announcementActive);
+        setAnnouncementBgColor(
+          isHexColor(data.announcementBgColor)
+            ? data.announcementBgColor
+            : resolvedPrimaryColor,
+        );
+        setAnnouncementTextColor(
+          isHexColor(data.announcementTextColor)
+            ? data.announcementTextColor
+            : "#ffffff",
+        );
         const normalizedSavedSlides = normalizeHeroSliderAdmin(data.heroSlider);
         setHeroSlides(
           normalizedSavedSlides.length
@@ -1699,6 +1718,9 @@ function SettingsTab() {
       sortOrder: index,
     }));
 
+  const announcementRepeatCount = Math.max(8, Math.ceil(240 / Math.max(announcementText.length, 1)));
+  const announcementLoopText = `${Array(announcementRepeatCount).fill(announcementText).join("   ·   ")}   ·   `;
+
   const handleSave = async () => {
     if (!localCurrency.trim()) { setError("رمز العملة لا يمكن أن يكون فارغاً"); return; }
     setSaving(true); setError(""); setSaved(false);
@@ -1713,6 +1735,8 @@ function SettingsTab() {
           primaryColor:       primaryColor.trim(),
           announcementText:   announcementText.trim(),
           announcementActive: announcementActive,
+          announcementBgColor: announcementBgColor.trim(),
+          announcementTextColor: announcementTextColor.trim(),
           heroSlider:         preparedHeroSlides,
         },
       });
@@ -1822,16 +1846,81 @@ function SettingsTab() {
               />
             </div>
 
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-slate-700">لون خلفية الشريط</label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="color"
+                    value={announcementBgColor}
+                    onChange={(e) => { setAnnouncementBgColor(e.target.value); setSaved(false); }}
+                    className="w-12 h-12 rounded-xl border-2 border-slate-200 cursor-pointer p-1 bg-white"
+                  />
+                  <input
+                    type="text"
+                    value={announcementBgColor}
+                    onChange={(e) => {
+                      if (/^#[0-9a-fA-F]{0,8}$/.test(e.target.value)) {
+                        setAnnouncementBgColor(e.target.value);
+                        setSaved(false);
+                      }
+                    }}
+                    placeholder="#1d4ed8"
+                    className="flex-1 rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base font-mono text-left outline-none transition"
+                    dir="ltr"
+                    maxLength={9}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-slate-700">لون نص الشريط</label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="color"
+                    value={announcementTextColor}
+                    onChange={(e) => { setAnnouncementTextColor(e.target.value); setSaved(false); }}
+                    className="w-12 h-12 rounded-xl border-2 border-slate-200 cursor-pointer p-1 bg-white"
+                  />
+                  <input
+                    type="text"
+                    value={announcementTextColor}
+                    onChange={(e) => {
+                      if (/^#[0-9a-fA-F]{0,8}$/.test(e.target.value)) {
+                        setAnnouncementTextColor(e.target.value);
+                        setSaved(false);
+                      }
+                    }}
+                    placeholder="#ffffff"
+                    className="flex-1 rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base font-mono text-left outline-none transition"
+                    dir="ltr"
+                    maxLength={9}
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* Preview */}
             {announcementActive && announcementText.trim() && (
               <div
-                className="w-full overflow-hidden rounded-xl text-white text-xs font-semibold"
-                style={{ backgroundColor: "var(--color-primary)", height: "32px" }}
+                className="w-full overflow-hidden rounded-xl text-xs font-semibold"
+                style={{
+                  backgroundColor: announcementBgColor,
+                  color: announcementTextColor,
+                  height: "32px",
+                }}
               >
                 <div className="flex items-center h-full">
-                  <div className="announcement-track whitespace-nowrap" style={{ animationDuration: "12s" }}>
-                    <span className="px-6">{announcementText}   ·   {announcementText}   ·   {announcementText}</span>
-                    <span className="px-6" aria-hidden="true">{announcementText}   ·   {announcementText}   ·   {announcementText}</span>
+                  <div
+                    className="announcement-track"
+                    style={{ animationDuration: `${Math.max(18, announcementText.length * 0.42)}s` }}
+                  >
+                    <span className="announcement-segment">
+                      {announcementLoopText}
+                    </span>
+                    <span className="announcement-segment" aria-hidden="true">
+                      {announcementLoopText}
+                    </span>
                   </div>
                 </div>
               </div>
