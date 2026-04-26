@@ -3,7 +3,6 @@ import { Link } from "wouter";
 import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { apiFetch } from "@/lib/api";
-import { buildAnnouncementSegment, getAnnouncementDuration } from "@/lib/announcement-marquee";
 import { getDefaultHeroSlides, type HeroSlide } from "@/lib/hero-slider";
 import {
   useGetProducts, getGetProductsQueryKey,
@@ -1618,6 +1617,9 @@ function isHexColor(value: unknown): value is string {
   return typeof value === "string" && /^#[0-9a-fA-F]{3,8}$/.test(value);
 }
 
+const ANNOUNCEMENT_MARQUEE_ITEM_COUNT = 8;
+const ANNOUNCEMENT_MARQUEE_DURATION_SECONDS = 30;
+
 function SettingsTab() {
   const { currency, setCurrency } = useCurrency();
   const [localCurrency, setLocalCurrency] = useState(currency);
@@ -1719,8 +1721,10 @@ function SettingsTab() {
       sortOrder: index,
     }));
 
-  const announcementLoopText = buildAnnouncementSegment(announcementText);
-  const announcementDuration = getAnnouncementDuration(announcementText);
+  const announcementPreviewText = announcementText.trim();
+  const announcementMarqueeItems = Array.from({
+    length: ANNOUNCEMENT_MARQUEE_ITEM_COUNT,
+  });
 
   const handleSave = async () => {
     if (!localCurrency.trim()) { setError("رمز العملة لا يمكن أن يكون فارغاً"); return; }
@@ -1914,14 +1918,18 @@ function SettingsTab() {
                 <div className="flex items-center h-full">
                   <div
                     className="announcement-track"
-                    style={{ animationDuration: `${announcementDuration}s` }}
+                    style={{ animationDuration: `${ANNOUNCEMENT_MARQUEE_DURATION_SECONDS}s` }}
+                    aria-hidden="true"
                   >
-                    <span className="announcement-segment">
-                      {announcementLoopText}
-                    </span>
-                    <span className="announcement-segment" aria-hidden="true">
-                      {announcementLoopText}
-                    </span>
+                    {[0, 1].map((group) => (
+                      <div className="announcement-group" key={group}>
+                        {announcementMarqueeItems.map((_, index) => (
+                          <span className="announcement-item" dir="rtl" key={index}>
+                            {announcementPreviewText}
+                          </span>
+                        ))}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
