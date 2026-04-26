@@ -1561,6 +1561,60 @@ function LandingPagesTab() {
 /* ══════════════════════════════════════════════════════════
    SETTINGS TAB
 ══════════════════════════════════════════════════════════ */
+type HeroSliderAdminSlide = {
+  id: string;
+  imageUrl: string;
+  title: string;
+  subtitle: string;
+  primaryCtaText: string;
+  primaryCtaHref: string;
+  secondaryCtaText: string;
+  secondaryCtaHref: string;
+  isActive: boolean;
+  sortOrder: number;
+};
+
+function createHeroSlide(sortOrder: number): HeroSliderAdminSlide {
+  return {
+    id: `slide-${Date.now()}-${sortOrder}`,
+    imageUrl: "",
+    title: "عنوان الشريحة",
+    subtitle: "وصف قصير يظهر فوق صورة السلايدر.",
+    primaryCtaText: "تسوق الآن",
+    primaryCtaHref: "/products",
+    secondaryCtaText: "تصفح الأقسام",
+    secondaryCtaHref: "#home-categories",
+    isActive: true,
+    sortOrder,
+  };
+}
+
+function normalizeHeroSliderAdmin(value: unknown): HeroSliderAdminSlide[] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .map((slide, index) => {
+      const item = slide && typeof slide === "object"
+        ? (slide as Partial<HeroSliderAdminSlide>)
+        : {};
+
+      return {
+        id: String(item.id || `slide-${index}`),
+        imageUrl: String(item.imageUrl || ""),
+        title: String(item.title || ""),
+        subtitle: String(item.subtitle || ""),
+        primaryCtaText: String(item.primaryCtaText || ""),
+        primaryCtaHref: String(item.primaryCtaHref || ""),
+        secondaryCtaText: String(item.secondaryCtaText || ""),
+        secondaryCtaHref: String(item.secondaryCtaHref || ""),
+        isActive: item.isActive !== false,
+        sortOrder: Number.isFinite(Number(item.sortOrder)) ? Number(item.sortOrder) : index,
+      };
+    })
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .map((slide, index) => ({ ...slide, sortOrder: index }));
+}
+
 function SettingsTab() {
   const { currency, setCurrency } = useCurrency();
   const [localCurrency, setLocalCurrency] = useState(currency);
@@ -1570,6 +1624,7 @@ function SettingsTab() {
   const [primaryColor, setPrimaryColor] = useState("#1d4ed8");
   const [announcementText, setAnnouncementText] = useState("🔥 عروض حصرية لفترة محدودة — الدفع عند الاستلام!");
   const [announcementActive, setAnnouncementActive] = useState(true);
+  const [heroSlides, setHeroSlides] = useState<HeroSliderAdminSlide[]>([]);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState("");
@@ -1585,9 +1640,59 @@ function SettingsTab() {
         if (data.primaryColor     !== undefined) setPrimaryColor(data.primaryColor);
         if (data.announcementText !== undefined) setAnnouncementText(data.announcementText);
         if (typeof data.announcementActive === "boolean") setAnnouncementActive(data.announcementActive);
+        if (Array.isArray(data.heroSlider)) setHeroSlides(normalizeHeroSliderAdmin(data.heroSlider));
       })
       .catch(() => {});
   }, []);
+
+  const updateHeroSlide = (id: string, patch: Partial<HeroSliderAdminSlide>) => {
+    setHeroSlides((prev) =>
+      prev.map((slide) => slide.id === id ? { ...slide, ...patch } : slide),
+    );
+    setSaved(false);
+  };
+
+  const addHeroSlide = () => {
+    setHeroSlides((prev) => [...prev, createHeroSlide(prev.length)]);
+    setSaved(false);
+  };
+
+  const removeHeroSlide = (id: string) => {
+    setHeroSlides((prev) =>
+      prev
+        .filter((slide) => slide.id !== id)
+        .map((slide, index) => ({ ...slide, sortOrder: index })),
+    );
+    setSaved(false);
+  };
+
+  const moveHeroSlide = (id: string, direction: -1 | 1) => {
+    setHeroSlides((prev) => {
+      const next = [...prev].sort((a, b) => a.sortOrder - b.sortOrder);
+      const index = next.findIndex((slide) => slide.id === id);
+      const target = index + direction;
+      if (index < 0 || target < 0 || target >= next.length) return prev;
+      [next[index], next[target]] = [next[target], next[index]];
+      return next.map((slide, order) => ({ ...slide, sortOrder: order }));
+    });
+    setSaved(false);
+  };
+
+  const preparedHeroSlides = heroSlides
+    .slice()
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .map((slide, index) => ({
+      ...slide,
+      id: slide.id || `slide-${index}`,
+      imageUrl: slide.imageUrl.trim(),
+      title: slide.title.trim(),
+      subtitle: slide.subtitle.trim(),
+      primaryCtaText: slide.primaryCtaText.trim(),
+      primaryCtaHref: slide.primaryCtaHref.trim(),
+      secondaryCtaText: slide.secondaryCtaText.trim(),
+      secondaryCtaHref: slide.secondaryCtaHref.trim(),
+      sortOrder: index,
+    }));
 
   const handleSave = async () => {
     if (!localCurrency.trim()) { setError("رمز العملة لا يمكن أن يكون فارغاً"); return; }
@@ -1603,6 +1708,7 @@ function SettingsTab() {
           primaryColor:       primaryColor.trim(),
           announcementText:   announcementText.trim(),
           announcementActive: announcementActive,
+          heroSlider:         preparedHeroSlides,
         },
       });
       setCurrency(data.currencySymbol);
@@ -1621,7 +1727,7 @@ function SettingsTab() {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div className="max-w-4xl mx-auto">
       <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-sm text-right space-y-6">
         <div>
           <h3 className="text-xl font-extrabold text-slate-900">إعدادات المتجر</h3>
@@ -1726,6 +1832,162 @@ function SettingsTab() {
               </div>
             )}
           </div>
+        </div>
+
+        <div className="pt-2 border-t border-slate-100">
+          <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h4 className="text-base font-extrabold text-slate-800 mb-1">سلايدر الصفحة الرئيسية</h4>
+              <p className="text-xs text-slate-500">تحكم في صور ونصوص وأزرار السلايدر الرئيسي. إذا لم تضف أي شريحة فعالة سيظهر السلايدر الافتراضي.</p>
+            </div>
+            <button
+              type="button"
+              onClick={addHeroSlide}
+              className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition"
+            >
+              <Plus className="h-4 w-4" />
+              إضافة شريحة
+            </button>
+          </div>
+
+          {heroSlides.length === 0 ? (
+            <div className="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-5 text-center">
+              <ImageIcon className="mx-auto mb-2 h-8 w-8 text-slate-300" />
+              <p className="text-sm font-bold text-slate-700">لا توجد شرائح مخصصة بعد</p>
+              <p className="mt-1 text-xs text-slate-500">سيستخدم الموقع الشرائح الافتراضية إلى أن تضيف وتحفظ شرائح جديدة.</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {heroSlides
+                .slice()
+                .sort((a, b) => a.sortOrder - b.sortOrder)
+                .map((slide, index, orderedSlides) => (
+                  <div key={slide.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-4">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-extrabold text-slate-800">شريحة {index + 1}</p>
+                        <p className="text-xs text-slate-500">الترتيب: {index + 1}</p>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => updateHeroSlide(slide.id, { isActive: !slide.isActive })}
+                          className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold transition ${slide.isActive ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-500"}`}
+                        >
+                          {slide.isActive ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
+                          {slide.isActive ? "مفعلة" : "معطلة"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => moveHeroSlide(slide.id, -1)}
+                          disabled={index === 0}
+                          className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition hover:bg-slate-100 disabled:opacity-40"
+                        >
+                          أعلى
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => moveHeroSlide(slide.id, 1)}
+                          disabled={index === orderedSlides.length - 1}
+                          className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition hover:bg-slate-100 disabled:opacity-40"
+                        >
+                          أسفل
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removeHeroSlide(slide.id)}
+                          className="rounded-xl border border-rose-200 bg-white px-3 py-2 text-xs font-bold text-rose-600 transition hover:bg-rose-50"
+                        >
+                          حذف
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-bold text-slate-700">صورة الشريحة</label>
+                      <ProductImageInput
+                        value={slide.imageUrl}
+                        onChange={(url) => updateHeroSlide(slide.id, { imageUrl: url })}
+                      />
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <div className="space-y-2 md:col-span-2">
+                        <label className="block text-sm font-bold text-slate-700">العنوان</label>
+                        <input
+                          type="text"
+                          value={slide.title}
+                          onChange={(e) => updateHeroSlide(slide.id, { title: e.target.value })}
+                          placeholder="مثال: تسوق كل احتياجاتك من جودة ماركت"
+                          className="w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-right outline-none transition"
+                          dir="rtl"
+                        />
+                      </div>
+
+                      <div className="space-y-2 md:col-span-2">
+                        <label className="block text-sm font-bold text-slate-700">النص الفرعي</label>
+                        <textarea
+                          value={slide.subtitle}
+                          onChange={(e) => updateHeroSlide(slide.id, { subtitle: e.target.value })}
+                          placeholder="وصف قصير للشريحة يظهر أسفل العنوان"
+                          className="min-h-[90px] w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-right outline-none transition"
+                          dir="rtl"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-sm font-bold text-slate-700">نص الزر الأساسي</label>
+                        <input
+                          type="text"
+                          value={slide.primaryCtaText}
+                          onChange={(e) => updateHeroSlide(slide.id, { primaryCtaText: e.target.value })}
+                          placeholder="تسوق الآن"
+                          className="w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-right outline-none transition"
+                          dir="rtl"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-sm font-bold text-slate-700">رابط الزر الأساسي</label>
+                        <input
+                          type="text"
+                          value={slide.primaryCtaHref}
+                          onChange={(e) => updateHeroSlide(slide.id, { primaryCtaHref: e.target.value })}
+                          placeholder="/products"
+                          className="w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-left outline-none transition"
+                          dir="ltr"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-sm font-bold text-slate-700">نص الزر الثانوي</label>
+                        <input
+                          type="text"
+                          value={slide.secondaryCtaText}
+                          onChange={(e) => updateHeroSlide(slide.id, { secondaryCtaText: e.target.value })}
+                          placeholder="تصفح الأقسام"
+                          className="w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-right outline-none transition"
+                          dir="rtl"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="block text-sm font-bold text-slate-700">رابط الزر الثانوي</label>
+                        <input
+                          type="text"
+                          value={slide.secondaryCtaHref}
+                          onChange={(e) => updateHeroSlide(slide.id, { secondaryCtaHref: e.target.value })}
+                          placeholder="#home-categories"
+                          className="w-full rounded-2xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-base text-left outline-none transition"
+                          dir="ltr"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
         </div>
 
         {/* ── Visual Branding ─────────────────────────── */}

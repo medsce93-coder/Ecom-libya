@@ -5,14 +5,46 @@ import {
   DEFAULT_SETTINGS,
   KEY_MAP,
   readSettings,
+  type HeroSliderSetting,
   upsertSetting,
 } from "./_lib/settings.js";
+
+function normalizeHeroSlider(input: unknown): HeroSliderSetting[] {
+  if (!Array.isArray(input)) return DEFAULT_SETTINGS.heroSlider;
+
+  return input
+    .map((slide, index) => {
+      const item = slide && typeof slide === "object"
+        ? (slide as Record<string, unknown>)
+        : {};
+      const id = String(item.id ?? "").trim() || `slide-${Date.now()}-${index}`;
+
+      return {
+        id,
+        imageUrl: String(item.imageUrl ?? "").trim(),
+        title: String(item.title ?? "").trim(),
+        subtitle: String(item.subtitle ?? "").trim(),
+        primaryCtaText: String(item.primaryCtaText ?? "").trim(),
+        primaryCtaHref: String(item.primaryCtaHref ?? "").trim(),
+        secondaryCtaText: String(item.secondaryCtaText ?? "").trim(),
+        secondaryCtaHref: String(item.secondaryCtaHref ?? "").trim(),
+        isActive: item.isActive !== false,
+        sortOrder: Number.isFinite(Number(item.sortOrder))
+          ? Number(item.sortOrder)
+          : index,
+      };
+    })
+    .filter((slide) => slide.imageUrl || slide.title || slide.subtitle)
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .map((slide, index) => ({ ...slide, sortOrder: index }));
+}
 
 async function getSettings(res: VercelResponse) {
   try {
     const settings = await readSettings();
     return sendJson(res, 200, settings);
   } catch (error) {
+    console.error("Failed to read settings", error);
     return sendJson(res, 200, DEFAULT_SETTINGS);
   }
 }
@@ -23,6 +55,7 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
 
   try {
     const body = req.body ?? {};
+    const currentSettings = await readSettings();
     const currencySymbol = String(body.currencySymbol ?? "").trim();
     if (!currencySymbol) {
       return sendJson(res, 400, {
@@ -46,6 +79,9 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
         body.announcementText ?? DEFAULT_SETTINGS.announcementText,
       ).trim(),
       announcementActive: body.announcementActive === false ? "false" : "true",
+      heroSlider: body.heroSlider === undefined
+        ? currentSettings.heroSlider
+        : normalizeHeroSlider(body.heroSlider),
     };
 
     await Promise.all([
@@ -56,6 +92,7 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
       upsertSetting(KEY_MAP.primaryColor, next.primaryColor),
       upsertSetting(KEY_MAP.announcementText, next.announcementText),
       upsertSetting(KEY_MAP.announcementActive, next.announcementActive),
+      upsertSetting(KEY_MAP.heroSlider, JSON.stringify(next.heroSlider)),
     ]);
 
     return sendJson(res, 200, {
@@ -63,6 +100,7 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
       announcementActive: next.announcementActive === "true",
     });
   } catch (error) {
+    console.error("Failed to save settings", error);
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to save settings",
