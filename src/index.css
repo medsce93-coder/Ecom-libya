@@ -101,24 +101,26 @@ a {
 /* Announcement bar marquee */
 @keyframes announcement-marquee {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(calc(var(--marquee-distance, 0px) * -1)); }
+  100% { transform: translateX(-50%); }
 }
 .announcement-track {
   display: flex;
   align-items: center;
   direction: ltr;
-  width: max-content;
-  animation: announcement-marquee linear infinite;
+  width: 176%;
+  animation: announcement-marquee 24s linear infinite;
   will-change: transform;
 }
-.announcement-group {
+.announcement-copy {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   flex: 0 0 auto;
-  width: max-content;
+  width: 50%;
+  min-width: 0;
+  padding-inline-end: clamp(1.5rem, 4vw, 3rem);
 }
 .announcement-item {
   flex: 0 0 auto;
-  padding-inline-end: clamp(2.5rem, 7vw, 6rem);
   white-space: nowrap;
 }
