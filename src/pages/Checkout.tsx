@@ -3,6 +3,8 @@ import { useLocation } from "wouter";
 import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { resolveProductImageUrl } from "@/lib/product-image";
+import { useBranding } from "@/lib/branding-context";
+import { getMarketCityPlaceholder, getMarketPhonePlaceholder } from "@/lib/market-country";
 
 export default function Checkout() {
   const [, setLocation] = useLocation();
@@ -12,6 +14,7 @@ export default function Checkout() {
     subtotal, shipping, discount, total, clearOrderSuccess,
   } = useStore();
   const { currency } = useCurrency();
+  const { marketCountry } = useBranding();
 
   useEffect(() => {
     if (orderSuccess) {
@@ -56,7 +59,7 @@ export default function Checkout() {
                   type="text"
                   value={checkoutData.city}
                   onChange={(e) => handleCheckoutChange("city", e.target.value)}
-                  placeholder="مثال: طرابلس"
+                  placeholder={getMarketCityPlaceholder(marketCountry)}
                   className={inputCls}
                   autoComplete="address-level2"
                 />
@@ -67,7 +70,7 @@ export default function Checkout() {
                   type="tel"
                   value={checkoutData.phone}
                   onChange={(e) => handleCheckoutChange("phone", e.target.value)}
-                  placeholder="مثال: 0911234567"
+                  placeholder={getMarketPhonePlaceholder(marketCountry)}
                   className={inputCls}
                   autoComplete="tel"
                   inputMode="tel"
