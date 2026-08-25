@@ -13,9 +13,8 @@ import {
 import { AnnouncementTicker } from "@/components/AnnouncementBar";
 import {
   useGetProducts, getGetProductsQueryKey,
-  useGetCategories, useUpdateProduct,
+  useUpdateProduct,
 } from "@/lib/api-client";
-import { resolveProductImageUrl } from "@/lib/product-image";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Search, ChevronRight, ChevronLeft, X, Check,
@@ -208,10 +207,9 @@ function OrdersTab() {
    EDIT PRICE MODAL
 ══════════════════════════════════════════════════════════ */
 type Product = {
-  id: string; name: string; nameAr: string; description?: string; descriptionAr?: string;
-  price: number; compareAtPrice: number | null; priceQty2?: number | null; priceQty3?: number | null;
-  stock: number; imageUrl: string | null; images?: string[]; categoryId?: string | null; categoryName: string | null;
-  sku?: string | null; active: boolean; featured: boolean; badge: string | null; rating: number;
+  id: string; nameAr: string; price: number; compareAtPrice: number | null;
+  stock: number; imageUrl: string | null; categoryName: string | null;
+  active: boolean; featured: boolean; badge: string | null; rating: number;
 };
 
 /* ─── Shared Image Input (upload from device OR paste URL) ──────── */
@@ -348,21 +346,12 @@ function ProductImageInput({
 function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
   const queryClient = useQueryClient();
   const { currency } = useCurrency();
-  const { data: categories = [] } = useGetCategories();
   const [nameAr, setNameAr] = useState("");
-  const [descriptionAr, setDescriptionAr] = useState("");
   const [price, setPrice] = useState("");
-  const [comparePrice, setComparePrice] = useState("");
   const [priceQty2, setPriceQty2] = useState("");
   const [priceQty3, setPriceQty3] = useState("");
   const [stock, setStock] = useState("0");
-  const [images, setImages] = useState<string[]>([]);
-  const [categoryId, setCategoryId] = useState("");
-  const [sku, setSku] = useState("");
-  const [badge, setBadge] = useState("");
-  const [rating, setRating] = useState("4.5");
-  const [featured, setFeatured] = useState(false);
-  const [active, setActive] = useState(true);
+  const [imageUrl, setImageUrl] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -381,20 +370,12 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
         body: {
           nameAr: nameAr.trim(),
           name: nameAr.trim(),
-          descriptionAr: descriptionAr.trim(),
           price: priceNum,
-          compareAtPrice: comparePrice ? parseFloat(comparePrice) : null,
           priceQty2: priceQty2 ? parseFloat(priceQty2) : null,
           priceQty3: priceQty3 ? parseFloat(priceQty3) : null,
           stock: stockNum,
-          imageUrl: images[0] || null,
-          images,
-          categoryId: categoryId || null,
-          sku: sku.trim() || null,
-          badge: badge.trim() || null,
-          rating: rating ? parseFloat(rating) : null,
-          featured,
-          active,
+          imageUrl: imageUrl.trim() || null,
+          active: true,
         },
       });
       queryClient.invalidateQueries({ queryKey: ["getProducts"] });
@@ -410,7 +391,7 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/40 backdrop-blur-sm">
-      <div className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl w-full sm:max-w-3xl text-right overflow-y-auto max-h-[92vh]" dir="rtl">
+      <div className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl w-full sm:max-w-md text-right overflow-y-auto max-h-[92vh]" dir="rtl">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 sticky top-0 bg-white z-10">
           <button onClick={onClose} className="p-1.5 rounded-xl hover:bg-slate-100 transition-colors">
@@ -435,17 +416,6 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
               className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all"
               autoFocus
             />
-          </div>
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">وصف المنتج</label>
-            <textarea value={descriptionAr} onChange={e => setDescriptionAr(e.target.value)} rows={4} placeholder="اكتب وصفاً واضحاً ومقنعاً للمنتج…" className="w-full resize-y rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all" />
-          </div>
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">الفئة</label>
-            <select value={categoryId} onChange={e => setCategoryId(e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white">
-              <option value="">بدون فئة</option>
-              {categories.map((category) => <option key={category.id} value={category.id}>{category.nameAr}</option>)}
-            </select>
           </div>
 
           {/* Price + Stock side by side */}
@@ -476,11 +446,6 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">السعر الأصلي قبل الخصم</label>
-            <input type="number" min="0" step="0.01" value={comparePrice} onChange={e => setComparePrice(e.target.value)} placeholder="اختياري" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white" />
-          </div>
-
           {/* Volume pricing */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">أسعار الكميات <span className="text-slate-400 font-normal">(اختياري — لتفعيل عروض الحجم)</span></label>
@@ -506,22 +471,10 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
             </div>
           </div>
 
-          <div className="border-t border-slate-100 pt-5">
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">صور المنتج</label>
-            <ProductImageGalleryInput images={images} onChange={setImages} />
-          </div>
-
-          <div className="space-y-3 border-t border-slate-100 pt-5">
-            <label className="block text-sm font-bold text-slate-700">إعدادات إضافية</label>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <input value={sku} onChange={e => setSku(e.target.value)} placeholder="SKU (اختياري)" className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-primary" dir="ltr" />
-              <input value={badge} onChange={e => setBadge(e.target.value)} placeholder="شارة، مثال: جديد" className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-right outline-none focus:border-primary" />
-              <input type="number" min="0" max="5" step="0.1" value={rating} onChange={e => setRating(e.target.value)} placeholder="التقييم" className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-right outline-none focus:border-primary" />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <button type="button" onClick={() => setActive(value => !value)} className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 text-sm font-bold ${active ? "border-emerald-400 bg-emerald-50 text-emerald-800" : "border-slate-200 bg-slate-50 text-slate-500"}`}>نشط {active ? <ToggleRight className="h-5 w-5" /> : <ToggleLeft className="h-5 w-5" />}</button>
-              <button type="button" onClick={() => setFeatured(value => !value)} className={`flex items-center justify-between rounded-xl border-2 px-4 py-3 text-sm font-bold ${featured ? "border-amber-400 bg-amber-50 text-amber-800" : "border-slate-200 bg-slate-50 text-slate-500"}`}>مميّز <Star className={`h-4 w-4 ${featured ? "fill-amber-400 text-amber-400" : ""}`} /></button>
-            </div>
+          {/* Image */}
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5">الصورة الرئيسية للمنتج</label>
+            <ProductImageInput value={imageUrl} onChange={setImageUrl} />
           </div>
 
           {error && (
@@ -553,7 +506,6 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
 
 function EditModal({ product, onClose, onSaved }: { product: Product; onClose: () => void; onSaved: () => void }) {
   const { currency } = useCurrency();
-  const { data: categories = [] } = useGetCategories();
   const { mutateAsync: updateProduct } = useUpdateProduct();
   const initialPrice = Number.isFinite(Number(product.price)) ? String(Number(product.price)) : "0";
   const initialComparePrice = Number.isFinite(Number(product.compareAtPrice))
@@ -567,7 +519,6 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
     : "";
   const initialStock = Number.isFinite(Number(product.stock)) ? String(Number(product.stock)) : "0";
   const initialImageUrl = typeof product.imageUrl === "string" ? product.imageUrl : "";
-  const initialImages = Array.from(new Set([initialImageUrl, ...(Array.isArray(product.images) ? product.images : [])].filter(Boolean)));
   const initialActive = Boolean(product.active);
   const initialFeatured = Boolean(product.featured);
 
@@ -576,13 +527,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
   const [priceQty2, setPriceQty2] = useState(initialPriceQty2);
   const [priceQty3, setPriceQty3] = useState(initialPriceQty3);
   const [stock, setStock] = useState(initialStock);
-  const [nameAr, setNameAr] = useState(product.nameAr ?? "");
-  const [descriptionAr, setDescriptionAr] = useState(product.descriptionAr ?? "");
-  const [images, setImages] = useState<string[]>(initialImages);
-  const [categoryId, setCategoryId] = useState(product.categoryId ?? "");
-  const [sku, setSku] = useState(product.sku ?? "");
-  const [badge, setBadge] = useState(product.badge ?? "");
-  const [rating, setRating] = useState(String(product.rating ?? 4.5));
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [active, setActive] = useState(initialActive);
   const [featured, setFeatured] = useState(initialFeatured);
   const [saving, setSaving] = useState(false);
@@ -610,20 +555,12 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
       await updateProduct({
         id: product.id,
         data: {
-          nameAr: nameAr.trim(),
-          name: nameAr.trim(),
-          descriptionAr: descriptionAr.trim(),
           price: priceNum,
           compareAtPrice: comparePriceNum,
           priceQty2: priceQty2 ? parseFloat(priceQty2) : null,
           priceQty3: priceQty3 ? parseFloat(priceQty3) : null,
           stock: stockNum,
-          imageUrl: images[0] || null,
-          images,
-          categoryId: categoryId || null,
-          sku: sku.trim() || null,
-          badge: badge.trim() || null,
-          rating: rating ? parseFloat(rating) : null,
+          imageUrl: imageUrl.trim() || null,
           active,
           featured,
         } as any,
@@ -658,7 +595,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm p-0 sm:p-4"
       onClick={handleBackdrop}
     >
-      <div className="w-full sm:max-w-3xl bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col max-h-[92vh] animate-in slide-in-from-bottom-4 duration-200">
+      <div className="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col max-h-[92vh] animate-in slide-in-from-bottom-4 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
           <button onClick={onClose} className="rounded-xl p-2 hover:bg-slate-100 transition text-slate-500">
@@ -693,16 +630,6 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
 
         {/* Form */}
         <div className="px-5 py-5 space-y-4 overflow-y-auto flex-1" dir="rtl">
-          <div className="space-y-3 border-b border-slate-100 pb-5">
-            <div><h4 className="font-bold text-slate-800">المعلومات الأساسية</h4><p className="text-xs text-slate-500">الحقول المعروضة حالياً في صفحة المنتج.</p></div>
-            <input value={nameAr} onChange={(event) => setNameAr(event.target.value)} placeholder="اسم المنتج" className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-sm text-right outline-none transition-colors focus:border-primary" />
-            <textarea value={descriptionAr} onChange={(event) => setDescriptionAr(event.target.value)} rows={4} placeholder="وصف المنتج" className="w-full resize-y rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-sm text-right outline-none transition-colors focus:border-primary" />
-            <select value={categoryId} onChange={(event) => setCategoryId(event.target.value)} className="w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-sm text-right outline-none transition-colors focus:border-primary">
-              <option value="">بدون فئة</option>
-              {categories.map((category) => <option key={category.id} value={category.id}>{category.nameAr}</option>)}
-            </select>
-          </div>
-
           {/* Price */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">
@@ -1650,93 +1577,6 @@ function getDefaultHeroSliderAdminSlides(marketCountryAdjective = DEFAULT_MARKET
     id: slide.id || `default-${index}`,
     sortOrder: index,
   }));
-}
-
-function ProductImageGalleryInput({
-  images,
-  onChange,
-}: {
-  images: string[];
-  onChange: (images: string[]) => void;
-}) {
-  const [uploading, setUploading] = useState(false);
-  const [urlDraft, setUrlDraft] = useState("");
-  const [uploadError, setUploadError] = useState("");
-  const normalizedImages = Array.from(new Set(images.map((image) => image.trim()).filter(Boolean)));
-
-  const addUrls = (urls: string[]) => {
-    onChange(Array.from(new Set([...normalizedImages, ...urls.map((url) => url.trim()).filter(Boolean)])));
-  };
-
-  const handleFiles = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files ?? []);
-    event.target.value = "";
-    if (!files.length) return;
-
-    setUploading(true);
-    setUploadError("");
-    try {
-      const uploadedUrls: string[] = [];
-      for (const file of files) {
-        const formData = new FormData();
-        formData.append("file", file);
-        const result = await apiFetch<{ url?: string; publicUrl?: string; path?: string }>("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
-        const url = result.url || result.publicUrl || result.path;
-        if (!url) throw new Error("Upload response missing URL");
-        uploadedUrls.push(String(url));
-      }
-      addUrls(uploadedUrls);
-    } catch (error) {
-      console.error("Admin product gallery upload failed", { error, files });
-      setUploadError("تعذر رفع إحدى الصور. حاول مرة أخرى.");
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const moveImage = (index: number, direction: -1 | 1) => {
-    const target = index + direction;
-    if (target < 0 || target >= normalizedImages.length) return;
-    const next = [...normalizedImages];
-    [next[index], next[target]] = [next[target], next[index]];
-    onChange(next);
-  };
-
-  return (
-    <div className="space-y-3">
-      {normalizedImages.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {normalizedImages.map((image, index) => (
-            <div key={`${image}-${index}`} className="relative overflow-hidden rounded-xl border border-slate-200 bg-slate-50 aspect-square">
-              <img src={resolveProductImageUrl(image)} alt={`صورة المنتج ${index + 1}`} className="h-full w-full object-contain" />
-              {index === 0 && <span className="absolute right-1.5 top-1.5 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-white">الرئيسية</span>}
-              <div className="absolute bottom-1.5 left-1.5 flex gap-1">
-                <button type="button" onClick={() => moveImage(index, -1)} disabled={index === 0} className="rounded-md bg-white/95 p-1 text-slate-600 shadow disabled:opacity-40" aria-label="نقل الصورة للأمام">←</button>
-                <button type="button" onClick={() => moveImage(index, 1)} disabled={index === normalizedImages.length - 1} className="rounded-md bg-white/95 p-1 text-slate-600 shadow disabled:opacity-40" aria-label="نقل الصورة للخلف">→</button>
-                <button type="button" onClick={() => onChange(normalizedImages.filter((_, itemIndex) => itemIndex !== index))} className="rounded-md bg-white/95 p-1 text-rose-600 shadow" aria-label="حذف الصورة"><X className="h-3.5 w-3.5" /></button>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="flex h-28 items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 text-sm text-slate-400">أضف صور المنتج</div>
-      )}
-      <label className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-600 transition-colors hover:border-primary hover:bg-primary/5 ${uploading ? "pointer-events-none opacity-60" : ""}`}>
-        {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-        {uploading ? "جارٍ رفع الصور…" : "رفع صور من الجهاز"}
-        <input type="file" accept="image/*" multiple className="hidden" onChange={handleFiles} disabled={uploading} />
-      </label>
-      <div className="flex gap-2">
-        <input value={urlDraft} onChange={(event) => setUrlDraft(event.target.value)} placeholder="أو الصق رابط صورة" dir="ltr" className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-primary focus:bg-white" />
-        <button type="button" onClick={() => { addUrls([urlDraft]); setUrlDraft(""); }} className="rounded-xl border border-slate-200 px-3 text-sm font-bold text-slate-600 hover:border-primary hover:text-primary">إضافة</button>
-      </div>
-      {uploadError && <p className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-600">{uploadError}</p>}
-      <p className="text-xs text-slate-500">الصورة الأولى هي الصورة الرئيسية التي يستخدمها المتجر. استخدم الأسهم لتغيير ترتيب الصور.</p>
-    </div>
-  );
 }
 
 function createHeroSlide(sortOrder: number): HeroSliderAdminSlide {
