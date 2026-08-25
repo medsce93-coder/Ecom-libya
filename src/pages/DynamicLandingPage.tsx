@@ -346,7 +346,7 @@ export default function DynamicLandingPage() {
 
       {/* ── Top bar ── */}
       <div className="bg-primary text-white text-center py-2 px-4 text-sm font-bold tracking-wide">
-        🔥 {page.urgencyText ?? "عرض محدود — التوصيل مجاني لعند باب الحوش!"}
+        🔥 {page.urgencyText ?? "عرض محدود —  التوصيل بالمجان، والدفع عند الاستلام!"}
       </div>
 
       {/* ── Header ── */}
@@ -358,7 +358,7 @@ export default function DynamicLandingPage() {
           onClick={scrollToForm}
           className="bg-green-500 hover:bg-green-600 text-white text-xs font-bold px-4 py-2 rounded-full transition-colors"
         >
-          اطلب توة ←
+          اطلب الآن ←
         </button>
       </header>
 
@@ -444,7 +444,7 @@ export default function DynamicLandingPage() {
           className="relative inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 active:scale-95 text-white font-extrabold text-lg px-8 py-4 rounded-2xl shadow-lg shadow-green-200 transition-all duration-150 w-full max-w-sm mx-auto"
           style={{ animation: "pulse-cta 2s ease-in-out infinite" }}
         >
-          🛒 اطلب توة وخلص كاش لما تستلم!
+          🛒 اطلب الآن وادفع عند الاستلام!
         </button>
         <p className="text-slate-400 text-xs mt-3">الكمية محدودة — حجز لا يلزم الدفع المسبق</p>
       </section>
@@ -452,7 +452,7 @@ export default function DynamicLandingPage() {
       {/* ── Features ── */}
       {page.features.length > 0 && (
         <section className="px-4 py-8 bg-white">
-          <h2 className="text-center text-xl font-extrabold text-slate-800 mb-6">ليش هضا المنتج مختلف؟</h2>
+          <h2 className="text-center text-xl font-extrabold text-slate-800 mb-6">لماذا هذا المنتج مختلف؟</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {page.features.map((f, i) => (
               <div key={i} className="flex gap-3 bg-blue-50 rounded-2xl p-4 items-start">
@@ -500,7 +500,7 @@ export default function DynamicLandingPage() {
           <div className="max-w-md mx-auto space-y-4">
             {page.boxContents && (
               <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-                <p className="font-extrabold text-slate-800 mb-3 text-base">📦 شنو يجيك في الباكو؟</p>
+                <p className="font-extrabold text-slate-800 mb-3 text-base">📦 محتويات الباك</p>
                 <div className="space-y-1.5">
                   {page.boxContents.split("\n").filter(Boolean).map((line, i) => (
                     <div key={i} className="flex items-center gap-2 text-slate-600 text-sm">
@@ -526,8 +526,8 @@ export default function DynamicLandingPage() {
         <div className="max-w-md mx-auto">
           <div className="text-center mb-6">
             <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">✅ الدفع عند الاستلام — بدون بطاقة</span>
-            <h2 className="text-2xl font-extrabold text-slate-900 mt-3 mb-1">اطلب دلوقتي! 🛒</h2>
-            <p className="text-slate-500 text-sm">املا البيانات وفريقنا يتواصل معك لتأكيد الطلب</p>
+            <h2 className="text-2xl font-extrabold text-slate-900 mt-3 mb-1">اطلب الآن! 🛒</h2>
+            <p className="text-slate-500 text-sm">املأ البيانات وسيتواصل معك فريقنا لتأكيد الطلب</p>
           </div>
 
           {/* ── Volume selector (only when bundles are configured) ── */}
@@ -638,7 +638,7 @@ export default function DynamicLandingPage() {
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1">العنوان *</label>
               <textarea
-                placeholder="المدينة — الحي — بالقرب من..."
+                placeholder="المدينة — الحي — العنوان"
                 value={form.address}
                 onChange={(e) => setForm({ ...form, address: e.target.value })}
                 rows={3}
@@ -694,7 +694,7 @@ export default function DynamicLandingPage() {
             onClick={scrollToForm}
             className="w-full bg-green-500 hover:bg-green-600 active:scale-95 text-white font-extrabold text-base py-3.5 rounded-2xl shadow-lg shadow-green-200 transition-all duration-150"
           >
-            🛒 اطلب توة — {price} {currency} فقط!
+            🛒 اطلب الآن — {price} {currency} فقط!
           </button>
         </div>
       )}
