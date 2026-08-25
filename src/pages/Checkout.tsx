@@ -3,6 +3,12 @@ import { useLocation } from "wouter";
 import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 
+function resolveCartImage(image: string | null | undefined) {
+  const value = String(image ?? "").trim();
+  if (!value) return "";
+  return value.startsWith("http") || value.startsWith("/") ? value : `/${value}`;
+}
+
 export default function Checkout() {
   const [, setLocation] = useLocation();
   const {
@@ -109,8 +115,26 @@ export default function Checkout() {
               <p className="text-sm text-slate-500">السلة فارغة حالياً.</p>
             ) : (
               cart.map((item) => (
-                <div key={item.id} className="flex items-start justify-between gap-3 text-sm py-2 border-b border-slate-50 last:border-0">
-                  <span className="text-slate-700 font-medium leading-snug">{item.name} × {item.quantity}</span>
+                <div key={item.id} className="flex items-center justify-between gap-3 text-sm py-2 border-b border-slate-50 last:border-0">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
+                      {resolveCartImage(item.image) ? (
+                        <img
+                          src={resolveCartImage(item.image)}
+                          alt={item.name}
+                          className="h-full w-full object-cover"
+                          onError={(event) => {
+                            event.currentTarget.style.display = "none";
+                            event.currentTarget.nextElementSibling?.classList.remove("hidden");
+                          }}
+                        />
+                      ) : null}
+                      <div className={`h-full w-full items-center justify-center text-xs font-bold text-slate-400 ${resolveCartImage(item.image) ? "hidden" : "flex"}`}>
+                        بدون صورة
+                      </div>
+                    </div>
+                    <span className="min-w-0 text-slate-700 font-medium leading-snug">{item.name} × {item.quantity}</span>
+                  </div>
                   <span className="font-bold text-slate-900 shrink-0">{currency} {(item.price * item.quantity).toFixed(0)}</span>
                 </div>
               ))
