@@ -2,12 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
-
-function resolveCartImage(image: string | null | undefined) {
-  const value = String(image ?? "").trim();
-  if (!value) return "";
-  return value.startsWith("http") || value.startsWith("/") ? value : `/${value}`;
-}
+import { resolveProductImageUrl } from "@/lib/product-image";
 
 export default function Checkout() {
   const [, setLocation] = useLocation();
@@ -118,9 +113,9 @@ export default function Checkout() {
                 <div key={item.id} className="flex items-center justify-between gap-3 text-sm py-2 border-b border-slate-50 last:border-0">
                   <div className="flex min-w-0 items-center gap-3">
                     <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-100 bg-slate-50">
-                      {resolveCartImage(item.image) ? (
+                      {resolveProductImageUrl(item.image) ? (
                         <img
-                          src={resolveCartImage(item.image)}
+                          src={resolveProductImageUrl(item.image)}
                           alt={item.name}
                           className="h-full w-full object-cover"
                           onError={(event) => {
@@ -129,7 +124,7 @@ export default function Checkout() {
                           }}
                         />
                       ) : null}
-                      <div className={`h-full w-full items-center justify-center text-xs font-bold text-slate-400 ${resolveCartImage(item.image) ? "hidden" : "flex"}`}>
+                      <div className={`h-full w-full items-center justify-center text-xs font-bold text-slate-400 ${resolveProductImageUrl(item.image) ? "hidden" : "flex"}`}>
                         بدون صورة
                       </div>
                     </div>

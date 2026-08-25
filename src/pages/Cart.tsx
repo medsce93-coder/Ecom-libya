@@ -2,6 +2,7 @@ import { useLocation } from "wouter";
 import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { COUPON_CODE } from "@/lib/supabase";
+import { resolveProductImageUrl } from "@/lib/product-image";
 
 export default function Cart() {
   const [, setLocation] = useLocation();
@@ -29,13 +30,21 @@ export default function Cart() {
           )}
           {cart.map((item) => (
             <div key={item.id} className="grid gap-4 rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm md:grid-cols-[140px_1fr_auto] md:items-center">
-              <div className="h-32 overflow-hidden rounded-2xl bg-slate-100">
-                <img
-                  src={`/${item.image}`}
-                  alt={item.name}
-                  className="h-full w-full object-cover"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                />
+              <div className="relative h-32 overflow-hidden rounded-2xl bg-slate-100">
+                {resolveProductImageUrl(item.image) ? (
+                  <img
+                    src={resolveProductImageUrl(item.image)}
+                    alt={item.name}
+                    className="h-full w-full object-cover"
+                    onError={(event) => {
+                      event.currentTarget.style.display = "none";
+                      event.currentTarget.nextElementSibling?.classList.remove("hidden");
+                    }}
+                  />
+                ) : null}
+                <div className={`absolute inset-0 items-center justify-center text-sm font-semibold text-slate-400 ${resolveProductImageUrl(item.image) ? "hidden" : "flex"}`}>
+                  بدون صورة
+                </div>
               </div>
               <div className="text-right">
                 <h3 className="text-xl font-semibold">{item.name}</h3>
