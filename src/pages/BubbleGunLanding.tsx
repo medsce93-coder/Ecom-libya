@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useGetProduct } from "@/lib/api-client";
 import { useCurrency } from "@/lib/currency-context";
 import { apiFetch } from "@/lib/api";
+import { useBranding } from "@/lib/branding-context";
 
 const PRODUCT_ID = "9c2dfe3f-cf3f-423b-8b7d-10cdd7f36e32";
 
@@ -15,6 +16,7 @@ const FEATURES = [
 export default function BubbleGunLanding() {
   const { data: product } = useGetProduct(PRODUCT_ID);
   const { currency } = useCurrency();
+  const { marketCountry } = useBranding();
 
   const formRef = useRef<HTMLDivElement>(null);
   const heroCtaRef = useRef<HTMLButtonElement>(null);
@@ -320,7 +322,7 @@ export default function BubbleGunLanding() {
       {/* ── Footer ── */}
       <footer className="bg-slate-900 text-white text-center py-5 px-4 text-xs">
         <p className="font-bold text-base mb-1">جودة ماركت</p>
-        <p className="text-slate-400">الوجهة الأولى للتسوق العائلي في ليبيا</p>
+        <p className="text-slate-400">الوجهة الأولى للتسوق العائلي في {marketCountry}</p>
         <p className="text-slate-500 mt-2">جميع الحقوق محفوظة © {new Date().getFullYear()}</p>
       </footer>
 

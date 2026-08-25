@@ -79,6 +79,12 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
     const announcementTextColor = body.announcementTextColor === undefined
       ? currentSettings.announcementTextColor
       : normalizeColor(body.announcementTextColor, "");
+    const marketCountry = body.marketCountry === undefined
+      ? currentSettings.marketCountry
+      : String(body.marketCountry ?? "").trim() || DEFAULT_SETTINGS.marketCountry;
+    const marketCountryAdjective = body.marketCountryAdjective === undefined
+      ? currentSettings.marketCountryAdjective
+      : String(body.marketCountryAdjective ?? "").trim() || DEFAULT_SETTINGS.marketCountryAdjective;
 
     const next = {
       currencySymbol,
@@ -92,6 +98,8 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
       announcementActive: body.announcementActive === false ? "false" : "true",
       announcementBgColor,
       announcementTextColor,
+      marketCountry,
+      marketCountryAdjective,
       heroSlider: body.heroSlider === undefined
         ? currentSettings.heroSlider
         : normalizeHeroSlider(body.heroSlider),
@@ -107,6 +115,8 @@ async function updateSettings(req: VercelRequest, res: VercelResponse) {
       upsertSetting(KEY_MAP.announcementActive, next.announcementActive),
       upsertSetting(KEY_MAP.announcementBgColor, next.announcementBgColor),
       upsertSetting(KEY_MAP.announcementTextColor, next.announcementTextColor),
+      upsertSetting(KEY_MAP.marketCountry, next.marketCountry),
+      upsertSetting(KEY_MAP.marketCountryAdjective, next.marketCountryAdjective),
       upsertSetting(KEY_MAP.heroSlider, JSON.stringify(next.heroSlider)),
     ]);
 

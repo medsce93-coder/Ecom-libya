@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { apiFetch } from "./api";
+import { DEFAULT_MARKET_COUNTRY, resolveMarketCountry } from "./market-country";
 
 const DEFAULT_PRIMARY          = "#1d4ed8";
 const STORE_NAME               = "جودة ماركت";
@@ -13,6 +14,8 @@ interface BrandingState {
   announcementActive: boolean;
   announcementBgColor: string;
   announcementTextColor: string;
+  marketCountry: string;
+  marketCountryAdjective: string;
 }
 
 const BrandingContext = createContext<BrandingState>({
@@ -23,6 +26,8 @@ const BrandingContext = createContext<BrandingState>({
   announcementActive: true,
   announcementBgColor: DEFAULT_PRIMARY,
   announcementTextColor: "#ffffff",
+  marketCountry: DEFAULT_MARKET_COUNTRY.name,
+  marketCountryAdjective: DEFAULT_MARKET_COUNTRY.adjective,
 });
 
 export function useBranding() {
@@ -36,6 +41,8 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
   const [announcementActive, setAnnouncementActive] = useState(true);
   const [announcementBgColor, setAnnouncementBgColor] = useState("");
   const [announcementTextColor, setAnnouncementTextColor] = useState("#ffffff");
+  const [marketCountry, setMarketCountry] = useState(DEFAULT_MARKET_COUNTRY.name);
+  const [marketCountryAdjective, setMarketCountryAdjective] = useState(DEFAULT_MARKET_COUNTRY.adjective);
 
   useEffect(() => {
     apiFetch<{
@@ -45,6 +52,8 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
       announcementActive?: boolean;
       announcementBgColor?: string;
       announcementTextColor?: string;
+      marketCountry?: string;
+      marketCountryAdjective?: string;
     }>("/api/settings", { auth: false })
       .then((data: {
         logoUrl?: string;
@@ -53,6 +62,8 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
         announcementActive?: boolean;
         announcementBgColor?: string;
         announcementTextColor?: string;
+        marketCountry?: string;
+        marketCountryAdjective?: string;
       }) => {
         if (data.logoUrl) setLogoUrl(data.logoUrl);
         const resolvedPrimary = data.primaryColor && /^#[0-9a-fA-F]{3,8}$/.test(data.primaryColor)
@@ -71,6 +82,9 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
         } else {
           setAnnouncementTextColor("#ffffff");
         }
+        const market = resolveMarketCountry(data.marketCountry, data.marketCountryAdjective);
+        setMarketCountry(market.name);
+        setMarketCountryAdjective(market.adjective);
       })
       .catch(() => {});
   }, []);
@@ -90,6 +104,8 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
       announcementActive,
       announcementBgColor: announcementBgColor || primaryColor,
       announcementTextColor,
+      marketCountry,
+      marketCountryAdjective,
     }}>
       {children}
     </BrandingContext.Provider>

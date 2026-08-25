@@ -5,6 +5,7 @@ import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { FlashSaleTimer } from "@/components/FlashSaleTimer";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
+import { useBranding } from "@/lib/branding-context";
 import {
   CheckCircle2, Star, Truck, Banknote, Shield,
   ChevronDown, Play, Package,
@@ -14,21 +15,21 @@ import {
 const CATEGORY_BENEFITS: Record<string, string[]> = {
   "الأجهزة الذكية":           ["يوفّر وقتك ويرفع إنتاجيتك كل يوم", "تصميم أنيق يليق بأسلوب حياتك", "يعمل فوراً — بدون تعقيد", "ضمان شامل على كل قطعة"],
   "الأطفال":                   ["آمن 100% — خالٍ من أي مواد ضارة", "يحفّز إبداع طفلك وذكاءه", "متين يصمد أمام اللعب اليومي", "سعادة الأطفال = راحة بالك أنتَ"],
-  "الجمال والعناية":           ["نتائج مرئية من الأسبوع الأول", "مناسب لمناخ ليبيا الحار والجاف", "تركيبة مجرّبة من آلاف العميلات", "سعر عادل بجودة العلامات العالمية"],
+  "الجمال والعناية":           ["نتائج مرئية من الأسبوع الأول", "مناسب للمناخ الحار والجاف", "تركيبة مجرّبة من آلاف العميلات", "سعر عادل بجودة العلامات العالمية"],
   "الصحة والعناية الشخصية":   ["يدعم صحتك اليومية فعلاً", "مكوّنات مختارة ومضمونة السلامة", "نتائج سريعة تحسّها من الأول", "مناسب لجميع الفئات والأعمار"],
   "العناية بالبشرة":           ["يُرطّب ويجدد نضارة بشرتك بعمق", "تركيبة لطيفة — آمنة للبشرة الحساسة", "بشرة أكثر إشراقاً ونعومة", "مجرّب ومحبوب من آلاف المستخدمات"],
   "المكملات الغذائية":         ["يعزز طاقتك وأداءك طوال اليوم", "تركيز عالٍ بأعلى معايير الجودة", "نتائج واضحة خلال أسبوعين", "مثالي للرياضيين وأصحاب النشاط"],
-  "المنزل والمطبخ":            ["يحوّل منزلك لبيئة منظمة وأنيقة", "جودة مواد تصمد للاستخدام اليومي", "يوفّر وقتك وجهدك في أعمال المنزل", "مثالي للمطبخ الليبي وحياة العائلة"],
-  "منتجات متنوعة":             ["جودة مضمونة 100% على كل طلب", "منتج مجرّب ومحبوب من الليبيين", "يُحسّن حياتك اليومية فعلاً", "قيمة حقيقية لكل دينار تنفقه"],
+  "المنزل والمطبخ":            ["يحوّل منزلك لبيئة منظمة وأنيقة", "جودة مواد تصمد للاستخدام اليومي", "يوفّر وقتك وجهدك في أعمال المنزل", "مثالي للمطبخ وحياة العائلة"],
+  "منتجات متنوعة":             ["جودة مضمونة 100% على كل طلب", "منتج مجرّب ومحبوب من العملاء", "يُحسّن حياتك اليومية فعلاً", "قيمة حقيقية لكل دينار تنفقه"],
 };
-const DEFAULT_BENEFITS = ["جودة مضمونة 100%", "منتج أصلي وموثوق", "توصيل سريع لجميع ليبيا", "دفع مريح عند الاستلام"];
+const getDefaultBenefits = (marketCountry: string) => ["جودة مضمونة 100%", "منتج أصلي وموثوق", `توصيل سريع لجميع مدن ${marketCountry}`, "دفع مريح عند الاستلام"];
 
-function getBenefits(cat?: string | null) {
-  if (!cat) return DEFAULT_BENEFITS;
+function getBenefits(cat: string | null | undefined, marketCountry: string) {
+  if (!cat) return getDefaultBenefits(marketCountry);
   for (const [k, v] of Object.entries(CATEGORY_BENEFITS)) {
     if (cat.includes(k) || k.includes(cat)) return v;
   }
-  return DEFAULT_BENEFITS;
+  return getDefaultBenefits(marketCountry);
 }
 
 /* ── Hardcoded testimonials ─────────────────────────────── */
@@ -51,9 +52,9 @@ const TESTIMONIALS = [
 ];
 
 /* ── FAQ ────────────────────────────────────────────────── */
-const FAQS = [
+const getFaqs = (marketCountry: string) => [
   { q: "كيف يتم الدفع؟",            a: "الدفع عند الاستلام فقط — تستلم المنتج وتدفع، بدون أي مخاطرة من طرفك." },
-  { q: "كم يستغرق التوصيل؟",        a: "يصل طلبك خلال 2–4 أيام لجميع مدن ليبيا. نوصل لأكثر من 18 مدينة." },
+  { q: "كم يستغرق التوصيل؟",        a: `يصل طلبك خلال 2–4 أيام لجميع مدن ${marketCountry}.` },
   { q: "ماذا لو لم يعجبني المنتج؟",  a: "رضاك ضماننا. تواصل معنا وسنحل الأمر فوراً — رد كامل أو استبدال بدون تعقيد." },
 ];
 
@@ -95,6 +96,7 @@ export default function LandingPage() {
   const [, setLocation] = useLocation();
   const { addToCart } = useStore();
   const { currency } = useCurrency();
+  const { marketCountry } = useBranding();
   const heroRef = useRef<HTMLDivElement>(null);
   const [stickyVisible, setStickyVisible] = useState(false);
 
@@ -141,7 +143,8 @@ export default function LandingPage() {
   const stockLeft = product
     ? (product.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % 5) + 3
     : 5;
-  const benefits = getBenefits(product?.categoryName);
+  const benefits = getBenefits(product?.categoryName, marketCountry);
+  const faqs = getFaqs(marketCountry);
   const imgSrc = product?.imageUrl
     ? (product.imageUrl.startsWith("http") ? product.imageUrl : `/${product.imageUrl}`)
     : null;
@@ -187,7 +190,7 @@ export default function LandingPage() {
               <Package className="h-3.5 w-3.5 text-white" />
             </div>
             <span className="font-extrabold text-slate-900 text-sm">
-              متجر <span className="text-primary">ليبيا</span>
+              متجر <span className="text-primary">{marketCountry}</span>
             </span>
           </div>
           <button
@@ -342,7 +345,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-3 gap-4 text-center">
               {[
                 { value: "5000+", label: "عميل سعيد" },
-                { value: "18+",   label: "مدينة ليبية" },
+                { value: "18+",   label: `مدينة في ${marketCountry}` },
                 { value: "4.9",   label: "تقييم من 5" },
               ].map((s) => (
                 <div key={s.label}>
@@ -420,7 +423,7 @@ export default function LandingPage() {
             >
               🛒 اطلب الآن — الدفع عند الاستلام
             </button>
-            <p className="text-slate-400 text-xs mt-3">لا حاجة لبطاقة بنكية · توصيل لجميع مدن ليبيا</p>
+            <p className="text-slate-400 text-xs mt-3">لا حاجة لبطاقة بنكية · توصيل لجميع مدن {marketCountry}</p>
           </div>
         </div>
 
@@ -429,7 +432,7 @@ export default function LandingPage() {
           <div className="container mx-auto px-4 max-w-2xl">
             <h2 className="text-xl font-extrabold text-slate-900 text-center mb-6">أسئلة شائعة</h2>
             <div className="flex flex-col gap-3">
-              {FAQS.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}
+              {faqs.map((f) => <FaqItem key={f.q} q={f.q} a={f.a} />)}
             </div>
           </div>
         </div>
@@ -442,7 +445,7 @@ export default function LandingPage() {
             </div>
             <span className="text-white font-extrabold text-sm">جودة ماركت</span>
           </div>
-          <p className="text-slate-400 text-xs">© {new Date().getFullYear()} جودة ماركت · دفع عند الاستلام · توصيل لجميع مدن ليبيا</p>
+          <p className="text-slate-400 text-xs">© {new Date().getFullYear()} جودة ماركت · دفع عند الاستلام · توصيل لجميع مدن {marketCountry}</p>
         </div>
       </div>
 

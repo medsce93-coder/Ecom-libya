@@ -4,6 +4,12 @@ import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { apiFetch } from "@/lib/api";
 import { getDefaultHeroSlides, type HeroSlide } from "@/lib/hero-slider";
+import {
+  DEFAULT_MARKET_COUNTRY,
+  findMarketCountry,
+  MARKET_COUNTRY_OPTIONS,
+  OTHER_MARKET_COUNTRY,
+} from "@/lib/market-country";
 import { AnnouncementTicker } from "@/components/AnnouncementBar";
 import {
   useGetProducts, getGetProductsQueryKey,
@@ -1565,8 +1571,8 @@ function LandingPagesTab() {
 ══════════════════════════════════════════════════════════ */
 type HeroSliderAdminSlide = HeroSlide;
 
-function getDefaultHeroSliderAdminSlides(): HeroSliderAdminSlide[] {
-  return getDefaultHeroSlides().map((slide, index) => ({
+function getDefaultHeroSliderAdminSlides(marketCountryAdjective = DEFAULT_MARKET_COUNTRY.adjective): HeroSliderAdminSlide[] {
+  return getDefaultHeroSlides(marketCountryAdjective).map((slide, index) => ({
     ...slide,
     id: slide.id || `default-${index}`,
     sortOrder: index,
@@ -1629,6 +1635,8 @@ function SettingsTab() {
   const [announcementActive, setAnnouncementActive] = useState(true);
   const [announcementBgColor, setAnnouncementBgColor] = useState("#1d4ed8");
   const [announcementTextColor, setAnnouncementTextColor] = useState("#ffffff");
+  const [marketCountry, setMarketCountry] = useState(DEFAULT_MARKET_COUNTRY.name);
+  const [marketCountryAdjective, setMarketCountryAdjective] = useState(DEFAULT_MARKET_COUNTRY.adjective);
   const [heroSlides, setHeroSlides] = useState<HeroSliderAdminSlide[]>(
     () => getDefaultHeroSliderAdminSlides(),
   );
@@ -1660,11 +1668,18 @@ function SettingsTab() {
             ? data.announcementTextColor
             : "#ffffff",
         );
+        const savedCountry = String(data.marketCountry ?? "").trim() || DEFAULT_MARKET_COUNTRY.name;
+        const savedCountryOption = findMarketCountry(savedCountry);
+        const savedAdjective = String(data.marketCountryAdjective ?? "").trim()
+          || savedCountryOption?.adjective
+          || DEFAULT_MARKET_COUNTRY.adjective;
+        setMarketCountry(savedCountry);
+        setMarketCountryAdjective(savedAdjective);
         const normalizedSavedSlides = normalizeHeroSliderAdmin(data.heroSlider);
         setHeroSlides(
           normalizedSavedSlides.length
             ? normalizedSavedSlides
-            : getDefaultHeroSliderAdminSlides(),
+            : getDefaultHeroSliderAdminSlides(savedAdjective),
         );
       })
       .catch(() => {});
@@ -1721,6 +1736,10 @@ function SettingsTab() {
 
   const handleSave = async () => {
     if (!localCurrency.trim()) { setError("رمز العملة لا يمكن أن يكون فارغاً"); return; }
+    if (!marketCountry.trim() || !marketCountryAdjective.trim()) {
+      setError("أدخل اسم الدولة وصيغة صفة الدولة المستخدمة في النصوص.");
+      return;
+    }
     setSaving(true); setError(""); setSaved(false);
     try {
       const data = await apiFetch<any>("/api/settings", {
@@ -1735,6 +1754,8 @@ function SettingsTab() {
           announcementActive: announcementActive,
           announcementBgColor: announcementBgColor.trim(),
           announcementTextColor: announcementTextColor.trim(),
+          marketCountry:      marketCountry.trim(),
+          marketCountryAdjective: marketCountryAdjective.trim(),
           heroSlider:         preparedHeroSlides,
         },
       });
@@ -2063,6 +2084,68 @@ function SettingsTab() {
                     </div>
                   </div>
                 ))}
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-4 pt-2 border-t border-slate-100">
+          <div>
+            <h4 className="text-base font-extrabold text-slate-800">الدولة المستهدفة</h4>
+            <p className="text-xs text-slate-500 mt-1">تُستخدم في رسائل التوصيل والثقة الظاهرة للمتسوقين في واجهة المتجر.</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-slate-700">الدولة</label>
+              <select
+                value={findMarketCountry(marketCountry) ? marketCountry : OTHER_MARKET_COUNTRY}
+                onChange={(e) => {
+                  const selected = e.target.value;
+                  if (selected === OTHER_MARKET_COUNTRY) {
+                    if (findMarketCountry(marketCountry)) {
+                      setMarketCountry("");
+                      setMarketCountryAdjective("");
+                    }
+                  } else {
+                    const country = findMarketCountry(selected);
+                    if (country) {
+                      setMarketCountry(country.name);
+                      setMarketCountryAdjective(country.adjective);
+                    }
+                  }
+                  setSaved(false);
+                }}
+                className="w-full rounded-2xl border-2 border-slate-200 bg-white px-4 py-3 text-base text-right outline-none transition focus:border-primary"
+                dir="rtl"
+              >
+                {MARKET_COUNTRY_OPTIONS.map((country) => (
+                  <option key={country.name} value={country.name}>{country.name}</option>
+                ))}
+                <option value={OTHER_MARKET_COUNTRY}>أخرى</option>
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-slate-700">صيغة الدولة في النصوص</label>
+              <input
+                type="text"
+                value={marketCountryAdjective}
+                onChange={(e) => { setMarketCountryAdjective(e.target.value); setSaved(false); }}
+                placeholder="مثال: المغربية"
+                className="w-full rounded-2xl border-2 border-slate-200 px-4 py-3 text-base text-right outline-none transition focus:border-primary"
+                dir="rtl"
+              />
+            </div>
+          </div>
+          {!findMarketCountry(marketCountry) && (
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-slate-700">اسم الدولة الأخرى</label>
+              <input
+                type="text"
+                value={marketCountry}
+                onChange={(e) => { setMarketCountry(e.target.value); setSaved(false); }}
+                placeholder="مثال: الأردن"
+                className="w-full rounded-2xl border-2 border-slate-200 px-4 py-3 text-base text-right outline-none transition focus:border-primary"
+                dir="rtl"
+              />
             </div>
           )}
         </div>

@@ -23,6 +23,8 @@ const DEFAULT_SETTINGS: {
   announcementActive: boolean;
   announcementBgColor: string;
   announcementTextColor: string;
+  marketCountry: string;
+  marketCountryAdjective: string;
   heroSlider: HeroSliderSetting[];
 } = {
   currencySymbol: "د.ل",
@@ -34,6 +36,8 @@ const DEFAULT_SETTINGS: {
   announcementActive: true,
   announcementBgColor: "",
   announcementTextColor: "",
+  marketCountry: "ليبيا",
+  marketCountryAdjective: "الليبية",
   heroSlider: [],
 };
 
@@ -47,6 +51,8 @@ const KEY_MAP = {
   announcementActive: "announcement_active",
   announcementBgColor: "announcement_bg_color",
   announcementTextColor: "announcement_text_color",
+  marketCountry: "market_country",
+  marketCountryAdjective: "market_country_adjective",
   heroSlider: "hero_slider",
 } as const;
 
@@ -88,6 +94,10 @@ export async function readSettings(): Promise<StoreSettings> {
       map.get(KEY_MAP.announcementBgColor) ?? DEFAULT_SETTINGS.announcementBgColor,
     announcementTextColor:
       map.get(KEY_MAP.announcementTextColor) ?? DEFAULT_SETTINGS.announcementTextColor,
+    marketCountry:
+      map.get(KEY_MAP.marketCountry) ?? DEFAULT_SETTINGS.marketCountry,
+    marketCountryAdjective:
+      map.get(KEY_MAP.marketCountryAdjective) ?? DEFAULT_SETTINGS.marketCountryAdjective,
     heroSlider,
   };
 }

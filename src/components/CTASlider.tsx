@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "wouter";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { useBranding } from "@/lib/branding-context";
 
 const SLIDES = [
   {
     url: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80",
-    alt: "توصيل سريع لجميع مدن ليبيا",
+    alt: "توصيل سريع",
   },
   {
     url: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=1600&q=80",
@@ -20,6 +21,7 @@ const SLIDES = [
 const INTERVAL = 4500;
 
 export function CTASlider() {
+  const { marketCountry } = useBranding();
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -51,7 +53,7 @@ export function CTASlider() {
         >
           <img
             src={slide.url}
-            alt={slide.alt}
+            alt={i === 0 ? `توصيل سريع لجميع مدن ${marketCountry}` : slide.alt}
             loading="lazy"
             className="w-full h-full object-cover object-center"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}

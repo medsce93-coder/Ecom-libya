@@ -3,7 +3,7 @@ import { MessageCircle, Phone, Mail, Package } from "lucide-react";
 import { useBranding } from "@/lib/branding-context";
 
 export function Footer() {
-  const { logoUrl, storeName } = useBranding();
+  const { logoUrl, storeName, marketCountry, marketCountryAdjective } = useBranding();
 
   return (
     <footer className="bg-slate-900 text-white mt-auto">
@@ -28,7 +28,7 @@ export function Footer() {
             )}
           </div>
           <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
-            منصتك الموثوقة للتسوق الإلكتروني في ليبيا. جودة مضمونة، توصيل سريع لجميع المدن، والدفع عند الاستلام.
+            منصتك الموثوقة للتسوق الإلكتروني في {marketCountry}. جودة مضمونة، توصيل سريع لجميع المدن، والدفع عند الاستلام.
           </p>
           <a
             href="https://wa.me/212765074750"
@@ -85,7 +85,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                توصيل لجميع المدن الليبية
+                توصيل لجميع المدن {marketCountryAdjective}
               </li>
               <li className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />

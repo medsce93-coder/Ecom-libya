@@ -11,6 +11,7 @@ import { useStore } from "@/lib/store-context";
 import { useCurrency } from "@/lib/currency-context";
 import { FlashSaleTimer } from "@/components/FlashSaleTimer";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
+import { useBranding } from "@/lib/branding-context";
 
 /* ─────────────────────────────────────────────
    Persuasive features per category
@@ -31,7 +32,7 @@ const CATEGORY_FEATURES: Record<string, string[]> = {
   "الجمال والعناية": [
     "نتائج ملموسة تظهر من الأسبوع الأول",
     "تركيبة موثوقة ومجرّبة من آلاف العميلات",
-    "مناسب لمناخ ليبيا الحار وطبيعة البشرة العربية",
+    "مناسب للمناخ الحار وطبيعة البشرة العربية",
     "سعر عادل لمنتج بجودة العلامات العالمية",
   ],
   "الصحة والعناية الشخصية": [
@@ -56,11 +57,11 @@ const CATEGORY_FEATURES: Record<string, string[]> = {
     "يُحوّل منزلك لبيئة منظمة وأنيقة",
     "جودة مواد عالية تصمد أمام الاستخدام اليومي",
     "تصميم عملي يوفر وقتك وجهدك في الأعمال المنزلية",
-    "مثالي للمطبخ الليبي وحياة العائلة",
+    "مثالي للمطبخ وحياة العائلة",
   ],
   "منتجات متنوعة": [
     "جودة مضمونة 100% على كل طلب",
-    "منتج مجرّب ومحبوب من آلاف العملاء الليبيين",
+    "منتج مجرّب ومحبوب من آلاف العملاء",
     "اختيار ذكي يُحسّن حياتك اليومية فعلاً",
     "سعر عادل بدون مبالغة — قيمة حقيقية لكل دينار",
   ],
@@ -90,6 +91,7 @@ export default function ProductDetail() {
   const [qtyTier, setQtyTier] = useState<1 | 2 | 3>(1);
   const { addToCart } = useStore();
   const { currency } = useCurrency();
+  const { marketCountry } = useBranding();
 
   const { data: product, isLoading } = useGetProduct(slug!, {
     query: { enabled: !!slug, queryKey: getGetProductQueryKey(slug!) }
@@ -372,7 +374,7 @@ export default function ProductDetail() {
                 <div className="grid grid-cols-3 gap-2 text-center">
                   {[
                     { icon: <Banknote className="h-5 w-5 text-emerald-500 mx-auto mb-1" />, label: "الدفع عند الاستلام" },
-                    { icon: <Truck className="h-5 w-5 text-blue-500 mx-auto mb-1" />, label: "توصيل لكل ليبيا" },
+                    { icon: <Truck className="h-5 w-5 text-blue-500 mx-auto mb-1" />, label: `توصيل لكل ${marketCountry}` },
                     { icon: <Shield className="h-5 w-5 text-purple-500 mx-auto mb-1" />, label: "ضمان الجودة 100%" },
                   ].map(({ icon, label }) => (
                     <div key={label} className="bg-slate-50 border border-slate-100 rounded-xl py-3 px-2">

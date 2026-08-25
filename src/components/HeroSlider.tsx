@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback, type ReactNode } from "react";
 import { Link } from "wouter";
 import { Sparkles, ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 import { apiFetch } from "@/lib/api";
+import { useBranding } from "@/lib/branding-context";
 import {
-  DEFAULT_HERO_SLIDES,
   getDefaultHeroSlides,
   normalizeHeroSlides,
   type HeroSlide,
@@ -37,6 +37,7 @@ function CtaLink({
 }
 
 export function HeroSlider() {
+  const { marketCountry, marketCountryAdjective } = useBranding();
   const [slides, setSlides] = useState<HeroSlide[]>(() => getDefaultHeroSlides());
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -51,9 +52,11 @@ export function HeroSlider() {
 
   useEffect(() => {
     apiFetch<{ heroSlider?: HeroSlide[] }>("/api/settings", { auth: false })
-      .then((data) => setSlides(normalizeHeroSlides(data?.heroSlider)))
-      .catch(() => setSlides(getDefaultHeroSlides()));
-  }, []);
+      .then((data) => setSlides(
+        normalizeHeroSlides(data?.heroSlider, getDefaultHeroSlides(marketCountryAdjective)),
+      ))
+      .catch(() => setSlides(getDefaultHeroSlides(marketCountryAdjective)));
+  }, [marketCountryAdjective]);
 
   useEffect(() => {
     if (current >= slides.length) setCurrent(0);
@@ -65,7 +68,7 @@ export function HeroSlider() {
     return () => clearInterval(id);
   }, [paused, next, slides.length]);
 
-  const slide = slides[current] ?? DEFAULT_HERO_SLIDES[0];
+  const slide = slides[current] ?? getDefaultHeroSlides(marketCountryAdjective)[0];
 
   return (
     <section
@@ -108,7 +111,7 @@ export function HeroSlider() {
         <div className="w-full max-w-3xl py-2 text-center md:text-right">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/95 text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
             <Sparkles className="h-3.5 w-3.5 text-amber-400" />
-            متجر موثوق للتسوق داخل ليبيا
+            متجر موثوق للتسوق داخل {marketCountry}
           </div>
 
           <h1
@@ -148,7 +151,7 @@ export function HeroSlider() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm text-slate-200">
             {[
               "دفع عند الاستلام",
-              "توصيل سريع داخل ليبيا",
+              `توصيل سريع لجميع المدن ${marketCountryAdjective}`,
               "جودة مضمونة",
             ].map((item) => (
               <div key={item} className="inline-flex items-center justify-center md:justify-start gap-2 rounded-xl bg-white/10 px-3 py-2">

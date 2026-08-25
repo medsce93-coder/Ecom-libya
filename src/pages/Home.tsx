@@ -6,6 +6,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { LatestArticles } from "@/components/LatestArticles";
 import { HeroSlider } from "@/components/HeroSlider";
 import { CTASlider } from "@/components/CTASlider";
+import { useBranding } from "@/lib/branding-context";
 
 const CATEGORY_ICONS_BY_ID: Record<string, string> = {
   beauty: "💄",
@@ -19,6 +20,7 @@ const CATEGORY_ICONS_BY_ID: Record<string, string> = {
 };
 
 export default function Home() {
+  const { marketCountryAdjective } = useBranding();
   const { data: featuredProducts, isLoading: loadingProducts } = useGetFeaturedProducts({
     query: { queryKey: getGetFeaturedProductsQueryKey() }
   });
@@ -53,7 +55,7 @@ export default function Home() {
                 icon: <Truck className="h-6 w-6" />,
                 color: "text-primary bg-blue-50",
                 title: "توصيل سريع",
-                desc: "نوصّل طلباتك لجميع المدن الليبية",
+                desc: `نوصّل طلباتك لجميع المدن ${marketCountryAdjective}`,
               },
               {
                 icon: <CreditCard className="h-6 w-6" />,

@@ -11,39 +11,46 @@ export type HeroSlide = {
   sortOrder: number;
 };
 
-const DEFAULT_SLIDE_TEXT = {
-  title: "تسوّق كل احتياجاتك من\nجودة ماركت",
-  subtitle:
-    "منتجات مختارة بعناية، توصيل سريع لجميع المدن الليبية، ودفع عند الاستلام بكل أمان.",
-  primaryCtaText: "ابدأ التسوق الآن",
-  primaryCtaHref: "/products",
-  secondaryCtaText: "تصفح الأقسام",
-  secondaryCtaHref: "#home-categories",
-};
+function getDefaultSlideText(marketCountryAdjective: string) {
+  return {
+    title: "تسوّق كل احتياجاتك من\nجودة ماركت",
+    subtitle:
+      `منتجات مختارة بعناية، توصيل سريع لجميع المدن ${marketCountryAdjective}، ودفع عند الاستلام بكل أمان.`,
+    primaryCtaText: "ابدأ التسوق الآن",
+    primaryCtaHref: "/products",
+    secondaryCtaText: "تصفح الأقسام",
+    secondaryCtaHref: "#home-categories",
+  };
+}
 
-export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
-  {
-    id: "default-1",
-    imageUrl: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80",
-    ...DEFAULT_SLIDE_TEXT,
-    isActive: true,
-    sortOrder: 0,
-  },
-  {
-    id: "default-2",
-    imageUrl: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
-    ...DEFAULT_SLIDE_TEXT,
-    isActive: true,
-    sortOrder: 1,
-  },
-  {
-    id: "default-3",
-    imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=80",
-    ...DEFAULT_SLIDE_TEXT,
-    isActive: true,
-    sortOrder: 2,
-  },
-];
+export function getDefaultHeroSlides(marketCountryAdjective = "الليبية"): HeroSlide[] {
+  const defaultSlideText = getDefaultSlideText(marketCountryAdjective);
+  return [
+    {
+      id: "default-1",
+      imageUrl: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&q=80",
+      ...defaultSlideText,
+      isActive: true,
+      sortOrder: 0,
+    },
+    {
+      id: "default-2",
+      imageUrl: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80",
+      ...defaultSlideText,
+      isActive: true,
+      sortOrder: 1,
+    },
+    {
+      id: "default-3",
+      imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=80",
+      ...defaultSlideText,
+      isActive: true,
+      sortOrder: 2,
+    },
+  ];
+}
+
+export const DEFAULT_HERO_SLIDES = getDefaultHeroSlides();
 
 export function cloneHeroSlides(input: HeroSlide[]): HeroSlide[] {
   return input.map((slide, index) => ({
@@ -61,12 +68,11 @@ export function cloneHeroSlides(input: HeroSlide[]): HeroSlide[] {
   }));
 }
 
-export function getDefaultHeroSlides(): HeroSlide[] {
-  return cloneHeroSlides(DEFAULT_HERO_SLIDES);
-}
-
-export function normalizeHeroSlides(input: unknown): HeroSlide[] {
-  if (!Array.isArray(input)) return getDefaultHeroSlides();
+export function normalizeHeroSlides(
+  input: unknown,
+  fallbackSlides = getDefaultHeroSlides(),
+): HeroSlide[] {
+  if (!Array.isArray(input)) return cloneHeroSlides(fallbackSlides);
 
   const slides = input
     .map((slide, index) => {
@@ -90,5 +96,15 @@ export function normalizeHeroSlides(input: unknown): HeroSlide[] {
     .filter((slide) => slide.isActive && slide.imageUrl)
     .sort((a, b) => a.sortOrder - b.sortOrder);
 
-  return slides.length ? slides : getDefaultHeroSlides();
+  if (!slides.length) return cloneHeroSlides(fallbackSlides);
+
+  // Only refresh the original built-in copy; custom Admin-authored slide text is preserved.
+  return slides.map((slide) => {
+    const originalDefault = DEFAULT_HERO_SLIDES.find((item) => item.id === slide.id);
+    const localizedDefault = fallbackSlides.find((item) => item.id === slide.id);
+    if (originalDefault && localizedDefault && slide.subtitle === originalDefault.subtitle) {
+      return { ...slide, subtitle: localizedDefault.subtitle };
+    }
+    return slide;
+  });
 }

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useParams, Link } from "wouter";
 import { useCurrency } from "@/lib/currency-context";
 import { apiFetch } from "@/lib/api";
+import { useBranding } from "@/lib/branding-context";
 
 interface LandingPageProduct {
   id: string;
@@ -31,6 +32,7 @@ interface LandingPageData {
 export default function DynamicLandingPage() {
   const { slug } = useParams<{ slug: string }>();
   const { currency } = useCurrency();
+  const { marketCountry } = useBranding();
   const [page, setPage] = useState<LandingPageData | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -681,7 +683,7 @@ export default function DynamicLandingPage() {
       {/* ── Footer ── */}
       <footer className="bg-slate-900 text-white text-center py-5 px-4 text-xs">
         <p className="font-bold text-base mb-1">جودة ماركت</p>
-        <p className="text-slate-400">الوجهة الأولى للتسوق العائلي في ليبيا</p>
+        <p className="text-slate-400">الوجهة الأولى للتسوق العائلي في {marketCountry}</p>
         <p className="text-slate-500 mt-2">جميع الحقوق محفوظة © {new Date().getFullYear()}</p>
       </footer>
 
