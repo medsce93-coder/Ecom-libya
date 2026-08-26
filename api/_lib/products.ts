@@ -26,6 +26,10 @@ export type ProductRow = {
   compareAtPrice: string | number | null;
   priceQty2: string | number | null;
   priceQty3: string | number | null;
+  quantityPrices: Array<{
+    quantity: number;
+    price: string | number;
+  }>;
   imageUrl: string | null;
   images: string[] | null;
   categoryId: string | null;
@@ -53,6 +57,12 @@ export function mapProduct(row: ProductRow) {
       row.compareAtPrice === null ? null : Number(row.compareAtPrice),
     priceQty2: row.priceQty2 === null ? null : Number(row.priceQty2),
     priceQty3: row.priceQty3 === null ? null : Number(row.priceQty3),
+    quantityPrices: Array.isArray(row.quantityPrices)
+      ? row.quantityPrices.map((item) => ({
+          quantity: Number(item.quantity),
+          price: Number(item.price),
+        }))
+      : [],
     imageUrl: row.imageUrl,
     images: Array.isArray(row.images) ? row.images : [],
     categoryId: row.categoryId,

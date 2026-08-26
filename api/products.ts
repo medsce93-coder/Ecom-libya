@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { requireAdmin } from "./_lib/auth.js";
-import { query } from "./_lib/db.js";
+import { query, withTransaction } from "./_lib/db.js";
 import {
   getRouteParam,
   methodNotAllowed,
@@ -118,6 +118,20 @@ async function listProducts(req: VercelRequest, res: VercelResponse) {
           COALESCE(to_jsonb(p)->>'compare_at_price', to_jsonb(p)->>'compareAtPrice') AS "compareAtPrice",
           COALESCE(to_jsonb(p)->>'price_qty_2', to_jsonb(p)->>'priceQty2') AS "priceQty2",
           COALESCE(to_jsonb(p)->>'price_qty_3', to_jsonb(p)->>'priceQty3') AS "priceQty3",
+(
+  SELECT COALESCE(
+    json_agg(
+      json_build_object(
+        'quantity', pqp.quantity,
+        'price', pqp.price
+      )
+      ORDER BY pqp.quantity ASC
+    ),
+    '[]'::json
+  )
+  FROM product_quantity_prices pqp
+  WHERE pqp.product_id = p.id
+) AS "quantityPrices",
           ${PRODUCT_IMAGE_SQL} AS "imageUrl",
           CASE
             WHEN jsonb_typeof(to_jsonb(p)->'images') = 'array'
@@ -188,6 +202,20 @@ async function listFeaturedProducts(req: VercelRequest, res: VercelResponse) {
           COALESCE(to_jsonb(p)->>'compare_at_price', to_jsonb(p)->>'compareAtPrice') AS "compareAtPrice",
           COALESCE(to_jsonb(p)->>'price_qty_2', to_jsonb(p)->>'priceQty2') AS "priceQty2",
           COALESCE(to_jsonb(p)->>'price_qty_3', to_jsonb(p)->>'priceQty3') AS "priceQty3",
+(
+  SELECT COALESCE(
+    json_agg(
+      json_build_object(
+        'quantity', pqp.quantity,
+        'price', pqp.price
+      )
+      ORDER BY pqp.quantity ASC
+    ),
+    '[]'::json
+  )
+  FROM product_quantity_prices pqp
+  WHERE pqp.product_id = p.id
+) AS "quantityPrices",
           ${PRODUCT_IMAGE_SQL} AS "imageUrl",
           CASE
             WHEN jsonb_typeof(to_jsonb(p)->'images') = 'array'
@@ -251,6 +279,20 @@ async function getProduct(
           COALESCE(to_jsonb(p)->>'compare_at_price', to_jsonb(p)->>'compareAtPrice') AS "compareAtPrice",
           COALESCE(to_jsonb(p)->>'price_qty_2', to_jsonb(p)->>'priceQty2') AS "priceQty2",
           COALESCE(to_jsonb(p)->>'price_qty_3', to_jsonb(p)->>'priceQty3') AS "priceQty3",
+(
+  SELECT COALESCE(
+    json_agg(
+      json_build_object(
+        'quantity', pqp.quantity,
+        'price', pqp.price
+      )
+      ORDER BY pqp.quantity ASC
+    ),
+    '[]'::json
+  )
+  FROM product_quantity_prices pqp
+  WHERE pqp.product_id = p.id
+) AS "quantityPrices",
           ${PRODUCT_IMAGE_SQL} AS "imageUrl",
           CASE
             WHEN jsonb_typeof(to_jsonb(p)->'images') = 'array'
@@ -298,6 +340,40 @@ async function getProduct(
   }
 }
 
+type QuantityPriceInput = {
+  quantity: number;
+  price: number;
+};
+
+function parseQuantityPrices(value: unknown): QuantityPriceInput[] {
+  if (!Array.isArray(value)) return [];
+
+  const result: QuantityPriceInput[] = [];
+  const seen = new Set<number>();
+
+  for (const item of value) {
+    if (!item || typeof item !== "object") continue;
+
+    const quantity = Number((item as { quantity?: unknown }).quantity);
+    const price = Number((item as { price?: unknown }).price);
+
+    if (
+      !Number.isInteger(quantity) ||
+      quantity <= 0 ||
+      !Number.isFinite(price) ||
+      price < 0 ||
+      seen.has(quantity)
+    ) {
+      continue;
+    }
+
+    seen.add(quantity);
+    result.push({ quantity, price });
+  }
+
+  return result.sort((a, b) => a.quantity - b.quantity);
+}
+
 async function createProduct(req: VercelRequest, res: VercelResponse) {
   const admin = await requireAdmin(req, res);
   if (!admin) return;
@@ -306,6 +382,7 @@ async function createProduct(req: VercelRequest, res: VercelResponse) {
     const body = req.body ?? {};
     const id = randomUUID();
     const nameAr = String(body.nameAr ?? body.name ?? "").trim();
+
     if (!nameAr) {
       return sendJson(res, 400, {
         error: "bad_request",
@@ -314,62 +391,104 @@ async function createProduct(req: VercelRequest, res: VercelResponse) {
     }
 
     const slug = generateSlug(nameAr, id);
-    const [created] = await query<ProductRow>(
-      `
-        INSERT INTO products (
-          id, slug, name, name_ar, description, description_ar, price,
-          compare_at_price, price_qty_2, price_qty_3, image_url, images,
-          category_id, stock, sku, featured, active, badge, rating, created_at, updated_at
-        )
-        VALUES (
-          $1, $2, $3, $4, $5, $6, $7,
-          $8, $9, $10, $11, $12,
-          $13, $14, $15, $16, $17, $18, $19, NOW(), NOW()
-        )
-        RETURNING
-          id, slug, name, name_ar AS "nameAr",
-          description, description_ar AS "descriptionAr",
-          price, compare_at_price AS "compareAtPrice",
-          price_qty_2 AS "priceQty2", price_qty_3 AS "priceQty3",
-          image_url AS "imageUrl", images,
-          category_id AS "categoryId", NULL::text AS "categoryName",
-          stock, sku, featured, active, badge, rating,
-          created_at AS "createdAt", updated_at AS "updatedAt"
-      `,
-      [
-        id,
-        slug,
-        String(body.name ?? nameAr),
-        nameAr,
-        String(body.description ?? ""),
-        String(body.descriptionAr ?? ""),
-        String(Number(body.price ?? 0)),
-        body.compareAtPrice === null || body.compareAtPrice === undefined || body.compareAtPrice === ""
-          ? null
-          : String(Number(body.compareAtPrice)),
-        body.priceQty2 === null || body.priceQty2 === undefined || body.priceQty2 === ""
-          ? null
-          : String(Number(body.priceQty2)),
-        body.priceQty3 === null || body.priceQty3 === undefined || body.priceQty3 === ""
-          ? null
-          : String(Number(body.priceQty3)),
-        body.imageUrl ? String(body.imageUrl) : null,
-        Array.isArray(body.images) ? body.images.map(String) : [],
-        body.categoryId ? String(body.categoryId) : null,
-        Number.isFinite(Number(body.stock)) ? Number(body.stock) : 0,
-        body.sku ? String(body.sku) : null,
-        body.featured === true,
-        body.active !== false,
-        body.badge ? String(body.badge) : null,
-        body.rating === null || body.rating === undefined || body.rating === ""
-          ? "4.5"
-          : String(Number(body.rating)),
-      ],
-    );
+    const quantityPrices = parseQuantityPrices(body.quantityPrices);
+
+    const created = await withTransaction(async (client) => {
+      const result = await client.query<ProductRow>(
+        `
+          INSERT INTO products (
+            id, slug, name, name_ar, description, description_ar, price,
+            compare_at_price, price_qty_2, price_qty_3, image_url, images,
+            category_id, stock, sku, featured, active, badge, rating, created_at, updated_at
+          )
+          VALUES (
+            $1, $2, $3, $4, $5, $6, $7,
+            $8, $9, $10, $11, $12,
+            $13, $14, $15, $16, $17, $18, $19, NOW(), NOW()
+          )
+          RETURNING
+            id, slug, name, name_ar AS "nameAr",
+            description, description_ar AS "descriptionAr",
+            price, compare_at_price AS "compareAtPrice",
+            price_qty_2 AS "priceQty2", price_qty_3 AS "priceQty3",
+            image_url AS "imageUrl", images,
+            category_id AS "categoryId", NULL::text AS "categoryName",
+            stock, sku, featured, active, badge, rating,
+            created_at AS "createdAt", updated_at AS "updatedAt"
+        `,
+        [
+          id,
+          slug,
+          String(body.name ?? nameAr),
+          nameAr,
+          String(body.description ?? ""),
+          String(body.descriptionAr ?? ""),
+          String(Number(body.price ?? 0)),
+          body.compareAtPrice === null ||
+          body.compareAtPrice === undefined ||
+          body.compareAtPrice === ""
+            ? null
+            : String(Number(body.compareAtPrice)),
+          body.priceQty2 === null ||
+          body.priceQty2 === undefined ||
+          body.priceQty2 === ""
+            ? null
+            : String(Number(body.priceQty2)),
+          body.priceQty3 === null ||
+          body.priceQty3 === undefined ||
+          body.priceQty3 === ""
+            ? null
+            : String(Number(body.priceQty3)),
+          body.imageUrl ? String(body.imageUrl) : null,
+          Array.isArray(body.images) ? body.images.map(String) : [],
+          body.categoryId ? String(body.categoryId) : null,
+          Number.isFinite(Number(body.stock)) ? Number(body.stock) : 0,
+          body.sku ? String(body.sku) : null,
+          body.featured === true,
+          body.active !== false,
+          body.badge ? String(body.badge) : null,
+          body.rating === null ||
+          body.rating === undefined ||
+          body.rating === ""
+            ? "4.5"
+            : String(Number(body.rating)),
+        ],
+      );
+
+      const created = result.rows[0];
+
+      if (!created) {
+        throw new Error("Failed to create product");
+      }
+
+      if (quantityPrices.length > 0) {
+        for (const item of quantityPrices) {
+          await client.query(
+            `
+              INSERT INTO product_quantity_prices (
+                id, product_id, quantity, price, created_at, updated_at
+              )
+              VALUES ($1, $2, $3, $4, NOW(), NOW())
+            `,
+            [
+              randomUUID(),
+              id,
+              item.quantity,
+              item.price,
+            ],
+          );
+        }
+      }
+
+      return created;
+    });
 
     return sendJson(res, 201, mapProduct(created));
   } catch (error) {
-    console.error("Failed to create product", { error, body: req.body });
+    console.error("Failed to create product", {
+      error,
+      body: req.body,
+    });
     return sendJson(res, 500, {
       error: "internal_error",
       message: "Failed to create product",
@@ -396,15 +515,24 @@ async function updateProduct(
     };
 
     if (body.name !== undefined) push("name", String(body.name));
+
     if (body.nameAr !== undefined) {
       push("name_ar", String(body.nameAr));
       push("slug", generateSlug(String(body.nameAr), productId));
     }
-    if (body.description !== undefined) push("description", String(body.description ?? ""));
+
+    if (body.description !== undefined) {
+      push("description", String(body.description ?? ""));
+    }
+
     if (body.descriptionAr !== undefined) {
       push("description_ar", String(body.descriptionAr ?? ""));
     }
-    if (body.price !== undefined) push("price", String(Number(body.price)));
+
+    if (body.price !== undefined) {
+      push("price", String(Number(body.price)));
+    }
+
     if (body.compareAtPrice !== undefined) {
       push(
         "compare_at_price",
@@ -413,6 +541,7 @@ async function updateProduct(
           : String(Number(body.compareAtPrice)),
       );
     }
+
     if (body.priceQty2 !== undefined) {
       push(
         "price_qty_2",
@@ -421,6 +550,7 @@ async function updateProduct(
           : String(Number(body.priceQty2)),
       );
     }
+
     if (body.priceQty3 !== undefined) {
       push(
         "price_qty_3",
@@ -429,23 +559,42 @@ async function updateProduct(
           : String(Number(body.priceQty3)),
       );
     }
+
     if (body.imageUrl !== undefined) {
       push("image_url", body.imageUrl ? String(body.imageUrl) : null);
     }
+
     if (body.images !== undefined) {
       push(
         "images",
         Array.isArray(body.images) ? body.images.map(String) : [],
       );
     }
+
     if (body.categoryId !== undefined) {
       push("category_id", body.categoryId ? String(body.categoryId) : null);
     }
-    if (body.stock !== undefined) push("stock", Number(body.stock ?? 0));
-    if (body.sku !== undefined) push("sku", body.sku ? String(body.sku) : null);
-    if (body.featured !== undefined) push("featured", body.featured === true);
-    if (body.active !== undefined) push("active", body.active === true);
-    if (body.badge !== undefined) push("badge", body.badge ? String(body.badge) : null);
+
+    if (body.stock !== undefined) {
+      push("stock", Number(body.stock ?? 0));
+    }
+
+    if (body.sku !== undefined) {
+      push("sku", body.sku ? String(body.sku) : null);
+    }
+
+    if (body.featured !== undefined) {
+      push("featured", body.featured === true);
+    }
+
+    if (body.active !== undefined) {
+      push("active", body.active === true);
+    }
+
+    if (body.badge !== undefined) {
+      push("badge", body.badge ? String(body.badge) : null);
+    }
+
     if (body.rating !== undefined) {
       push(
         "rating",
@@ -457,26 +606,70 @@ async function updateProduct(
 
     push("updated_at", new Date().toISOString());
 
-    values.push(productId);
-    const idIndex = values.length;
+    const quantityPricesProvided = body.quantityPrices !== undefined;
+    const quantityPrices = quantityPricesProvided
+      ? parseQuantityPrices(body.quantityPrices)
+      : [];
 
-    const [updated] = await query<ProductRow>(
-      `
-        UPDATE products
-        SET ${updates.join(", ")}
-        WHERE id = $${idIndex}
-        RETURNING
-          id, slug, name, name_ar AS "nameAr",
-          description, description_ar AS "descriptionAr",
-          price, compare_at_price AS "compareAtPrice",
-          price_qty_2 AS "priceQty2", price_qty_3 AS "priceQty3",
-          image_url AS "imageUrl", images,
-          category_id AS "categoryId", NULL::text AS "categoryName",
-          stock, sku, featured, active, badge, rating,
-          created_at AS "createdAt", updated_at AS "updatedAt"
-      `,
-      values,
-    );
+    const updated = await withTransaction(async (client) => {
+      values.push(productId);
+      const idIndex = values.length;
+
+      const result = await client.query<ProductRow>(
+        `
+          UPDATE products
+          SET ${updates.join(", ")}
+          WHERE id = $${idIndex}
+          RETURNING
+            id, slug, name, name_ar AS "nameAr",
+            description, description_ar AS "descriptionAr",
+            price, compare_at_price AS "compareAtPrice",
+            price_qty_2 AS "priceQty2", price_qty_3 AS "priceQty3",
+            image_url AS "imageUrl", images,
+            category_id AS "categoryId", NULL::text AS "categoryName",
+            stock, sku, featured, active, badge, rating,
+            created_at AS "createdAt", updated_at AS "updatedAt"
+        `,
+        values,
+      );
+
+      const updated = result.rows[0];
+
+      if (!updated) {
+        return null;
+      }
+
+      if (quantityPricesProvided) {
+        await client.query(
+          `
+            DELETE FROM product_quantity_prices
+            WHERE product_id = $1
+          `,
+          [productId],
+        );
+
+        for (const item of quantityPrices) {
+          await client.query(
+            `
+              INSERT INTO product_quantity_prices (
+                id, product_id, quantity, price, created_at, updated_at
+              )
+              VALUES ($1, $2, $3, $4, NOW(), NOW())
+            `,
+            [
+              randomUUID(),
+              productId,
+              item.quantity,
+              item.price,
+            ],
+          );
+        }
+
+        updated.quantityPrices = quantityPrices;
+      }
+
+      return updated;
+    });
 
     if (!updated) {
       return sendJson(res, 404, {

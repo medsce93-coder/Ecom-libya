@@ -350,10 +350,36 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
   const [price, setPrice] = useState("");
   const [priceQty2, setPriceQty2] = useState("");
   const [priceQty3, setPriceQty3] = useState("");
+  const [quantityPrices, setQuantityPrices] = useState<
+  { quantity: string; price: string }[]
+   >([]);
   const [stock, setStock] = useState("0");
   const [imageUrl, setImageUrl] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+
+const addQuantityPrice = () => {
+  setQuantityPrices((prev) => [
+    ...prev,
+    { quantity: "", price: "" },
+  ]);
+};
+
+const removeQuantityPrice = (index: number) => {
+  setQuantityPrices((prev) => prev.filter((_, i) => i !== index));
+};
+
+const updateQuantityPrice = (
+  index: number,
+  field: "quantity" | "price",
+  value: string,
+) => {
+  setQuantityPrices((prev) =>
+    prev.map((item, i) =>
+      i === index ? { ...item, [field]: value } : item,
+    ),
+  );
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -373,6 +399,18 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
           price: priceNum,
           priceQty2: priceQty2 ? parseFloat(priceQty2) : null,
           priceQty3: priceQty3 ? parseFloat(priceQty3) : null,
+quantityPrices: quantityPrices
+  .map((item) => ({
+    quantity: Number(item.quantity),
+    price: Number(item.price),
+  }))
+  .filter(
+    (item) =>
+      Number.isInteger(item.quantity) &&
+      item.quantity > 0 &&
+      Number.isFinite(item.price) &&
+      item.price >= 0,
+  ),
           stock: stockNum,
           imageUrl: imageUrl.trim() || null,
           active: true,
@@ -446,31 +484,62 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
             </div>
           </div>
 
-          {/* Volume pricing */}
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">أسعار الكميات <span className="text-slate-400 font-normal">(اختياري — لتفعيل عروض الحجم)</span></label>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs text-slate-500 mb-1">سعر قطعتين ({currency})</label>
-                <input
-                  type="number" min="0" step="0.5" value={priceQty2}
-                  onChange={e => setPriceQty2(e.target.value)}
-                  placeholder="مثال: 79"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all"
-                />
-              </div>
-              <div>
-                <label className="block text-xs text-slate-500 mb-1">سعر 3 قطع ({currency})</label>
-                <input
-                  type="number" min="0" step="0.5" value={priceQty3}
-                  onChange={e => setPriceQty3(e.target.value)}
-                  placeholder="مثال: 110"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all"
-                />
-              </div>
-            </div>
-          </div>
+{/* Quantity pricing */}
+<div>
+  <label className="block text-sm font-bold text-slate-700 mb-1.5">
+    أسعار الكميات{" "}
+    <span className="text-slate-400 font-normal">
+      — اختياري
+    </span>
+  </label>
 
+  <div className="space-y-2">
+    {quantityPrices.map((item, index) => (
+      <div key={index} className="flex items-center gap-2">
+        <input
+          type="number"
+          min="1"
+          step="1"
+          value={item.quantity}
+          onChange={(e) =>
+            updateQuantityPrice(index, "quantity", e.target.value)
+          }
+          placeholder="عدد القطع"
+          className="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all"
+        />
+
+        <input
+          type="number"
+          min="0"
+          step="0.5"
+          value={item.price}
+          onChange={(e) =>
+            updateQuantityPrice(index, "price", e.target.value)
+          }
+          placeholder={`السعر (${currency})`}
+          className="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-right outline-none focus:border-primary focus:bg-white transition-all"
+        />
+
+        <button
+          type="button"
+          onClick={() => removeQuantityPrice(index)}
+          className="shrink-0 rounded-xl bg-red-50 px-3 py-2.5 text-red-600 hover:bg-red-100 transition-colors"
+          aria-label="حذف سعر الكمية"
+        >
+          ✕
+        </button>
+      </div>
+    ))}
+  </div>
+
+  <button
+    type="button"
+    onClick={addQuantityPrice}
+    className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-300 px-4 py-2.5 text-sm font-bold text-slate-600 hover:border-primary hover:text-primary transition-colors"
+  >
+    + إضافة سعر كمية
+  </button>
+</div>
           {/* Image */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">الصورة الرئيسية للمنتج</label>
@@ -526,7 +595,19 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
   const [comparePrice, setComparePrice] = useState(initialComparePrice);
   const [priceQty2, setPriceQty2] = useState(initialPriceQty2);
   const [priceQty3, setPriceQty3] = useState(initialPriceQty3);
-  const [stock, setStock] = useState(initialStock);
+
+  const initialQuantityPrices = Array.isArray((product as any).quantityPrices)
+  ? (product as any).quantityPrices.map((item: any) => ({
+      quantity: String(item.quantity),
+      price: String(item.price),
+    }))
+  : [];
+
+  const [quantityPrices, setQuantityPrices] = useState<
+  { quantity: string; price: string }[]
+>(initialQuantityPrices);
+
+  const [stock, setStock] = useState(initialStock);  
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [active, setActive] = useState(initialActive);
   const [featured, setFeatured] = useState(initialFeatured);
@@ -559,6 +640,20 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
           compareAtPrice: comparePriceNum,
           priceQty2: priceQty2 ? parseFloat(priceQty2) : null,
           priceQty3: priceQty3 ? parseFloat(priceQty3) : null,
+
+quantityPrices: quantityPrices
+  .map((item) => ({
+    quantity: Number(item.quantity),
+    price: Number(item.price),
+  }))
+  .filter(
+    (item) =>
+      Number.isInteger(item.quantity) &&
+      item.quantity > 0 &&
+      Number.isFinite(item.price) &&
+      item.price >= 0,
+  ),
+
           stock: stockNum,
           imageUrl: imageUrl.trim() || null,
           active,
@@ -667,33 +762,77 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
             )}
           </div>
 
-          {/* Volume pricing */}
-          <div>
-            <label className="block text-sm font-bold text-slate-700 mb-1.5">
-              أسعار الكميات <span className="text-slate-400 font-normal">— اختياري</span>
-            </label>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="relative">
-                <label className="block text-xs text-slate-500 mb-1">سعر قطعتين</label>
-                <input
-                  type="number" min="0" step="0.5" value={priceQty2}
-                  onChange={(e) => setPriceQty2(e.target.value)}
-                  className="w-full rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-2.5 text-base font-bold text-slate-700 outline-none transition-colors bg-white text-right"
-                  placeholder="فارغ = غير مفعّل"
-                />
-              </div>
-              <div className="relative">
-                <label className="block text-xs text-slate-500 mb-1">سعر 3 قطع</label>
-                <input
-                  type="number" min="0" step="0.5" value={priceQty3}
-                  onChange={(e) => setPriceQty3(e.target.value)}
-                  className="w-full rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-2.5 text-base font-bold text-slate-700 outline-none transition-colors bg-white text-right"
-                  placeholder="فارغ = غير مفعّل"
-                />
-              </div>
-            </div>
-          </div>
+{/* Quantity pricing */}
+<div>
+  <label className="block text-sm font-bold text-slate-700 mb-1.5">
+    أسعار الكميات{" "}
+    <span className="text-slate-400 font-normal">
+      — اختياري
+    </span>
+  </label>
 
+  <div className="space-y-2">
+    {quantityPrices.map((item, index) => (
+      <div key={index} className="flex items-center gap-2">
+        <input
+          type="number"
+          min="1"
+          step="1"
+          value={item.quantity}
+          onChange={(e) =>
+            setQuantityPrices((prev) =>
+              prev.map((p, i) =>
+                i === index ? { ...p, quantity: e.target.value } : p
+              )
+            )
+          }
+          placeholder="عدد القطع"
+          className="flex-1 rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-2.5 text-base font-bold text-slate-700 outline-none transition-colors bg-white text-right"
+        />
+
+        <input
+          type="number"
+          min="0"
+          step="0.5"
+          value={item.price}
+          onChange={(e) =>
+            setQuantityPrices((prev) =>
+              prev.map((p, i) =>
+                i === index ? { ...p, price: e.target.value } : p
+              )
+            )
+          }
+          placeholder={`السعر (${currency})`}
+          className="flex-1 rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-2.5 text-base font-bold text-slate-700 outline-none transition-colors bg-white text-right"
+        />
+
+        <button
+          type="button"
+          onClick={() =>
+            setQuantityPrices((prev) => prev.filter((_, i) => i !== index))
+          }
+          className="shrink-0 rounded-xl bg-red-50 px-3 py-2.5 text-red-600 hover:bg-red-100 transition-colors"
+          aria-label="حذف سعر الكمية"
+        >
+          ✕
+        </button>
+      </div>
+    ))}
+  </div>
+
+  <button
+    type="button"
+    onClick={() =>
+      setQuantityPrices((prev) => [
+        ...prev,
+        { quantity: "", price: "" },
+      ])
+    }
+    className="mt-3 w-full rounded-xl border-2 border-dashed border-slate-300 px-4 py-2.5 text-sm font-bold text-slate-600 hover:border-primary hover:text-primary transition-colors"
+  >
+    + إضافة سعر كمية
+  </button>
+</div>
           {/* Stock */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">الكمية في المخزون (سطوك)</label>
