@@ -270,7 +270,7 @@ const addToCart = useCallback((product: {
       item.bundleTotalPrice !== undefined
       ? item.bundleTotalPrice
       : item.price,
-      quantity: item.quantity,
+      quantity: item.bundleQuantity ?? item.quantity,
       image: item.image,
     }));
 

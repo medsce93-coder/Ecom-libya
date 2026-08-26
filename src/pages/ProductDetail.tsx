@@ -129,18 +129,14 @@ export default function ProductDetail() {
 const handleAddToCart = () => {
   if (!product) return;
 
-  const bundleTotal = getBundlePrice(product);
+  const bundleTotal = selectedPrice;
   const bundleQuantity = qtyTier;
-  const perUnitPrice = bundleTotal / bundleQuantity;
 
   addToCart({
     id: product.id,
     name: product.nameAr,
-    price: perUnitPrice,
-    oldPrice:
-      bundleQuantity === 1
-        ? (product.compareAtPrice ?? undefined)
-        : undefined,
+    price: bundleTotal / bundleQuantity,
+    oldPrice: bundleQuantity === 1 ? (product.compareAtPrice ?? undefined) : undefined,
     image: product.imageUrl ?? "",
     description: product.descriptionAr ?? "",
     category: product.categoryName ?? "",
@@ -149,9 +145,7 @@ const handleAddToCart = () => {
   });
 
   toast.success(
-    `✓ أُضيف إلى السلة (${bundleQuantity} ${
-      bundleQuantity === 1 ? "قطعة" : "قطع"
-    })`,
+    `✓ أُضيف إلى السلة (${bundleQuantity} ${bundleQuantity === 1 ? "قطعة" : "قطع"})`,
     {
       position: "top-center",
       duration: 2000,
@@ -162,18 +156,14 @@ const handleAddToCart = () => {
 const handleOrderNow = () => {
   if (!product) return;
 
-  const bundleTotal = getBundlePrice(product);
+  const bundleTotal = selectedPrice;
   const bundleQuantity = qtyTier;
-  const perUnitPrice = bundleTotal / bundleQuantity;
 
   addToCart({
     id: product.id,
     name: product.nameAr,
-    price: perUnitPrice,
-    oldPrice:
-      bundleQuantity === 1
-        ? (product.compareAtPrice ?? undefined)
-        : undefined,
+    price: bundleTotal / bundleQuantity,
+    oldPrice: bundleQuantity === 1 ? (product.compareAtPrice ?? undefined) : undefined,
     image: product.imageUrl ?? "",
     description: product.descriptionAr ?? "",
     category: product.categoryName ?? "",
@@ -228,10 +218,31 @@ const handleOrderNow = () => {
     ? (product.compareAtPrice - product.price).toFixed(0)
     : null;
 
-  const pq2 = (product as any).priceQty2 ? parseFloat(String((product as any).priceQty2)) : null;
-  const pq3 = (product as any).priceQty3 ? parseFloat(String((product as any).priceQty3)) : null;
-  const hasVolume = !!(pq2 || pq3);
-  const selectedPrice = qtyTier === 3 && pq3 ? pq3 : qtyTier === 2 && pq2 ? pq2 : product.price;
+  const quantityPrices = Array.isArray((product as any).quantityPrices)
+  ? (product as any).quantityPrices
+      .map((item: any) => ({
+        quantity: Number(item.quantity),
+        price: Number(item.price),
+      }))
+      .filter(
+        (item: { quantity: number; price: number }) =>
+          Number.isInteger(item.quantity) &&
+          item.quantity > 1 &&
+          Number.isFinite(item.price),
+      )
+      .sort(
+        (a: { quantity: number }, b: { quantity: number }) =>
+          a.quantity - b.quantity,
+      )
+  : [];
+
+const hasVolume = quantityPrices.length > 0;
+
+const selectedOffer = quantityPrices.find(
+  (item: { quantity: number; price: number }) => item.quantity === qtyTier,
+);
+
+const selectedPrice = selectedOffer?.price ?? product.price;
 
   /* Stock scarcity — seeded by id so it stays stable across re-renders */
   const stockLeft = ((product.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % 5) + 3);
@@ -489,7 +500,7 @@ const handleOrderNow = () => {
         return (
           <button
             key={`${quantity}-${index}`}
-            onClick={() => setQtyTier(quantity as 1 | 2 | 3)}
+            onClick={() => setQtyTier(quantity)}
             className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation relative ${
               selected
                 ? "border-emerald-500 bg-emerald-50"
