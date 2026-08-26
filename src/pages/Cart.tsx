@@ -49,7 +49,12 @@ export default function Cart() {
               <div className="text-right">
                 <h3 className="text-xl font-semibold">{item.name}</h3>
                 {item.description && <p className="mt-2 text-sm text-slate-600">{item.description}</p>}
-                <p className="mt-3 font-bold text-primary">{currency} {item.price}</p>
+                <p className="mt-3 font-bold text-primary">
+  {currency}{" "}
+  {item.bundleTotalPrice !== undefined
+    ? item.bundleTotalPrice
+    : item.price}
+</p>
               </div>
               <div className="flex flex-col items-start gap-3 md:items-end">
                 <div className="flex items-center gap-3 rounded-2xl border border-slate-300 px-3 py-2">

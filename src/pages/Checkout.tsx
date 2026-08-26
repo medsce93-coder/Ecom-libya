@@ -131,9 +131,20 @@ export default function Checkout() {
                         بدون صورة
                       </div>
                     </div>
-                    <span className="min-w-0 text-slate-700 font-medium leading-snug">{item.name} × {item.quantity}</span>
+                    <span className="min-w-0 text-slate-700 font-medium leading-snug">
+  {item.name}
+  {item.bundleQuantity
+    ? ` × ${item.bundleQuantity} قطع`
+    : ` × ${item.quantity}`}
+</span>
                   </div>
-                  <span className="font-bold text-slate-900 shrink-0">{currency} {(item.price * item.quantity).toFixed(0)}</span>
+                  <span className="font-bold text-slate-900 shrink-0">
+  {currency}{" "}
+  {(item.bundleTotalPrice !== undefined
+    ? item.bundleTotalPrice * item.quantity
+    : item.price * item.quantity
+  ).toFixed(0)}
+</span>
                 </div>
               ))
             )}

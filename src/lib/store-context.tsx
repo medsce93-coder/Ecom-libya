@@ -24,6 +24,8 @@ export interface CartItem {
   quantity: number;
   description?: string;
   category?: string;
+  bundleQuantity?: number;
+  bundleTotalPrice?: number;
 }
 
 export interface Order {
@@ -59,7 +61,17 @@ interface StoreContextType {
   setCouponApplied: (v: boolean) => void;
   setCheckoutData: (data: { fullName: string; city: string; phone: string; payment: string }) => void;
   handleCheckoutChange: (field: string, value: string) => void;
-  addToCart: (product: { id: string; name: string; price: number; oldPrice?: number; image: string; description?: string; category?: string }) => void;
+  addToCart: (product: {
+  id: string;
+  name: string;
+  price: number;
+  oldPrice?: number;
+  image: string;
+  description?: string;
+  category?: string;
+  bundleQuantity?: number;
+  bundleTotalPrice?: number;
+}) => void;
   updateQuantity: (id: string, change: number) => void;
   removeFromCart: (id: string) => void;
   toggleWishlist: (id: string) => void;
@@ -151,7 +163,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => { localStorage.setItem("cart", JSON.stringify(cart)); }, [cart]);
   useEffect(() => { localStorage.setItem("wishlist", JSON.stringify(wishlist)); }, [wishlist]);
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cart.reduce(
+  (sum, item) =>
+    sum +
+    (item.bundleTotalPrice !== undefined
+      ? item.bundleTotalPrice * item.quantity
+      : item.price * item.quantity),
+  0,
+);
+
   const shipping = 0;
   const discount = couponApplied ? Math.round(subtotal * 0.1) : 0;
   const total = subtotal + shipping - discount;
@@ -175,13 +195,43 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     if (adminSession) loadOrders();
   }, [adminSession, loadOrders]);
 
-  const addToCart = useCallback((product: { id: string; name: string; price: number; oldPrice?: number; image: string; description?: string; category?: string }) => {
-    setCart((current) => {
-      const found = current.find((item) => item.id === product.id);
-      if (found) return current.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
+const addToCart = useCallback((product: {
+  id: string;
+  name: string;
+  price: number;
+  oldPrice?: number;
+  image: string;
+  description?: string;
+  category?: string;
+  bundleQuantity?: number;
+  bundleTotalPrice?: number;
+}) => {
+  setCart((current) => {
+    const isBundle = product.bundleQuantity !== undefined && product.bundleQuantity > 1;
+
+    // العرض (مثلاً 5 قطع = 300) يبقى سطر مستقل
+    if (isBundle) {
       return [...current, { ...product, quantity: 1 }];
-    });
-  }, []);
+    }
+
+    // المنتجات العادية تبقى كتجمع الكمية بنفس الطريقة القديمة
+    const found = current.find(
+      (item) =>
+        item.id === product.id &&
+        !item.bundleQuantity
+    );
+
+    if (found) {
+      return current.map((item) =>
+        item.id === product.id && !item.bundleQuantity
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    }
+
+    return [...current, { ...product, quantity: 1 }];
+  });
+}, []);
 
   const updateQuantity = useCallback((id: string, change: number) => {
     setCart((current) =>
@@ -216,7 +266,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       id: item.id,
       name: item.name,
       nameAr: item.name,
-      price: item.price,
+      price:
+      item.bundleTotalPrice !== undefined
+      ? item.bundleTotalPrice
+      : item.price,
       quantity: item.quantity,
       image: item.image,
     }));

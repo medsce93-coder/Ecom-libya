@@ -88,7 +88,7 @@ function getFeatures(categoryName: string | null | undefined): string[] {
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [, setLocation] = useLocation();
-  const [qtyTier, setQtyTier] = useState<1 | 2 | 3>(1);
+  const [qtyTier, setQtyTier] = useState(1);
   const { addToCart } = useStore();
   const { currency } = useCurrency();
   const { marketCountry } = useBranding();
@@ -109,50 +109,81 @@ export default function ProductDetail() {
   }, []);
 
   const getBundlePrice = (p: typeof product) => {
-    if (!p) return 0;
-    const pq2 = (p as any).priceQty2 ? parseFloat(String((p as any).priceQty2)) : null;
-    const pq3 = (p as any).priceQty3 ? parseFloat(String((p as any).priceQty3)) : null;
-    if (qtyTier === 3 && pq3) return pq3;
-    if (qtyTier === 2 && pq2) return pq2;
-    return p.price;
-  };
+  if (!p) return 0;
 
-  const handleAddToCart = () => {
-    if (!product) return;
-    const bundleTotal = getBundlePrice(product);
-    const perUnit = bundleTotal / qtyTier;
-    for (let i = 0; i < qtyTier; i++) {
-      addToCart({
-        id: product.id,
-        name: product.nameAr,
-        price: perUnit,
-        oldPrice: qtyTier === 1 ? (product.compareAtPrice ?? undefined) : undefined,
-        image: product.imageUrl ?? "",
-        description: product.descriptionAr ?? "",
-        category: product.categoryName ?? "",
-      });
-    }
-    toast.success(`✓ أُضيف إلى السلة (${qtyTier} ${qtyTier === 1 ? "قطعة" : "قطع"})`, { position: "top-center", duration: 2000 });
-  };
+  const quantityPrices = Array.isArray((p as any).quantityPrices)
+    ? (p as any).quantityPrices
+    : [];
 
-  const handleOrderNow = () => {
-    if (!product) return;
-    const bundleTotal = getBundlePrice(product);
-    const perUnit = bundleTotal / qtyTier;
-    for (let i = 0; i < qtyTier; i++) {
-      addToCart({
-        id: product.id,
-        name: product.nameAr,
-        price: perUnit,
-        oldPrice: qtyTier === 1 ? (product.compareAtPrice ?? undefined) : undefined,
-        image: product.imageUrl ?? "",
-        description: product.descriptionAr ?? "",
-        category: product.categoryName ?? "",
-      });
-    }
-    setLocation("/checkout");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const selectedOffer = quantityPrices.find(
+    (item: any) => Number(item.quantity) === qtyTier
+  );
+
+  if (selectedOffer && Number.isFinite(Number(selectedOffer.price))) {
+    return Number(selectedOffer.price);
+  }
+
+  return Number(p.price ?? 0);
+};
+
+const handleAddToCart = () => {
+  if (!product) return;
+
+  const bundleTotal = getBundlePrice(product);
+  const bundleQuantity = qtyTier;
+  const perUnitPrice = bundleTotal / bundleQuantity;
+
+  addToCart({
+    id: product.id,
+    name: product.nameAr,
+    price: perUnitPrice,
+    oldPrice:
+      bundleQuantity === 1
+        ? (product.compareAtPrice ?? undefined)
+        : undefined,
+    image: product.imageUrl ?? "",
+    description: product.descriptionAr ?? "",
+    category: product.categoryName ?? "",
+    bundleQuantity,
+    bundleTotalPrice: bundleTotal,
+  });
+
+  toast.success(
+    `✓ أُضيف إلى السلة (${bundleQuantity} ${
+      bundleQuantity === 1 ? "قطعة" : "قطع"
+    })`,
+    {
+      position: "top-center",
+      duration: 2000,
+    },
+  );
+};
+
+const handleOrderNow = () => {
+  if (!product) return;
+
+  const bundleTotal = getBundlePrice(product);
+  const bundleQuantity = qtyTier;
+  const perUnitPrice = bundleTotal / bundleQuantity;
+
+  addToCart({
+    id: product.id,
+    name: product.nameAr,
+    price: perUnitPrice,
+    oldPrice:
+      bundleQuantity === 1
+        ? (product.compareAtPrice ?? undefined)
+        : undefined,
+    image: product.imageUrl ?? "",
+    description: product.descriptionAr ?? "",
+    category: product.categoryName ?? "",
+    bundleQuantity,
+    bundleTotalPrice: bundleTotal,
+  });
+
+  setLocation("/checkout");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
   /* Loading skeleton */
   if (isLoading) {
@@ -393,98 +424,125 @@ export default function ProductDetail() {
                   اطلب الآن — الدفع عند الاستلام
                 </button>
 
-                {/* Volume tier selector */}
-                {hasVolume && (
-                  <div className="space-y-2">
-                    <p className="text-xs font-bold text-slate-500 mb-1">اختر الكمية</p>
+                {/* Quantity pricing selector */}
+{(Array.isArray((product as any).quantityPrices)
+  ? (product as any).quantityPrices
+  : []
+).length > 0 && (
+  <div className="space-y-2">
+    <p className="text-xs font-bold text-slate-500 mb-1">
+      اختر الكمية
+    </p>
 
-                    {/* Tier 1 — always shown */}
-                    <button
-                      onClick={() => setQtyTier(1)}
-                      className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation ${
-                        qtyTier === 1
-                          ? "border-primary bg-blue-50"
-                          : "border-slate-200 bg-white hover:border-slate-300"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                          qtyTier === 1 ? "border-primary" : "border-slate-300"
-                        }`}>
-                          {qtyTier === 1 && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
-                        </div>
-                        <span className="font-bold text-slate-800 text-sm">قطعة واحدة</span>
-                      </div>
-                      <span className={`font-black text-base ${qtyTier === 1 ? "text-primary" : "text-slate-700"}`}>
-                        {product.price} <span className="text-xs font-bold">{currency}</span>
-                      </span>
-                    </button>
+    {/* 1 piece - normal price */}
+    <button
+      onClick={() => setQtyTier(1)}
+      className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation ${
+        qtyTier === 1
+          ? "border-primary bg-blue-50"
+          : "border-slate-200 bg-white hover:border-slate-300"
+      }`}
+    >
+      <div className="flex items-center gap-2.5">
+        <div
+          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+            qtyTier === 1 ? "border-primary" : "border-slate-300"
+          }`}
+        >
+          {qtyTier === 1 && (
+            <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+          )}
+        </div>
 
-                    {/* Tier 2 */}
-                    {pq2 && (
-                      <button
-                        onClick={() => setQtyTier(2)}
-                        className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation relative ${
-                          qtyTier === 2
-                            ? "border-emerald-500 bg-emerald-50"
-                            : "border-slate-200 bg-white hover:border-slate-300"
-                        }`}
-                      >
-                        <span className="absolute -top-2.5 right-3 bg-emerald-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
-                          الأوفر ✦
-                        </span>
-                        <div className="flex items-center gap-2.5">
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                            qtyTier === 2 ? "border-emerald-500" : "border-slate-300"
-                          }`}>
-                            {qtyTier === 2 && <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />}
-                          </div>
-                          <div className="text-right">
-                            <span className="font-bold text-slate-800 text-sm">قطعتان</span>
-                            <span className="text-[10px] text-emerald-600 font-bold mr-1.5">
-                              وفّر {(product.price * 2 - pq2).toFixed(0)} {currency}
-                            </span>
-                          </div>
-                        </div>
-                        <span className={`font-black text-base ${qtyTier === 2 ? "text-emerald-600" : "text-slate-700"}`}>
-                          {pq2} <span className="text-xs font-bold">{currency}</span>
-                        </span>
-                      </button>
-                    )}
+        <span className="font-bold text-slate-800 text-sm">
+          قطعة واحدة
+        </span>
+      </div>
 
-                    {/* Tier 3 */}
-                    {pq3 && (
-                      <button
-                        onClick={() => setQtyTier(3)}
-                        className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation relative ${
-                          qtyTier === 3
-                            ? "border-amber-500 bg-amber-50"
-                            : "border-slate-200 bg-white hover:border-slate-300"
-                        }`}
-                      >
-                        <span className="absolute -top-2.5 right-3 bg-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
-                          التوفير الأقصى ✦
-                        </span>
-                        <div className="flex items-center gap-2.5">
-                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                            qtyTier === 3 ? "border-amber-500" : "border-slate-300"
-                          }`}>
-                            {qtyTier === 3 && <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />}
-                          </div>
-                          <div className="text-right">
-                            <span className="font-bold text-slate-800 text-sm">٣ قطع</span>
-                            <span className="text-[10px] text-amber-600 font-bold mr-1.5">
-                              وفّر {(product.price * 3 - pq3).toFixed(0)} {currency}
-                            </span>
-                          </div>
-                        </div>
-                        <span className={`font-black text-base ${qtyTier === 3 ? "text-amber-600" : "text-slate-700"}`}>
-                          {pq3} <span className="text-xs font-bold">{currency}</span>
-                        </span>
-                      </button>
-                    )}
-                  </div>
+      <span
+        className={`font-black text-base ${
+          qtyTier === 1 ? "text-primary" : "text-slate-700"
+        }`}
+      >
+        {product.price}{" "}
+        <span className="text-xs font-bold">{currency}</span>
+      </span>
+    </button>
+
+    {/* Dynamic quantity offers */}
+    {(Array.isArray((product as any).quantityPrices)
+      ? (product as any).quantityPrices
+      : []
+    )
+      .filter(
+        (item: any) =>
+          Number.isInteger(Number(item.quantity)) &&
+          Number(item.quantity) > 1 &&
+          Number.isFinite(Number(item.price))
+      )
+      .map((item: any, index: number) => {
+        const quantity = Number(item.quantity);
+        const price = Number(item.price);
+        const selected = qtyTier === quantity;
+        const saving = product.price * quantity - price;
+
+        return (
+          <button
+            key={`${quantity}-${index}`}
+            onClick={() => setQtyTier(quantity as 1 | 2 | 3)}
+            className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation relative ${
+              selected
+                ? "border-emerald-500 bg-emerald-50"
+                : "border-slate-200 bg-white hover:border-slate-300"
+            }`}
+          >
+            {saving > 0 && (
+              <span className="absolute -top-2.5 right-3 bg-emerald-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
+                أوفر ✦
+              </span>
+            )}
+
+            <div className="flex items-center gap-2.5">
+              <div
+                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                  selected
+                    ? "border-emerald-500"
+                    : "border-slate-300"
+                }`}
+              >
+                {selected && (
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                 )}
+              </div>
+
+              <div className="text-right">
+                <span className="font-bold text-slate-800 text-sm">
+                  {quantity} قطع
+                </span>
+
+                {saving > 0 && (
+                  <span className="text-[10px] text-emerald-600 font-bold mr-1.5">
+                    وفّر {saving.toFixed(0)} {currency}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <span
+              className={`font-black text-base ${
+                selected
+                  ? "text-emerald-600"
+                  : "text-slate-700"
+              }`}
+            >
+              {price}{" "}
+              <span className="text-xs font-bold">{currency}</span>
+            </span>
+          </button>
+        );
+      })}
+  </div>
+)}
 
                 {/* Add to cart button */}
                 <Button
