@@ -338,10 +338,19 @@ async function createDirectOrder(req: VercelRequest, res: VercelResponse) {
     }
 
     const tier = qtyTier ?? Math.max(1, Math.min(3, quantity));
-    const itemQuantity = qtyTier ? tier : quantity;
-    let subtotal = Number(product.price) * quantity;
-    if (tier === 2 && product.priceQty2) subtotal = Number(product.priceQty2);
-    if (tier === 3 && product.priceQty3) subtotal = Number(product.priceQty3);
+const itemQuantity = qtyTier ? tier : quantity;
+
+let subtotal = Number(product.price) * quantity;
+
+if (qtyTier === 2 && product.priceQty2) {
+  subtotal = Number(product.priceQty2);
+} else if (qtyTier === 3 && product.priceQty3) {
+  subtotal = Number(product.priceQty3);
+}
+
+const itemUnitPrice = itemQuantity > 0
+  ? subtotal / itemQuantity
+  : subtotal;
     const shippingFee = 0;
     const total = subtotal + shippingFee;
 
@@ -389,7 +398,7 @@ async function createDirectOrder(req: VercelRequest, res: VercelResponse) {
             product.name ?? "",
             product.nameAr ?? "",
             product.imageUrl,
-            String(Number(product.price)),
+            String(itemUnitPrice),
             itemQuantity,
             String(subtotal),
           ],

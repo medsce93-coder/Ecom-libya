@@ -59,7 +59,11 @@ export default function Cart() {
               <div className="flex flex-col items-start gap-3 md:items-end">
                 <div className="flex items-center gap-3 rounded-2xl border border-slate-300 px-3 py-2">
                   <button onClick={() => updateQuantity(item.id, -1)} className="text-lg font-bold w-6 text-center hover:text-primary">-</button>
-                  <span className="min-w-6 text-center font-semibold">{item.quantity}</span>
+                  <span className="min-w-6 text-center font-semibold">
+  {item.bundleQuantity
+    ? `${item.bundleQuantity} قطع`
+    : item.quantity}
+</span>
                   <button onClick={() => updateQuantity(item.id, 1)} className="text-lg font-bold w-6 text-center hover:text-primary">+</button>
                 </div>
                 <button onClick={() => removeFromCart(item.id)} className="text-sm font-semibold text-red-600 hover:text-red-700 transition">إزالة</button>

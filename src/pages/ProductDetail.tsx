@@ -364,7 +364,7 @@ const selectedPrice = selectedOffer?.price ?? product.price;
                 {/* Price block */}
                 <div className="bg-gradient-to-l from-primary/5 to-blue-50 rounded-xl md:rounded-2xl p-3.5 md:p-4 border border-primary/10">
                   <div className="flex items-end gap-2 md:gap-3 flex-wrap">
-                    <span className="text-3xl md:text-4xl font-black text-primary leading-none">{product.price}</span>
+                    <span className="text-3xl md:text-4xl font-black text-primary leading-none">{selectedPrice}</span>
                     <span className="text-lg md:text-xl font-bold text-primary/80 mb-0.5">{currency}</span>
                     {product.compareAtPrice && product.compareAtPrice > product.price && (
                       <span className="text-sm md:text-base text-slate-400 line-through font-medium">{product.compareAtPrice} {currency}</span>
