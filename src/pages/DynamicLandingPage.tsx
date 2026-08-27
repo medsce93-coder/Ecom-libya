@@ -327,8 +327,8 @@ export default function DynamicLandingPage() {
         <p className="text-slate-500">راح يتواصل معك فريقنا على الرقم <strong>{form.phone}</strong> خلال فترة قريبة لتأكيد الطلب والتوصيل.</p>
         <div className="mt-6 bg-green-50 border border-green-200 rounded-2xl p-4 max-w-sm w-full">
           <p className="font-bold text-green-700">📦 تفاصيل طلبك</p>
-          <p className="text-slate-700 mt-1">{page.product.nameAr} × 1</p>
-          <p className="text-slate-700">السعر: <span className="font-bold text-primary">{price} {currency}</span></p>
+          <p className="text-slate-700 mt-1">{page.product.nameAr} × {qtyTier}</p>
+          <p className="text-slate-700">السعر: <span className="font-bold text-primary">{selectedPrice} {currency}</span></p>
           <p className="text-slate-500 text-sm mt-1">الدفع عند الاستلام 💳</p>
         </div>
         <a
@@ -429,7 +429,7 @@ export default function DynamicLandingPage() {
         )}
 
         <div className="flex items-center justify-center gap-3 mb-6">
-          <span className="text-3xl font-black text-primary">{price} {currency}</span>
+          <span className="text-3xl font-black text-primary">{selectedPrice} {currency}</span>
           {compareAt && compareAt > price && (
             <span className="text-lg text-slate-400 line-through">{compareAt} {currency}</span>
           )}
@@ -694,7 +694,7 @@ export default function DynamicLandingPage() {
             onClick={scrollToForm}
             className="w-full bg-green-500 hover:bg-green-600 active:scale-95 text-white font-extrabold text-base py-3.5 rounded-2xl shadow-lg shadow-green-200 transition-all duration-150"
           >
-            🛒 اطلب الآن — {price} {currency} فقط!
+            🛒 اطلب الآن — {selectedPrice} {currency} فقط!
           </button>
         </div>
       )}
