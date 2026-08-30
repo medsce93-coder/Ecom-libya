@@ -208,7 +208,7 @@ function OrdersTab() {
 ══════════════════════════════════════════════════════════ */
 type Product = {
   id: string; nameAr: string; price: number; compareAtPrice: number | null;
-  stock: number; imageUrl: string | null; categoryName: string | null;
+  stock: number; imageUrl: string | null; images?: string[]; categoryName: string | null;
   active: boolean; featured: boolean; badge: string | null; rating: number;
 };
 
@@ -343,6 +343,156 @@ function ProductImageInput({
 }
 
 /* ─── Create Product Modal ───────────────────────────────── */
+function ProductGalleryInput({
+  images,
+  onChange,
+}: {
+  images: string[];
+  onChange: (images: string[]) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleFiles = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+
+    setError("");
+    setUploading(true);
+
+    try {
+      const uploaded: string[] = [];
+
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) {
+          continue;
+        }
+
+        const result = await apiFetch<{
+          url?: string;
+          publicUrl?: string;
+          path?: string;
+        }>("/api/upload", {
+          method: "POST",
+          body: (() => {
+            const form = new FormData();
+            form.append("file", file);
+            return form;
+          })(),
+        });
+
+        const uploadedUrl =
+          result?.url || result?.publicUrl || result?.path;
+
+        if (uploadedUrl) {
+          uploaded.push(String(uploadedUrl));
+        }
+      }
+
+      if (uploaded.length > 0) {
+        onChange([...images, ...uploaded]);
+      }
+    } catch (err) {
+      console.error("Product gallery upload failed", err);
+      setError("فشل رفع بعض الصور. حاول مرة أخرى.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeImage = (index: number) => {
+    onChange(images.filter((_, i) => i !== index));
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <p className="text-sm font-bold text-slate-700">
+            صور إضافية للمنتج
+          </p>
+          <p className="text-xs text-slate-500 mt-1">
+            يمكنك إضافة عدة صور وعرضها للزبون داخل صفحة المنتج.
+          </p>
+        </div>
+
+        <label
+          className={`inline-flex items-center gap-2 cursor-pointer rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50 ${
+            uploading ? "opacity-60 pointer-events-none" : ""
+          }`}
+        >
+          {uploading ? "جارٍ الرفع..." : "＋ إضافة صور"}
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            className="hidden"
+            disabled={uploading}
+            onChange={(e) => {
+              handleFiles(e.target.files);
+              e.currentTarget.value = "";
+            }}
+          />
+        </label>
+      </div>
+
+      {images.length > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          {images.map((src, index) => {
+            const normalized =
+              src.startsWith("http") || src.startsWith("/")
+                ? src
+                : `/${src}`;
+
+            return (
+              <div
+                key={`${src}-${index}`}
+                className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 aspect-square"
+              >
+                <img
+                  src={normalized}
+                  alt={`Product image ${index + 1}`}
+                  className="h-full w-full object-cover"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-red-600 shadow-sm hover:bg-white"
+                  aria-label="حذف الصورة"
+                >
+                  ×
+                </button>
+
+                {index === 0 && (
+                  <span className="absolute bottom-2 left-2 rounded-lg bg-white/95 px-2 py-1 text-[11px] font-bold text-slate-700 shadow-sm">
+                    الأولى
+                  </span>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {images.length === 0 && (
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center">
+          <p className="text-sm font-bold text-slate-600">
+            مازال ما ضفت حتى صورة إضافية
+          </p>
+          <p className="text-xs text-slate-400 mt-1">
+            اضغط على «إضافة صور» باش تختار عدة صور مرة وحدة.
+          </p>
+        </div>
+      )}
+
+      {error && (
+        <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm font-medium text-red-600">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
 function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
   const queryClient = useQueryClient();
   const { currency } = useCurrency();
@@ -355,7 +505,8 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
   { quantity: string; price: string }[]
    >([]);
   const [stock, setStock] = useState("0");
-  const [imageUrl, setImageUrl] = useState("");
+      const [imageUrl, setImageUrl] = useState("");
+    const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -415,6 +566,7 @@ quantityPrices: quantityPrices
   ),
           stock: stockNum,
           imageUrl: imageUrl.trim() || null,
+            images: galleryImages.filter(Boolean),
           active: true,
         },
       });
@@ -546,6 +698,13 @@ quantityPrices: quantityPrices
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">الصورة الرئيسية للمنتج</label>
             <ProductImageInput value={imageUrl} onChange={setImageUrl} />
+
+              <div className="mt-4">
+                <ProductGalleryInput
+                  images={galleryImages}
+                  onChange={setGalleryImages}
+                />
+              </div>
           </div>
 
           {error && (
@@ -614,7 +773,10 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
 >(initialQuantityPrices);
 
   const [stock, setStock] = useState(initialStock);  
-  const [imageUrl, setImageUrl] = useState(initialImageUrl);
+      const [imageUrl, setImageUrl] = useState(initialImageUrl);
+    const [galleryImages, setGalleryImages] = useState<string[]>(
+      Array.isArray(product.images) ? product.images.filter(Boolean) : []
+    );
   const [descriptionAr, setDescriptionAr] = useState(initialDescriptionAr);
   const [active, setActive] = useState(initialActive);
   const [featured, setFeatured] = useState(initialFeatured);
@@ -664,6 +826,7 @@ quantityPrices: quantityPrices
 
           stock: stockNum,
           imageUrl: imageUrl.trim() || null,
+            images: galleryImages.filter(Boolean),
           active,
           featured,
         } as any,
@@ -869,6 +1032,13 @@ quantityPrices: quantityPrices
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">الصورة الرئيسية للمنتج</label>
             <ProductImageInput value={imageUrl} onChange={setImageUrl} />
+
+            <div className="mt-4">
+              <ProductGalleryInput
+                images={galleryImages}
+                onChange={setGalleryImages}
+              />
+            </div>
           </div>
 
           {/* Toggles */}
