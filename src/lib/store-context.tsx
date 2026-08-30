@@ -26,6 +26,7 @@ export interface CartItem {
   category?: string;
   bundleQuantity?: number;
   bundleTotalPrice?: number;
+  lineTotal?: number;
 }
 
 export interface Order {
@@ -71,6 +72,7 @@ interface StoreContextType {
   category?: string;
   bundleQuantity?: number;
   bundleTotalPrice?: number;
+  lineTotal?: number;
 }) => void;
   updateQuantity: (id: string, change: number) => void;
   removeFromCart: (id: string) => void;
@@ -109,6 +111,7 @@ function mapApiOrder(row: any): Order {
       price: parseFloat(String(item.price ?? 0)),
       quantity: item.quantity ?? 1,
       image: item.productImage ?? "",
+      lineTotal: parseFloat(String(item.subtotal ?? 0)),
     })),
     subtotal: parseFloat(String(row.subtotal ?? 0)),
     shipping: parseFloat(String(row.shippingFee ?? 0)),
@@ -167,7 +170,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   (sum, item) =>
     sum +
     (item.bundleTotalPrice !== undefined
-      ? item.bundleTotalPrice * item.quantity
+      ? item.bundleTotalPrice
       : item.price * item.quantity),
   0,
 );
@@ -261,18 +264,30 @@ const addToCart = useCallback((product: {
     }
     setCheckoutError("");
 
-    const cartItems = cart.map((item) => ({
-      productId: item.id,
-      id: item.id,
-      name: item.name,
-      nameAr: item.name,
-      price:
-      item.bundleTotalPrice !== undefined
-      ? item.bundleTotalPrice
-      : item.price,
-      quantity: item.bundleQuantity ?? item.quantity,
-      image: item.image,
-    }));
+    const cartItems = cart.map((item) => {
+      const isBundle =
+        item.bundleTotalPrice !== undefined &&
+        item.bundleQuantity !== undefined &&
+        item.bundleQuantity > 0;
+
+      const quantity = isBundle
+        ? item.bundleQuantity!
+        : item.quantity;
+
+      const price = isBundle
+        ? item.bundleTotalPrice! / item.bundleQuantity!
+        : item.price;
+
+      return {
+        productId: item.id,
+        id: item.id,
+        name: item.name,
+        nameAr: item.name,
+        price,
+        quantity,
+        image: item.image,
+      };
+    });
 
     try {
       const newOrder = await apiFetch<any>("/api/orders?action=cart", {
@@ -448,7 +463,7 @@ function buildOrderText(order: Order, statusLabel: (s: string) => string, curren
     `طريقة الدفع: ${order.paymentMethod}`,
     `الحالة: ${statusLabel(order.status)}`,
     `المنتجات:`,
-    ...order.items.map((item) => `- ${item.name} × ${item.quantity} = ${currency} ${item.price * item.quantity}`),
+    ...order.items.map((item) => `- ${item.name} × ${item.quantity} = ${currency} ${item.lineTotal ?? item.price * item.quantity}`),
     `المجموع الفرعي: ${currency} ${order.subtotal}`,
     `الشحن: ${currency} ${order.shipping}`,
     `الخصم: ${currency} ${order.discount}`,

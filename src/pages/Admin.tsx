@@ -161,7 +161,7 @@ function OrdersTab() {
                             <span className="font-semibold text-slate-900">{item.name}</span>
                             <span className="rounded-md bg-slate-200 px-2 py-0.5 text-xs font-bold text-slate-600">x{item.quantity || 1}</span>
                           </div>
-                          <span className="font-bold text-slate-700">{currency} {item.price}</span>
+                          <span className="font-bold text-slate-700">{currency} {item.lineTotal ?? item.price * item.quantity}</span>
                         </li>
                       ))}
                     </ul>

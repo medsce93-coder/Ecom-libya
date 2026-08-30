@@ -141,7 +141,7 @@ export default function Checkout() {
                   <span className="font-bold text-slate-900 shrink-0">
   {currency}{" "}
   {(item.bundleTotalPrice !== undefined
-    ? item.bundleTotalPrice * item.quantity
+    ? item.bundleTotalPrice
     : item.price * item.quantity
   ).toFixed(0)}
 </span>
