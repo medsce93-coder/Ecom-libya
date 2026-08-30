@@ -89,6 +89,7 @@ export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [, setLocation] = useLocation();
   const [qtyTier, setQtyTier] = useState(1);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { addToCart } = useStore();
   const { currency } = useCurrency();
   const { marketCountry } = useBranding();
@@ -211,6 +212,25 @@ const handleOrderNow = () => {
     );
   }
 
+  const galleryImages = Array.from(
+    new Set(
+      [
+        product.imageUrl,
+        ...(Array.isArray(product.images) ? product.images : []),
+      ].filter(
+        (image): image is string =>
+          typeof image === "string" && image.trim().length > 0
+      )
+    )
+  );
+
+  const activeImage =
+    selectedImage && galleryImages.includes(selectedImage)
+      ? selectedImage
+      : galleryImages[0] ?? null;
+
+  const normalizeImageUrl = (url: string) =>
+    url.startsWith("http") || url.startsWith("/") ? url : `/${url}`;
   const discount = product.compareAtPrice && product.compareAtPrice > product.price
     ? Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)
     : null;
@@ -245,7 +265,6 @@ const selectedOffer = quantityPrices.find(
 const selectedPrice = selectedOffer?.price ?? product.price;
 
   /* Stock scarcity — seeded by id so it stays stable across re-renders */
-  const stockLeft = ((product.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0) % 5) + 3);
 
   const features = getFeatures(product.categoryName);
   const initials = product.nameAr?.substring(0, 2) || "؟";
@@ -271,51 +290,93 @@ const selectedPrice = selectedOffer?.price ?? product.price;
           {/* Main card */}
           <div className="bg-white rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
             <div className="flex flex-col lg:flex-row">
+              {/* ── Product Gallery ── */}
+              <div className="w-full lg:w-[44%] lg:self-start bg-white border-b lg:border-b-0 lg:border-l border-slate-100 p-3 md:p-5 lg:p-6">
 
-              {/* ── Image Panel ── */}
-              <div className="w-full lg:w-[46%] bg-gradient-to-br from-slate-50 to-slate-100 relative flex items-center justify-center min-h-[280px] md:min-h-[400px] lg:min-h-[560px] p-6 md:p-10 border-b lg:border-b-0 lg:border-l border-slate-100">
-                {product.imageUrl ? (
-                  <img
-                    src={product.imageUrl?.startsWith("http") || product.imageUrl?.startsWith("/") ? product.imageUrl : `/${product.imageUrl}`}
-                    alt={product.nameAr}
-                    className="object-contain w-full h-full max-h-[260px] md:max-h-[380px] lg:max-h-[440px] drop-shadow-lg"
-                    onError={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.style.display = "none";
-                      const fb = img.nextElementSibling as HTMLElement | null;
-                      if (fb) fb.style.display = "flex";
-                    }}
-                  />
-                ) : null}
-                <div
-                  className="w-full h-full items-center justify-center text-7xl md:text-8xl font-black text-slate-300 min-h-[200px] select-none"
-                  style={{ display: product.imageUrl ? "none" : "flex" }}
-                >
-                  {initials}
-                </div>
+                {/* Main image */}
+                <div className="relative w-full aspect-square rounded-2xl md:rounded-3xl bg-gradient-to-br from-slate-50 to-slate-100 overflow-hidden flex items-center justify-center">
 
-                {/* Badges */}
-                <div className="absolute top-3 right-3 md:top-5 md:right-5 flex flex-col gap-1.5 md:gap-2">
-                  {discount && (
-                    <span className="bg-rose-500 text-white text-xs md:text-sm font-black px-2.5 py-1 md:px-3 md:py-1.5 rounded-full shadow-lg shadow-rose-200">
-                      خصم {discount}%
-                    </span>
+                  {activeImage ? (
+                    <img
+                      key={activeImage}
+                      src={normalizeImageUrl(activeImage)}
+                      alt={product.nameAr}
+                      className="w-full h-full object-contain p-4 md:p-6 lg:p-8 drop-shadow-lg transition-opacity duration-200"
+                      onError={(e) => {
+                        const img = e.currentTarget;
+                        img.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <div className="text-7xl md:text-8xl font-black text-slate-300 select-none">
+                      {initials}
+                    </div>
                   )}
-                  {(product as any).badge && (
-                    <span className="bg-amber-500 text-white text-xs md:text-sm font-bold px-2.5 py-1 md:px-3 md:py-1.5 rounded-full shadow-lg shadow-amber-200">
-                      {(product as any).badge}
-                    </span>
-                  )}
-                </div>
 
-                {/* Urgency pill */}
-                <div className="absolute bottom-3 right-3 left-3 md:bottom-5 md:right-5 md:left-5">
-                  <div className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl md:rounded-2xl px-3 py-2 md:px-4 md:py-2.5 flex items-center gap-2 shadow-sm">
-                    <Zap className="h-3.5 w-3.5 md:h-4 md:w-4 text-amber-500 shrink-0 fill-amber-400" />
-                    <span className="text-[11px] md:text-xs font-bold text-slate-700">🔥 منتج رائج — إقبال عالٍ هذا الأسبوع</span>
+                  {/* Product badges */}
+                  <div className="absolute top-3 right-3 md:top-4 md:right-4 flex flex-col gap-1.5 md:gap-2">
+                    {discount && (
+                      <span className="bg-rose-500 text-white text-xs md:text-sm font-black px-2.5 py-1 md:px-3 md:py-1.5 rounded-full shadow-lg">
+                        خصم {discount}%
+                      </span>
+                    )}
+
+                    {(product as any).badge && (
+                      <span className="bg-amber-500 text-white text-xs md:text-sm font-bold px-2.5 py-1 md:px-3 md:py-1.5 rounded-full shadow-lg">
+                        {(product as any).badge}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Trending */}
+                  <div className="absolute bottom-3 right-3 left-3 md:bottom-4 md:right-4 md:left-4">
+                    <div className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl md:rounded-2xl px-3 py-2 md:px-4 md:py-2.5 flex items-center gap-2 shadow-sm">
+                      <Zap className="h-3.5 w-3.5 md:h-4 md:w-4 text-amber-500 shrink-0 fill-amber-400" />
+                      <span className="text-[11px] md:text-xs font-bold text-slate-700">
+                        🔥 منتج رائج — إقبال عالٍ هذا الأسبوع
+                      </span>
+                    </div>
                   </div>
                 </div>
+
+                {/* Thumbnails */}
+                {galleryImages.length > 1 && (
+                  <div className="mt-3 md:mt-4">
+                    <div className="flex gap-2 md:gap-3 overflow-x-auto pb-1 snap-x snap-mandatory scrollbar-thin">
+                      {galleryImages.map((image, index) => {
+                        const selected = activeImage === image;
+
+                        return (
+                          <button
+                            key={`${image}-${index}`}
+                            type="button"
+                            onClick={() => setSelectedImage(image)}
+                            aria-label={`عرض الصورة ${index + 1}`}
+                            className={`relative shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-xl md:rounded-2xl overflow-hidden bg-slate-50 snap-start transition-all duration-150 ${
+                              selected
+                                ? "border-2 border-primary ring-2 ring-primary/10"
+                                : "border border-slate-200 hover:border-slate-300"
+                            }`}
+                          >
+                            <img
+                              src={normalizeImageUrl(image)}
+                              alt={`${product.nameAr} - ${index + 1}`}
+                              className="w-full h-full object-contain p-1.5"
+                              loading={index === 0 ? "eager" : "lazy"}
+                            />
+
+                            {selected && (
+                              <span className="absolute inset-x-0 bottom-0 h-1 bg-primary" />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
               </div>
+
 
               {/* ── Content Panel ── */}
               <div className="w-full lg:w-[54%] p-5 md:p-7 lg:p-10 flex flex-col gap-4 md:gap-5">
@@ -329,10 +390,6 @@ const selectedPrice = selectedOffer?.price ?? product.price;
                   )}
                   <span className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full border border-emerald-100">
                     ✓ متوفر ومتاح للطلب
-                  </span>
-                  {/* Stock scarcity */}
-                  <span className="bg-rose-50 text-rose-700 text-xs font-bold px-3 py-1 rounded-full border border-rose-100 animate-pulse">
-                    🔥 تبقّت {stockLeft} قطع فقط!
                   </span>
                 </div>
 
