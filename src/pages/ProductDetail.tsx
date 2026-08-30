@@ -426,152 +426,210 @@ const selectedPrice = selectedOffer?.price ?? product.price;
                   ))}
                 </div>
 
-                {/* ── Primary CTA: Order Now ── */}
-                <button
-                  onClick={handleOrderNow}
-                  className="flex w-full rounded-2xl bg-slate-900 hover:bg-primary px-6 py-4 text-lg font-black text-white shadow-lg hover:shadow-primary/30 transition-all duration-200 items-center justify-center gap-2 group touch-manipulation active:scale-[0.98]"
-                >
-                  <Clock className="h-5 w-5 group-hover:animate-pulse" />
-                  اطلب الآن — الدفع عند الاستلام
-                </button>
+                {/* ── Purchase Area ── */}
+                <div className="space-y-4">
 
-                {/* Quantity pricing selector */}
-{(Array.isArray((product as any).quantityPrices)
-  ? (product as any).quantityPrices
-  : []
-).length > 0 && (
-  <div className="space-y-2">
-    <p className="text-xs font-bold text-slate-500 mb-1">
-      اختر الكمية
-    </p>
+                  {/* Quantity pricing selector */}
+                  {(Array.isArray((product as any).quantityPrices)
+                    ? (product as any).quantityPrices
+                    : []
+                  ).length > 0 && (
+                    <div className="space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-black text-slate-800">
+                          اختر العرض المناسب لك
+                        </p>
+                        <span className="text-[11px] text-slate-400 font-medium">
+                          كلما زادت الكمية وفّرت أكثر
+                        </span>
+                      </div>
 
-    {/* 1 piece - normal price */}
-    <button
-      onClick={() => setQtyTier(1)}
-      className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation ${
-        qtyTier === 1
-          ? "border-primary bg-blue-50"
-          : "border-slate-200 bg-white hover:border-slate-300"
-      }`}
-    >
-      <div className="flex items-center gap-2.5">
-        <div
-          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
-            qtyTier === 1 ? "border-primary" : "border-slate-300"
-          }`}
-        >
-          {qtyTier === 1 && (
-            <div className="w-2.5 h-2.5 rounded-full bg-primary" />
-          )}
-        </div>
+                      {/* 1 piece */}
+                      <button
+                        type="button"
+                        onClick={() => setQtyTier(1)}
+                        className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3.5 transition-all duration-150 touch-manipulation ${
+                          qtyTier === 1
+                            ? "border-primary bg-blue-50 shadow-sm"
+                            : "border-slate-200 bg-white hover:border-slate-300"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                              qtyTier === 1
+                                ? "border-primary"
+                                : "border-slate-300"
+                            }`}
+                          >
+                            {qtyTier === 1 && (
+                              <div className="w-2.5 h-2.5 rounded-full bg-primary" />
+                            )}
+                          </div>
 
-        <span className="font-bold text-slate-800 text-sm">
-          قطعة واحدة
-        </span>
-      </div>
+                          <div className="text-right">
+                            <span className="block font-black text-slate-800 text-sm">
+                              قطعة واحدة
+                            </span>
+                            <span className="text-[11px] text-slate-400">
+                              السعر العادي
+                            </span>
+                          </div>
+                        </div>
 
-      <span
-        className={`font-black text-base ${
-          qtyTier === 1 ? "text-primary" : "text-slate-700"
-        }`}
-      >
-        {product.price}{" "}
-        <span className="text-xs font-bold">{currency}</span>
-      </span>
-    </button>
+                        <span
+                          className={`font-black text-lg ${
+                            qtyTier === 1
+                              ? "text-primary"
+                              : "text-slate-700"
+                          }`}
+                        >
+                          {product.price}{" "}
+                          <span className="text-xs font-bold">{currency}</span>
+                        </span>
+                      </button>
 
-    {/* Dynamic quantity offers */}
-    {(Array.isArray((product as any).quantityPrices)
-      ? (product as any).quantityPrices
-      : []
-    )
-      .filter(
-        (item: any) =>
-          Number.isInteger(Number(item.quantity)) &&
-          Number(item.quantity) > 1 &&
-          Number.isFinite(Number(item.price))
-      )
-      .map((item: any, index: number) => {
-        const quantity = Number(item.quantity);
-        const price = Number(item.price);
-        const selected = qtyTier === quantity;
-        const saving = product.price * quantity - price;
+                      {/* Dynamic quantity offers */}
+                      {(Array.isArray((product as any).quantityPrices)
+                        ? (product as any).quantityPrices
+                        : []
+                      )
+                        .filter(
+                          (item: any) =>
+                            Number.isInteger(Number(item.quantity)) &&
+                            Number(item.quantity) > 1 &&
+                            Number.isFinite(Number(item.price))
+                        )
+                        .map((item: any, index: number) => {
+                          const quantity = Number(item.quantity);
+                          const price = Number(item.price);
+                          const selected = qtyTier === quantity;
+                          const saving = Math.max(
+                            0,
+                            product.price * quantity - price
+                          );
+                          const pricePerPiece = price / quantity;
 
-        return (
-          <button
-            key={`${quantity}-${index}`}
-            onClick={() => setQtyTier(quantity)}
-            className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3 transition-all duration-150 touch-manipulation relative ${
-              selected
-                ? "border-emerald-500 bg-emerald-50"
-                : "border-slate-200 bg-white hover:border-slate-300"
-            }`}
-          >
-            {saving > 0 && (
-              <span className="absolute -top-2.5 right-3 bg-emerald-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
-                أوفر ✦
-              </span>
-            )}
+                          return (
+                            <button
+                              type="button"
+                              key={`${quantity}-${index}`}
+                              onClick={() => setQtyTier(quantity)}
+                              className={`w-full flex items-center justify-between rounded-2xl border-2 px-4 py-3.5 transition-all duration-150 touch-manipulation relative ${
+                                selected
+                                  ? "border-emerald-500 bg-emerald-50 shadow-sm"
+                                  : "border-slate-200 bg-white hover:border-slate-300"
+                              }`}
+                            >
+                              {saving > 0 && (
+                                <span className="absolute -top-2.5 right-3 bg-emerald-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-sm">
+                                  أوفر ✦
+                                </span>
+                              )}
 
-            <div className="flex items-center gap-2.5">
-              <div
-                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                  selected
-                    ? "border-emerald-500"
-                    : "border-slate-300"
-                }`}
-              >
-                {selected && (
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                )}
-              </div>
+                              <div className="flex items-center gap-3">
+                                <div
+                                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                                    selected
+                                      ? "border-emerald-500"
+                                      : "border-slate-300"
+                                  }`}
+                                >
+                                  {selected && (
+                                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                                  )}
+                                </div>
 
-              <div className="text-right">
-                <span className="font-bold text-slate-800 text-sm">
-                  {quantity} قطع
-                </span>
+                                <div className="text-right">
+                                  <span className="block font-black text-slate-800 text-sm">
+                                    {quantity} قطع
+                                  </span>
 
-                {saving > 0 && (
-                  <span className="text-[10px] text-emerald-600 font-bold mr-1.5">
-                    وفّر {saving.toFixed(0)} {currency}
-                  </span>
-                )}
-              </div>
-            </div>
+                                  <span className="text-[11px] text-slate-500">
+                                    {pricePerPiece.toFixed(0)} {currency} للقطعة
+                                  </span>
 
-            <span
-              className={`font-black text-base ${
-                selected
-                  ? "text-emerald-600"
-                  : "text-slate-700"
-              }`}
-            >
-              {price}{" "}
-              <span className="text-xs font-bold">{currency}</span>
-            </span>
-          </button>
-        );
-      })}
-  </div>
-)}
+                                  {saving > 0 && (
+                                    <span className="block text-[11px] text-emerald-600 font-black mt-0.5">
+                                      وفّر {saving.toFixed(0)} {currency}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
 
-                {/* Add to cart button */}
-                <Button
-                  size="lg"
-                  className="w-full h-12 rounded-full text-sm md:text-base gap-2 font-bold shadow-md shadow-primary/20 bg-primary hover:bg-blue-700 text-white touch-manipulation"
-                  onClick={handleAddToCart}
-                >
-                  <ShoppingCart className="h-4 w-4 md:h-5 md:w-5 shrink-0" />
-                  أضف إلى السلة
-                  {hasVolume && qtyTier > 1 && (
-                    <span className="text-xs opacity-80 font-semibold">— {selectedPrice} {currency}</span>
+                              <span
+                                className={`font-black text-lg ${
+                                  selected
+                                    ? "text-emerald-600"
+                                    : "text-slate-700"
+                                }`}
+                              >
+                                {price}{" "}
+                                <span className="text-xs font-bold">
+                                  {currency}
+                                </span>
+                              </span>
+                            </button>
+                          );
+                        })}
+                    </div>
                   )}
-                </Button>
+
+                  {/* Selected offer summary */}
+                  <div className="rounded-2xl bg-slate-900 text-white px-4 py-3.5">
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <p className="text-xs text-slate-300 font-medium">
+                          اختيارك الحالي
+                        </p>
+                        <p className="text-sm font-black mt-0.5">
+                          {qtyTier === 1
+                            ? "قطعة واحدة"
+                            : `${qtyTier} قطع`}
+                        </p>
+                      </div>
+
+                      <div className="text-left">
+                        <p className="text-xl font-black">
+                          {selectedPrice}{" "}
+                          <span className="text-xs font-bold text-slate-300">
+                            {currency}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Primary CTA */}
+                  <button
+                    type="button"
+                    onClick={handleOrderNow}
+                    className="flex w-full rounded-2xl bg-primary hover:bg-blue-700 px-5 py-4 text-lg font-black text-white shadow-lg shadow-primary/25 transition-all duration-200 items-center justify-center gap-2 group touch-manipulation active:scale-[0.98]"
+                  >
+                    <Clock className="h-5 w-5 group-hover:animate-pulse" />
+                    اطلب الآن — الدفع عند الاستلام
+                  </button>
+
+                  {/* Add to cart - secondary action */}
+                  <Button
+                    size="lg"
+                    className="w-full h-12 rounded-2xl text-sm md:text-base gap-2 font-bold border-2 border-primary bg-white hover:bg-primary/5 text-primary shadow-none touch-manipulation"
+                    onClick={handleAddToCart}
+                  >
+                    <ShoppingCart className="h-4 w-4 md:h-5 md:w-5 shrink-0" />
+                    أضف إلى السلة
+                  </Button>
+
+                  {/* Micro reassurance */}
+                  <p className="text-center text-[11px] text-slate-400 font-medium">
+                    لا حاجة للدفع الآن • سنؤكد طلبك قبل الشحن
+                  </p>
+
+                </div>
 
               </div>
             </div>
           </div>
-
           {/* Back link */}
           <div className="mt-5 md:mt-6">
             <Link href="/products" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary font-semibold transition-colors min-h-[44px]">
