@@ -311,8 +311,10 @@ async function createDirectOrder(req: VercelRequest, res: VercelResponse) {
       nameAr: string;
       imageUrl: string | null;
       price: string;
-      priceQty2: string | null;
-      priceQty3: string | null;
+      quantityPrices: Array<{
+        quantity: number;
+        price: string;
+      }>;
     }>(
       `
         SELECT
@@ -321,8 +323,20 @@ async function createDirectOrder(req: VercelRequest, res: VercelResponse) {
           name_ar AS "nameAr",
           image_url AS "imageUrl",
           price,
-          price_qty_2 AS "priceQty2",
-          price_qty_3 AS "priceQty3"
+          (
+            SELECT COALESCE(
+              json_agg(
+                json_build_object(
+                  'quantity', pqp.quantity,
+                  'price', pqp.price
+                )
+                ORDER BY pqp.quantity ASC
+              ),
+              '[]'::json
+            )
+            FROM product_quantity_prices pqp
+            WHERE pqp.product_id = products.id
+          ) AS "quantityPrices"
         FROM products
         WHERE id = $1
         LIMIT 1
@@ -337,20 +351,34 @@ async function createDirectOrder(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    const tier = qtyTier ?? Math.max(1, Math.min(3, quantity));
-const itemQuantity = qtyTier ? tier : quantity;
+    const requestedQuantity = qtyTier ?? quantity;
+    const itemQuantity = Math.max(1, Number(requestedQuantity));
 
-let subtotal = Number(product.price) * quantity;
+    const quantityPrices = Array.isArray(product.quantityPrices)
+      ? product.quantityPrices
+          .map((item) => ({
+            quantity: Number(item.quantity),
+            price: Number(item.price),
+          }))
+          .filter(
+            (item) =>
+              Number.isFinite(item.quantity) &&
+              item.quantity > 0 &&
+              Number.isFinite(item.price) &&
+              item.price > 0,
+          )
+      : [];
 
-if (qtyTier === 2 && product.priceQty2) {
-  subtotal = Number(product.priceQty2);
-} else if (qtyTier === 3 && product.priceQty3) {
-  subtotal = Number(product.priceQty3);
-}
+    const selectedQuantityPrice = quantityPrices.find(
+      (item) => item.quantity === itemQuantity,
+    );
 
-const itemUnitPrice = itemQuantity > 0
-  ? subtotal / itemQuantity
-  : subtotal;
+    const subtotal = selectedQuantityPrice
+      ? selectedQuantityPrice.price
+      : Number(product.price) * itemQuantity;
+
+    const itemUnitPrice = subtotal / itemQuantity;
+
     const shippingFee = 0;
     const total = subtotal + shippingFee;
 

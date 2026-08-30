@@ -96,6 +96,20 @@ async function getLandingPageBySlug(
             'compareAtPrice', p.compare_at_price,
             'priceQty2', p.price_qty_2,
             'priceQty3', p.price_qty_3,
+            'quantityPrices', (
+              SELECT COALESCE(
+                json_agg(
+                  json_build_object(
+                    'quantity', pqp.quantity,
+                    'price', pqp.price
+                  )
+                  ORDER BY pqp.quantity ASC
+                ),
+                '[]'::json
+              )
+              FROM product_quantity_prices pqp
+              WHERE pqp.product_id = p.id
+            ),
             'imageUrl', p.image_url,
             'slug', p.slug
           ) AS product
@@ -188,6 +202,20 @@ async function createLandingPage(req: VercelRequest, res: VercelResponse) {
             'compareAtPrice', p.compare_at_price,
             'priceQty2', p.price_qty_2,
             'priceQty3', p.price_qty_3,
+            'quantityPrices', (
+              SELECT COALESCE(
+                json_agg(
+                  json_build_object(
+                    'quantity', pqp.quantity,
+                    'price', pqp.price
+                  )
+                  ORDER BY pqp.quantity ASC
+                ),
+                '[]'::json
+              )
+              FROM product_quantity_prices pqp
+              WHERE pqp.product_id = p.id
+            ),
             'imageUrl', p.image_url,
             'slug', p.slug
           ) AS product
@@ -305,6 +333,20 @@ async function updateLandingPage(
             'compareAtPrice', p.compare_at_price,
             'priceQty2', p.price_qty_2,
             'priceQty3', p.price_qty_3,
+            'quantityPrices', (
+              SELECT COALESCE(
+                json_agg(
+                  json_build_object(
+                    'quantity', pqp.quantity,
+                    'price', pqp.price
+                  )
+                  ORDER BY pqp.quantity ASC
+                ),
+                '[]'::json
+              )
+              FROM product_quantity_prices pqp
+              WHERE pqp.product_id = p.id
+            ),
             'imageUrl', p.image_url,
             'slug', p.slug
           ) AS product

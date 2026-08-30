@@ -12,6 +12,10 @@ interface LandingPageProduct {
   compareAtPrice?: string | number | null;
   priceQty2?: string | number | null;
   priceQty3?: string | number | null;
+  quantityPrices?: Array<{
+    quantity: number;
+    price: string | number;
+  }>;
   imageUrl?: string | null;
   slug?: string | null;
 }
@@ -43,7 +47,7 @@ export default function DynamicLandingPage() {
   const [activeMedia, setActiveMedia] = useState(0);
 
   const [form, setForm] = useState({ name: "", phone: "", address: "" });
-  const [qtyTier, setQtyTier] = useState<1 | 2 | 3>(1);
+  const [qtyTier, setQtyTier] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -103,23 +107,22 @@ export default function DynamicLandingPage() {
       setSuccess(true);
 
       try {
-        const p = page.product;
-        const _price = parseFloat(String(p.price));
-        const _pq2 = p.priceQty2 ? parseFloat(String(p.priceQty2)) : null;
-        const _pq3 = p.priceQty3 ? parseFloat(String(p.priceQty3)) : null;
-        const orderTotal = qtyTier === 3 && _pq3 ? _pq3 : qtyTier === 2 && _pq2 ? _pq2 : _price;
+        const orderTotal = selectedPrice;
         if ((window as any).fbq) {
-          (window as any).fbq("track", "Purchase", { value: orderTotal, currency });
+          (window as any).fbq("track", "Purchase", {
+            value: orderTotal,
+            currency,
+          });
         }
       } catch {}
+
       try {
-        const p = page.product;
-        const _price = parseFloat(String(p.price));
-        const _pq2 = p.priceQty2 ? parseFloat(String(p.priceQty2)) : null;
-        const _pq3 = p.priceQty3 ? parseFloat(String(p.priceQty3)) : null;
-        const orderTotal = qtyTier === 3 && _pq3 ? _pq3 : qtyTier === 2 && _pq2 ? _pq2 : _price;
+        const orderTotal = selectedPrice;
         if ((window as any).ttq) {
-          (window as any).ttq.track("CompletePayment", { value: orderTotal, currency });
+          (window as any).ttq.track("CompletePayment", {
+            value: orderTotal,
+            currency,
+          });
         }
       } catch {}
 
@@ -160,11 +163,37 @@ export default function DynamicLandingPage() {
   }
 
   const price = parseFloat(String(page.product.price));
-  const compareAt = page.product.compareAtPrice ? parseFloat(String(page.product.compareAtPrice)) : null;
-  const pq2 = page.product.priceQty2 ? parseFloat(String(page.product.priceQty2)) : null;
-  const pq3 = page.product.priceQty3 ? parseFloat(String(page.product.priceQty3)) : null;
-  const hasVolume = !!(pq2 || pq3);
-  const selectedPrice = qtyTier === 3 && pq3 ? pq3 : qtyTier === 2 && pq2 ? pq2 : price;
+  const compareAt = page.product.compareAtPrice
+    ? parseFloat(String(page.product.compareAtPrice))
+    : null;
+
+  const quantityPrices = (page.product.quantityPrices ?? [])
+    .map((item) => ({
+      quantity: Number(item.quantity),
+      price: Number(item.price),
+    }))
+    .filter(
+      (item) =>
+        Number.isFinite(item.quantity) &&
+        item.quantity > 1 &&
+        Number.isFinite(item.price) &&
+        item.price > 0,
+    )
+    .sort((a, b) => a.quantity - b.quantity);
+
+  const volumeOptions = [
+    { quantity: 1, price },
+    ...quantityPrices,
+  ];
+
+  const hasVolume = quantityPrices.length > 0;
+
+  const selectedOption =
+    volumeOptions.find((option) => option.quantity === qtyTier) ??
+    volumeOptions[0];
+
+  const selectedPrice = selectedOption.price;
+  const selectedQuantity = selectedOption.quantity;
   const discount = compareAt && compareAt > price ? Math.round(((compareAt - price) / compareAt) * 100) : null;
 
   const resolveImage = (url?: string | null) => {
@@ -530,67 +559,105 @@ export default function DynamicLandingPage() {
             <p className="text-slate-500 text-sm">املأ البيانات وسيتواصل معك فريقنا لتأكيد الطلب</p>
           </div>
 
-          {/* ── Volume selector (only when bundles are configured) ── */}
+          {/* ── Volume selector ── */}
           {hasVolume && (
             <div className="mb-5 space-y-2.5">
-              <p className="text-sm font-extrabold text-slate-800 text-center mb-3">🎁 اختار عرضك</p>
+              <p className="text-sm font-extrabold text-slate-800 text-center mb-3">
+                🎁 اختار عرضك
+              </p>
 
-              {/* Tier 1 — always shown */}
-              <button
-                type="button"
-                onClick={() => setQtyTier(1)}
-                className={`w-full flex items-center justify-between gap-3 rounded-2xl border-2 px-4 py-3.5 text-right transition-all ${qtyTier === 1 ? "border-primary bg-primary/5 shadow-sm" : "border-slate-200 bg-white"}`}
-              >
-                <div className="flex-1 min-w-0">
-                  <p className={`font-extrabold text-sm ${qtyTier === 1 ? "text-primary" : "text-slate-700"}`}>قطعة واحدة</p>
-                  <p className="text-xs text-slate-400 mt-0.5">الكمية: 1</p>
-                </div>
-                <p className={`font-black text-base shrink-0 ${qtyTier === 1 ? "text-primary" : "text-slate-700"}`}>{price} {currency}</p>
-                <span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${qtyTier === 1 ? "border-primary bg-primary" : "border-slate-300"}`}>
-                  {qtyTier === 1 && <span className="w-2 h-2 bg-white rounded-full block" />}
-                </span>
-              </button>
+              {volumeOptions.map((option, index) => {
+                const quantity = option.quantity;
+                const optionPrice = option.price;
+                const isSelected = qtyTier === quantity;
+                const savings = price * quantity - optionPrice;
 
-              {/* Tier 2 — shown only if pq2 is configured */}
-              {pq2 && (
-                <button
-                  type="button"
-                  onClick={() => setQtyTier(2)}
-                  className={`w-full flex items-center justify-between gap-3 rounded-2xl border-2 px-4 py-3.5 text-right transition-all relative overflow-hidden ${qtyTier === 2 ? "border-green-500 bg-green-50 shadow-sm" : "border-slate-200 bg-white"}`}
-                >
-                  <span className="absolute top-0 left-0 bg-green-500 text-white text-[10px] font-black px-2 py-0.5 rounded-br-xl">الأوفر</span>
-                  <div className="flex-1 min-w-0 mt-1">
-                    <p className={`font-extrabold text-sm ${qtyTier === 2 ? "text-green-700" : "text-slate-700"}`}>قطعتين — توفير أكبر</p>
-                    <p className="text-xs text-slate-400 mt-0.5">الكمية: 2 — {pq2 < price * 2 ? `وفّر ${(price * 2 - pq2).toFixed(0)} {currency}` : "سعر خاص"}</p>
-                  </div>
-                  <p className={`font-black text-base shrink-0 ${qtyTier === 2 ? "text-green-700" : "text-slate-700"}`}>{pq2} {currency}</p>
-                  <span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${qtyTier === 2 ? "border-green-500 bg-green-500" : "border-slate-300"}`}>
-                    {qtyTier === 2 && <span className="w-2 h-2 bg-white rounded-full block" />}
-                  </span>
-                </button>
-              )}
+                return (
+                  <button
+                    key={quantity}
+                    type="button"
+                    onClick={() => setQtyTier(quantity)}
+                    className={`w-full flex items-center justify-between gap-3 rounded-2xl border-2 px-4 py-3.5 text-right transition-all relative overflow-hidden ${
+                      isSelected
+                        ? index === 1
+                          ? "border-green-500 bg-green-50 shadow-sm"
+                          : index >= 2
+                            ? "border-amber-500 bg-amber-50 shadow-sm"
+                            : "border-primary bg-primary/5 shadow-sm"
+                        : "border-slate-200 bg-white"
+                    }`}
+                  >
+                    {index === 1 && (
+                      <span className="absolute top-0 left-0 bg-green-500 text-white text-[10px] font-black px-2 py-0.5 rounded-br-xl">
+                        الأوفر
+                      </span>
+                    )}
 
-              {/* Tier 3 — shown only if pq3 is configured */}
-              {pq3 && (
-                <button
-                  type="button"
-                  onClick={() => setQtyTier(3)}
-                  className={`w-full flex items-center justify-between gap-3 rounded-2xl border-2 px-4 py-3.5 text-right transition-all relative overflow-hidden ${qtyTier === 3 ? "border-amber-500 bg-amber-50 shadow-sm" : "border-slate-200 bg-white"}`}
-                >
-                  <span className="absolute top-0 left-0 bg-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded-br-xl">التوفير الأقصى</span>
-                  <div className="flex-1 min-w-0 mt-1">
-                    <p className={`font-extrabold text-sm ${qtyTier === 3 ? "text-amber-700" : "text-slate-700"}`}>3 قطع — أفضل سعر</p>
-                    <p className="text-xs text-slate-400 mt-0.5">الكمية: 3 — {pq3 < price * 3 ? `وفّر ${(price * 3 - pq3).toFixed(0)} {currency}` : "سعر خاص"}</p>
-                  </div>
-                  <p className={`font-black text-base shrink-0 ${qtyTier === 3 ? "text-amber-700" : "text-slate-700"}`}>{pq3} {currency}</p>
-                  <span className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${qtyTier === 3 ? "border-amber-500 bg-amber-500" : "border-slate-300"}`}>
-                    {qtyTier === 3 && <span className="w-2 h-2 bg-white rounded-full block" />}
-                  </span>
-                </button>
-              )}
+                    {index >= 2 && (
+                      <span className="absolute top-0 left-0 bg-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded-br-xl">
+                        أفضل سعر
+                      </span>
+                    )}
+
+                    <div className={`flex-1 min-w-0 ${index > 0 ? "mt-1" : ""}`}>
+                      <p
+                        className={`font-extrabold text-sm ${
+                          isSelected
+                            ? index === 1
+                              ? "text-green-700"
+                              : index >= 2
+                                ? "text-amber-700"
+                                : "text-primary"
+                            : "text-slate-700"
+                        }`}
+                      >
+                        {quantity === 1
+                          ? "قطعة واحدة"
+                          : `${quantity} قطع`}
+                      </p>
+
+                      <p className="text-xs text-slate-400 mt-0.5">
+                        الكمية: {quantity}
+                        {savings > 0
+                          ? ` — وفّر ${savings.toFixed(0)} ${currency}`
+                          : ""}
+                      </p>
+                    </div>
+
+                    <p
+                      className={`font-black text-base shrink-0 ${
+                        isSelected
+                          ? index === 1
+                            ? "text-green-700"
+                            : index >= 2
+                              ? "text-amber-700"
+                              : "text-primary"
+                          : "text-slate-700"
+                      }`}
+                    >
+                      {optionPrice} {currency}
+                    </p>
+
+                    <span
+                      className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center ${
+                        isSelected
+                          ? index === 1
+                            ? "border-green-500 bg-green-500"
+                            : index >= 2
+                              ? "border-amber-500 bg-amber-500"
+                              : "border-primary bg-primary"
+                          : "border-slate-300"
+                      }`}
+                    >
+                      {isSelected && (
+                        <span className="w-2 h-2 bg-white rounded-full block" />
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           )}
-
           {/* Order summary card */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow p-4 mb-5 flex items-center gap-4">
             {heroImage && getMediaKind(heroImage) === "image" && (
