@@ -347,6 +347,7 @@ function CreateProductModal({ onClose, onSaved }: { onClose: () => void; onSaved
   const queryClient = useQueryClient();
   const { currency } = useCurrency();
   const [nameAr, setNameAr] = useState("");
+  const [descriptionAr, setDescriptionAr] = useState("");
   const [price, setPrice] = useState("");
   const [priceQty2, setPriceQty2] = useState("");
   const [priceQty3, setPriceQty3] = useState("");
@@ -396,6 +397,7 @@ const updateQuantityPrice = (
         body: {
           nameAr: nameAr.trim(),
           name: nameAr.trim(),
+          descriptionAr: descriptionAr.trim() || null,
           price: priceNum,
           priceQty2: priceQty2 ? parseFloat(priceQty2) : null,
           priceQty3: priceQty3 ? parseFloat(priceQty3) : null,
@@ -588,6 +590,10 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
     : "";
   const initialStock = Number.isFinite(Number(product.stock)) ? String(Number(product.stock)) : "0";
   const initialImageUrl = typeof product.imageUrl === "string" ? product.imageUrl : "";
+  const initialDescriptionAr =
+    typeof (product as any).descriptionAr === "string"
+      ? (product as any).descriptionAr
+      : "";
   const initialActive = Boolean(product.active);
   const initialFeatured = Boolean(product.featured);
 
@@ -609,6 +615,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
 
   const [stock, setStock] = useState(initialStock);  
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
+  const [descriptionAr, setDescriptionAr] = useState(initialDescriptionAr);
   const [active, setActive] = useState(initialActive);
   const [featured, setFeatured] = useState(initialFeatured);
   const [saving, setSaving] = useState(false);
@@ -640,6 +647,7 @@ function EditModal({ product, onClose, onSaved }: { product: Product; onClose: (
           compareAtPrice: comparePriceNum,
           priceQty2: priceQty2 ? parseFloat(priceQty2) : null,
           priceQty3: priceQty3 ? parseFloat(priceQty3) : null,
+          descriptionAr: descriptionAr.trim() || null,
 
 quantityPrices: quantityPrices
   .map((item) => ({
@@ -741,6 +749,19 @@ quantityPrices: quantityPrices
             </div>
           </div>
 
+          {/* Description */}
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5">
+              وصف المنتج <span className="text-slate-400 font-normal">— اختياري</span>
+            </label>
+            <textarea
+              value={descriptionAr}
+              onChange={(e) => setDescriptionAr(e.target.value)}
+              placeholder="اكتب وصفاً واضحاً ومفصلاً عن المنتج..."
+              rows={5}
+              className="w-full rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-sm text-slate-700 outline-none transition-colors bg-white text-right resize-y"
+            />
+          </div>
           {/* Compare-at price */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">
