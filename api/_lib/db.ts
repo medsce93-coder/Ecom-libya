@@ -17,9 +17,17 @@ function getPool(): Pool {
   }
 
   if (!global.__ecomPool) {
+    // Some hosted PostgreSQL URLs include sslmode=no-verify.
+    // pg handles SSL through the explicit ssl option below, so remove
+    // sslmode from the connection string to avoid conflicting settings.
+    const normalizedConnectionString = connectionString.replace(
+      /([?&])sslmode=[^&]*/gi,
+      "$1",
+    ).replace(/[?&]$/, "");
+
     // Serverless-safe defaults: keep pool small per function instance and reuse globally.
     global.__ecomPool = new Pool({
-      connectionString,
+      connectionString: normalizedConnectionString,
       ssl: { rejectUnauthorized: false },
       max: parsePositiveInt(process.env.DB_POOL_MAX, 3),
       idleTimeoutMillis: parsePositiveInt(process.env.DB_IDLE_TIMEOUT_MS, 10_000),

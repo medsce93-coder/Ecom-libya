@@ -12,6 +12,7 @@ import { useCurrency } from "@/lib/currency-context";
 import { FlashSaleTimer } from "@/components/FlashSaleTimer";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
 import { useBranding } from "@/lib/branding-context";
+import { ProductRichContent } from "@/components/ProductRichContent";
 
 /* ─────────────────────────────────────────────
    Persuasive features per category
@@ -442,15 +443,12 @@ const selectedPrice = selectedOffer?.price ?? product.price;
                   <div className="bg-slate-50 rounded-xl md:rounded-2xl p-3.5 md:p-4 border border-slate-100">
                     <h3 className="text-sm font-black text-slate-700 mb-2 flex items-center gap-1.5">
                       <Award className="h-4 w-4 text-primary shrink-0" />
-                      لماذا هذا المنتج؟
+                      تفاصيل المنتج
                     </h3>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      {product.descriptionAr}
-                    </p>
+                    <ProductRichContent value={product.descriptionAr} />
                   </div>
                 )}
-
-                {/* Features list */}
+{/* Features list */}
                 <div>
                   <h3 className="text-sm font-black text-slate-700 mb-3 flex items-center gap-1.5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />

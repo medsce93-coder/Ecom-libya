@@ -11,6 +11,7 @@ import {
   OTHER_MARKET_COUNTRY,
 } from "@/lib/market-country";
 import { AnnouncementTicker } from "@/components/AnnouncementBar";
+import { ProductRichTextEditor } from "@/components/ProductRichTextEditor";
 import {
   useGetProducts, getGetProductsQueryKey,
   useUpdateProduct,
@@ -638,6 +639,19 @@ quantityPrices: quantityPrices
             </div>
           </div>
 
+          {/* Product page content */}
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-1.5">
+              محتوى صفحة المنتج
+            </label>
+            <p className="text-xs text-slate-500 mb-2">
+              اكتب وصف المنتج بالتنسيق الذي سيظهر للعميل في صفحة المنتج.
+            </p>
+            <ProductRichTextEditor
+              value={descriptionAr}
+              onChange={setDescriptionAr}
+            />
+          </div>
 {/* Quantity pricing */}
 <div>
   <label className="block text-sm font-bold text-slate-700 mb-1.5">
@@ -915,17 +929,15 @@ quantityPrices: quantityPrices
           {/* Description */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">
-              وصف المنتج <span className="text-slate-400 font-normal">— اختياري</span>
+              وصف المنتج
+              <span className="text-slate-400 font-normal">— اختياري</span>
             </label>
-            <textarea
+            <ProductRichTextEditor
               value={descriptionAr}
-              onChange={(e) => setDescriptionAr(e.target.value)}
-              placeholder="اكتب وصفاً واضحاً ومفصلاً عن المنتج..."
-              rows={5}
-              className="w-full rounded-xl border-2 border-slate-200 focus:border-primary px-4 py-3 text-sm text-slate-700 outline-none transition-colors bg-white text-right resize-y"
+              onChange={setDescriptionAr}
             />
           </div>
-          {/* Compare-at price */}
+{/* Compare-at price */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-1.5">
               السعر الأصلي (قبل الخصم) <span className="text-slate-400 font-normal">— اختياري</span>

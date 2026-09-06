@@ -57,3 +57,4 @@ lib/**/dist/
 *.tsbuildinfo
 ecom-libya/.env
 .config/
+.env*
