@@ -48,7 +48,7 @@ export default function Cart() {
               </div>
               <div className="text-right">
                 <h3 className="text-xl font-semibold">{item.name}</h3>
-                {item.description && <p className="mt-2 text-sm text-slate-600">{item.description}</p>}
+
                 <p className="mt-3 font-bold text-primary">
   {currency}{" "}
   {item.bundleTotalPrice !== undefined
