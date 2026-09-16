@@ -448,7 +448,7 @@ const selectedPrice = selectedOffer?.price ?? product.price;
       </h3>
     </div>
 
-    <div className="bg-white px-0 py-0">
+    <div className="bg-white px-0 py-0 -mx-5 md:mx-0">
       <ProductRichContent value={product.descriptionAr} />
     </div>
   </div>
@@ -753,5 +753,6 @@ const selectedPrice = selectedOffer?.price ?? product.price;
     </>
   );
 }
+
 
 
