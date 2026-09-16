@@ -1,4 +1,4 @@
-import { useParams, Link, useLocation } from "wouter";
+﻿import { useParams, Link, useLocation } from "wouter";
 import { useGetProduct, getGetProductQueryKey } from "@/lib/api-client";
 import { Button } from "@/components/ui/button";
 import {
@@ -440,14 +440,19 @@ const selectedPrice = selectedOffer?.price ?? product.price;
 
                 {/* Description */}
                 {product.descriptionAr && (
-                  <div className="bg-slate-50 rounded-xl md:rounded-2xl p-3.5 md:p-4 border border-slate-100">
-                    <h3 className="text-sm font-black text-slate-700 mb-2 flex items-center gap-1.5">
-                      <Award className="h-4 w-4 text-primary shrink-0" />
-                      تفاصيل المنتج
-                    </h3>
-                    <ProductRichContent value={product.descriptionAr} />
-                  </div>
-                )}
+  <div className="rounded-xl md:rounded-2xl border border-slate-100 overflow-hidden">
+    <div className="bg-slate-50 p-3.5 md:p-4">
+      <h3 className="text-sm font-black text-slate-700 flex items-center gap-1.5">
+        <Award className="h-4 w-4 text-primary shrink-0" />
+        تفاصيل المنتج
+      </h3>
+    </div>
+
+    <div className="bg-white px-0 py-0">
+      <ProductRichContent value={product.descriptionAr} />
+    </div>
+  </div>
+)}
 {/* Features list */}
                 <div>
                   <h3 className="text-sm font-black text-slate-700 mb-3 flex items-center gap-1.5">
@@ -748,4 +753,5 @@ const selectedPrice = selectedOffer?.price ?? product.price;
     </>
   );
 }
+
 
