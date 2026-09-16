@@ -270,7 +270,7 @@ const selectedPrice = selectedOffer?.price ?? product.price;
   const features = getFeatures(product.categoryName);
   const initials = product.nameAr?.substring(0, 2) || "؟";
   const ratingNum = product.rating ? Number(product.rating) : 4.5;
-  const reviewCount = Math.floor(ratingNum * 47 + 31);
+
 
   return (
     <>
@@ -410,10 +410,6 @@ const selectedPrice = selectedOffer?.price ?? product.price;
                     ))}
                   </div>
                   <span className="text-sm font-bold text-slate-700">{ratingNum.toFixed(1)}</span>
-                  <span className="text-xs md:text-sm text-slate-400">({reviewCount} تقييم)</span>
-                  <span className="text-xs text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full">
-                    موصى به
-                  </span>
                 </div>
 
                 {/* Flash sale countdown */}
@@ -752,8 +748,4 @@ const selectedPrice = selectedOffer?.price ?? product.price;
 </>
   );
 }
-
-
-
-
 
