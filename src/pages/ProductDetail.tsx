@@ -749,10 +749,10 @@ const selectedPrice = selectedOffer?.price ?? product.price;
       </div>
 
       {/* ── Social Proof Popup ── */}
-      <SocialProofPopup />
-    </>
+</>
   );
 }
+
 
 
 
