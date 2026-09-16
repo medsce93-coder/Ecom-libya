@@ -35,7 +35,7 @@ export default function Cart() {
                   <img
                     src={resolveProductImageUrl(item.image)}
                     alt={item.name}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                     onError={(event) => {
                       event.currentTarget.style.display = "none";
                       event.currentTarget.nextElementSibling?.classList.remove("hidden");
