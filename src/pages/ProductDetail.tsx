@@ -1,5 +1,5 @@
 ﻿import { useParams, Link, useLocation } from "wouter";
-import { useGetProduct, getGetProductQueryKey } from "@/lib/api-client";
+import { useGetProduct, getGetProductQueryKey, useGetFeaturedProducts } from "@/lib/api-client";
 import { Button } from "@/components/ui/button";
 import {
   ShoppingCart, ArrowRight, Star,
@@ -13,6 +13,7 @@ import { FlashSaleTimer } from "@/components/FlashSaleTimer";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
 import { useBranding } from "@/lib/branding-context";
 import { ProductRichContent } from "@/components/ProductRichContent";
+import { ProductCard } from "@/components/ProductCard";
 
 /* ─────────────────────────────────────────────
    Persuasive features per category
@@ -98,6 +99,8 @@ export default function ProductDetail() {
   const { data: product, isLoading } = useGetProduct(slug!, {
     query: { enabled: !!slug, queryKey: getGetProductQueryKey(slug!) }
   });
+
+  const { data: featuredProducts } = useGetFeaturedProducts();
 
   /* Scroll-triggered sticky bar — window.scroll is reliable regardless of
      when the product data arrives (IntersectionObserver would miss the ref
@@ -686,6 +689,30 @@ const selectedPrice = selectedOffer?.price ?? product.price;
               </div>
             </div>
           </div>
+          {/* Recommended Products */}
+          {featuredProducts && featuredProducts.length > 0 && (
+            <section className="mt-10 md:mt-14">
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">
+                    منتجات قد تعجبك
+                  </h2>
+                  <p className="mt-1 text-sm text-slate-500">
+                    اكتشف منتجات أخرى قد تناسبك
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+                {featuredProducts
+                  .filter((item) => item.id !== product.id)
+                  .slice(0, 4)
+                  .map((item) => (
+                    <ProductCard key={item.id} product={item} />
+                  ))}
+              </div>
+            </section>
+          )}
           {/* Back link */}
           <div className="mt-5 md:mt-6">
             <Link href="/products" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary font-semibold transition-colors min-h-[44px]">
