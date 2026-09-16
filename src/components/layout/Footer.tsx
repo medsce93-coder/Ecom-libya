@@ -31,7 +31,7 @@ export function Footer() {
             منصتك الموثوقة للتسوق الإلكتروني في {marketCountry}. جودة مضمونة، توصيل سريع لجميع المدن، والدفع عند الاستلام.
           </p>
           <a
-            href="https://wa.me/212765074750"
+            href="https://wa.me/212705531003"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5c] text-white text-sm font-bold px-5 py-2.5 rounded-full transition-colors"
@@ -69,7 +69,7 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-slate-400">
             <li className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-primary shrink-0" />
-              <span dir="ltr">+212 765 074 750</span>
+              <span dir="ltr">+212 705 531 003</span>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-primary shrink-0" />

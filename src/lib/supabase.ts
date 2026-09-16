@@ -12,7 +12,7 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export const WHATSAPP_NUMBER =
-  (import.meta.env.VITE_WHATSAPP_NUMBER as string) || "212765074750";
+  (import.meta.env.VITE_WHATSAPP_NUMBER as string) || "212705531003";
 export const COUPON_CODE =
   (import.meta.env.VITE_COUPON_CODE as string) || "";
 
