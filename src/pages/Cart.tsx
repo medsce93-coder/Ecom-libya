@@ -30,12 +30,12 @@ export default function Cart() {
           )}
           {cart.map((item) => (
             <div key={item.id} className="grid gap-4 rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm md:grid-cols-[140px_1fr_auto] md:items-center">
-              <div className="relative h-32 overflow-hidden rounded-2xl bg-slate-100">
+              <div className="relative mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-2xl bg-transparent">
                 {resolveProductImageUrl(item.image) ? (
                   <img
                     src={resolveProductImageUrl(item.image)}
                     alt={item.name}
-                    className="h-full w-full object-contain"
+                    className="block h-full w-full object-contain"
                     onError={(event) => {
                       event.currentTarget.style.display = "none";
                       event.currentTarget.nextElementSibling?.classList.remove("hidden");
