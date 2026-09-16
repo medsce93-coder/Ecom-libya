@@ -440,7 +440,7 @@ const selectedPrice = selectedOffer?.price ?? product.price;
 
                 {/* Description */}
                 {product.descriptionAr && (
-  <div className="rounded-xl md:rounded-2xl border border-slate-100 overflow-hidden">
+  <div className="rounded-xl md:rounded-2xl border border-slate-100 overflow-hidden -mx-5 w-[calc(100%+2.5rem)] md:mx-0 md:w-auto">
     <div className="bg-slate-50 p-3.5 md:p-4">
       <h3 className="text-sm font-black text-slate-700 flex items-center gap-1.5">
         <Award className="h-4 w-4 text-primary shrink-0" />
@@ -448,7 +448,7 @@ const selectedPrice = selectedOffer?.price ?? product.price;
       </h3>
     </div>
 
-    <div className="bg-white px-0 py-0 -mx-5 md:mx-0">
+    <div className="bg-white px-0 py-0">
       <ProductRichContent value={product.descriptionAr} />
     </div>
   </div>
@@ -753,6 +753,7 @@ const selectedPrice = selectedOffer?.price ?? product.price;
     </>
   );
 }
+
 
 
 

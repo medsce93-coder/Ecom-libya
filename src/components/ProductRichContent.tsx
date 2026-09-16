@@ -69,7 +69,7 @@ export function ProductRichContent({
     <div className="overflow-hidden" dir="rtl">
       <div
         className={[
-          "product-rich-content",
+          "product-rich-content px-4 md:px-0",
           "max-w-none text-right text-[15px] leading-8 text-slate-700",
           "[&_h1]:mb-4 [&_h1]:text-3xl [&_h1]:font-black [&_h1]:leading-tight [&_h1]:text-slate-900",
           "[&_h2]:mb-3 [&_h2]:mt-6 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:leading-tight [&_h2]:text-slate-900",
@@ -80,8 +80,8 @@ export function ProductRichContent({
           "[&_ol]:my-3 [&_ol]:list-decimal [&_ol]:pr-7",
           "[&_li]:my-1",
           "[&_a]:font-semibold [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2",
-          "[&_img]:my-5 [&_img]:block [&_img]:h-auto [&_img]:-mx-8 [&_img]:w-[calc(100%+4rem)] [&_img]:max-w-none [&_img]:rounded-none [&_img]:shadow-sm md:[&_img]:mx-0 md:[&_img]:w-full md:[&_img]:rounded-xl",
-          "[&_video]:my-5 [&_video]:block [&_video]:h-auto [&_video]:-mx-8 [&_video]:w-[calc(100%+4rem)] [&_video]:max-w-none [&_video]:rounded-none [&_video]:bg-slate-950 md:[&_video]:mx-0 md:[&_video]:w-full md:[&_video]:rounded-xl",
+          "[&_img]:my-5 [&_img]:block [&_img]:h-auto [&_img]:-mx-4 [&_img]:w-[calc(100%+2rem)] [&_img]:max-w-none [&_img]:rounded-none [&_img]:shadow-sm md:[&_img]:mx-0 md:[&_img]:w-full md:[&_img]:rounded-xl",
+          "[&_video]:my-5 [&_video]:block [&_video]:h-auto [&_video]:-mx-4 [&_video]:w-[calc(100%+2rem)] [&_video]:max-w-none [&_video]:rounded-none [&_video]:bg-slate-950 md:[&_video]:mx-0 md:[&_video]:w-full md:[&_video]:rounded-xl",
           "[&_table]:my-5 [&_table]:w-full [&_table]:border-collapse",
           "[&_th]:border [&_th]:border-slate-200 [&_th]:bg-slate-50 [&_th]:px-3 [&_th]:py-2 [&_th]:font-black [&_th]:text-slate-800",
           "[&_td]:border [&_td]:border-slate-200 [&_td]:px-3 [&_td]:py-2",
@@ -94,4 +94,5 @@ export function ProductRichContent({
     </div>
   );
 }
+
 
