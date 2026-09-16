@@ -1,4 +1,4 @@
-import DOMPurify from "dompurify";
+﻿import DOMPurify from "dompurify";
 
 type ProductRichContentProps = {
   value: string | null | undefined;
@@ -80,8 +80,8 @@ export function ProductRichContent({
           "[&_ol]:my-3 [&_ol]:list-decimal [&_ol]:pr-7",
           "[&_li]:my-1",
           "[&_a]:font-semibold [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2",
-          "[&_img]:my-5 [&_img]:block [&_img]:h-auto [&_img]:w-full [&_img]:max-w-none [&_img]:rounded-xl [&_img]:shadow-sm",
-          "[&_video]:my-5 [&_video]:block [&_video]:h-auto [&_video]:w-full [&_video]:max-w-none [&_video]:rounded-xl [&_video]:bg-slate-950",
+          "[&_img]:mx-auto [&_img]:my-5 [&_img]:block [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-2xl [&_img]:shadow-sm",
+          "[&_video]:mx-auto [&_video]:my-5 [&_video]:block [&_video]:h-auto [&_video]:w-full [&_video]:max-w-3xl [&_video]:rounded-2xl [&_video]:bg-slate-950",
           "[&_table]:my-5 [&_table]:w-full [&_table]:border-collapse",
           "[&_th]:border [&_th]:border-slate-200 [&_th]:bg-slate-50 [&_th]:px-3 [&_th]:py-2 [&_th]:font-black [&_th]:text-slate-800",
           "[&_td]:border [&_td]:border-slate-200 [&_td]:px-3 [&_td]:py-2",
