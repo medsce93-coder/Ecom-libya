@@ -114,7 +114,7 @@ export function useGetFeaturedProducts<
     options?.query?.queryKey ?? getGetFeaturedProductsQueryKey();
   const query = useQuery<Product[], TError, TData>({
     queryKey,
-    queryFn: () => apiFetch("/api/products?featured=true"),
+    queryFn: () => apiFetch("/api/products?featured=true", { auth: false }),
     ...(options?.query ?? {}),
   });
   return { ...query, queryKey };
@@ -156,7 +156,7 @@ export function useGetProduct<
   const queryKey = options?.query?.queryKey ?? getGetProductQueryKey(id);
   const query = useQuery<Product, TError, TData>({
     queryKey,
-    queryFn: () => apiFetch(`/api/products?id=${encodeURIComponent(id)}`),
+    queryFn: () => apiFetch(`/api/products?id=${encodeURIComponent(id)}`, { auth: false }),
     enabled: Boolean(id),
     ...(options?.query ?? {}),
   });
