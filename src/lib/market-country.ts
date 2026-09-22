@@ -6,9 +6,9 @@ export type MarketCountryOption = {
 };
 
 export const DEFAULT_MARKET_COUNTRY: MarketCountryOption = {
-  name: "ليبيا",
-  adjective: "الليبية",
-  cityExample: "طرابلس",
+  name: "المغرب",
+  adjective: "المغربية",
+  cityExample: "الدار البيضاء",
   phoneExample: "0911234567",
 };
 
