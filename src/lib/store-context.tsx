@@ -183,7 +183,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     const { data: { session } } = await supabase.auth.getSession();
     if (!isAdminSession(session)) return;
     try {
-      const data = await apiFetch<{ orders: any[] }>("/api/orders?limit=200");
+      const data = await apiFetch<{ orders: any[] }>("/api/orders?limit=200", {
+        auth: false,
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
       const formatted: Order[] = (data.orders || []).map(mapApiOrder);
       setOrders(formatted);
       ordersRef.current = formatted;
