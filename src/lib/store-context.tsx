@@ -308,7 +308,7 @@ const addToCart = useCallback((product: {
 
       try {
         if (typeof window !== "undefined" && (window as any).fbq) {
-          (window as any).fbq("track", "Purchase", { value: total, currency: currencyRef.current });
+          (window as any).fbq("track", "Purchase", { value: total, currency: "MAD" });
         }
       } catch {}
       try {

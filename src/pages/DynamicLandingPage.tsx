@@ -111,7 +111,7 @@ export default function DynamicLandingPage() {
         if ((window as any).fbq) {
           (window as any).fbq("track", "Purchase", {
             value: orderTotal,
-            currency,
+            currency: "MAD",
           });
         }
       } catch {}
